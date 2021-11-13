@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Enhancement.Config;
+package org.firstinspires.ftc.teamcode.Config;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
