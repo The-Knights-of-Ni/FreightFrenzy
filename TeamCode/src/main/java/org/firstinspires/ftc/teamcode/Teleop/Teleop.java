@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Enhancement.Robot;
+import org.firstinspires.ftc.teamcode.Subsystem.Robot;
+
+import java.io.IOException;
 
 /**
  * Normal Teleop, not omnidirectional drive.
@@ -21,8 +23,11 @@ public class Teleop extends LinearOpMode {
     private void initOpMode() {
         //Initialize DC motor objects
         timer = new ElapsedTime();
-        robot = new Robot(this, timer, false);
-
+        try {
+            robot = new Robot(this, timer, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         timeCurrent = timer.nanoseconds();
         timePre = timeCurrent;
 
@@ -64,13 +69,13 @@ public class Teleop extends LinearOpMode {
 
             double[] motorPowers;
             robotAngle = robot.imu.getAngularOrientation().firstAngle;
-            motorPowers = robot.drive.calcMotorPowers(robot.gamePadConfig.leftStickX, robot.gamePadConfig.leftStickY, robot.gamePadConfig.rightStickX);
+            motorPowers = robot.drive.calcMotorPowers(robot.leftStickX, robot.leftStickY, robot.rightStickX);
             robot.drive.setDrivePowers(motorPowers);
 
             robot.drive.setDrivePowers(motorPowers);
 
             //Toggle intake regular
-            if (robot.gamePadConfig.aButton && !robot.gamePadConfig.isaButtonPressedPrev) {
+            if (robot.aButton && !robot.isaButtonPressedPrev) {
                 if (isIntakeOn) {
                     robot.control.setIntakeDirection(true);
                     isIntakeOn = false;
@@ -81,7 +86,7 @@ public class Teleop extends LinearOpMode {
             }
 
             //Toggle intake reverse
-            if (robot.gamePadConfig.bButton && !robot.gamePadConfig.isbButtonPressedPrev) {
+            if (robot.bButton && !robot.isbButtonPressedPrev) {
                 if (isIntakeOn) {
                     robot.control.setIntakeDirection(false);
                     isIntakeOn = false;
