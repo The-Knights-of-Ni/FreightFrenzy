@@ -8,7 +8,6 @@ import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.teamcode.Enhancement.Config.VisionConfig;
 import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarker.DetectMarker;
 import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarker.DetectMarkerPipeline;
@@ -30,6 +29,13 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
  */
 
 public class Vision extends Subsystem {
+    public static final int CAMERA_WIDTH = 320; // width  of wanted camera resolution
+    public static final int CAMERA_HEIGHT = 240; // height of wanted camera resolution
+    public static final int HORIZON = 100; // horizon value to tune
+
+    public static final String WEBCAM_NAME = "Webcam 1"; // insert webcam name from configuration if using webcam
+    public static final String VUFORIA_KEY = "ATDGULf/////AAABmRRGSyLSbUY4lPoqBYjklpYqC4y9J7bCk42kjgYS5KtgpKL8FbpEDQTovzZG8thxB01dClvthxkSuSyCkaZi+JiD5Pu0cMVre3gDwRvwRXA7V9kpoYyMIPMVX/yBTGaW8McUaK9UeQUaFSepsTcKjX/itMtcy7nl1k84JChE4i8whbinHWDpaNwb5qcJsXlQwJhE8JE7t8NMxMm31AgzqjVf/7HwprTRfrxjTjVx5v2rp+wgLeeLTE/xk1JnL3fZMG6yyxPHgokWlIYEBZ5gBX+WJfgA+TDsdSPY/MnBp5Z7QxQsO9WJA59o/UzyEo/9BkbvYJZfknZqeoZWrJoN9jk9sivFh0wIPsH+JjZNFsPw"; // TODO: Get new VUFORIA KEY
+    public static MarkerLocation finalMarkerLocation = MarkerLocation.SEARCHING;
     // Since ImageTarget trackable use mm to specify their dimensions, we must use mm for all the physical dimension.
     // Define constants
     private static final float mmPerInch = 25.4f;
@@ -41,7 +47,6 @@ public class Vision extends Subsystem {
     final float CAMERA_FORWARD_DISPLACEMENT = 6.0f * mmPerInch; // TODO: CALIBRATE WHEN ROBOT IS BUILT
     final float CAMERA_VERTICAL_DISPLACEMENT = 6.5f * mmPerInch;
     final float CAMERA_LEFT_DISPLACEMENT = -0.75f * mmPerInch;
-    MarkerLocation finalMarkerLocation; // Marker Location
     WebcamName webcamName = null;
     OpenGLMatrix robotFromCamera = null;
     // Class Members
@@ -69,7 +74,7 @@ public class Vision extends Subsystem {
 
         telemetry.telemetry(3, "Vision Status", "Vision initializing started");
 
-        webcamName = hardwareMap.get(WebcamName.class, VisionConfig.WEBCAM_NAME);
+        webcamName = hardwareMap.get(WebcamName.class, WEBCAM_NAME);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         viewportContainerIds = OpenCvCameraFactory.getInstance().splitLayoutForMultipleViewports(cameraMonitorViewId, 2, OpenCvCameraFactory.ViewportSplitMethod.HORIZONTALLY);
 
@@ -84,7 +89,7 @@ public class Vision extends Subsystem {
 
         telemetry.telemetry(4, "Detect Marker", "Detecting Marker");
         DetectMarker detectMarkerRunnable = new DetectMarker(hardwareMap, robotCamera, telemetry);
-        VisionConfig.finalMarkerLocation = detectMarkerRunnable.DetectMarkerRun();
+        finalMarkerLocation = detectMarkerRunnable.DetectMarkerRun();
         telemetry.telemetry(3, "Detect Marker", "Detected Marker");
         telemetry.telemetry(2, "Vision Status", "Vision initialized");
     }
@@ -92,7 +97,7 @@ public class Vision extends Subsystem {
     private void initVuforia() {
         // Configure parameters
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(viewportContainerIds[1]);
-        parameters.vuforiaLicenseKey = VisionConfig.VUFORIA_KEY; //moved it to VisionConfig for easier access
+        parameters.vuforiaLicenseKey = VUFORIA_KEY; //moved it to VisionConfig for easier access
         parameters.cameraName = webcamName;
         parameters.useExtendedTracking = false;
 

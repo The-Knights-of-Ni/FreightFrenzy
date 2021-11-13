@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarker;
+package org.firstinspires.ftc.teamcode.Subsystem;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.teamcode.Enhancement.Config.VisionConfig;
+
 import org.firstinspires.ftc.teamcode.Util.QuickTelemetry;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -38,7 +38,7 @@ public class DetectMarker {
         robotCamera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
             public void onOpened() {
-                robotCamera.startStreaming(VisionConfig.CAMERA_WIDTH, VisionConfig.CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+                robotCamera.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
             }
 
             @Override

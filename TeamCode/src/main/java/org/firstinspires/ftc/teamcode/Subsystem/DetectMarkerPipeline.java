@@ -1,11 +1,15 @@
-package org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarker;
+package org.firstinspires.ftc.teamcode.Subsystem;
 
 import org.firstinspires.ftc.teamcode.Enhancement.Config.MainConfig;
 import org.firstinspires.ftc.teamcode.Enhancement.Robot;
 import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.Vision;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 import org.firstinspires.ftc.teamcode.Util.QuickTelemetry;
-import org.opencv.core.*;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
@@ -16,7 +20,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
  * checks each part for a custom marker (which is set to be green in the code), or some blue or red
  * tape, dependant on the alliance color.</p>
  *
- * @see org.openftc.easyopencv.OpenCvPipeline
+ * @see OpenCvPipeline
  * @see Vision
  */
 public class DetectMarkerPipeline extends OpenCvPipeline {
