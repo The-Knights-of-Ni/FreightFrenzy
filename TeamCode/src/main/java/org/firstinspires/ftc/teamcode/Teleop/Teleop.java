@@ -3,22 +3,24 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Subsystem.Robot;
+
+import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 
 import java.io.IOException;
 
-/**
- * Normal Teleop, not omnidirectional drive.
- */
 @TeleOp(name = "Teleop")
 public class Teleop extends LinearOpMode {
+    private Robot robot;
+
     double deltaT;
     double timeCurrent;
     double timePre;
+
     ElapsedTime timer;
-    private Robot robot;
+
     private double robotAngle;
     private boolean isIntakeOn = false;
+    private boolean isBucketMoving = false;
 
     private void initOpMode() {
         //Initialize DC motor objects
@@ -35,13 +37,13 @@ public class Teleop extends LinearOpMode {
         telemetry.update();
     }
 
-    /**
-     * Override of runOpMode()
+    /** Override of runOpMode()
      *
      * <p>Please do not swallow the InterruptedException, as it is used in cases
      * where the op mode needs to be terminated early.</p>
      *
      * @throws InterruptedException
+     *
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
      */
     @Override
@@ -95,6 +97,27 @@ public class Teleop extends LinearOpMode {
                     isIntakeOn = true;
                 }
             }
+
+            //Toggle bucket up
+           /* if (robot.gamePadConfig.bumperLeft && !robot.gamePadConfig.isleftBumperPressedPrev){
+                if(isBucketMoving) {
+                    robot.control.setIntakeDirection(true);
+                    isBucketMoving = false;
+                } else {
+                    robot.control.setIntakeDirection(true);
+                    isBucketMoving = true;
+                }
+            }
+            //Toggle bucket down
+            if (robot.gamePadConfig.bumperRight && !robot.gamePadConfig.isrightBumperPressedPrev){
+                if(isBucketMoving) {
+                    robot.control.setIntakeDirection(false);
+                    isBucketMoving = false;
+                } else {
+                    robot.control.setIntakeDirection(false);
+                    isBucketMoving = true;
+                }
+            } */
         }
     }
 }

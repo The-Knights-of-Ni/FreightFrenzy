@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystem;
+package org.firstinspires.ftc.teamcode.Subsystems;
 
 import org.firstinspires.ftc.teamcode.Enhancement.Config.MainConfig;
 import org.firstinspires.ftc.teamcode.Enhancement.Robot;
