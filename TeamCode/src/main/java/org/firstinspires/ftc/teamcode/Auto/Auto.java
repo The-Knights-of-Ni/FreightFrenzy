@@ -36,15 +36,12 @@ public class Auto extends LinearOpMode {
 
     public Robot init(AllianceColor allianceColor) {
         ElapsedTime timer = new ElapsedTime();
-
-        MainConfig.setAllianceColor(allianceColor);
-
         return new Robot(this, timer, true);
     }
 
     public int getHubLevel() {
         int placementLevel;
-        switch (VisionConfig.finalMarkerLocation) {
+        switch (finalMarkerLocation) {
             case LEFT:
                 placementLevel = 1;
                 break;
