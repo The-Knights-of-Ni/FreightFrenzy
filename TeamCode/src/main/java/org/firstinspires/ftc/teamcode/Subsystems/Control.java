@@ -225,6 +225,28 @@ Control extends Subsystem {
         }
     }
 
+    public void setBucketDirection(boolean status) {
+        boolean isBucketMoving = bucket.isMotorEnabled();
+        if (status = true) {
+            if (!isBucketMoving) {
+                intake.setPower(1.0);
+                isBucketMoving = true;
+            } else {
+                intake.setPower(0.0);
+                isBucketMoving = false;
+            }
+        }
+        if (status = false) {
+            if (!isBucketMoving) {
+                intake.setPower(-0.8);
+                isBucketMoving = true;
+            } else {
+                intake.setPower(0.0);
+                isBucketMoving = false;
+            }
+        }
+    }
+
     public void setLauncherRPMLimit(double launcherRPM) { launcherRPMLimit = launcherRPM; }
 
     public double getLauncherRPMLimit() { return launcherRPMLimit; }
