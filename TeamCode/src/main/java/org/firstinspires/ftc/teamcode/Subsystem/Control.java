@@ -22,20 +22,9 @@ Control extends Subsystem {
 
     //DC Motors
     private DcMotorEx intake;
-    private DcMotorEx launch1;
-    private DcMotorEx launch2a;
-    private DcMotorEx launch2b;
+    private DcMotorEx bucket;
 
     //Servos
-    public Servo elevatorR;
-    public Servo elevatorL;
-    private Servo wobbleClaw;
-    private Servo wobbleGoalArm;
-    private Servo intakeToElevatorL;
-    private Servo intakeToElevatorR;
-    private Servo launcherFeederL;
-    private Servo launcherFeederR;
-
 
     //Sensors
     private BNO055IMU imu;
@@ -176,15 +165,12 @@ Control extends Subsystem {
 
 
 //    public Control(DcMotorEx intake, DcMotorEx launch1, DcMotorEx launch2, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer, ) {
-    public Control(DcMotorEx intake, DcMotorEx launch1, DcMotorEx launch2a, DcMotorEx launch2b, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer, Servo wobbleClaw, Servo wobbleGoalArm) {
+    public Control(DcMotorEx intake, DcMotorEx bucket, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
 
         // store device information locally
-        this.wobbleClaw = wobbleClaw;
-        this.wobbleGoalArm = wobbleGoalArm;
+
         this.intake = intake;
-        this.launch1 = launch1;
-        this.launch2a = launch2a;
-        this.launch2b = launch2b;
+        this.bucket = bucket;
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
         this.imu = imu;
@@ -193,40 +179,6 @@ Control extends Subsystem {
 
         // initialize main arm parameters
         mainClawArmTrackingMode = false;
-    }
-
-    public Control(DcMotorEx intake, DcMotorEx launch1, DcMotorEx launch2a, DcMotorEx launch2b, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer,
-                   Servo wobbleClaw, Servo wobbleGoalArm, Servo intakeToElevatorR, Servo intakeToElevatorL, Servo launcherFeederR, Servo launcherFeederL, Servo elevatorR, Servo elevatorL) {
-
-        // store device information locally
-        this.wobbleClaw = wobbleClaw;
-        this.wobbleGoalArm = wobbleGoalArm;
-        this.intakeToElevatorR = intakeToElevatorR;
-        this.intakeToElevatorL = intakeToElevatorL;
-        this.launcherFeederR = launcherFeederR;
-        this.launcherFeederL = launcherFeederL;
-        this.elevatorR = elevatorR;
-        this.elevatorL = elevatorL;
-
-        this.intake = intake;
-        this.launch1 = launch1;
-        this.launch2a = launch2a;
-        this.launch2b = launch2b;
-        this.opMode = opMode;
-        this.hardwareMap = opMode.hardwareMap;
-        this.imu = imu;
-        this.timer = timer;
-        setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        // initialize main arm parameters
-        mainClawArmTrackingMode = false;
-    }
-    public void initServo(){
-        openIntakeToElevator();
-        restLauncherFeeder();
-        moveElevatorToBottom();
-        moveWobbleGoalArmDown();
-        openWideWobbleGoalClaw();
     }
 
     /**
@@ -234,9 +186,7 @@ Control extends Subsystem {
      */
     private void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior mode) {
         intake.setZeroPowerBehavior(mode);
-        launch1.setZeroPowerBehavior(mode);
-        launch2a.setZeroPowerBehavior(mode);
-        launch2b.setZeroPowerBehavior(mode);
+        bucket.setZeroPowerBehavior(mode);
     }
 
     public double getWinchMaxSpeedMMpSec(){
@@ -255,127 +205,25 @@ Control extends Subsystem {
         return MOTOR_TICK_PER_REV_YELLOJACKET223;
     }
 
-    public void openWobbleGoalClaw() {
-        wobbleClaw.setPosition(WOBBLE_GOAL_CLAW_OPEN);
-    }
-    public void closeWobbleGoalClaw(){
-        wobbleClaw.setPosition(WOBBLE_GOAL_CLAW_CLOSED);
-    }
-    public void openWideWobbleGoalClaw(){wobbleClaw.setPosition(WOBBLE_GOAL_CLAW_OPEN_WIDE);};
-
-    public void moveWobbleGoalArmDown(){
-        wobbleGoalArm.setPosition(WOBBLE_GOAL_ARM_DOWN);
-    }
-
-    public void raiseWobbleGoalArmLow(){
-        wobbleGoalArm.setPosition(WOBBLE_GOAL_ARM_LOW);
-    }
-
-    public void raiseWobbleGoalArmMed(){
-        wobbleGoalArm.setPosition(WOBBLE_GOAL_ARM_MED);
-    }
-
-    public void raiseWobbleGoalArmHigh(){
-        wobbleGoalArm.setPosition(WOBBLE_GOAL_ARM_HIGH);
-    }
-
-    public void deployWobble() {
-        wobbleGoalArm.setPosition(0.934);
-    }
-
-//    public double getWobbleArmTargetAngle() {
-//        return mainArmTargetAngle;
-//    }
-//    public double wobbleGoalArmAngleToPos(double angle){
-//        int lowerIndex, upperIndex;
-//        int i = 1;
-//        double servoTarget;
-//        while ((i < CLAW_ARM_TILT_TABLE_SIZE) && (CLAW_ARM_TILT_TABLE[i*2] < angle)) {
-//            ++i;
-//        }
-//        upperIndex = i;
-//        lowerIndex = i-1;
-//        servoTarget = CLAW_ARM_TILT_TABLE[lowerIndex*2+1] +
-//                (CLAW_ARM_TILT_TABLE[upperIndex*2+1]-CLAW_ARM_TILT_TABLE[lowerIndex*2+1])*(angle-CLAW_ARM_TILT_TABLE[lowerIndex*2])
-//                        /(CLAW_ARM_TILT_TABLE[upperIndex*2]-CLAW_ARM_TILT_TABLE[lowerIndex*2]);
-//        return servoTarget;
-//    }
-//    public void setWobbleAngle(double angle){
-//        wobbleGoalArm.setPosition(this.wobbleGoalArmAngleToPos(angle));
-//    }
-//    public void retractWobbleClaw(){
-//        setWobbleAngle(-180);
-//    }
-
-    public void closeIntakeToElevator(){
-        intakeToElevatorR.setPosition(INTAKE_TO_ELEVATOR_R_CLOSE);
-        intakeToElevatorL.setPosition(INTAKE_TO_ELEVATOR_L_CLOSE);
-    }
-
-    public void openIntakeToElevator(){
-        intakeToElevatorR.setPosition(INTAKE_TO_ELEVATOR_R_OPEN);
-        intakeToElevatorL.setPosition(INTAKE_TO_ELEVATOR_L_OPEN);
-    }
-
-    public void restLauncherFeeder(){
-        launcherFeederR.setPosition(LAUNCHER_FEEDER_R_REST);
-        launcherFeederL.setPosition(LAUNCHER_FEEDER_L_REST);
-    }
-
-    public void launchLauncherFeeder(){
-        launcherFeederR.setPosition(LAUNCHER_FEEDER_R_LAUNCH);
-        launcherFeederL.setPosition(LAUNCHER_FEEDER_L_LAUNCH);
-    }
-
-    public void launchLauncherFeeder1(){
-        launcherFeederR.setPosition(LAUNCHER_FEEDER_R_LAUNCH);
-    }
-
-    public void launchLauncherFeeder2(){
-        launcherFeederL.setPosition(LAUNCHER_FEEDER_L_LAUNCH);
-    }
-
-    public void setIntake(boolean status){
-        if(status){
-            intake.setPower(1.0);
+    public void setIntakeDirection(boolean status) {      // simplified so only one method is needed for intake.
+        boolean isIntakeOn = intake.isMotorEnabled();     // parameter true is for regular motion, false is for reverse.
+        if (status) {                              // toggles on/off when invoked while in opposite state, e.g.
+            if (!isIntakeOn) {                            // turns off when previously on, turns on when previously off.
+                intake.setPower(1.0);
+                isIntakeOn = true;
+            } else {
+                intake.setPower(0.0);
+                isIntakeOn = false;
+            }
+        } else if (!status) {
+            if (!isIntakeOn) {
+                intake.setPower(-0.8);
+                isIntakeOn = true;
+            } else {
+                intake.setPower(0.0);
+                isIntakeOn = false;
+            }
         }
-        else {
-            intake.setPower(0.0);
-        }
-    }
-
-    public void setIntakeReverse(boolean status){
-        if(status){
-            intake.setPower(-0.8);
-        }
-        else {
-            intake.setPower(0.0);
-        }
-    }
-
-    public void setLaunch(boolean status){
-        if (status){
-            launch1.setPower(-1.0);
-            launch2a.setPower(-1.0);
-            launch2b.setPower(-1.0);
-        }
-        else{
-            launch1.setPower(0.0);
-            launch2a.setPower(0.0);
-            launch2b.setPower(0.0);
-        }
-    }
-
-    public void setLaunchPower(double launchPower){
-            launch1.setPower(-launchPower);
-            launch2a.setPower(-launchPower);
-            launch2b.setPower(-launchPower);
-    }
-
-    public void setLaunchVelocity(double angularRate){
-        launch1.setVelocity(angularRate);
-        launch2a.setVelocity(angularRate);
-        launch2b.setVelocity(angularRate);
     }
 
     public void setLauncherRPMLimit(double launcherRPM) { launcherRPMLimit = launcherRPM; }
@@ -408,95 +256,4 @@ Control extends Subsystem {
         return elevatorStage;
     }
 
-    public void moveElevator(int x){
-        int newElevatorStage = elevatorStage + x;
-        if(newElevatorStage > 3){
-            newElevatorStage = 3;
-        }
-        if(newElevatorStage < 0){
-            newElevatorStage = 0;
-        }
-        elevatorStage = newElevatorStage;
-        switch(elevatorStage){
-            case 0:
-                elevatorR.setPosition(ELEVATOR_BOTTOM_POS_R);
-                elevatorL.setPosition(ELEVATOR_BOTTOM_POS_L);
-                break;
-            case 1:
-                elevatorR.setPosition(ELEVATOR_3RING_POS_R);
-                elevatorL.setPosition(ELEVATOR_3RING_POS_L);
-                break;
-            case 2:
-                elevatorR.setPosition(ELEVATOR_2RING_POS_R);
-                elevatorL.setPosition(ELEVATOR_2RING_POS_L);
-                break;
-            case 3:
-                elevatorR.setPosition(ELEVATOR_1RING_POS_R);
-                elevatorL.setPosition(ELEVATOR_1RING_POS_L);
-                break;
-        }
-    }
-
-    // lower elevator to launch position to get better angle when ring contacts with fly wheel
-    public void moveElevatorLaunch(){
-        switch(elevatorStage){
-            case 0:
-                elevatorR.setPosition(ELEVATOR_BOTTOM_POS_R);
-                elevatorL.setPosition(ELEVATOR_BOTTOM_POS_L);
-                break;
-            case 1:
-                elevatorR.setPosition(ELEVATOR_3RING_LAUNCH_POS_R);
-                elevatorL.setPosition(ELEVATOR_3RING_LAUNCH_POS_L);
-                break;
-            case 2:
-                elevatorR.setPosition(ELEVATOR_2RING_LAUNCH_POS_R);
-                elevatorL.setPosition(ELEVATOR_2RING_LAUNCH_POS_L);
-                break;
-            case 3:
-                elevatorR.setPosition(ELEVATOR_1RING_LAUNCH_POS_R);
-                elevatorL.setPosition(ELEVATOR_1RING_LAUNCH_POS_L);
-                break;
-        }
-    }
-
-    public void moveElevatorToBottom(){
-        elevatorStage = 0;
-        elevatorR.setPosition(ELEVATOR_BOTTOM_POS_R);
-        elevatorL.setPosition(ELEVATOR_BOTTOM_POS_L);
-    }
-
-    public void launchOneRing() throws InterruptedException {
-        launchLauncherFeeder1();
-        sleep(200);
-        moveElevatorLaunch();
-        sleep(100);
-        launchLauncherFeeder2();
-        closeIntakeToElevator();
-        sleep(500);
-        restLauncherFeeder();
-        openIntakeToElevator();
-        sleep(355);
-        moveElevator(1);
-    }
-
-    public void modifyServo(Servo servo, double value) {
-        double currentValue = servo.getPosition();
-        currentValue = currentValue + value;
-        if (currentValue > 1.0) currentValue = 1.0;
-        if (currentValue < 0.0) currentValue = 0.0;
-        servo.setPosition(currentValue);
-    }
-    //complete later. need to take some robot position (absolute)/angle values as input and calculate how much to rotate the turret
-    public double autoRotateTurret() {
-        double angle = 0;
-        return angle;
-    }
-
-    public double tickPerSecTORPM(double angPerSec){
-        return ((angPerSec / 28.0) * 60.0);
-    }
-
-    public double getLauncherAngPerSecLimit(){
-        return LAUNCHER_ANG_PER_SEC_LIMIT;
-    }
 }

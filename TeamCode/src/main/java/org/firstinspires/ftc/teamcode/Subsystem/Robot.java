@@ -31,22 +31,10 @@ public class Robot extends Subsystem {
     public DcMotorEx frontRightDriveMotor;
     public DcMotorEx rearRightDriveMotor;
     public DcMotorEx rearLeftDriveMotor;
-    public DcMotorEx launch1;
-    public DcMotorEx launch2a;
-    public DcMotorEx launch2b;
     public DcMotorEx intake;
+    public DcMotorEx bucket;
 
     //Servos
-
-    public Servo elevatorR;
-    public Servo elevatorL;
-
-    public Servo wobbleClaw;
-    public Servo wobbleGoalArm;
-    public Servo intakeToElevatorL;
-    public Servo intakeToElevatorR;
-    public Servo launcherFeederL;
-    public Servo launcherFeederR;
 
     //Odometry
     public List<LynxModule> allHubs;
@@ -64,23 +52,9 @@ public class Robot extends Subsystem {
     /**
      * Control Hub
      *
-     * fr        0
-     * br        1
-     * launch2   2
-     * launch1   3
-     *
      * --------------------
      * Expansion Hub 2
      *
-     * fl        0
-     * bl        1
-     * intake    2
-     *
-     * feeding          0
-     * left elevator    1
-     * wbc1             2
-     * wbc2             3
-     * right elevator   4
      */
 
     //Sensors
@@ -196,30 +170,6 @@ public class Robot extends Subsystem {
         rearLeftDriveMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         rearRightDriveMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        launch1 = (DcMotorEx) hardwareMap.dcMotor.get("launch1");
-        launch1.setDirection(DcMotorSimple.Direction.REVERSE);
-        launch1.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        launch1.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        launch1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-//        launch1.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        launch1.setPower(0.0);
-
-        launch2a = (DcMotorEx) hardwareMap.dcMotor.get("launch2a");
-        launch2a.setDirection(DcMotorSimple.Direction.REVERSE);
-        launch2a.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        launch2a.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        launch2a.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-//        launch2a.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        launch2a.setPower(0.0);
-
-        launch2b = (DcMotorEx) hardwareMap.dcMotor.get("launch2b");
-        launch2b.setDirection(DcMotorSimple.Direction.REVERSE);
-        launch2b.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        launch2b.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        launch2b.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-//        launch2b.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        launch2b.setPower(0.0);
-
         intake = (DcMotorEx) hardwareMap.dcMotor.get("intake");
         intake.setDirection(DcMotorSimple.Direction.REVERSE);
         intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
@@ -228,40 +178,15 @@ public class Robot extends Subsystem {
 //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         intake.setPower(0.0);
 
+        bucket = (DcMotorEx) hardwareMap.dcMotor.get("bucket");
+        bucket.setDirection(DcMotorSimple.Direction.REVERSE);
+        bucket.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        bucket.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        bucket.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+//        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        bucket.setPower(0.0);
+
         //Servos
-//        clawDeploy = hardwareMap.servo.get("clawDeploy");
-//        claw = hardwareMap.servo.get("claw");
-//        elevator1 = hardwareMap.crservo.get("e1");
-//        elevator2 = hardwareMap.crservo.get("e2");
-//
-//        elevator2.setDirection(DcMotorSimple.Direction.REVERSE);
-        wobbleClaw = hardwareMap.servo.get("wbc2");
-        wobbleGoalArm = hardwareMap.servo.get("wbc1");
-        launcherFeederR = hardwareMap.servo.get("feederR");
-        launcherFeederL = hardwareMap.servo.get("feederL");
-        intakeToElevatorR = hardwareMap.servo.get("iteR");
-        intakeToElevatorL = hardwareMap.servo.get("iteL");
-
-
-        elevatorR = hardwareMap.servo.get("elevatorR");
-        elevatorL = hardwareMap.servo.get("elevatorL");
-
-        allHubs = hardwareMap.getAll(LynxModule.class);
-
-//        odometryRA  = hardwareMap.get(DigitalChannel.class, "odra");
-//        odometryRB = hardwareMap.get(DigitalChannel.class, "odrb");
-//        odometryBA  = hardwareMap.get(DigitalChannel.class, "odba");
-//        odometryBB = hardwareMap.get(DigitalChannel.class, "odbb");
-//        odometryLA  = hardwareMap.get(DigitalChannel.class, "odla");
-//        odometryLB = hardwareMap.get(DigitalChannel.class, "odlb");
-//
-//        odometryRA.setMode(DigitalChannel.Mode.INPUT);          // Set the direction of each channel
-//        odometryRB.setMode(DigitalChannel.Mode.INPUT);
-//        odometryBA.setMode(DigitalChannel.Mode.INPUT);          // Set the direction of each channel
-//        odometryBB.setMode(DigitalChannel.Mode.INPUT);
-//        odometryLA.setMode(DigitalChannel.Mode.INPUT);          // Set the direction of each channel
-//        odometryLB.setMode(DigitalChannel.Mode.INPUT);
-
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
@@ -288,15 +213,14 @@ public class Robot extends Subsystem {
         //Subsystems
         opMode.telemetry.addData("Mode", " drive/control initializing...");
         opMode.telemetry.update();
-        drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, intake, launch1, launch2b, imu, opMode, timer);
+        drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, opMode, timer);
 
 //        drive.setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        drive.setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 //        control = new Control(intake, launch1, launch2, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
 //        control = new Control(intake, launch1, launch2a, launch2b, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
-        control = new Control(intake, launch1, launch2a, launch2b, imu, opMode, timer,
-                wobbleClaw, wobbleGoalArm, intakeToElevatorR, intakeToElevatorL, launcherFeederR, launcherFeederL, elevatorR, elevatorL);
+        control = new Control(intake, bucket, imu, opMode, timer);
 
 
         opMode.telemetry.addData("Mode", " vision initializing...");
@@ -311,11 +235,6 @@ public class Robot extends Subsystem {
 
     public void initServosAuto() {
         // code here
-    }
-
-    public void initServosTeleop() {
-        control.moveWobbleGoalArmDown();
-        control.closeWobbleGoalClaw();
     }
 
     public OpMode getOpmode(){

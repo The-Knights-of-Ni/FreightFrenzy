@@ -96,7 +96,7 @@ public class Drive extends Subsystem {
 
     private long startTime;
 
-    public Drive(DcMotorEx frontLeft, DcMotorEx frontRight, DcMotorEx rearLeft, DcMotorEx rearRight, DcMotorEx odL, DcMotorEx odB, DcMotorEx odR, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
+    public Drive(DcMotorEx frontLeft, DcMotorEx frontRight, DcMotorEx rearLeft, DcMotorEx rearRight, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.rearLeft = rearLeft;
@@ -1221,5 +1221,5 @@ public class Drive extends Subsystem {
             this.velocity.setAs(pose);
         }   //setVelocityAs
 
-    }   //class Odometry
+    }
 }
