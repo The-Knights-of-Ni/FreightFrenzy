@@ -229,19 +229,19 @@ Control extends Subsystem {
         boolean isBucketMoving = bucket.isMotorEnabled();
         if (status = true) {
             if (!isBucketMoving) {
-                intake.setPower(1.0);
+                bucket.setPower(1.0);
                 isBucketMoving = true;
             } else {
-                intake.setPower(0.0);
+                bucket.setPower(0.0);
                 isBucketMoving = false;
             }
         }
         if (status = false) {
             if (!isBucketMoving) {
-                intake.setPower(-0.8);
+                bucket.setPower(-0.8);
                 isBucketMoving = true;
             } else {
-                intake.setPower(0.0);
+                bucket.setPower(0.0);
                 isBucketMoving = false;
             }
         }
