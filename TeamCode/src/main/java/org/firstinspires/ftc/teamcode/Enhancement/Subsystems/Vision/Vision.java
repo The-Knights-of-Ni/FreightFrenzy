@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.Enhancement.Config.VisionConfig;
 import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline.MarkerLocation;
 import org.firstinspires.ftc.teamcode.Util.QuickTelemetry;

@@ -24,6 +24,14 @@ import org.openftc.easyopencv.OpenCvPipeline;
  * @see Vision
  */
 public class DetectMarkerPipeline extends OpenCvPipeline {
+    public enum MarkerLocation {
+        LEFT,
+        MIDDLE,
+        RIGHT,
+        NOT_FOUND,
+        SEARCHING
+    }
+
     private final AllianceColor allianceColor = MainConfig.getAllianceColor();
     private final Rect LEFT_RECT = new Rect(
             new Point(60, 35),
