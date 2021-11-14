@@ -224,13 +224,13 @@ public class Robot extends Subsystem {
 
         opMode.telemetry.addData("Mode", " vision initializing...");
         opMode.telemetry.update();
-        vision = new Vision(hardwareMap, this, isBlue);
-
+        // TODO: We need QuickTelemetry stuff for vision
+        //vision = new Vision(, hardwareMap, isBlue);
     }
 
-    public void initVisionTest() {
+    /* public void initVisionTest() {
         vision = new Vision(hardwareMap, this, isBlue);
-    }
+    } */
 
     public void initServosAuto() {
         // code here
