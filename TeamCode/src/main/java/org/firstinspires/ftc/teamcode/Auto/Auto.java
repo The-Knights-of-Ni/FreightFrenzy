@@ -40,22 +40,23 @@ public class Auto extends LinearOpMode {
     }
 
     public int getHubLevel() {
-        int placementLevel;
-        switch (finalMarkerLocation) {
-            case LEFT:
-                placementLevel = 1;
-                break;
-            case MIDDLE:
-                placementLevel = 2;
-                break;
-            case RIGHT:
-                placementLevel = 3;
-                break;
-            default:
-                placementLevel = -1;
-                break;
-        }
-        return placementLevel;
+//        int placementLevel;
+//        switch (finalMarkerLocation) {
+//            case LEFT:
+//                placementLevel = 1;
+//                break;
+//            case MIDDLE:
+//                placementLevel = 2;
+//                break;
+//            case RIGHT:
+//                placementLevel = 3;
+//                break;
+//            default:
+//                placementLevel = -1;
+//                break;
+//        }
+//        return placementLevel;
+        return -1;
     }
 
     @Override
