@@ -205,8 +205,8 @@ Control extends Subsystem {
     }
 
     // TRUE maps to forward, FALSE maps to reverse
-    public void setIntakeDirection(boolean status, boolean direction) {      // simplified so only one method is needed for intake.
-        int power = status ? 1 : 0;
+    public void setIntakeDirection(boolean status, boolean direction) {      // simplified so only one method is needed for intake. status is true/false for on/off,
+        int power = status ? 1 : 0;                                          // direction is true/false for forward/reverse respectively.
 
         if(direction) {
             intake.setPower(power);
@@ -215,25 +215,13 @@ Control extends Subsystem {
         }
     }
 
-    public void setBucketDirection(boolean status) {
-        boolean isBucketMoving = bucket.isMotorEnabled();
-        if (status = true) {
-            if (!isBucketMoving) {
-                bucket.setPower(1.0);
-                isBucketMoving = true;
-            } else {
-                bucket.setPower(0.0);
-                isBucketMoving = false;
-            }
-        }
-        if (status = false) {
-            if (!isBucketMoving) {
-                bucket.setPower(-0.8);
-                isBucketMoving = true;
-            } else {
-                bucket.setPower(0.0);
-                isBucketMoving = false;
-            }
+    public void setBucketDirection(boolean status, boolean direction) { // Usage similar to the setIntakeDirection function.
+        int power = status ? 1: 0;
+
+        if (direction) {
+            bucket.setPower(power);
+        } else {
+            bucket.setPower(-power);
         }
     }
 
