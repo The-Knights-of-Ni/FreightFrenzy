@@ -204,7 +204,6 @@ Control extends Subsystem {
         return MOTOR_TICK_PER_REV_YELLOJACKET223;
     }
 
-    // TRUE maps to forward, FALSE maps to reverse
     public void setIntakeDirection(boolean status, boolean direction) {      // simplified so only one method is needed for intake. status is true/false for on/off,
         int power = status ? 1 : 0;                                          // direction is true/false for forward/reverse respectively.
 
@@ -216,7 +215,7 @@ Control extends Subsystem {
     }
 
     public void setBucketDirection(boolean status, boolean direction) { // Usage similar to the setIntakeDirection function.
-        int power = status ? 1: 0;
+        int power = status ? 1 : 0;
 
         if (direction) {
             bucket.setPower(power);
