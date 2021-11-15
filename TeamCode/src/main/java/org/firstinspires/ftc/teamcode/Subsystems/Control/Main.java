@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode.Subsystems.Control;
 
 import static java.lang.Thread.sleep;
 
@@ -8,13 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
 
 /**
  * Control subsystem for controlling arms and claws
  * Created by AndrewC on 1/17/2020
  */
-public class
-Control extends Subsystem {
+public class Main extends Subsystem {
     // device declaration
     private HardwareMap hardwareMap;
     private LinearOpMode opMode;
@@ -35,8 +35,8 @@ Control extends Subsystem {
      * The TILT_TABLE_SIZE records the number of entries in the TILT_TABLE
      * The TILT_TABLE consists of TILT_TABLE_SIZE pairs of data. Each pair is (tilt angle, arm tilt motor tick).
      */
-    private static final int        TILT_TABLE_SIZE                     = 83;
-    private static final double[]   TILT_TABLE = {
+    private static final int TILT_TABLE_SIZE = 83;
+    private static final double[] TILT_TABLE = {
             0.0, 0, 0.6, 88, 1.5, 131, 2.2, 160, 2.9, 200, 3.4, 223, 4.1, 257, 5.0, 301, 5.8, 350, 6.7, 392,
             7.3, 432, 8.2, 479, 9.1, 535, 9.7, 571, 10.5, 617, 11.2, 658, 11.7, 686, 12.2, 716, 12.7, 748, 13.2, 781,
             13.6, 810, 14.1, 838, 14.7, 880, 15.2, 918, 15.8, 951, 16.1, 972, 16.9, 1023, 17.9, 1093, 18.5, 1131, 18.9, 1158,
@@ -52,31 +52,31 @@ Control extends Subsystem {
      * The CLAW_ARM_TILT_TABLE_SIZE records the number of entries in the CLAW_ARM_TILT_TABLE
      * The CLAW_ARM_TILT_TABLE consists of CLAW_ARM_TILT_TABLE_SIZE pairs of data. Each pair is (tilt angle, arm tilt servo).
      */
-    private static final int        CLAW_ARM_TILT_TABLE_SIZE                     = 24;
-    private static final double[]   CLAW_ARM_TILT_TABLE = {
+    private static final int CLAW_ARM_TILT_TABLE_SIZE                     = 24;
+    private static final double[] CLAW_ARM_TILT_TABLE = {
             -183.0, 0.01, -180.0, 0.04, -70.2, 0.416, -30.8, 0.563, -12.2, 0.634, -5.8, 0.658, -2.9, 0.679, 0.2, 0.692, 4.6, 0.703, 6.1, 0.716,
             11.0, 0.736, 15.2, 0.743, 18.2, 0.763, 23.2, 0.782, 29.0, 0.804, 33.9, 0.825, 40.8, 0.851, 46.6, 0.879, 51.0, 0.894, 57.4, 0.921,
             62.5, 0.941, 70.1, 0.971, 75.6, 0.993, 77.6, 1.0 };
 
     //DO WITH ENCODERS
-    private static final double     TICKS_PER_MOTOR_REV_40          = 1120;    // AM Orbital 20 motor
-    private static final double     RPM_MAX_NEVERREST_40            = 160;
-    private static final double     ANGULAR_V_MAX_NEVERREST_40      = (TICKS_PER_MOTOR_REV_40 * RPM_MAX_NEVERREST_40) / 60.0;
+    private static final double TICKS_PER_MOTOR_REV_40          = 1120;    // AM Orbital 20 motor
+    private static final double RPM_MAX_NEVERREST_40            = 160;
+    private static final double ANGULAR_V_MAX_NEVERREST_40      = (TICKS_PER_MOTOR_REV_40 * RPM_MAX_NEVERREST_40) / 60.0;
 
-    private static final double     WINCH_DIAMETER_INCH                 = 1.244;  //inch original measurement
-    private static final double     WINCH_DIAMETER_MM                   = WINCH_DIAMETER_INCH * 2.54 * 10.0; //milimeters
-    private static final double     WINCH_RADIUS_MM                     = WINCH_DIAMETER_MM / 2.0;
-    private static final double     WINCH_CIRCUMFERENCE_MM              = WINCH_RADIUS_MM * 2.0 * Math.PI;
-    private static final double     MOTOR_TICK_PER_REV_NEVERREST40      = 1120.0;
-    private static final double     MOTOR_TICK_PER_REV_YELLOJACKET223   = 753.2;
-    private static final double     REV_PER_MIN_YELLOJACKET223          = 223.0;
-    private static final double     MOTOR_TICK_PER_REV_YELLOJACKET1620   = 103.6;
-    private static final double     REV_PER_MIN_YELLOJACKET1620          = 1620.0;
-    private static final double     WINCH_MAX_SPEED_MM_PER_SEC          = (RPM_MAX_NEVERREST_40 * WINCH_DIAMETER_MM * Math.PI) / 60.0;
-    private static final double     WINCH_MAX_SPEED_TICK_PER_SEC        = (MOTOR_TICK_PER_REV_NEVERREST40 * RPM_MAX_NEVERREST_40) / 60.0;
-    private static final double     TILT_MAX_SPEED_TICK_PER_SEC         = (MOTOR_TICK_PER_REV_YELLOJACKET1620 * REV_PER_MIN_YELLOJACKET1620) / 60.0;
+    private static final double WINCH_DIAMETER_INCH                 = 1.244;  //inch original measurement
+    private static final double WINCH_DIAMETER_MM                   = WINCH_DIAMETER_INCH * 2.54 * 10.0; //milimeters
+    private static final double WINCH_RADIUS_MM                     = WINCH_DIAMETER_MM / 2.0;
+    private static final double WINCH_CIRCUMFERENCE_MM              = WINCH_RADIUS_MM * 2.0 * Math.PI;
+    private static final double MOTOR_TICK_PER_REV_NEVERREST40      = 1120.0;
+    private static final double MOTOR_TICK_PER_REV_YELLOJACKET223   = 753.2;
+    private static final double REV_PER_MIN_YELLOJACKET223          = 223.0;
+    private static final double MOTOR_TICK_PER_REV_YELLOJACKET1620   = 103.6;
+    private static final double REV_PER_MIN_YELLOJACKET1620          = 1620.0;
+    private static final double WINCH_MAX_SPEED_MM_PER_SEC          = (RPM_MAX_NEVERREST_40 * WINCH_DIAMETER_MM * Math.PI) / 60.0;
+    private static final double WINCH_MAX_SPEED_TICK_PER_SEC        = (MOTOR_TICK_PER_REV_NEVERREST40 * RPM_MAX_NEVERREST_40) / 60.0;
+    private static final double TILT_MAX_SPEED_TICK_PER_SEC         = (MOTOR_TICK_PER_REV_YELLOJACKET1620 * REV_PER_MIN_YELLOJACKET1620) / 60.0;
     //    private static final double     TILT_TICK_PER_90_DEGREE             = 2510.0;
-    private static final double     WINCH_MM_PER_TICK                   = WINCH_CIRCUMFERENCE_MM / MOTOR_TICK_PER_REV_NEVERREST40;
+    private static final double WINCH_MM_PER_TICK                   = WINCH_CIRCUMFERENCE_MM / MOTOR_TICK_PER_REV_NEVERREST40;
 
     private static final double     MAINARM_INIT_LENGTH          = 371.0;    // main arm length before extending (mm)
     private static final double     MAINARM_STACK_HEIGHT         = 123.0;    // main arm vertical offset (mm)
@@ -164,7 +164,7 @@ Control extends Subsystem {
 
 
 //    public Control(DcMotorEx intake, DcMotorEx launch1, DcMotorEx launch2, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer, ) {
-    public Control(DcMotorEx intake, DcMotorEx bucket, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
+    public Main(DcMotorEx intake, DcMotorEx bucket, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
 
         // store device information locally
 

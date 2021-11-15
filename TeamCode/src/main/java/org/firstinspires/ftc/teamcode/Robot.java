@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -10,6 +10,10 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.Main;
+import org.firstinspires.ftc.teamcode.Subsystems.Drive;
+import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.Vision;
 
 import java.io.IOException;
 import java.util.List;
@@ -119,7 +123,7 @@ public class Robot extends Subsystem {
 
     //Subsystems
     public Drive drive;
-    public Control control;
+    public Main main;
     public Vision vision;
 
     public Robot(LinearOpMode opMode, ElapsedTime timer) throws IOException {
@@ -219,7 +223,7 @@ public class Robot extends Subsystem {
 
 //        control = new Control(intake, launch1, launch2, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
 //        control = new Control(intake, launch1, launch2a, launch2b, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
-        control = new Control(intake, bucket, imu, opMode, timer);
+        main = new Main(intake, bucket, imu, opMode, timer);
 
 
         opMode.telemetry.addData("Mode", " vision initializing...");

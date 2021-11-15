@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Robot;
+import org.firstinspires.ftc.teamcode.Robot;
 
 import java.io.IOException;
 
@@ -79,10 +79,10 @@ public class Teleop extends LinearOpMode {
             //Toggle intake regular
             if (robot.aButton && !robot.isaButtonPressedPrev) {
                 if (isIntakeOn) {
-                    robot.control.setIntakeDirection(false, true);
+                    robot.main.setIntakeDirection(false, true);
                     isIntakeOn = false;
                 } else {
-                    robot.control.setIntakeDirection(true, true);
+                    robot.main.setIntakeDirection(true, true);
                     isIntakeOn = true;
                 }
             }
@@ -90,10 +90,10 @@ public class Teleop extends LinearOpMode {
             //Toggle intake reverse
             if (robot.bButton && !robot.isbButtonPressedPrev) {
                 if (isIntakeOn) {
-                    robot.control.setIntakeDirection(false, false);
+                    robot.main.setIntakeDirection(false, false);
                     isIntakeOn = false;
                 } else {
-                    robot.control.setIntakeDirection(true, false);
+                    robot.main.setIntakeDirection(true, false);
                     isIntakeOn = true;
                 }
             }
