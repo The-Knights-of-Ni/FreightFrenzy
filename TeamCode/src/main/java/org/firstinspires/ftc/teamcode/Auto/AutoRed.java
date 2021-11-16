@@ -37,7 +37,7 @@ public class AutoRed extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
-        init(AllianceColor.RED);
+        Robot robot = init(AllianceColor.RED);
 
         int placementLevel = getHubLevel();
     }
