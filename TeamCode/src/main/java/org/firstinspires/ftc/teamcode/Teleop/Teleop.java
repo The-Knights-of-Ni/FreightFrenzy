@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 
 import java.io.IOException;
 
@@ -108,6 +108,7 @@ public class Teleop extends LinearOpMode {
                     isBucketMoving = true;
                 }
             }
+
             //Toggle bucket down
             if (robot.bumperRight) {
                 if(isBucketMoving) {
@@ -118,6 +119,7 @@ public class Teleop extends LinearOpMode {
                     isBucketMoving = true;
                 }
             }
+
             //Toggle duck wheel on/off
             if (robot.xButton) {
                 if(!robot.isxButtonPressedPrev) {
