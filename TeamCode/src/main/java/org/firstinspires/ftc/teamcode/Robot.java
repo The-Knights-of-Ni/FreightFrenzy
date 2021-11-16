@@ -10,7 +10,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.Main;
+
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision;
@@ -36,6 +37,7 @@ public class Robot extends Subsystem {
     public DcMotorEx rearLeftDriveMotor;
     public DcMotorEx intake;
     public DcMotorEx bucket;
+    public DcMotorEx duckWhl;
 
     //Servos
 
@@ -123,7 +125,7 @@ public class Robot extends Subsystem {
 
     //Subsystems
     public Drive drive;
-    public Main main;
+    public Control control;
     public Vision vision;
 
     public Robot(LinearOpMode opMode, ElapsedTime timer) throws IOException {
@@ -189,6 +191,14 @@ public class Robot extends Subsystem {
 //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         bucket.setPower(0.0);
 
+        duckWhl = (DcMotorEx) hardwareMap.dcMotor.get("duckWhl");
+        duckWhl.setDirection(DcMotorSimple.Direction.REVERSE);
+        duckWhl.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        duckWhl.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        duckWhl.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+//        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        duckWhl.setPower(0.0);
+
         //Servos
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
@@ -223,7 +233,7 @@ public class Robot extends Subsystem {
 
 //        control = new Control(intake, launch1, launch2, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
 //        control = new Control(intake, launch1, launch2a, launch2b, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
-        main = new Main(intake, bucket, imu, opMode, timer);
+        control = new Control(intake, bucket, duckWhl, imu, opMode, timer);
 
 
         opMode.telemetry.addData("Mode", " vision initializing...");

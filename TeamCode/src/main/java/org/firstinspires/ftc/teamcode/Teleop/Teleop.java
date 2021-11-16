@@ -79,10 +79,10 @@ public class Teleop extends LinearOpMode {
             //Toggle intake regular
             if (robot.aButton && !robot.isaButtonPressedPrev) {
                 if (isIntakeOn) {
-                    robot.main.setIntakeDirection(false, true);
+                    robot.control.setIntakeDirection(false, true);
                     isIntakeOn = false;
                 } else {
-                    robot.main.setIntakeDirection(true, true);
+                    robot.control.setIntakeDirection(true, true);
                     isIntakeOn = true;
                 }
             }
@@ -90,10 +90,10 @@ public class Teleop extends LinearOpMode {
             //Toggle intake reverse
             if (robot.bButton && !robot.isbButtonPressedPrev) {
                 if (isIntakeOn) {
-                    robot.main.setIntakeDirection(false, false);
+                    robot.control.setIntakeDirection(false, false);
                     isIntakeOn = false;
                 } else {
-                    robot.main.setIntakeDirection(true, false);
+                    robot.control.setIntakeDirection(true, false);
                     isIntakeOn = true;
                 }
             }
