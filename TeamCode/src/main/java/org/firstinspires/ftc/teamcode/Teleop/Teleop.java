@@ -99,25 +99,33 @@ public class Teleop extends LinearOpMode {
             }
 
             //Toggle bucket up
-           /* if (robot.gamePadConfig.bumperLeft && !robot.gamePadConfig.isleftBumperPressedPrev){
+            if (robot.bumperLeft) {
                 if(isBucketMoving) {
-                    robot.control.setIntakeDirection(true);
+                    robot.control.setBucketDirection(false, true);
                     isBucketMoving = false;
                 } else {
-                    robot.control.setIntakeDirection(true);
+                    robot.control.setBucketDirection(true, true);
                     isBucketMoving = true;
                 }
             }
             //Toggle bucket down
-            if (robot.gamePadConfig.bumperRight && !robot.gamePadConfig.isrightBumperPressedPrev){
+            if (robot.bumperRight) {
                 if(isBucketMoving) {
-                    robot.control.setIntakeDirection(false);
+                    robot.control.setBucketDirection(false, false);
                     isBucketMoving = false;
                 } else {
-                    robot.control.setIntakeDirection(false);
+                    robot.control.setBucketDirection(true, false);
                     isBucketMoving = true;
                 }
-            } */
+            }
+            //Toggle duck wheel on/off
+            if (robot.xButton) {
+                if(!robot.isxButtonPressedPrev) {
+                    robot.control.duckWhlControl(true);
+                } else {
+                    robot.control.duckWhlControl(false);
+                }
+            }
         }
     }
 }
