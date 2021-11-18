@@ -70,12 +70,6 @@ public class Control extends Subsystem {
         }
     }
 
-    public void duckWhlControl(boolean status) { // Status true for on, false for off.
-        if (status) {
-            duckWhl.setPower(1);
-        } else {
-            duckWhl.setPower(0);
-        }
-    }
+    public void duckWhlControl(boolean status) { duckWhl.setPower(status ? 1 : 0); } // Status true for on, false for off.
 
 }
