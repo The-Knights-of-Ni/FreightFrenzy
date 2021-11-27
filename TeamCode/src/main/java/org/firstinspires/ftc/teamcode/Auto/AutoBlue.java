@@ -41,5 +41,15 @@ public class AutoBlue extends Auto {
         Robot robot = init(AllianceColor.BLUE);
 
         int placementLevel = getHubLevel();
+
+        if (placementLevel != -1) {
+            robot.drive.moveForward(50, 1);
+            robot.control.placeFreight(placementLevel);
+            robot.drive.moveRight(10);
+            robot.drive.moveBackward(5);
+            robot.control.removeDuck();
+            robot.drive.moveForward(30);
+        }
+
     }
 }

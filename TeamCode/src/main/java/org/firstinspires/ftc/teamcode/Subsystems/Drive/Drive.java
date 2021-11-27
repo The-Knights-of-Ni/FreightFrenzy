@@ -48,10 +48,10 @@ public class Drive extends Subsystem {
 
     private long startTime;
 
-    /**
-     * The class instantiation.
+    /** The class instantiation.
      *
-     * @param robot the robot
+     * @param telemetry the quick telemetry
+     * @param hardwareMap the hardware map
      * @param motors given in a list for readability
      * @param imu the imu
      *
@@ -413,10 +413,18 @@ public class Drive extends Subsystem {
         }
     }
 
+    /**
+     * Moves the robot forward
+     * @param distance The distance is in inches
+     */
     public void moveForward(double distance) {
         moveForward(distance, DriveConfig.DRIVE_SPEED_Y);
     }
 
+    /**
+     * Moves the robot forward
+     * @param distance The distance is in inches
+     */
     public void moveForward(double distance, double motorSpeed) {
         //        this.moveToPos2D(motorSpeed, 0.0, distance);
         allMotorPIDControl( (int) (distance * DriveConfig.COUNTS_PER_MM * DriveConfig.COUNTS_CORRECTION_Y), motorSpeed * DriveConfig.ANGULAR_V_MAX_NEVERREST_20, DriveConfig.ANGULAR_V_MAX_NEVERREST_20,
@@ -427,10 +435,18 @@ public class Drive extends Subsystem {
         telemetry.telemetry(4, "moveForward",  "move to %7.2f, %7.2f", robotCurrentPosX,  robotCurrentPosY);
     }
 
+    /**
+     * Moves the robot backward
+     * @param distance The distance is in inches
+     */
     public void moveBackward_odometry(double distance) throws InterruptedException {
         moveBackward_odometry(distance, DriveConfig.DRIVE_SPEED_Y);
     }
 
+    /**
+     * Moves the robot backward
+     * @param distance The distance is in inches
+     */
     public void moveBackward_odometry(double distance, double motorSpeed) throws InterruptedException {
         resetOdometry();
 //        this.moveToPos2D(motorSpeed, 0.0, -distance);
@@ -455,10 +471,18 @@ public class Drive extends Subsystem {
         }
     }
 
+    /**
+     * Moves the robot backwards
+     * @param distance The distance is in inches
+     */
     public void moveBackward(double distance) {
         moveBackward(distance, DriveConfig.DRIVE_SPEED_Y);
     }
 
+    /**
+     * Moves the robot backwards
+     * @param distance The distance is in inches
+     */
     public void moveBackward(double distance, double motorSpeed) {
 //        this.moveToPos2D(motorSpeed, 0.0, -distance);
         allMotorPIDControl((int) (distance* DriveConfig.COUNTS_PER_MM * DriveConfig.COUNTS_CORRECTION_Y), motorSpeed * DriveConfig.ANGULAR_V_MAX_NEVERREST_20, DriveConfig.ANGULAR_V_MAX_NEVERREST_20,
@@ -469,10 +493,18 @@ public class Drive extends Subsystem {
         telemetry.telemetry(4, "moveBackward",  "move to %7.2f, %7.2f", robotCurrentPosX,  robotCurrentPosY);
     }
 
+    /**
+     * Moves the robot left
+     * @param distance The distance is in inches
+     */
     public void moveLeft_odometry(double distance) {
         moveLeft_odometry(distance, DriveConfig.DRIVE_SPEED_X);
     }
 
+    /**
+     * Moves the robot left
+     * @param distance The distance is in inches
+     */
     public void moveLeft_odometry(double distance, double motorSpeed) {
         resetOdometry();
 //        this.moveToPos2D(motorSpeed, -distance, 0.0);
@@ -499,10 +531,18 @@ public class Drive extends Subsystem {
         }
     }
 
+    /**
+     * Moves the robot left
+     * @param distance The distance is in inches
+     */
     public void moveLeft(double distance) {
         moveLeft(distance, DriveConfig.DRIVE_SPEED_X);
     }
 
+    /**
+     * Moves the robot left
+     * @param distance The distance is in inches
+     */
     public void moveLeft(double distance, double motorSpeed) {
 //        this.moveToPos2D(motorSpeed, -distance, 0.0);
         allMotorPIDControl((int) (distance* DriveConfig.COUNTS_PER_MM * DriveConfig.COUNTS_CORRECTION_X), motorSpeed * DriveConfig.ANGULAR_V_MAX_NEVERREST_20, DriveConfig.ANGULAR_V_MAX_NEVERREST_20,
@@ -514,10 +554,18 @@ public class Drive extends Subsystem {
 //        sleep(100);
     }
 
+    /**
+     * Moves the robot right
+     * @param distance The distance is in inches
+     */
     public void moveRight_odometry(double distance) throws InterruptedException {
         moveRight_odometry(distance, DriveConfig.DRIVE_SPEED_X);
     }
 
+    /**
+     * Moves the robot right
+     * @param distance The distance is in inches
+     */
     public void moveRight_odometry(double distance, double motorSpeed) throws InterruptedException {
         resetOdometry();
 //        this.moveToPos2D(motorSpeed, distance, 0.0);
@@ -544,6 +592,10 @@ public class Drive extends Subsystem {
         }
     }
 
+    /**
+     * Moves the robot right
+     * @param distance The distance is in inches
+     */
     public void moveRight(double distance) {
         moveRight(distance, DriveConfig.DRIVE_SPEED_X);
     }
