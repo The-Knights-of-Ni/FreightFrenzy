@@ -1,18 +1,19 @@
 package org.firstinspires.ftc.teamcode.Util;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Config.MainConfig;
+import org.firstinspires.ftc.teamcode.Enhancement.Config.MainConfig;
 
 
-/** Extension of {@link Telemetry} that is easier to use and is more feature rich.
+/**
+ * Extension of {@link Telemetry} that is easier to use and is more feature rich.
  *
  * @see Telemetry
  */
 public class QuickTelemetry {
     private final Telemetry telemetry;
     private final int logLevel = MainConfig.getLogLevel();
-    private String file = "";
     private final String targetDebug = MainConfig.getDebugTarget();
+    private String file = "";
 
     public QuickTelemetry(Telemetry telemetry) {
         this.telemetry = telemetry;

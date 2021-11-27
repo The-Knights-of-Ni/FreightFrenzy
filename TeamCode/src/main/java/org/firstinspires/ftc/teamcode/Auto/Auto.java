@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.Config.MainConfig;
-import org.firstinspires.ftc.teamcode.Config.VisionConfig;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Enhancement.Config.MainConfig;
+import org.firstinspires.ftc.teamcode.Enhancement.Config.VisionConfig;
+import org.firstinspires.ftc.teamcode.Enhancement.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 
@@ -26,21 +24,18 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 //Park in warehouse (10)
 @Autonomous(name = "Auto", group = "Concept")
 public class Auto extends LinearOpMode {
-    /** Override of runOpMode()
+    /**
+     * Override of runOpMode()
      *
      * <p>Please do not swallow the InterruptedException, as it is used in cases
      * where the op mode needs to be terminated early.</p>
      *
-     * @throws InterruptedException
-     *
+     * @param allianceColor The alliance color
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
      */
 
     public Robot init(AllianceColor allianceColor) {
         ElapsedTime timer = new ElapsedTime();
-
-        MainConfig.setAllianceColor(allianceColor);
-
         return new Robot(this, timer, true);
     }
 
