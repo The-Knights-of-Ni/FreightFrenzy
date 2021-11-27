@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Enhancement.Config.MainConfig;
-import org.firstinspires.ftc.teamcode.Enhancement.Config.VisionConfig;
-import org.firstinspires.ftc.teamcode.Enhancement.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 
@@ -39,9 +37,9 @@ public class Auto extends LinearOpMode {
         return new Robot(this, timer, true);
     }
 
-    public PlacementLevel getHubLevel() {
+    public PlacementLevel getHubLevel(Robot robot) {
         PlacementLevel placementLevel;
-        switch (VisionConfig.finalMarkerLocation) {
+        switch (robot.vision.getMarkerLocation()) {
             case LEFT:
                 placementLevel = PlacementLevel.BOTTOM;
                 break;

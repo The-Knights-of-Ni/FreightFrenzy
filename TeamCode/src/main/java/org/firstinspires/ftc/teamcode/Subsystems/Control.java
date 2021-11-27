@@ -72,4 +72,10 @@ public class Control extends Subsystem {
 
     public void duckWhlControl(boolean status) { duckWhl.setPower(status ? 1 : 0); } // Status true for on, false for off.
 
+    public void removeDuck() {
+        duckWhlControl(true);
+        this.opMode.sleep(3000);
+        duckWhlControl(false);
+    }
+
 }
