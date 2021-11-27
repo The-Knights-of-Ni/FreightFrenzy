@@ -40,5 +40,16 @@ public class AutoRed extends Auto {
         Robot robot = init(AllianceColor.RED);
 
         int placementLevel = getHubLevel();
+
+        if (placementLevel != -1) {
+            robot.drive.moveLeft_odometry(24);
+            // robot.control.removeDuck();
+            robot.drive.moveForward_odometry(84);
+            robot.drive.moveRight_odometry(60);
+            // robot.control.placeFreight(placementLevel);
+            robot.drive.moveRight_odometry(36);
+            robot.drive.moveBackward_odometry(42);
+            robot.drive.moveRight_odometry(36);
+        }
     }
 }

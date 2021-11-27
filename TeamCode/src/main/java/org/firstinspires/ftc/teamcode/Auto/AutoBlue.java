@@ -43,12 +43,14 @@ public class AutoBlue extends Auto {
         int placementLevel = getHubLevel();
 
         if (placementLevel != -1) {
-            robot.drive.moveForward(50, 1);
-            robot.control.placeFreight(placementLevel);
-            robot.drive.moveRight(10);
-            robot.drive.moveBackward(5);
-            robot.control.removeDuck();
-            robot.drive.moveForward(30);
+            robot.drive.moveRight_odometry(24);
+            // robot.control.removeDuck();
+            robot.drive.moveForward_odometry(84);
+            robot.drive.moveLeft_odometry(60);
+            // robot.control.placeFreight(placementLevel);
+            robot.drive.moveLeft_odometry(36);
+            robot.drive.moveBackward_odometry(42);
+            robot.drive.moveLeft_odometry(36);
         }
 
     }
