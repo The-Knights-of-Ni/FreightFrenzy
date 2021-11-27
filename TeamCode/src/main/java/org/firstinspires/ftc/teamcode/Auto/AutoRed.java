@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import org.firstinspires.ftc.teamcode.Enhancement.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 
