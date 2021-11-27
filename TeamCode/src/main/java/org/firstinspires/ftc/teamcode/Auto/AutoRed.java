@@ -39,9 +39,9 @@ public class AutoRed extends Auto {
     public void runOpMode() throws InterruptedException {
         Robot robot = init(AllianceColor.RED);
 
-        int placementLevel = getHubLevel();
+        PlacementLevel placementLevel = getHubLevel();
 
-        if (placementLevel != -1) {
+        if (placementLevel != PlacementLevel.NOT_FOUND) {
             robot.drive.moveLeft_odometry(24);
             // robot.control.removeDuck();
             robot.drive.moveForward_odometry(84);
