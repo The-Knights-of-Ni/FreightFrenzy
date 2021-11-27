@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Config.MainConfig;
-import org.firstinspires.ftc.teamcode.Config.VisionConfig;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Enhancement.Config.MainConfig;
+import org.firstinspires.ftc.teamcode.Enhancement.Config.VisionConfig;
+import org.firstinspires.ftc.teamcode.Enhancement.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 
@@ -36,29 +36,27 @@ public class Auto extends LinearOpMode {
 
     public Robot init(AllianceColor allianceColor) {
         ElapsedTime timer = new ElapsedTime();
-
-        MainConfig.setAllianceColor(allianceColor);
-
         return new Robot(this, timer, true);
     }
 
     public int getHubLevel() {
-        int placementLevel;
-        switch (VisionConfig.finalMarkerLocation) {
-            case LEFT:
-                placementLevel = 1;
-                break;
-            case MIDDLE:
-                placementLevel = 2;
-                break;
-            case RIGHT:
-                placementLevel = 3;
-                break;
-            default:
-                placementLevel = -1;
-                break;
-        }
-        return placementLevel;
+//        int placementLevel;
+//        switch (finalMarkerLocation) {
+//            case LEFT:
+//                placementLevel = 1;
+//                break;
+//            case MIDDLE:
+//                placementLevel = 2;
+//                break;
+//            case RIGHT:
+//                placementLevel = 3;
+//                break;
+//            default:
+//                placementLevel = -1;
+//                break;
+//        }
+//        return placementLevel;
+        return -1;
     }
 
     @Override
