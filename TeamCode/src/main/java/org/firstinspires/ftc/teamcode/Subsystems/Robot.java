@@ -37,7 +37,7 @@ public class Robot extends Subsystem {
     public DcMotorEx rearLeftDriveMotor;
     public DcMotorEx intake;
     public DcMotorEx bucket;
-    public DcMotorEx duckWhl;
+    public DcMotorEx duckWheel;
 
     //Servos
 
@@ -191,13 +191,13 @@ public class Robot extends Subsystem {
 //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         bucket.setPower(0.0);
 
-        duckWhl = (DcMotorEx) hardwareMap.dcMotor.get("duckWhl");
-        duckWhl.setDirection(DcMotorSimple.Direction.REVERSE);
-        duckWhl.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        duckWhl.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        duckWhl.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        duckWheel = (DcMotorEx) hardwareMap.dcMotor.get("duckWheel");
+        duckWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+        duckWheel.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        duckWheel.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        duckWheel.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        duckWhl.setPower(0.0);
+        duckWheel.setPower(0.0);
 
         //Servos
 
@@ -233,7 +233,7 @@ public class Robot extends Subsystem {
 
 //        control = new Control(intake, launch1, launch2, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
 //        control = new Control(intake, launch1, launch2a, launch2b, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
-        control = new Control(intake, bucket, duckWhl, imu, opMode, timer);
+        control = new Control(intake, bucket, duckWheel, imu, opMode, timer);
 
 
         opMode.telemetry.addData("Mode", " vision initializing...");
