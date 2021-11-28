@@ -20,6 +20,7 @@ public class Teleop extends LinearOpMode {
 
     private double robotAngle;
     private boolean isIntakeOn = false;
+    private boolean isDuckOn = false;
     private boolean isBucketMoving = false;
 
     private void initOpMode() {
@@ -121,11 +122,13 @@ public class Teleop extends LinearOpMode {
             }
 
             //Toggle duck wheel on/off
-            if (robot.xButton) {
-                if(!robot.isxButtonPressedPrev) {
-                    robot.control.duckWhlControl(true);
+            if (robot.xButton && !robot.isxButtonPressedPrev) {
+                if (isDuckOn) {
+                    robot.control.toggleDuckWheel(false);
+                    isDuckOn = false;
                 } else {
-                    robot.control.duckWhlControl(false);
+                    robot.control.toggleDuckWheel(true);
+                    isDuckOn = true;
                 }
             }
         }
