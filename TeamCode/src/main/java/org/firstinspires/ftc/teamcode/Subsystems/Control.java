@@ -20,20 +20,20 @@ public class Control extends Subsystem {
     //DC Motors
     private DcMotorEx intake;
     private DcMotorEx bucket;
-    private DcMotorEx duckWhl;
+    private DcMotorEx duckWheel;
 
     //Servos
 
     //Sensors
     private BNO055IMU imu;
 
-    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx duckWhl, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
+    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx duckWheel, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
 
         // store device information locally
 
         this.intake = intake;
         this.bucket = bucket;
-        this.duckWhl = duckWhl;
+        this.duckWheel = duckWheel;
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
         this.imu = imu;
@@ -47,11 +47,11 @@ public class Control extends Subsystem {
     private void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior mode) {
         intake.setZeroPowerBehavior(mode);
         bucket.setZeroPowerBehavior(mode);
-        duckWhl.setZeroPowerBehavior(mode);
+        duckWheel.setZeroPowerBehavior(mode);
     }
 
     public void setIntakeDirection(boolean status, boolean direction) {      // simplified so only one method is needed for intake. status is true/false for on/off,
-        int power = status ? 1 : 0;                                          // direction is true/false for forward/reverse respectively.
+        double power = status ? 0.5 : 0;                                          // direction is true/false for forward/reverse respectively.
 
         if(direction) {
             intake.setPower(power);
@@ -71,7 +71,7 @@ public class Control extends Subsystem {
     }
 
     public void toggleDuckWheel(boolean status) {      // simplified so only one method is needed for intake. status is true/false for on/off,
-        intake.setPower(status ? 1 : 0);
+        duckWheel.setPower(status ? 0.5 : 0);
     }
 
 }
