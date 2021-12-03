@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
+import java.io.IOException;
+
 
 /**
  * Auto creates a robots and runs it in auto mode. This auto class is for when we are
@@ -31,7 +33,11 @@ public class AutoRed extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
-        init(AllianceColor.RED);
+        try {
+            init(AllianceColor.RED);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         int placementLevel = getHubLevel();
     }

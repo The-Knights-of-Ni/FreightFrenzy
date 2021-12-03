@@ -32,15 +32,12 @@ public class Auto extends LinearOpMode {
      *
      * @param allianceColor The alliance color
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+     * @return
      */
 
-    public Robot init(AllianceColor allianceColor) {
+    public Robot init(AllianceColor allianceColor) throws IOException {
         ElapsedTime timer = new ElapsedTime();
-        try {
-            return new Robot(this, timer, true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return new Robot(this, timer, true);
     }
 
     public int getHubLevel() {
