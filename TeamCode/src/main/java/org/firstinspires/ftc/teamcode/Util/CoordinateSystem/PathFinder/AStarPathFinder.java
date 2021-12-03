@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AStarPathFinder {
+public class AStarPathFinder implements PathFinder {
     private final List<Node> open;
     private final List<Node> closed;
     private final Path path;

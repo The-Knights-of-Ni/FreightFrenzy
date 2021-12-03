@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 @Autonomous(name = "Auto Red", group = "Concept")
 public class AutoRed extends Auto {
     /**
-     * Override of runOpMode()
+     * Override of {@link Auto#runOpMode()}
      *
      * <p>Please do not swallow the InterruptedException, as it is used in cases
      * where the op mode needs to be terminated early.</p>
