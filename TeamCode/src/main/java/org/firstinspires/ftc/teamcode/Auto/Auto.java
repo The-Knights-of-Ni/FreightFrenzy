@@ -40,24 +40,23 @@ public class Auto extends LinearOpMode {
         return new Robot(this, timer, true);
     }
 
-    public int getHubLevel() {
-//        int placementLevel;
-//        switch (finalMarkerLocation) {
-//            case LEFT:
-//                placementLevel = 1;
-//                break;
-//            case MIDDLE:
-//                placementLevel = 2;
-//                break;
-//            case RIGHT:
-//                placementLevel = 3;
-//                break;
-//            default:
-//                placementLevel = -1;
-//                break;
-//        }
-//        return placementLevel;
-        return -1;
+    public int getHubLevel(Robot robot) {
+        int placementLevel;
+        switch (robot.vision.DetectMarkerRun()) {
+            case LEFT:
+                placementLevel = 1;
+                break;
+            case MIDDLE:
+                placementLevel = 2;
+                break;
+            case RIGHT:
+                placementLevel = 3;
+                break;
+            default:
+                placementLevel = -1;
+                break;
+        }
+        return placementLevel;
     }
 
     @Override
