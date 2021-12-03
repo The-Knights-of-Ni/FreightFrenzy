@@ -42,7 +42,7 @@ public class Auto extends LinearOpMode {
 
     public int getHubLevel(Robot robot) {
         int placementLevel;
-        switch (robot.vision.DetectMarkerRun()) {
+        switch (robot.vision.detectMarkerRun()) {
             case LEFT:
                 placementLevel = 1;
                 break;
