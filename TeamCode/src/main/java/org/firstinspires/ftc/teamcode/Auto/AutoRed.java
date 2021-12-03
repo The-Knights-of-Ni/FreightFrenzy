@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -33,12 +34,13 @@ public class AutoRed extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
+        Robot robot = null;
         try {
-            init(AllianceColor.RED);
+            robot = init(AllianceColor.RED);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        int placementLevel = getHubLevel();
+        int placementLevel = getHubLevel(robot.vision);
     }
 }

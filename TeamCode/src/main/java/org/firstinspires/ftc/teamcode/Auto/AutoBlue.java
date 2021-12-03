@@ -34,12 +34,13 @@ public class AutoBlue extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
+        Robot robot = null;
         try {
-            Robot robot = init(AllianceColor.BLUE);
+            robot = init(AllianceColor.BLUE);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        int placementLevel = getHubLevel();
+        int placementLevel = getHubLevel(robot.vision);
     }
 }
