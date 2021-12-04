@@ -14,9 +14,7 @@ import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.teamcode.Enhancement.Config.VisionConfig;
-import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline;
-import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline.MarkerLocation;
+import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -25,7 +23,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 /**
  * The Vision Subsystem
  *
- * @see org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline
+ * @see org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline
  * @see <a href="https://github.com/OpenFTC/EasyOpenCV">EasyOpenCV</a>
  */
 
@@ -36,7 +34,8 @@ public class Vision extends Subsystem {
 
     public static final String WEBCAM_NAME = "Webcam 1"; // insert webcam name from configuration if using webcam
     public static final String VUFORIA_KEY = "ATDGULf/////AAABmRRGSyLSbUY4lPoqBYjklpYqC4y9J7bCk42kjgYS5KtgpKL8FbpEDQTovzZG8thxB01dClvthxkSuSyCkaZi+JiD5Pu0cMVre3gDwRvwRXA7V9kpoYyMIPMVX/yBTGaW8McUaK9UeQUaFSepsTcKjX/itMtcy7nl1k84JChE4i8whbinHWDpaNwb5qcJsXlQwJhE8JE7t8NMxMm31AgzqjVf/7HwprTRfrxjTjVx5v2rp+wgLeeLTE/xk1JnL3fZMG6yyxPHgokWlIYEBZ5gBX+WJfgA+TDsdSPY/MnBp5Z7QxQsO9WJA59o/UzyEo/9BkbvYJZfknZqeoZWrJoN9jk9sivFh0wIPsH+JjZNFsPw"; // TODO: Get new VUFORIA KEY
-    public static MarkerLocation finalMarkerLocation = MarkerLocation.SEARCHING;
+    public DetectMarkerPipeline.MarkerLocation finalMarkerLocation = DetectMarkerPipeline.MarkerLocation.SEARCHING;
+    public AllianceColor allianceColor;
     // Since ImageTarget trackable use mm to specify their dimensions, we must use mm for all the physical dimension.
     // Define constants
     private static final float mmPerInch = 25.4f;
@@ -65,7 +64,7 @@ public class Vision extends Subsystem {
     // Move stuff
     HardwareMap hardwareMap;
     OpenCvInternalCamera robotCamera;
-    MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
+    DetectMarkerPipeline.MarkerLocation markerLocation = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
     Telemetry telemetry;
 
     /**
@@ -76,7 +75,7 @@ public class Vision extends Subsystem {
      * @param timer       how much time elapsed
      * @throws InterruptedException It might happen because the thread is interrupted.
      */
-    public Vision(Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer) {
+    public Vision(Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer, AllianceColor allianceColor) {
         super(telemetry, hardwareMap, timer);
 
         telemetry.addData("Vision Status", "Vision initializing started");
@@ -109,7 +108,7 @@ public class Vision extends Subsystem {
         this.hardwareMap = hardwareMap;
         this.robotCamera = robotCamera;
         this.telemetry = telemetry;
-        VisionConfig.finalMarkerLocation = detectMarkerRun();
+        this.allianceColor = allianceColor;
     }
 
     private void initVuforia() {
@@ -137,10 +136,9 @@ public class Vision extends Subsystem {
      * location. It waits until the marker is found, then it returns the marker location.
      *
      * @return Where the marker is
-     * @see org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline#getMarkerLocation()
      */
-    public MarkerLocation detectMarkerRun() {
-        org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline detectMarkerPipeline = new DetectMarkerPipeline(telemetry);
+    public DetectMarkerPipeline.MarkerLocation detectMarkerRun() {
+        DetectMarkerPipeline detectMarkerPipeline = new DetectMarkerPipeline(telemetry, allianceColor);
         robotCamera.setPipeline(detectMarkerPipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
@@ -156,10 +154,10 @@ public class Vision extends Subsystem {
 
             @Override
             public void onError(int errorCode) {
-                markerLocation = MarkerLocation.NOT_FOUND;
+                markerLocation = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
             }
         });
-        if (!(markerLocation == MarkerLocation.NOT_FOUND)) {
+        if (!(markerLocation == DetectMarkerPipeline.MarkerLocation.NOT_FOUND)) {
             markerLocation = detectMarkerPipeline.getMarkerLocation();
         }
         return markerLocation;

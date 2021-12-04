@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -231,7 +231,7 @@ public class Robot {
 
         opMode.telemetry.addData("Mode", " vision initializing...");
         opMode.telemetry.update();
-        // vision = new Vision(hardwareMap, allianceColor);
+        vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
     }
 
     /* public void initVisionTest() {

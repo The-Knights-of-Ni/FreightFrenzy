@@ -97,6 +97,7 @@ public class Drive extends Subsystem {
     private long startTime;
 
     public Drive(DcMotorEx frontLeft, DcMotorEx frontRight, DcMotorEx rearLeft, DcMotorEx rearRight, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
+        super(opMode.telemetry, opMode.hardwareMap, timer);
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.rearLeft = rearLeft;
