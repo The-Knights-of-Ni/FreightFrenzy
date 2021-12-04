@@ -75,4 +75,10 @@ public class Control extends Subsystem {
         duckWheel.setPower(status ? 0.5 : 0);
     }
 
+    public void removeDuck() {
+        duckWhlControl(true);
+        this.opMode.sleep(3000);
+        duckWhlControl(false);
+    }
+
 }

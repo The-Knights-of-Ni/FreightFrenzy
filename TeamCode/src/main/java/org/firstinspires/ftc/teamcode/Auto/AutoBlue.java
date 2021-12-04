@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -40,7 +40,17 @@ public class AutoBlue extends Auto {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        PlacementLevel placementLevel = getHubLevel(robot);
 
-        int placementLevel = getHubLevel(robot.vision);
+        if (placementLevel != PlacementLevel.NOT_FOUND) {
+            robot.drive.moveRight_odometry(24);
+            robot.control.removeDuck();
+            robot.drive.moveForward_odometry(84);
+            robot.drive.moveLeft_odometry(60);
+            // robot.control.placeFreight(placementLevel);
+            robot.drive.moveLeft_odometry(36);
+            robot.drive.moveBackward_odometry(42);
+            robot.drive.moveLeft_odometry(36);
+        }
     }
 }

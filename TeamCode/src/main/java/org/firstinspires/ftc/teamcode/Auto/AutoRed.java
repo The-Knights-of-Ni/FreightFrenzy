@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -34,13 +34,19 @@ public class AutoRed extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
-        Robot robot = null;
-        try {
-            robot = init(AllianceColor.RED);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Robot robot = init(AllianceColor.RED);
 
-        int placementLevel = getHubLevel(robot.vision);
+        PlacementLevel placementLevel = getHubLevel(robot);
+
+        if (placementLevel != PlacementLevel.NOT_FOUND) {
+            robot.drive.moveLeft_odometry(24);
+            robot.control.removeDuck();
+            robot.drive.moveForward_odometry(84);
+            robot.drive.moveRight_odometry(60);
+            // robot.control.placeFreight(placementLevel);
+            robot.drive.moveRight_odometry(36);
+            robot.drive.moveBackward_odometry(42);
+            robot.drive.moveRight_odometry(36);
+        }
     }
 }

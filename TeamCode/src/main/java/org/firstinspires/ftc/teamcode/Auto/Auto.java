@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Subsystems.Vision;
+import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -41,20 +40,20 @@ public class Auto extends LinearOpMode {
         return new Robot(this, timer, allianceColor);
     }
 
-    public int getHubLevel(Vision vision) {
-        int placementLevel;
-        switch (vision.detectMarkerRun()) {
+    public PlacementLevel getHubLevel(Robot robot) {
+        PlacementLevel placementLevel;
+        switch (robot.vision.getMarkerLocation()) {
             case LEFT:
-                placementLevel = 1;
+                placementLevel = PlacementLevel.BOTTOM;
                 break;
             case MIDDLE:
-                placementLevel = 2;
+                placementLevel = PlacementLevel.MIDDLE;
                 break;
             case RIGHT:
-                placementLevel = 3;
+                placementLevel = PlacementLevel.TOP;
                 break;
             default:
-                placementLevel = -1;
+                placementLevel = PlacementLevel.NOT_FOUND;
                 break;
         }
         return placementLevel;
