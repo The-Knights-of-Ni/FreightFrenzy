@@ -122,7 +122,6 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-            //Toggle duck wheel on/off
             if (robot.xButton && !robot.isxButtonPressedPrev) {
                 if (isDuckOn) {
                     robot.control.toggleDuckWheel(false);
