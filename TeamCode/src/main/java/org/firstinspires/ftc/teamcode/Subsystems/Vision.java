@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
@@ -67,7 +68,7 @@ public class Vision extends Subsystem {
     HardwareMap hardwareMap;
     OpenCvInternalCamera robotCamera;
     MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
-    QuickTelemetry quickTelemetry;
+    Telemetry telemetry;
 
     /**
      * Class instantiation
@@ -77,19 +78,23 @@ public class Vision extends Subsystem {
      * @param timer       how much time elapsed
      * @throws InterruptedException It might happen because the thread is interrupted.
      */
-    public Vision(QuickTelemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer) {
+    public Vision(Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer) {
         super(telemetry, hardwareMap, timer);
 
-        telemetry.telemetry(3, "Vision Status", "Vision initializing started");
+        telemetry.addData("Vision Status", "Vision initializing started");
+        telemetry.update();
 
         webcamName = hardwareMap.get(WebcamName.class, WEBCAM_NAME);
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         viewportContainerIds = OpenCvCameraFactory.getInstance().splitLayoutForMultipleViewports(cameraMonitorViewId, 2, OpenCvCameraFactory.ViewportSplitMethod.HORIZONTALLY);
 
 
-        telemetry.telemetry(3, "init Vuforia", "init Vuforia started");
+        telemetry.addData("init Vuforia", "init Vuforia started");
+        telemetry.update();
+
         initVuforia();
-        telemetry.telemetry(2, "init Vuforia", "init Vuforia completed");
+        telemetry.addData("init Vuforia", "init Vuforia completed");
+        telemetry.update();
 
         OpenCvInternalCamera robotCamera;
 
@@ -105,7 +110,7 @@ public class Vision extends Subsystem {
         // Detect marker stuff
         this.hardwareMap = hardwareMap;
         this.robotCamera = robotCamera;
-        this.quickTelemetry = quickTelemetry.newQuickTelemetryFile("Detect Marker Pipeline");
+        this.telemetry = telemetry;
         VisionConfig.finalMarkerLocation = detectMarkerRun();
     }
 
@@ -137,7 +142,7 @@ public class Vision extends Subsystem {
      * @see org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline#getMarkerLocation()
      */
     public MarkerLocation detectMarkerRun() {
-        org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline detectMarkerPipeline = new DetectMarkerPipeline(quickTelemetry);
+        org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline detectMarkerPipeline = new DetectMarkerPipeline(telemetry);
         robotCamera.setPipeline(detectMarkerPipeline);
 
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg

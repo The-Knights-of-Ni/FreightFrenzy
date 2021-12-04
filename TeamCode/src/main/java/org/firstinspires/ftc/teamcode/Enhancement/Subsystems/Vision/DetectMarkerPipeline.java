@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Enhancement.Config.MainConfig;
 import org.firstinspires.ftc.teamcode.Enhancement.Robot;
 import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.Vision;
@@ -39,20 +40,20 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
             new Point(150, 35),
             new Point(200, 75));
     private final double PERCENT_COLOR_THRESHOLD = 0.4;
-    QuickTelemetry telemetry;
+    Telemetry telemetry;
     Mat mask = new Mat();
     private MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
 
     /**
      * Class instantiation
      *
-     * @param quickTelemetry used for {@link QuickTelemetry}
+     * @param telemetry used for {@link Telemetry}
      * @see Robot
-     * @see QuickTelemetry
+     * @see Telemetry
      * @see AllianceColor
      */
-    public DetectMarkerPipeline(QuickTelemetry quickTelemetry) {
-        this.telemetry = quickTelemetry;
+    public DetectMarkerPipeline(Telemetry telemetry) {
+        this.telemetry = telemetry;
     }
 
     /**
@@ -95,13 +96,14 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         middle.release();
         right.release();
 
-        telemetry.telemetry("Left raw value", ((Integer) ((int) Core.sumElems(left).val[0])).toString());
-        telemetry.telemetry("Middle raw value", ((Integer) ((int) Core.sumElems(middle).val[0])).toString());
-        telemetry.telemetry("Right raw value", ((Integer) ((int) Core.sumElems(right).val[0])).toString());
+        telemetry.addData("Left raw value", ((Integer) ((int) Core.sumElems(left).val[0])).toString());
+        telemetry.addData("Middle raw value", ((Integer) ((int) Core.sumElems(middle).val[0])).toString());
+        telemetry.addData("Right raw value", ((Integer) ((int) Core.sumElems(right).val[0])).toString());
 
-        telemetry.telemetry("Left percentage", Math.round(leftValue * 100) + "%");
-        telemetry.telemetry("Middle percentage", Math.round(leftValue * 100) + "%");
-        telemetry.telemetry("Right percentage", Math.round(rightValue * 100) + "%");
+        telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
+        telemetry.addData("Middle percentage", Math.round(leftValue * 100) + "%");
+        telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
+        telemetry.update();
 
         boolean markerLeft = leftValue > PERCENT_COLOR_THRESHOLD;
         boolean markerMiddle = middleValue > PERCENT_COLOR_THRESHOLD;
@@ -110,17 +112,18 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
 
         if (markerLeft) {
             markerLocation = MarkerLocation.LEFT;
-            telemetry.telemetry("Marker Location", "right");
+            telemetry.addData("Marker Location", "right");
         } else if (markerMiddle) {
             markerLocation = MarkerLocation.MIDDLE;
-            telemetry.telemetry("Marker Location", "middle");
+            telemetry.addData("Marker Location", "middle");
         } else if (markerRight) {
             markerLocation = MarkerLocation.RIGHT;
-            telemetry.telemetry("Marker Location", "left");
+            telemetry.addData("Marker Location", "left");
         } else {
             markerLocation = MarkerLocation.NOT_FOUND;
-            telemetry.telemetry("Marker Location", "not found");
+            telemetry.addData("Marker Location", "not found");
         }
+        telemetry.update();
 
         Imgproc.cvtColor(mask, mask, Imgproc.COLOR_GRAY2RGB); // TODO: Change COLOR_GRAY2RGB to something more useful.
 

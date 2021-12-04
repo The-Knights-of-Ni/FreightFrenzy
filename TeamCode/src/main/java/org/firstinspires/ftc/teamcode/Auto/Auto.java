@@ -38,7 +38,7 @@ public class Auto extends LinearOpMode {
 
     public Robot init(AllianceColor allianceColor) throws IOException {
         ElapsedTime timer = new ElapsedTime();
-        return new Robot(this, timer, true);
+        return new Robot(this, timer, allianceColor);
     }
 
     public int getHubLevel(Vision vision) {
