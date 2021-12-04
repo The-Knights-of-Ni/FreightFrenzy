@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -67,6 +68,10 @@ public class Teleop extends LinearOpMode {
 
         while (opModeIsActive()) { // clearer nomenclature for variables
             robot.getGamePadInputs();
+
+            DetectMarkerPipeline.MarkerLocation where = robot.vision.detectMarkerRun();
+            telemetry.addData("Marker Location", "", where);
+            telemetry.update();
 
             timeCurrent = timer.nanoseconds();
             deltaT = timeCurrent - timePre;
@@ -132,8 +137,6 @@ public class Teleop extends LinearOpMode {
                     isDuckOn = true;
                 }
             }
-            telemetry.addData("Duck Wheel speed", robot.duckWheel.getVelocity(AngleUnit.DEGREES) / 6);
-            telemetry.update();
         }
     }
 }
