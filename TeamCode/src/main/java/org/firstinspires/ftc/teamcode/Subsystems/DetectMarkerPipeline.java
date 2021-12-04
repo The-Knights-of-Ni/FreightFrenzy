@@ -2,9 +2,7 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Util.AllianceColor;
-import org.firstinspires.ftc.teamcode.Util.QuickTelemetry;
-import org.opencv.core.Core;
+import org.firstinspires.ftc.teamcode.Util.AllianceColor;import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
