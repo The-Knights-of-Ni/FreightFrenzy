@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -20,14 +21,14 @@ public class Control extends Subsystem {
     //DC Motors
     private DcMotorEx intake;
     private DcMotorEx bucket;
-    private DcMotorEx duckWheel;
+    private Servo duckWheel;
 
     //Servos
 
     //Sensors
     private BNO055IMU imu;
 
-    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx duckWheel, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
+    public Control(DcMotorEx intake, DcMotorEx bucket, Servo duckWheel, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
         super(opMode.telemetry, opMode.hardwareMap, timer);
 
         // store device information locally
@@ -48,7 +49,15 @@ public class Control extends Subsystem {
     private void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior mode) {
         intake.setZeroPowerBehavior(mode);
         bucket.setZeroPowerBehavior(mode);
-        duckWheel.setZeroPowerBehavior(mode);
+    }
+
+    public void setServoRotation(boolean direction, Servo servo) {
+        if(direction) {servo.setDirection(Servo.Direction.FORWARD);} else {servo.setDirection(Servo.Direction.REVERSE);}
+        double servoPos = 0;
+        while(servoPos >= 0 && servoPos <= 1) {
+            servo.setPosition(servoPos);
+            servoPos += 0.001;
+        }
     }
 
     public void setIntakeDirection(boolean status, boolean direction) {      // simplified so only one method is needed for intake. status is true/false for on/off,
@@ -72,7 +81,7 @@ public class Control extends Subsystem {
     }
 
     public void toggleDuckWheel(boolean status) {      // simplified so only one method is needed for intake. status is true/false for on/off,
-        duckWheel.setPower(status ? 0.5 : 0);
+        setServoRotation(true, duckWheel);
     }
 
 }
