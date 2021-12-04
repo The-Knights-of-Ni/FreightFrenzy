@@ -70,6 +70,8 @@ public class Control extends Subsystem {
         }
     }
 
-    public void duckWheelControl(boolean status) { duckWheel.setPower(status ? 0.5 : 0); } // Status true for on, false for off.
+    public void toggleDuckWheel(boolean status) {      // simplified so only one method is needed for intake. status is true/false for on/off,
+        duckWheel.setPower(status ? 0.5 : 0);
+    }
 
 }

@@ -106,7 +106,7 @@ public class Vision extends Subsystem {
         this.hardwareMap = hardwareMap;
         this.robotCamera = robotCamera;
         this.quickTelemetry = quickTelemetry.newQuickTelemetryFile("Detect Marker Pipeline");
-        VisionConfig.finalMarkerLocation = DetectMarkerRun();
+        VisionConfig.finalMarkerLocation = detectMarkerRun();
     }
 
     private void initVuforia() {
@@ -136,7 +136,7 @@ public class Vision extends Subsystem {
      * @return Where the marker is
      * @see org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline#getMarkerLocation()
      */
-    public MarkerLocation DetectMarkerRun() {
+    public MarkerLocation detectMarkerRun() {
         org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Vision.DetectMarkerPipeline detectMarkerPipeline = new DetectMarkerPipeline(quickTelemetry);
         robotCamera.setPipeline(detectMarkerPipeline);
 

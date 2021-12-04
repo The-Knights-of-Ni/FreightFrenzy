@@ -3,10 +3,11 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Enhancement.Config.MainConfig;
-import org.firstinspires.ftc.teamcode.Enhancement.Config.VisionConfig;
-import org.firstinspires.ftc.teamcode.Enhancement.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Vision;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
+
+import java.io.IOException;
 
 
 /**
@@ -32,31 +33,31 @@ public class Auto extends LinearOpMode {
      *
      * @param allianceColor The alliance color
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+     * @return
      */
 
-    public Robot init(AllianceColor allianceColor) {
+    public Robot init(AllianceColor allianceColor) throws IOException {
         ElapsedTime timer = new ElapsedTime();
         return new Robot(this, timer, true);
     }
 
-    public int getHubLevel() {
-//        int placementLevel;
-//        switch (finalMarkerLocation) {
-//            case LEFT:
-//                placementLevel = 1;
-//                break;
-//            case MIDDLE:
-//                placementLevel = 2;
-//                break;
-//            case RIGHT:
-//                placementLevel = 3;
-//                break;
-//            default:
-//                placementLevel = -1;
-//                break;
-//        }
-//        return placementLevel;
-        return -1;
+    public int getHubLevel(Vision vision) {
+        int placementLevel;
+        switch (vision.detectMarkerRun()) {
+            case LEFT:
+                placementLevel = 1;
+                break;
+            case MIDDLE:
+                placementLevel = 2;
+                break;
+            case RIGHT:
+                placementLevel = 3;
+                break;
+            default:
+                placementLevel = -1;
+                break;
+        }
+        return placementLevel;
     }
 
     @Override

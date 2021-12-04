@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class Teleop extends LinearOpMode {
 
     private double robotAngle;
     private boolean isIntakeOn = false;
+    private boolean isDuckOn = false;
     private boolean isBucketMoving = false;
 
     private void initOpMode() {
@@ -120,14 +122,17 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-            //Toggle duck wheel on/off
-            if (robot.xButton) {
-                if(!robot.isxButtonPressedPrev) {
-                    robot.control.duckWheelControl(true);
+            if (robot.xButton && !robot.isxButtonPressedPrev) {
+                if (isDuckOn) {
+                    robot.control.toggleDuckWheel(false);
+                    isDuckOn = false;
                 } else {
-                    robot.control.duckWheelControl(false);
+                    robot.control.toggleDuckWheel(true);
+                    isDuckOn = true;
                 }
             }
+            telemetry.addData("Duck Wheel speed", robot.duckWheel.getVelocity(AngleUnit.DEGREES) / 6);
+            telemetry.update();
         }
     }
 }
