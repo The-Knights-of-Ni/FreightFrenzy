@@ -57,7 +57,7 @@ public class Control extends Subsystem {
         while(true) {
             servo.setPosition(servoPos);
             if(direction) {servoPos += 0.001;} else {servoPos -= 0.001;}
-            //sleep(interval) TODO: calibrate speed at which the servo rotates by setting this interval.
+            //opMode.sleep() TODO: calibrate speed at which the servo rotates by setting this interval.
         }
     }
 
