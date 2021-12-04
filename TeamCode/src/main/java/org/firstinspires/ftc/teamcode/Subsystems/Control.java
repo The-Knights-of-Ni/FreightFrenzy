@@ -28,6 +28,7 @@ public class Control extends Subsystem {
     private BNO055IMU imu;
 
     public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx duckWheel, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
+        super(opMode.telemetry, opMode.hardwareMap, timer);
 
         // store device information locally
 

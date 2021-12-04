@@ -4,16 +4,16 @@ package org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Control;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Subsystem;
-import org.firstinspires.ftc.teamcode.Util.QuickTelemetry;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
 
 public class Control extends Subsystem {
     DcMotorEx intake;
 
-    public Control(QuickTelemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer, DcMotorEx intake) {
+    public Control(Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer, DcMotorEx intake) {
         super(telemetry, hardwareMap, timer);
         this.intake = intake;
-        telemetry.telemetry(2, "Control initialized", "Control initialized");
+        telemetry.addData("Control initialized", "Control initialized");
     }
 
     public void setIntakeDirection(boolean status) {      // simplified so only one method is needed for intake.

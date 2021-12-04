@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.teamcode.Enhancement.Config.DriveConfig;
 import org.firstinspires.ftc.teamcode.Enhancement.Robot;
-import org.firstinspires.ftc.teamcode.Enhancement.Subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.Util.QuickTelemetry;
 
 import java.util.List;
@@ -249,7 +249,8 @@ public class Drive extends Subsystem {
 //                - Math.sin(robotCurrentAngle*Math.PI/180.0));
         robotCurrentAngle += degrees;
         // Display it for the driver.
-        telemetry.telemetry(4, "turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
+        telemetry.addData("turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
+        telemetry.update();
     }
 
     public double getYaw() {
