@@ -70,8 +70,8 @@ public class Teleop extends LinearOpMode {
             robot.getGamePadInputs();
 
             DetectMarkerPipeline.MarkerLocation where = robot.vision.detectMarkerRun();
-            telemetry.addData("Marker Location", "", where);
-            telemetry.update();
+            // telemetry.addData("Marker Location", "", where);
+            // telemetry.update();
 
             timeCurrent = timer.nanoseconds();
             deltaT = timeCurrent - timePre;
