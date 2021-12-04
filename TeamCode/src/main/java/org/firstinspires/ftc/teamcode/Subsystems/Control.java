@@ -54,9 +54,10 @@ public class Control extends Subsystem {
     public void setServoRotation(boolean direction, Servo servo) {
         if(direction) {servo.setDirection(Servo.Direction.FORWARD);} else {servo.setDirection(Servo.Direction.REVERSE);}
         double servoPos = 0;
-        while(servoPos >= 0 && servoPos <= 1) {
+        while(true) {
             servo.setPosition(servoPos);
-            servoPos += 0.001;
+            if(direction) {servoPos += 0.001;} else {servoPos -= 0.001;}
+            //sleep(interval) TODO: calibrate speed at which the servo rotates by setting this interval.
         }
     }
 
