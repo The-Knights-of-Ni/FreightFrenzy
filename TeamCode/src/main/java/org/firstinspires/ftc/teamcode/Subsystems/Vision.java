@@ -95,7 +95,7 @@ public class Vision extends Subsystem {
 
         OpenCvInternalCamera robotCamera;
 
-        robotCamera = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
+        robotCamera = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId); // TODO: This is the problematic line in Vision.java
 /*
         telemetry.telemetry(4, "Detect Marker", "Detecting Marker");
         DetectMarker detectMarkerRunnable = new DetectMarker(hardwareMap, robotCamera, telemetry);
