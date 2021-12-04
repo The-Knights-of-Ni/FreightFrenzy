@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
+import java.io.IOException;
+
 
 /**
  * Auto creates a robots and runs it in auto mode.
@@ -30,11 +32,12 @@ public class Auto extends LinearOpMode {
      *
      * @param allianceColor The alliance color
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+     * @return
      */
 
-    public Robot init(AllianceColor allianceColor) {
+    public Robot init(AllianceColor allianceColor) throws IOException {
         ElapsedTime timer = new ElapsedTime();
-        return new Robot(this, timer, true);
+        return new Robot(this, timer, allianceColor);
     }
 
     public PlacementLevel getHubLevel(Robot robot) {

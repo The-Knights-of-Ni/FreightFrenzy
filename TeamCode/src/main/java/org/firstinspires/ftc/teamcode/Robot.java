@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -15,16 +15,14 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision;
+import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by AndrewC on 12/27/2019.
- */
 
-public class Robot extends Subsystem {
-    private boolean isBlue;
+public class Robot {
+    private AllianceColor allianceColor;
     public String name;
     private HardwareMap hardwareMap;
     private LinearOpMode opMode;
@@ -37,7 +35,7 @@ public class Robot extends Subsystem {
     public DcMotorEx rearLeftDriveMotor;
     public DcMotorEx intake;
     public DcMotorEx bucket;
-    public DcMotorEx duckWhl;
+    public DcMotorEx duckWheel;
 
     //Servos
 
@@ -139,22 +137,18 @@ public class Robot extends Subsystem {
      *
      * @param opMode
      * @param timer
-     * @param isBlue
+     * @param allianceColor the alliance color
      *          o: no camera is initialized
      *          1: only armWebcam is initialized for OpenCV
      *          2: backWebcam is initialized for Vuforia
      *          3: backWebcam is initialized for Vuforia and frontWebcam is initialized for OpenCV
      *          4: armWebcam is initialized for OpenCV and frontWebcam is initialized for OpenCV
      */
-    public Robot(LinearOpMode opMode, ElapsedTime timer, boolean isBlue) throws IOException {
+    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) throws IOException {
         hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;
-        if(isBlue) {
-            this.isBlue = true;
-        } else {
-            this.isBlue = false;
-        }
+        this.allianceColor = allianceColor;
         init();
     }
 
@@ -191,21 +185,21 @@ public class Robot extends Subsystem {
 //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         bucket.setPower(0.0);
 
-        duckWhl = (DcMotorEx) hardwareMap.dcMotor.get("duckWhl");
-        duckWhl.setDirection(DcMotorSimple.Direction.REVERSE);
-        duckWhl.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        duckWhl.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        duckWhl.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        duckWheel = (DcMotorEx) hardwareMap.dcMotor.get("duckWheel");
+        duckWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+        duckWheel.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        duckWheel.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        duckWheel.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        duckWhl.setPower(0.0);
+        duckWheel.setPower(0.0);
 
         //Servos
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
         parameters.loggingEnabled      = true;
         parameters.loggingTag          = "IMU";
@@ -217,8 +211,7 @@ public class Robot extends Subsystem {
         opMode.telemetry.addData("Mode", " IMU calibrating...");
         opMode.telemetry.update();
         // make sure the imu gyro is calibrated before continuing.
-        while (opMode.opModeIsActive() && !imu.isGyroCalibrated())
-        {
+        while (opMode.opModeIsActive() && !imu.isGyroCalibrated()) {
             opMode.sleep(50);
             opMode.idle();
         }
@@ -233,13 +226,12 @@ public class Robot extends Subsystem {
 
 //        control = new Control(intake, launch1, launch2, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
 //        control = new Control(intake, launch1, launch2a, launch2b, imu, opMode, timer, wobbleClaw, wobbleGoalArm);
-        control = new Control(intake, bucket, duckWhl, imu, opMode, timer);
+        control = new Control(intake, bucket, duckWheel, imu, opMode, timer);
 
 
         opMode.telemetry.addData("Mode", " vision initializing...");
         opMode.telemetry.update();
-        // TODO: We need QuickTelemetry stuff for vision
-        //vision = new Vision(, hardwareMap, isBlue);
+        vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
     }
 
     /* public void initVisionTest() {

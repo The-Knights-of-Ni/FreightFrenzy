@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Subsystems.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
+import java.io.IOException;
+
 
 /**
  * Auto creates a robots and runs it in auto mode. This auto class is for when we are
@@ -32,8 +34,12 @@ public class AutoBlue extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
-        Robot robot = init(AllianceColor.BLUE);
-
+        Robot robot = null;
+        try {
+            robot = init(AllianceColor.BLUE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         PlacementLevel placementLevel = getHubLevel(robot);
 
         if (placementLevel != PlacementLevel.NOT_FOUND) {
@@ -46,6 +52,5 @@ public class AutoBlue extends Auto {
             robot.drive.moveBackward_odometry(42);
             robot.drive.moveLeft_odometry(36);
         }
-
     }
 }

@@ -97,6 +97,7 @@ public class Drive extends Subsystem {
     private long startTime;
 
     public Drive(DcMotorEx frontLeft, DcMotorEx frontRight, DcMotorEx rearLeft, DcMotorEx rearRight, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
+        super(opMode.telemetry, opMode.hardwareMap, timer);
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.rearLeft = rearLeft;
@@ -1154,16 +1155,14 @@ public class Drive extends Subsystem {
         return targetSpeed;
     }
 
-    public static class Odometry
-    {
+    public static class Odometry {
         TrcPose2D position;
         TrcPose2D velocity;
 
         /**
          * Constructor: Create an instance of the object.
          */
-        Odometry()
-        {
+        Odometry() {
             position = new TrcPose2D();
             velocity = new TrcPose2D();
         }   //Odometry
@@ -1174,8 +1173,7 @@ public class Drive extends Subsystem {
          * @param position specifies the initial position.
          * @param velocity specifies the initial velocity.
          */
-        Odometry(TrcPose2D position, TrcPose2D velocity)
-        {
+        Odometry(TrcPose2D position, TrcPose2D velocity) {
             this.position = position;
             this.velocity = velocity;
         }   //Odometry
@@ -1186,8 +1184,7 @@ public class Drive extends Subsystem {
          * @return string representation of the object.
          */
         @Override
-        public String toString()
-        {
+        public String toString() {
             return "position=" + position.toString() + ", velocity=" + velocity.toString();
         }   //toString
 
@@ -1196,8 +1193,7 @@ public class Drive extends Subsystem {
          *
          * @return a copy of this odometry.
          */
-        public Odometry clone()
-        {
+        public Odometry clone() {
             return new Odometry(position.clone(), velocity.clone());
         }   //clone
 
