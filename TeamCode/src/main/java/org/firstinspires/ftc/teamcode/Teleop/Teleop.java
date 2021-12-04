@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class Teleop extends LinearOpMode {
         //Initialize DC motor objects
         timer = new ElapsedTime();
         try {
-            robot = new Robot(this, timer, true);
+            robot = new Robot(this, timer, AllianceColor.BLUE);
         } catch (IOException e) {
             e.printStackTrace();
         }
