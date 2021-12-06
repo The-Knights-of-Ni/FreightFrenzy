@@ -51,13 +51,16 @@ public class Control extends Subsystem {
         bucket.setZeroPowerBehavior(mode);
     }
 
-    public void setServoRotation(boolean direction, Servo servo) {
-        if(direction) {servo.setDirection(Servo.Direction.FORWARD);} else {servo.setDirection(Servo.Direction.REVERSE);}
+    //made custom servoRotation function because ftc devs are bad at their job.
+    //Usage: the Direction incorporates the Servo class' Direction enum,
+    //the Servo takes a Servo, TPM is how many times the pause should happen, aka the speed setting.
+    public void setServoRotation(Servo.Direction direction, Servo servo, int TPM) {
+        servo.setDirection(direction);
         double servoPos = 0;
         while(opMode.opModeIsActive()) {
             servo.setPosition(servoPos);
-            if(direction) {servoPos += 0.001;} else {servoPos -= 0.001;}
-            //opMode.sleep() TODO: calibrate speed at which the servo rotates by setting this interval.
+            if(direction == Servo.Direction.FORWARD) {servoPos += 0.001;} else {servoPos -= 0.001;}
+            opMode.sleep((long)((60/TPM) * 1000)); //TODO: calibrate speed at which the servo rotates by setting this interval.
         }
     }
 
@@ -82,7 +85,7 @@ public class Control extends Subsystem {
     }
 
     public void toggleDuckWheel(boolean status) {      // simplified so only one method is needed for intake. status is true/false for on/off,
-        setServoRotation(true, duckWheel);
+        setServoRotation(Servo.Direction.FORWARD, duckWheel, 60);
     }
 
 }
