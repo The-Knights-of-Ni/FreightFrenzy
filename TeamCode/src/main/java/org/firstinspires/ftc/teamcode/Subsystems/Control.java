@@ -54,13 +54,21 @@ public class Control extends Subsystem {
     //made custom servoRotation function because ftc devs are bad at their job.
     //Usage: the Direction incorporates the Servo class' Direction enum,
     //the Servo takes a Servo, TPM is how many times the pause should happen, aka the speed setting.
-    public void setServoRotation(Servo.Direction direction, Servo servo, int TPM) {
-        servo.setDirection(direction);
-        double servoPos = 0;
-        while(opMode.opModeIsActive()) {
-            servo.setPosition(servoPos);
-            if(direction == Servo.Direction.FORWARD) {servoPos += 0.001;} else {servoPos -= 0.001;}
-            opMode.sleep((long)((60/TPM) * 1000));
+    public void setServoRotation(boolean status, Servo.Direction direction, Servo servo, int TPM, double res) {
+        if(status) {
+            servo.setDirection(direction);
+            double servoPos = 0;
+            while (opMode.opModeIsActive()) {
+                servo.setPosition(servoPos);
+                if (direction == Servo.Direction.FORWARD) {
+                    servoPos += res;
+                } else {
+                    servoPos -= res;
+                }
+                opMode.sleep((long) ((60 / TPM) * 1000));
+            }
+        } else {
+            servo.setPosition(0);
         }
     }
 
@@ -85,7 +93,7 @@ public class Control extends Subsystem {
     }
 
     public void toggleDuckWheel(boolean status) {      // simplified so only one method is needed for intake. status is true/false for on/off,
-        setServoRotation(Servo.Direction.FORWARD, duckWheel, 60);
+        setServoRotation(true, Servo.Direction.FORWARD, duckWheel, 60, 0.001);
     }
 
 }
