@@ -54,6 +54,7 @@ public class Control extends Subsystem {
     //made custom servoRotation function because ftc devs are bad at their job.
     //Usage: the Direction incorporates the Servo class' Direction enum,
     //the Servo takes a Servo, TPM is how many times the pause should happen, aka the speed setting.
+    //res is short for resolution, so we can determine how smooth or clunky we want the servo's motions to be.
     public void setServoRotation(boolean status, Servo.Direction direction, Servo servo, int TPM, double res) {
         if(status) {
             servo.setDirection(direction);
