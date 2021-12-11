@@ -55,24 +55,11 @@ public class Control extends Subsystem {
     //Usage: the Direction incorporates the Servo class' Direction enum,
     //the Servo takes a Servo, TPM is how many times the pause should happen, aka the speed setting.
     //res is short for resolution, so we can determine how smooth or clunky we want the servo's motions to be.
-    public void setServoRotation(boolean status, boolean direction, ServoEx servoEx) {
-        while(opMode.opModeIsActive()) {
-            if (status) {
-                if(direction) {
-                    servoEx.rotateBy(0.01);
-                } else {
-                    servoEx.rotateBy(-0.01);
-                }
-            } else {
-                servoEx.rotateBy(0);
-            }
-        }
-    }
 
     public void setIntakeDirection(boolean status, boolean direction) {      // simplified so only one method is needed for intake. status is true/false for on/off,
         double power = status ? 0.5 : 0;                                          // direction is true/false for forward/reverse respectively.
 
-        if(direction) {
+        if (direction) {
             intake.setPower(power);
         } else {
             intake.setPower(-power);
@@ -90,7 +77,6 @@ public class Control extends Subsystem {
     }
 
     public void toggleDuckWheel(boolean status) {      // simplified so only one method is needed for intake. status is true/false for on/off,
-        setServoRotation(status, true, duckWheel);
+        if (status) { duckWheel.rotateBy(1); }
     }
-
 }
