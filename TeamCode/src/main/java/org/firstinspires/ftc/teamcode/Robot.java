@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Control;
@@ -35,7 +37,7 @@ public class Robot {
     public DcMotorEx rearLeftDriveMotor;
     public DcMotorEx intake;
     public DcMotorEx bucket;
-    public DcMotorEx duckWheel;
+    public ServoEx duckWheel;
 
     //Servos
 
@@ -184,14 +186,6 @@ public class Robot {
         bucket.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         bucket.setPower(0.0);
-
-        duckWheel = (DcMotorEx) hardwareMap.dcMotor.get("duckWheel");
-        duckWheel.setDirection(DcMotorSimple.Direction.REVERSE);
-        duckWheel.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        duckWheel.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        duckWheel.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-//        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        duckWheel.setPower(0.0);
 
         //Servos
 
