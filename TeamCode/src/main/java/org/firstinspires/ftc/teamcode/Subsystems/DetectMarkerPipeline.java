@@ -25,8 +25,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         LEFT,
         MIDDLE,
         RIGHT,
-        NOT_FOUND,
-        SEARCHING
+        NOT_FOUND
     }
 
     private final AllianceColor allianceColor;
