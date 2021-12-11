@@ -77,6 +77,6 @@ public class Control extends Subsystem {
     }
 
     public void toggleDuckWheel(boolean status) {      // simplified so only one method is needed for intake. status is true/false for on/off,
-        if (status) { duckWheel.rotateByAngle(360); }
+        if (status) { duckWheel.rotateByAngle(1800); }
     }
 }
