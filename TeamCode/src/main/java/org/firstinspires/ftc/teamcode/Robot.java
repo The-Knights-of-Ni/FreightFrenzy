@@ -188,6 +188,7 @@ public class Robot {
         bucket.setPower(0.0);
 
         //Servos
+        duckWheel = (ServoEx) hardwareMap.servo.get("duckWheel");
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
