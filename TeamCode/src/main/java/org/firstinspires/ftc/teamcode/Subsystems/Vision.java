@@ -14,12 +14,11 @@ import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera;
-import org.openftc.easyopencv.OpenCvWebcam;
 
 /**
  * The Vision Subsystem
@@ -29,27 +28,32 @@ import org.openftc.easyopencv.OpenCvWebcam;
  */
 
 public class Vision extends Subsystem {
-    public static final int CAMERA_WIDTH = 320; // width  of wanted camera resolution
-    public static final int CAMERA_HEIGHT = 240; // height of wanted camera resolution
+    private HardwareMap hardwareMap;
+    private AllianceColor allianceColor;
+
+    public static final int CAMERA_WIDTH = 1920; // width of wanted camera resolution
+    public static final int CAMERA_HEIGHT = 1080; // height of wanted camera resolution
     public static final int HORIZON = 100; // horizon value to tune
 
     public static final String WEBCAM_NAME = "Webcam 1"; // insert webcam name from configuration if using webcam
+    WebcamName webcamName = null;
     public static final String VUFORIA_KEY = "ATDGULf/////AAABmRRGSyLSbUY4lPoqBYjklpYqC4y9J7bCk42kjgYS5KtgpKL8FbpEDQTovzZG8thxB01dClvthxkSuSyCkaZi+JiD5Pu0cMVre3gDwRvwRXA7V9kpoYyMIPMVX/yBTGaW8McUaK9UeQUaFSepsTcKjX/itMtcy7nl1k84JChE4i8whbinHWDpaNwb5qcJsXlQwJhE8JE7t8NMxMm31AgzqjVf/7HwprTRfrxjTjVx5v2rp+wgLeeLTE/xk1JnL3fZMG6yyxPHgokWlIYEBZ5gBX+WJfgA+TDsdSPY/MnBp5Z7QxQsO9WJA59o/UzyEo/9BkbvYJZfknZqeoZWrJoN9jk9sivFh0wIPsH+JjZNFsPw"; // TODO: Get new VUFORIA KEY
-    public DetectMarkerPipeline.MarkerLocation finalMarkerLocation = DetectMarkerPipeline.MarkerLocation.SEARCHING;
-    public AllianceColor allianceColor;
+
     // Since ImageTarget trackable use mm to specify their dimensions, we must use mm for all the physical dimension.
     // Define constants
     private static final float mmPerInch = 25.4f;
     private static final float mmTargetHeight = (6) * mmPerInch;
+
     // Constants for perimeter targets
     private static final float halfField = 72 * mmPerInch;
     private static final float quadField = 36 * mmPerInch;
+
     // Define where camera is in relation to center of robot in inches
     final float CAMERA_FORWARD_DISPLACEMENT = 6.0f * mmPerInch; // TODO: CALIBRATE WHEN ROBOT IS BUILT
     final float CAMERA_VERTICAL_DISPLACEMENT = 6.5f * mmPerInch;
     final float CAMERA_LEFT_DISPLACEMENT = -0.75f * mmPerInch;
+
     OpenGLMatrix robotFromCamera = null;
-    WebcamName webcamName = null;
 
     // Class Members
     private OpenGLMatrix lastLocation;
@@ -59,60 +63,36 @@ public class Vision extends Subsystem {
     private VectorF targetTranslation;
     private Orientation targetRotation;
 
+    private DetectMarkerPipeline pipeline;
     private OpenCvCamera camera;
 
     private int[] viewportContainerIds;
 
     // Move stuff
-    private HardwareMap hardwareMap;
-    private OpenCvWebcam robotCamera;
-    private DetectMarkerPipeline pipeline;
-    private Telemetry telemetry;
-    private DetectMarkerPipeline.MarkerLocation markerLocation = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
-
     /**
      * Class instantiation
      *
-     * @param telemetry   Quick Telemetry
+     * @param telemetry   Telemetry
      * @param hardwareMap the hardware map
      * @param timer       how much time elapsed
      * @throws InterruptedException It might happen because the thread is interrupted.
      */
     public Vision(Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer, AllianceColor allianceColor) {
         super(telemetry, hardwareMap, timer);
-
-        telemetry.addData("Vision Status", "Vision initializing started");
-        telemetry.update();
-
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier( "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        robotCamera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, WEBCAM_NAME), cameraMonitorViewId );
-        pipeline = new DetectMarkerPipeline(telemetry, allianceColor);
-        robotCamera.setPipeline(pipeline);
-
-        viewportContainerIds = OpenCvCameraFactory.getInstance().splitLayoutForMultipleViewports(cameraMonitorViewId, 2, OpenCvCameraFactory.ViewportSplitMethod.HORIZONTALLY);
-
-        telemetry.addData("init Vuforia", "init Vuforia started");
-        telemetry.update();
-
-        initVuforia();
-        telemetry.addData("init Vuforia", "init Vuforia completed");
-        telemetry.update();
-
-        OpenCvInternalCamera robotCamera;
-
-        robotCamera = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId); // TODO: This is the problematic line in Vision.java
-/*
-        telemetry.telemetry(4, "Detect Marker", "Detecting Marker");
-        DetectMarker detectMarkerRunnable = new DetectMarker(hardwareMap, robotCamera, telemetry);
-        finalMarkerLocation = detectMarkerRunnable.DetectMarkerRun();
-        telemetry.telemetry(3, "Detect Marker", "Detected Marker");
-        telemetry.telemetry(2, "Vision Status", "Vision initialized");
-*/
-
-        // Detect marker stuff
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         this.allianceColor = allianceColor;
+
+        webcamName = hardwareMap.get(WebcamName.class, WEBCAM_NAME);
+
+        //viewportContainerIds = OpenCvCameraFactory.getInstance().splitLayoutForMultipleViewports(cameraMonitorViewId, 1, OpenCvCameraFactory.ViewportSplitMethod.HORIZONTALLY);
+        telemetry.addLine("Vision init started");
+        telemetry.update();
+
+        initDetectionPipeline();
+
+        telemetry.addLine("Pipeline init complete");
+        telemetry.update();
     }
 
     private void initVuforia() {
@@ -129,6 +109,33 @@ public class Vision extends Subsystem {
         OpenGLMatrix robotFromCamera = createMatrix(CAMERA_LEFT_DISPLACEMENT, CAMERA_FORWARD_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT, 90, 0, 0);
     }
 
+    private void initDetectionPipeline() {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier( "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+
+        camera = OpenCvCameraFactory
+                .getInstance()
+                .createWebcam(hardwareMap.get(WebcamName.class, WEBCAM_NAME), cameraMonitorViewId);
+
+        pipeline = new DetectMarkerPipeline(telemetry, allianceColor);
+        camera.setPipeline(pipeline);
+
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
+            {
+                telemetry.addLine("Streaming");
+                camera.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+            }
+
+            @Override
+            public void onError(int errorCode) {
+                telemetry.addLine("ERROR STREAMING");
+                telemetry.update();
+            }
+        });
+    }
+
 
     // Helper method to create matrix to identify locations
     public OpenGLMatrix createMatrix(float x, float y, float z, float u, float v, float w) {
@@ -142,25 +149,6 @@ public class Vision extends Subsystem {
      * @return Where the marker is
      */
     public DetectMarkerPipeline.MarkerLocation detectMarkerRun() {
-        // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
-        // out when the RC activity is in portrait. We do our actual image processing assuming
-        // landscape orientation, though.
-        robotCamera.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
-
-        robotCamera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-            @Override
-            public void onOpened() {
-                robotCamera.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
-            }
-
-            @Override
-            public void onError(int errorCode) {
-                markerLocation = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
-            }
-        });
-        if (!(markerLocation == DetectMarkerPipeline.MarkerLocation.NOT_FOUND)) {
-            markerLocation = pipeline.getMarkerLocation();
-        }
-        return markerLocation;
+        return pipeline.getMarkerLocation();
     }
 }

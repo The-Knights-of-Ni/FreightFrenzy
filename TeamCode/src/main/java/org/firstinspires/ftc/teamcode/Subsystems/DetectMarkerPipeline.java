@@ -31,15 +31,15 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
 
     private final AllianceColor allianceColor;
     private final Rect LEFT_RECT = new Rect(
-            new Point(60, 35),
-            new Point(110, 75));
+            new Point(0, 0),
+            new Point(640, 1080));
     private final Rect MIDDLE_RECT = new Rect(
-            new Point(110, 35),
-            new Point(150, 75));
+            new Point(426, 0),
+            new Point(1280, 1080));
     private final Rect RIGHT_RECT = new Rect(
-            new Point(150, 35),
-            new Point(200, 75));
-    private final double PERCENT_COLOR_THRESHOLD = 0.4;
+            new Point(852, 0),
+            new Point(1920, 1080));
+    private final double PERCENT_COLOR_THRESHOLD = 0.1;
     Telemetry telemetry;
     Mat mask = new Mat();
     private MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
@@ -79,9 +79,9 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
      */
     @Override
     public Mat processFrame(Mat input) {
-        Imgproc.cvtColor(input, mask, Imgproc.COLOR_RGB2HSV); // TODO: Change COLOR_RGB2HSV to something more useful.
-        Scalar lowHSV = new Scalar(23, 50, 70);
-        Scalar highHSV = new Scalar(32, 255, 255);
+        Imgproc.cvtColor(input, mask, Imgproc.COLOR_RGB2HSV);
+        Scalar lowHSV = new Scalar(25, 25, 35);
+        Scalar highHSV = new Scalar(40, 255, 255);
 
         Core.inRange(mask, lowHSV, highHSV, mask);
 
@@ -97,34 +97,39 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         middle.release();
         right.release();
 
-        telemetry.addData("Left raw value", ((Integer) ((int) Core.sumElems(left).val[0])).toString());
-        telemetry.addData("Middle raw value", ((Integer) ((int) Core.sumElems(middle).val[0])).toString());
-        telemetry.addData("Right raw value", ((Integer) ((int) Core.sumElems(right).val[0])).toString());
+//        telemetry.addData("Left raw value", ((Integer) ((int) Core.sumElems(left).val[0])).toString());
+//        telemetry.addData("Middle raw value", ((Integer) ((int) Core.sumElems(middle).val[0])).toString());
+//        telemetry.addData("Right raw value", ((Integer) ((int) Core.sumElems(right).val[0])).toString());
+//
+//        telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
+//        telemetry.addData("Middle percentage", Math.round(leftValue * 100) + "%");
+//        telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
+//        telemetry.update();
 
-        telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
-        telemetry.addData("Middle percentage", Math.round(leftValue * 100) + "%");
-        telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
+        double greatestValue = leftValue;
 
-        telemetry.update();
-
-        boolean markerLeft = leftValue > PERCENT_COLOR_THRESHOLD;
-        boolean markerMiddle = middleValue > PERCENT_COLOR_THRESHOLD;
-        boolean markerRight = rightValue > PERCENT_COLOR_THRESHOLD;
-
-
-        if (markerLeft) {
-            markerLocation = MarkerLocation.LEFT;
-            telemetry.addData("Marker Location", "right");
-        } else if (markerMiddle) {
+        markerLocation = MarkerLocation.LEFT;
+        if (middleValue > greatestValue) {
             markerLocation = MarkerLocation.MIDDLE;
-            telemetry.addData("Marker Location", "middle");
-        } else if (markerRight) {
-            markerLocation = MarkerLocation.RIGHT;
-            telemetry.addData("Marker Location", "left");
-        } else {
-            markerLocation = MarkerLocation.NOT_FOUND;
-            telemetry.addData("Marker Location", "not found");
+            greatestValue = middleValue;
         }
+        if (rightValue > greatestValue) {
+            markerLocation = MarkerLocation.RIGHT;
+        }
+
+        String result = "NOT_FOUND";
+        switch (markerLocation) {
+            case LEFT:
+                result = "LEFT";
+                break;
+            case MIDDLE:
+                result = "MIDDLE";
+                break;
+            case RIGHT:
+                result = "RIGHT";
+                break;
+        }
+        telemetry.addData("Marker Location", result);
 
         telemetry.update();
 
