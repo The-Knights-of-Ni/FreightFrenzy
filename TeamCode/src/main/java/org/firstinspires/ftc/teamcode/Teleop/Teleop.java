@@ -130,10 +130,10 @@ public class Teleop extends LinearOpMode {
 
             if (robot.xButton && !robot.isxButtonPressedPrev) {
                 if (isDuckOn) {
-                    robot.control.toggleDuckWheel(false);
+                    robot.control.rotateCarousel(false);
                     isDuckOn = false;
                 } else {
-                    robot.control.toggleDuckWheel(true);
+                    robot.control.rotateCarousel(true);
                     isDuckOn = true;
                 }
             }
