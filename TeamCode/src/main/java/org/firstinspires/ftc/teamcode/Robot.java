@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -36,7 +37,7 @@ public class Robot {
     public DcMotorEx rearLeftDriveMotor;
     public DcMotorEx intake;
     public DcMotorEx bucket;
-    public Servo duckWheel;
+    public ServoEx duckWheel;
 
     //Servos
 

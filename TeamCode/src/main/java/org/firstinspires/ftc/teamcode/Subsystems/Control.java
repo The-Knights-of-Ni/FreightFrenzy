@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -21,14 +21,14 @@ public class Control extends Subsystem {
     //DC Motors
     private DcMotorEx intake;
     private DcMotorEx bucket;
-    private Servo duckWheel;
+    private ServoEx duckWheel;
 
     //Servos
 
     //Sensors
     private BNO055IMU imu;
 
-    public Control(DcMotorEx intake, DcMotorEx bucket, Servo duckWheel, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
+    public Control(DcMotorEx intake, DcMotorEx bucket, ServoEx duckWheel, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
         super(opMode.telemetry, opMode.hardwareMap, timer);
 
         // store device information locally
@@ -55,21 +55,17 @@ public class Control extends Subsystem {
     //Usage: the Direction incorporates the Servo class' Direction enum,
     //the Servo takes a Servo, TPM is how many times the pause should happen, aka the speed setting.
     //res is short for resolution, so we can determine how smooth or clunky we want the servo's motions to be.
-    public void setServoRotation(boolean status, Servo.Direction direction, Servo servo, int TPM, double res) {
-        if(status) {
-            servo.setDirection(direction);
-            double servoPos = 0;
-            while (opMode.opModeIsActive()) {
-                servo.setPosition(servoPos);
-                if (direction == Servo.Direction.FORWARD) {
-                    servoPos += res;
+    public void setServoRotation(boolean status, boolean direction, ServoEx servoEx) {
+        while(opMode.opModeIsActive()) {
+            if (status) {
+                if(direction) {
+                    servoEx.rotateBy(0.01);
                 } else {
-                    servoPos -= res;
+                    servoEx.rotateBy(-0.01);
                 }
-                opMode.sleep((long) ((60 / TPM) * 1000));
+            } else {
+                servoEx.rotateBy(0);
             }
-        } else {
-            servo.setPosition(0);
         }
     }
 
@@ -94,7 +90,7 @@ public class Control extends Subsystem {
     }
 
     public void toggleDuckWheel(boolean status) {      // simplified so only one method is needed for intake. status is true/false for on/off,
-        setServoRotation(true, Servo.Direction.FORWARD, duckWheel, 60, 0.001);
+        setServoRotation(status, true, duckWheel);
     }
 
 }
