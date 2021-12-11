@@ -19,6 +19,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 /**
  * The Vision Subsystem
@@ -47,8 +48,9 @@ public class Vision extends Subsystem {
     final float CAMERA_FORWARD_DISPLACEMENT = 6.0f * mmPerInch; // TODO: CALIBRATE WHEN ROBOT IS BUILT
     final float CAMERA_VERTICAL_DISPLACEMENT = 6.5f * mmPerInch;
     final float CAMERA_LEFT_DISPLACEMENT = -0.75f * mmPerInch;
-    WebcamName webcamName = null;
     OpenGLMatrix robotFromCamera = null;
+    WebcamName webcamName = null;
+
     // Class Members
     private OpenGLMatrix lastLocation;
     private VuforiaLocalizer vuforia;
@@ -62,10 +64,11 @@ public class Vision extends Subsystem {
     private int[] viewportContainerIds;
 
     // Move stuff
-    HardwareMap hardwareMap;
-    OpenCvInternalCamera robotCamera;
-    DetectMarkerPipeline.MarkerLocation markerLocation = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
-    Telemetry telemetry;
+    private HardwareMap hardwareMap;
+    private OpenCvWebcam robotCamera;
+    private DetectMarkerPipeline pipeline;
+    private Telemetry telemetry;
+    private DetectMarkerPipeline.MarkerLocation markerLocation = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
 
     /**
      * Class instantiation
@@ -81,10 +84,12 @@ public class Vision extends Subsystem {
         telemetry.addData("Vision Status", "Vision initializing started");
         telemetry.update();
 
-        webcamName = hardwareMap.get(WebcamName.class, WEBCAM_NAME);
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        viewportContainerIds = OpenCvCameraFactory.getInstance().splitLayoutForMultipleViewports(cameraMonitorViewId, 2, OpenCvCameraFactory.ViewportSplitMethod.HORIZONTALLY);
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier( "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        robotCamera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, WEBCAM_NAME), cameraMonitorViewId );
+        pipeline = new DetectMarkerPipeline(telemetry, allianceColor);
+        robotCamera.setPipeline(pipeline);
 
+        viewportContainerIds = OpenCvCameraFactory.getInstance().splitLayoutForMultipleViewports(cameraMonitorViewId, 2, OpenCvCameraFactory.ViewportSplitMethod.HORIZONTALLY);
 
         telemetry.addData("init Vuforia", "init Vuforia started");
         telemetry.update();
@@ -106,7 +111,6 @@ public class Vision extends Subsystem {
 
         // Detect marker stuff
         this.hardwareMap = hardwareMap;
-        this.robotCamera = robotCamera;
         this.telemetry = telemetry;
         this.allianceColor = allianceColor;
     }
@@ -138,9 +142,6 @@ public class Vision extends Subsystem {
      * @return Where the marker is
      */
     public DetectMarkerPipeline.MarkerLocation detectMarkerRun() {
-        DetectMarkerPipeline detectMarkerPipeline = new DetectMarkerPipeline(telemetry, allianceColor);
-        robotCamera.setPipeline(detectMarkerPipeline);
-
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
         // out when the RC activity is in portrait. We do our actual image processing assuming
         // landscape orientation, though.
@@ -158,7 +159,7 @@ public class Vision extends Subsystem {
             }
         });
         if (!(markerLocation == DetectMarkerPipeline.MarkerLocation.NOT_FOUND)) {
-            markerLocation = detectMarkerPipeline.getMarkerLocation();
+            markerLocation = pipeline.getMarkerLocation();
         }
         return markerLocation;
     }
