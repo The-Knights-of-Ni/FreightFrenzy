@@ -194,8 +194,8 @@ public class Robot {
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
         opMode.telemetry.addData("Mode", " IMU initializing...");
@@ -226,10 +226,6 @@ public class Robot {
         opMode.telemetry.update();
         vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
     }
-
-    /* public void initVisionTest() {
-        vision = new Vision(hardwareMap, this, isBlue);
-    } */
 
     public void initServosAuto() {
         // code here
