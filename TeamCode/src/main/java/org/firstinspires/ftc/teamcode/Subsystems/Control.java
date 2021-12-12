@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -21,14 +22,14 @@ public class Control extends Subsystem {
     //DC Motors
     private DcMotorEx intake;
     private DcMotorEx bucket;
-    private ServoEx duckWheel;
+    private Servo duckWheel;
 
     //Servos
 
     //Sensors
     private BNO055IMU imu;
 
-    public Control(DcMotorEx intake, DcMotorEx bucket, ServoEx duckWheel, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
+    public Control(DcMotorEx intake, DcMotorEx bucket, Servo duckWheel, BNO055IMU imu, LinearOpMode opMode, ElapsedTime timer) {
         super(opMode.telemetry, opMode.hardwareMap, timer);
 
         // store device information locally
@@ -76,7 +77,8 @@ public class Control extends Subsystem {
         }
     }
 
-    public void rotateCarousel(boolean status) {      // simplified so only one method is needed for intake. status is true/false for on/off,
-        if (status) { duckWheel.rotateByAngle(1800); }
+    public void rotateCarousel() {
+        duckWheel.setPosition(1.0);
+        duckWheel.setPosition(0.0);
     }
 }
