@@ -138,5 +138,5 @@ public class TrcPose2D {
     //        }
 
     return newPose;
-  } // translatePose
-} // class TrcPose2D
+  }
+}
