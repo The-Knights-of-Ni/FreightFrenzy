@@ -40,6 +40,7 @@ public class AutoBlue extends Auto {
       e.printStackTrace();
     }
 
+    assert robot != null;
     int placementLevel = getHubLevel(robot.vision);
   }
 }
