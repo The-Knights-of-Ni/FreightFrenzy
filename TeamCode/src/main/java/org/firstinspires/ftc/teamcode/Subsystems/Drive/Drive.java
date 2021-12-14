@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode.Subsystems.Drive;
 
 import android.util.Log;
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -6,6 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.TrcPose2D;
+
+import java.util.Locale;
 
 /** Mecanum drivetrain subsystem */
 public class Drive extends Subsystem {
@@ -950,6 +954,7 @@ public class Drive extends Subsystem {
     double currentTimeRR = ((double) (timer.nanoseconds() - startTime)) * 1.0e-6;
     String output =
         String.format(
+            Locale.US,
             "FL %.3f, %d, FR %.3f %d, RL %.3f %d, RR %.3f %d",
             currentTimeFL,
             currentCountFL,
@@ -1435,62 +1440,4 @@ public class Drive extends Subsystem {
     return targetSpeed;
   }
 
-  public static class Odometry {
-    TrcPose2D position;
-    TrcPose2D velocity;
-
-    /** Constructor: Create an instance of the object. */
-    Odometry() {
-      position = new TrcPose2D();
-      velocity = new TrcPose2D();
-    } // Odometry
-
-    /**
-     * Constructor: Create an instance of the object.
-     *
-     * @param position specifies the initial position.
-     * @param velocity specifies the initial velocity.
-     */
-    Odometry(TrcPose2D position, TrcPose2D velocity) {
-      this.position = position;
-      this.velocity = velocity;
-    } // Odometry
-
-    /**
-     * This method returns the string representation of the object.
-     *
-     * @return string representation of the object.
-     */
-    @Override
-    public String toString() {
-      return "position=" + position.toString() + ", velocity=" + velocity.toString();
-    } // toString
-
-    /**
-     * This method creates and returns a copy of this odometry.
-     *
-     * @return a copy of this odometry.
-     */
-    public Odometry clone() {
-      return new Odometry(position.clone(), velocity.clone());
-    } // clone
-
-    /**
-     * This method sets the position info of the odometry to the given pose.
-     *
-     * @param pose specifies the pose to set the position info to.
-     */
-    void setPositionAs(TrcPose2D pose) {
-      this.position.setAs(pose);
-    } // setPositionAs
-
-    /**
-     * This method sets the velocity info of the odometry to the given pose.
-     *
-     * @param pose specifies the pose to set the velocity info to.
-     */
-    void setVelocityAs(TrcPose2D pose) {
-      this.velocity.setAs(pose);
-    } // setVelocityAs
-  }
 }
