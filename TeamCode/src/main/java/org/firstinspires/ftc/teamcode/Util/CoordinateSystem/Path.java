@@ -56,6 +56,9 @@ public class Path {
             path.get(path.size() - 1), place.getClosestCoordinate(path.get(path.size() - 1), pF)));
   }
 
+  /**
+   * Optimizes moves by checking if they have the same angle etc.
+   */
   private void optimizeMoves() {
     Move previousMove = new Move(0, 0, 0);
     int previousMovePlace;

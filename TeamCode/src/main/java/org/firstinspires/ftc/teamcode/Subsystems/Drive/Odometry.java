@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Drive;
 
+
+/**
+ * This manages the Odometry for Drive
+ */
 public class Odometry {
   Pose2D position;
   Pose2D velocity;

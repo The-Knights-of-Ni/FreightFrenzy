@@ -3,6 +3,10 @@ package org.firstinspires.ftc.teamcode.Util.FileParser;
 import java.io.FileReader;
 import java.io.IOException;
 
+
+/**
+ * Abstract class for any class that parses a file format.
+ */
 public abstract class File {
   public File() {}
 
