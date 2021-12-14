@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Drive;
 
-import org.firstinspires.ftc.teamcode.Subsystems.TrcPose2D;
-
 public class Odometry {
     TrcPose2D position;
     TrcPose2D velocity;
