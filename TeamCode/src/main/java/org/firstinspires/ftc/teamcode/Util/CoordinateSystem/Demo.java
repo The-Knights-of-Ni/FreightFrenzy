@@ -1,20 +1,17 @@
 package org.firstinspires.ftc.teamcode.Util.CoordinateSystem;
 
+import org.firstinspires.ftc.teamcode.Util.CoordinateSystem.File.fobj.fobj;
 import org.firstinspires.ftc.teamcode.Util.CoordinateSystem.PathFinder.SimplePathFinder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /** A pathfinder demo Uses the Freight Frenzy board */
 public class Demo {
-  public Demo() {
+  public Demo() throws IOException {
     Field field = new Field();
     Path path = new Path();
-    ArrayList<Coordinate> allianceHubCoordinates = new ArrayList<>();
-    allianceHubCoordinates.add(new Coordinate(10, 10));
-    allianceHubCoordinates.add(new Coordinate(9, 10));
-    allianceHubCoordinates.add(new Coordinate(11, 10));
-    allianceHubCoordinates.add(new Coordinate(10, 11));
-    allianceHubCoordinates.add(new Coordinate(10, 9));
+    ArrayList<Coordinate> allianceHubCoordinates = fobj.read("allianceHub.fobj");
 
     Object allianceHub = new Object(allianceHubCoordinates);
     field.addObject(allianceHub);
