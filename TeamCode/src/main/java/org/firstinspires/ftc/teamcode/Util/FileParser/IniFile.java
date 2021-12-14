@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.Util;
+package org.firstinspires.ftc.teamcode.Util.FileParser;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/** IniFile and CFG file parser. */
+/** IniFile file parser. */
 public class IniFile {
 
   ArrayList<ArrayList<String>> parseResult = new ArrayList<>(1);

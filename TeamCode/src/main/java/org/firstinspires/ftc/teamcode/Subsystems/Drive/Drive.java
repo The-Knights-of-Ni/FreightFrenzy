@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Drive;
 
-import android.util.Log;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
@@ -963,7 +962,8 @@ public class Drive extends Subsystem {
             currentCountRL,
             currentTimeRR,
             currentCountRR);
-    Log.d("motorEnc", output);
+    telemetry.addData("motorEnc", output);
+    telemetry.update();
   }
 
   /**
@@ -1349,7 +1349,8 @@ public class Drive extends Subsystem {
               isTimeOutStarted ? "Y" : "N",
               timeOutStartedTime * 1000.0,
               isTimeOutExceeded ? "Y" : "N");
-      Log.d("motorEnc", output);
+      telemetry.addData("motorEnc", output);
+      telemetry.update();
     }
   }
 

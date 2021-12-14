@@ -68,7 +68,6 @@ public class Vision extends Subsystem {
    * @param telemetry Telemetry
    * @param hardwareMap the hardware map
    * @param timer how much time elapsed
-   * @throws InterruptedException It might happen because the thread is interrupted.
    */
   public Vision(
       Telemetry telemetry,
