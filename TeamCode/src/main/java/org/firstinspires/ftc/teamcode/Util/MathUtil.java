@@ -364,7 +364,7 @@ public class MathUtil {
     double thetaRad = Math.toRadians(theta);
     return MatrixUtils.createRealVector(
         new double[] {r * Math.sin(thetaRad), r * Math.cos(thetaRad)});
-  } // polarToCartesian
+  }
 
   /**
    * Rotate a point counter-clockwise about the origin.
@@ -375,7 +375,7 @@ public class MathUtil {
    */
   public static RealVector rotateCCW(RealVector vector, double angle) {
     return createCCWRotationMatrix(angle).operate(vector);
-  } // rotateCCW
+  }
 
   /**
    * Rotate a point clockwise about the origin.

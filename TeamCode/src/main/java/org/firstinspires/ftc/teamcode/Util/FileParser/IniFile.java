@@ -6,11 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /** IniFile file parser. */
-public class IniFile {
+public class IniFile extends org.firstinspires.ftc.teamcode.Util.FileParser.File {
 
   ArrayList<ArrayList<String>> parseResult = new ArrayList<>(1);
 
   public IniFile(String path) {
+    super();
     try {
       load(path);
     } catch (IOException e) {
@@ -21,16 +22,8 @@ public class IniFile {
   public void load(String path) throws IOException {
     int lineNumber = 0;
     String section = "";
-    File file = new File(path);
-    FileReader fr = new FileReader(file);
-    char[] a = new char[50];
-    fr.read(a); // reads the content to the array
-    StringBuilder output = new StringBuilder();
-
-    for (char c : a) output.append(c); // prints the characters one by one
-    fr.close();
-
-    String[] outputSplit = output.toString().split("\n");
+    String output = open(path);
+    String[] outputSplit = output.split("\n");
     for (String line : outputSplit) {
       String new_line = line.replace(" ", "");
       if ((new_line.charAt(0) != '#') && (new_line.charAt(0) != '[')) {

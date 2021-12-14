@@ -78,17 +78,17 @@ public class TimeUtil {
    * InterruptException where it recalculates the remaining time and calls sleep again repeatedly
    * until the specified sleep time has past.
    *
-   * @param milliTime specifies sleep time in msec.
+   * @param time specifies sleep time in milliseconds.
    */
-  public static void sleep(long milliTime) {
-    long wakeupTime = System.currentTimeMillis() + milliTime;
+  public static void sleep(long time) {
+    long wakeupTime = System.currentTimeMillis() + time;
 
-    while (milliTime > 0) {
+    while (time > 0) {
       try {
-        Thread.sleep(milliTime);
+        Thread.sleep(time);
         break;
       } catch (InterruptedException e) {
-        milliTime = wakeupTime - System.currentTimeMillis();
+        time = wakeupTime - System.currentTimeMillis();
       }
     }
   }

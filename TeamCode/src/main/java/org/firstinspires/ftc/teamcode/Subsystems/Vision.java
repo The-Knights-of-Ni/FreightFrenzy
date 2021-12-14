@@ -138,7 +138,7 @@ public class Vision extends Subsystem {
 
           @Override
           public void onError(int errorCode) {
-            telemetry.addLine("ERROR STREAMING");
+            telemetry.addLine("Error Streaming, aborting");
             telemetry.update();
           }
         });
