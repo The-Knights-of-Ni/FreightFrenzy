@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.teamcode.Subsystems.Drive;
 
 public class Odometry {
-    TrcPose2D position;
-    TrcPose2D velocity;
+    Pose2D position;
+    Pose2D velocity;
 
     /**
      * Constructor: Create an instance of the object.
      */
     Odometry() {
-        position = new TrcPose2D();
-        velocity = new TrcPose2D();
+        position = new Pose2D();
+        velocity = new Pose2D();
     }
 
     /**
@@ -18,7 +18,7 @@ public class Odometry {
      * @param position specifies the initial position.
      * @param velocity specifies the initial velocity.
      */
-    Odometry(TrcPose2D position, TrcPose2D velocity) {
+    Odometry(Pose2D position, Pose2D velocity) {
         this.position = position;
         this.velocity = velocity;
     }
@@ -47,7 +47,7 @@ public class Odometry {
      *
      * @param pose specifies the pose to set the position info to.
      */
-    void setPositionAs(TrcPose2D pose) {
+    void setPositionAs(Pose2D pose) {
         this.position.setAs(pose);
     }
 
@@ -56,7 +56,7 @@ public class Odometry {
      *
      * @param pose specifies the pose to set the velocity info to.
      */
-    void setVelocityAs(TrcPose2D pose) {
+    void setVelocityAs(Pose2D pose) {
         this.velocity.setAs(pose);
     }
 }
