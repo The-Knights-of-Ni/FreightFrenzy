@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Util;
 
+@Deprecated
 public class JavaUtil {
   /**
    * This method returns the indexed byte of an integer.

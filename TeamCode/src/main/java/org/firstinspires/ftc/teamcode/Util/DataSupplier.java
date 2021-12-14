@@ -5,10 +5,10 @@ package org.firstinspires.ftc.teamcode.Util;
  * Supplier interface that Java SDK provides but Android API level 19 does not have.
  */
 public interface DataSupplier<T> {
-    /**
-     * This method returns the data of the designated type.
-     *
-     * @return data of the designated type.
-     */
-    T get();
+  /**
+   * This method returns the data of the designated type.
+   *
+   * @return data of the designated type.
+   */
+  T get();
 }

@@ -7,8 +7,6 @@ import java.util.ArrayList;
 public class Path {
   ArrayList<Coordinate> path;
   ArrayList<Move> moves;
-  int current = 0;
-  private int pathParsed = 1;
 
   public Path() {
     path = new ArrayList<Coordinate>();
@@ -44,8 +42,8 @@ public class Path {
   }
 
   public Move next() {
-    current++;
-    return moves.get(current - 1);
+    moves.remove(0);
+    return moves.get(0);
   }
 
   public void goTo(Coordinate place, PathFinder pF) {

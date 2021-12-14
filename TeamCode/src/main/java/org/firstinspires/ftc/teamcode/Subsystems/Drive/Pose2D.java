@@ -129,7 +129,6 @@ public class Pose2D {
    * @return translated pose.
    */
   public Pose2D translatePose(double xOffset, double yOffset) {
-    final String funcName = "translatePose";
     Pose2D newPose = clone();
     double angleRadians = Math.toRadians(newPose.angle);
     double cosAngle = Math.cos(angleRadians);
