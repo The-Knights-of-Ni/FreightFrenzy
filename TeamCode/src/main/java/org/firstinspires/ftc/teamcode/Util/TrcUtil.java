@@ -13,8 +13,7 @@ import java.util.Locale;
  * This class contains platform independent utility methods. All methods in this class are static. It is not
  * necessary to instantiate this class to call its methods.
  */
-public class TrcUtil
-{
+public class TrcUtil {
     public static final double INCHES_PER_CM = 0.393701;
     public static final double MM_PER_INCH = 25.4;
     public static final double EARTH_GRAVITATIONAL_CONSTANT = 9.807;    //in m/s2
@@ -24,8 +23,7 @@ public class TrcUtil
      * This interface provides the method to get data of the specified type. This is to replaced the Supplier
      * interface that Java SDK provides but Android API level 19 does not have.
      */
-    public interface DataSupplier<T>
-    {
+    public interface DataSupplier<T> {
         /**
          * This method returns the data of the designated type.
          *
@@ -33,14 +31,13 @@ public class TrcUtil
          */
         T get();
 
-    }   //interface DataSupplier
+    }
 
     /**
      * This method is called at the start of a competition mode to set the mode start timestamp so that
      * getModeElapsedTime can calculate the mode elapsed time.
      */
-    public static void recordModeStartTime()
-    {
+    public static void recordModeStartTime() {
         modeStartTimeNanos = System.nanoTime();
     }   //recordModeStartTime
 
@@ -70,15 +67,14 @@ public class TrcUtil
      *
      * @return current time in msec.
      */
-    public static long getCurrentTimeMillis()
-    {
+    public static long getCurrentTimeMillis() {
         return System.currentTimeMillis();
     }   //getCurrentTimeMillis
 
     /**
-     * This method returns the current time in nano second.
+     * This method returns the current time in nanoseconds.
      *
-     * @return current time in nano second.
+     * @return current time in nanoseconds.
      */
     public static long getCurrentTimeNanos()
     {
@@ -613,8 +609,7 @@ public class TrcUtil
      * @param angle The angle in degrees to rotate by.
      * @return A rotation matrix describing a counter-clockwise rotation by <code>angle</code> degrees.
      */
-    public static RealMatrix createCCWRotationMatrix(double angle)
-    {
+    public static RealMatrix createCCWRotationMatrix(double angle) {
         double angleRad = Math.toRadians(angle);
         return MatrixUtils.createRealMatrix(
                 new double[][] { { Math.cos(angleRad), -Math.sin(angleRad) }, { Math.sin(angleRad), Math.cos(angleRad) } });

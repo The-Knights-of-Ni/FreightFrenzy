@@ -31,8 +31,7 @@ import java.util.Locale;
 /**
  * This class implements a 2D pose object that represents the positional state of an object.
  */
-public class Pose2D
-{
+public class Pose2D {
   private static final String moduleName = "Pose2D";
 
   public double x;
@@ -85,8 +84,7 @@ public class Pose2D
    *
    * @return a copy of this pose.
    */
-  public Pose2D clone()
-  {
+  public Pose2D clone() {
     return new Pose2D(this.x, this.y, this.angle);
   }
 
@@ -125,7 +123,7 @@ public class Pose2D
    */
   public Pose2D relativeTo(Pose2D pose) {
     return relativeTo(pose, true);
-  }   //relativeTo
+  }
 
   /**
    * This method translates this pose with the x and y offset in reference to the angle of the pose.
