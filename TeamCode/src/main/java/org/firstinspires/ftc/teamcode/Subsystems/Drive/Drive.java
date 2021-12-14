@@ -1357,9 +1357,8 @@ public class Drive extends Subsystem {
     int targetTick;
     double tickCountD = (double) tickCount;
     double speedOffset =
-        speed
-            * 0.15; // ramp up and ramp down with this speed offset so that there is no time the
-                    // speed is close to zero
+        speed * 0.15; // ramp up and ramp down with this speed offset so that there is no time the
+    // speed is close to zero
     double speedExcess = speed - speedOffset;
 
     if (tickCountD
@@ -1403,9 +1402,8 @@ public class Drive extends Subsystem {
     double targetSpeed;
     double tickCountD = (double) tickCount;
     double speedOffset =
-        speed
-            * 0.15; // ramp up and ramp down with this speed offset so that there is no time the
-                    // speed is close to zero
+        speed * 0.15; // ramp up and ramp down with this speed offset so that there is no time the
+    // speed is close to zero
     double speedExcess = speed - speedOffset;
 
     if (tickCountD
@@ -1438,5 +1436,4 @@ public class Drive extends Subsystem {
     if (targetSpeed < speedOffset) targetSpeed = speedOffset;
     return targetSpeed;
   }
-
 }

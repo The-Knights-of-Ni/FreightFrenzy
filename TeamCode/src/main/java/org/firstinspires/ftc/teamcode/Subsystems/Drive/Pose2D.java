@@ -24,13 +24,11 @@ package org.firstinspires.ftc.teamcode.Subsystems.Drive;
 
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealVector;
-import org.firstinspires.ftc.teamcode.Util.TrcUtil;
+import org.firstinspires.ftc.teamcode.Util.MathUtil;
 
 import java.util.Locale;
 
-/**
- * This class implements a 2D pose object that represents the positional state of an object.
- */
+/** This class implements a 2D pose object that represents the positional state of an object. */
 public class Pose2D {
   private static final String moduleName = "Pose2D";
 
@@ -61,9 +59,7 @@ public class Pose2D {
     this(x, y, 0.0);
   }
 
-  /**
-   * Constructor: Create an instance of the object.
-   */
+  /** Constructor: Create an instance of the object. */
   public Pose2D() {
     this(0.0, 0.0, 0.0);
   }
@@ -74,8 +70,7 @@ public class Pose2D {
    * @return string representation of the pose.
    */
   @Override
-  public String toString()
-  {
+  public String toString() {
     return String.format(Locale.US, "(x=%.1f,y=%.1f,angle=%.1f)", x, y, angle);
   }
 
@@ -109,10 +104,11 @@ public class Pose2D {
   public Pose2D relativeTo(Pose2D pose, boolean transformAngle) {
     double deltaX = x - pose.x;
     double deltaY = y - pose.y;
-    RealVector newPos = TrcUtil.rotateCCW(MatrixUtils.createRealVector(new double[] {deltaX, deltaY}), pose.angle);
+    RealVector newPos =
+        MathUtil.rotateCCW(MatrixUtils.createRealVector(new double[] {deltaX, deltaY}), pose.angle);
 
     return new Pose2D(
-            newPos.getEntry(0), newPos.getEntry(1), transformAngle? angle - pose.angle: angle);
+        newPos.getEntry(0), newPos.getEntry(1), transformAngle ? angle - pose.angle : angle);
   }
 
   /**
@@ -139,9 +135,8 @@ public class Pose2D {
     double cosAngle = Math.cos(angleRadians);
     double sinAngle = Math.sin(angleRadians);
 
-    newPose.x += xOffset*cosAngle + yOffset*sinAngle;
-    newPose.y += -xOffset*sinAngle + yOffset*cosAngle;
+    newPose.x += xOffset * cosAngle + yOffset * sinAngle;
+    newPose.y += -xOffset * sinAngle + yOffset * cosAngle;
     return newPose;
   }
-
 }

@@ -64,7 +64,7 @@ public class Control extends Subsystem {
       boolean status,
       boolean
           direction) { // simplified so only one method is needed for intake. status is true/false
-                       // for on/off,
+    // for on/off,
     double power = status ? 0.5 : 0; // direction is true/false for forward/reverse respectively.
 
     if (direction) {
