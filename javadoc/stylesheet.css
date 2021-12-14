@@ -10,30 +10,10 @@
  * These are styles that are specific to individual HTML elements. Changing them affects the style of a particular
  * HTML element throughout the page.
  */
-@media (prefers-color-scheme: light) {
-    :root {
-        --blue: #4A6782;
-        --bg: #ffffff;
-        --color: #353833;
-        --orange: #fd9004;
-        --shaded-bg: #e0e0e0;
-        --color-extreme: #000000;
-    }
-}
-@media (prefers-color-scheme: dark) {
-    :root {
-        --blue: #6087ad;
-        --bg: #000000;
-        --color: #c2ccba;
-        --orange: #fd9004;
-        --shaded-bg: #262626;
-        --color-extreme: #ffffff;
-    }
-}
 
 body {
-    background-color: var(--bg);
-    color: var(--blue);
+    background-color:#ffffff;
+    color:#353833;
     font-family:'DejaVu Sans', Arial, Helvetica, sans-serif;
     font-size:14px;
     margin:0;
@@ -41,7 +21,6 @@ body {
     height:100%;
     width:100%;
 }
-
 iframe {
     margin:0;
     padding:0;
@@ -50,20 +29,17 @@ iframe {
     overflow-y:scroll;
     border:none;
 }
-
 a:link, a:visited {
-    text-decoration: none;
-    color: var(--blue);
+    text-decoration:none;
+    color:#4A6782;
 }
-
 a[href]:hover, a[href]:focus {
     text-decoration:none;
-    color: var(--orange);
+    color:#bb7a2a;
 }
 a[name] {
-    color: var(--color);
+    color:#353833;
 }
-
 pre {
     font-family:'DejaVu Sans Mono', monospace;
     font-size:14px;
@@ -140,7 +116,7 @@ button {
 }
 .tab {
     background-color:#0066FF;
-    color: var(--bg);
+    color:#ffffff;
     padding:8px;
     width:5em;
     font-weight:bold;
@@ -164,39 +140,33 @@ button {
         overflow-y: auto;
     }
 }
-
 .top-nav {
-    background-color: var(--blue);
-    color: var(--bg);
-    float: left;
-    padding: 0;
-    width: 100%;
-    clear: right;
-    height: 2.8em;
-    padding-top: 10px;
-    overflow: hidden;
-    font-size: 12px;
+    background-color:#4D7A97;
+    color:#FFFFFF;
+    float:left;
+    padding:0;
+    width:100%;
+    clear:right;
+    height:2.8em;
+    padding-top:10px;
+    overflow:hidden;
+    font-size:12px;
 }
-
 .bottom-nav {
-    margin-top: 10px;
-    background-color: var(--blue);
-    color: var(--bg);
-    float: left;
-    padding: 0;
-    width: 100%;
-    clear: right;
-    height: 2.8em;
-    padding-top: 10px;
-    overflow: hidden;
-    font-size: 12px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    margin-top:10px;
+    background-color:#4D7A97;
+    color:#FFFFFF;
+    float:left;
+    padding:0;
+    width:100%;
+    clear:right;
+    height:2.8em;
+    padding-top:10px;
+    overflow:hidden;
+    font-size:12px;
 }
-
 .sub-nav {
-    background-color: var(--bg);
+    background-color:#dee3e9;
     float:left;
     width:100%;
     overflow:hidden;
@@ -238,17 +208,17 @@ ul.sub-nav-list li {
     padding-top:10px;
 }
 .top-nav a:link, .top-nav a:active, .top-nav a:visited, .bottom-nav a:link, .bottom-nav a:active, .bottom-nav a:visited {
-    color: var(--bg);
+    color:#FFFFFF;
     text-decoration:none;
     text-transform:uppercase;
 }
 .top-nav a:hover, .bottom-nav a:hover {
     text-decoration:none;
-    color: var(--orange);
+    color:#bb7a2a;
     text-transform:uppercase;
 }
 .nav-bar-cell1-rev {
-    background-color: var(--orange);
+    background-color:#F8981D;
     color:#253441;
     margin: auto 5px;
 }
@@ -377,9 +347,9 @@ table tr td dl, table tr td dl dt, table tr td dl dd {
 .requires-summary table, .packages-summary table, .provides-summary table, .uses-summary table, .system-properties-summary table {
     width:100%;
     border-spacing:0;
-    border-left:1px solid var(--bg);
-    border-right:1px solid var(--bg);
-    border-bottom:1px solid var(--bg);
+    border-left:1px solid #EEE;
+    border-right:1px solid #EEE;
+    border-bottom:1px solid #EEE;
 }
 .overview-summary table, .member-summary table, .requires-summary table, .packages-summary table,
 .provides-summary table, .uses-summary table, .system-properties-summary table {
@@ -422,7 +392,7 @@ table tr td dl, table tr td dl dt, table tr td dl dd {
 .deprecated-summary caption a:visited,
 .requires-summary caption a:visited, .packages-summary caption a:visited, .provides-summary caption a:visited,
 .uses-summary caption a:visited {
-    color: var(--bg);
+    color:#FFFFFF;
 }
 .overview-summary caption span, .member-summary caption span, .type-summary caption span,
 .use-summary caption span, .constants-summary caption span, .deprecated-summary caption span,
@@ -441,19 +411,19 @@ table tr td dl, table tr td dl dt, table tr td dl dd {
 }
 
 div.table-tabs > button {
-    border: none;
-    cursor: pointer;
-    padding: 5px 12px 7px 12px;
-    font-weight: bold;
-    margin-right: 3px;
+   border: none;
+   cursor: pointer;
+   padding: 5px 12px 7px 12px;
+   font-weight: bold;
+   margin-right: 3px;
 }
 div.table-tabs > button.active-table-tab {
-    background: #F8981D;
-    color: #253441;
+   background: #F8981D;
+   color: #253441;
 }
 div.table-tabs > button.table-tab {
-    background: #4D7A97;
-    color: var(--bg);
+   background: #4D7A97;
+   color: #FFFFFF;
 }
 
 .row-color th,
@@ -477,7 +447,7 @@ th.col-first, th.col-second, th.col-last, th.col-constructor-name, th.col-deprec
 }
 th.col-first, th.col-second, th.col-last, th.col-constructor-name, th.col-deprecated-item-name, .constants-summary th,
 .packages-summary th {
-    background: var(--shaded-bg);
+    background:#dee3e9;
     text-align:left;
     padding:8px 3px 3px 7px;
 }
@@ -519,15 +489,14 @@ th.col-deprecated-item-name a:link, th.col-deprecated-item-name a:visited,
 .all-packages-container td a:link, .all-packages-container td a:visited {
     font-weight:bold;
 }
-
 .table-sub-heading-color {
     background-color:#EEEEFF;
 }
 .alt-color, .alt-color th {
-    background-color:var(--bg);
+    background-color:#FFFFFF;
 }
 .row-color, .row-color th {
-    background-color: var(--shaded-bg);
+    background-color:#EEEEEF;
 }
 /*
  * Styles for contents.
@@ -621,8 +590,8 @@ main, nav, header, footer, section {
     font-weight:bold;
     font-size:15px;
     padding:7px 0 7px 3px;
-    background-color: var(--blue);
-    color: var(--bg);
+    background-color:#4D7A97;
+    color:#FFFFFF;
 }
 .result-item {
     font-size:13px;
@@ -633,7 +602,7 @@ main, nav, header, footer, section {
     overflow-y:scroll;
     overflow-x:scroll;
     white-space:nowrap;
-    background-color: var(--bg);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 ul.ui-autocomplete {
     position:fixed;
@@ -704,11 +673,11 @@ section.description {
 .class-uses .detail, .serialized-class-details {
     padding: 0px 20px 5px 10px;
     border: 1px solid #ededed;
-    background-color: var(--shaded-bg);
+    background-color: #f8f8f8;
 }
 .inherited-list, section[class$="-details"] .detail {
     padding:0 0 5px 8px;
-    background-color: var(--bg);
+    background-color:#ffffff;
     border:none;
 }
 .vertical-separator {
@@ -789,7 +758,7 @@ table.borderless > thead > tr, table.borderless > tbody > tr, table.borderless >
 }
 table.plain {
     border-collapse: collapse;
-    border: 1px solid var(--color-extreme);
+    border: 1px solid black;
 }
 table.plain > thead > tr, table.plain > tbody tr, table.plain > tr {
     background-color: transparent;
@@ -808,7 +777,6 @@ table.striped > thead {
 table.striped > thead > tr > th, table.striped > thead > tr > td {
     border: 1px solid black;
 }
-
 table.striped > tbody > tr:nth-child(even) {
     background-color: #EEE
 }
@@ -821,9 +789,4 @@ table.striped > tbody > tr > th, table.striped > tbody > tr > td {
 }
 table.striped > tbody > tr > th {
     font-weight: normal;
-}
-
-ui-autocomplete-input {
-    background-color: var(--bg);
-    color: var(--color-extreme);
 }
