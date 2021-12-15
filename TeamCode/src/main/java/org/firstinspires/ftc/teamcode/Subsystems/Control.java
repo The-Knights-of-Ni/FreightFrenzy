@@ -86,7 +86,8 @@ public class Control extends Subsystem {
   }
 
   public void rotateCarousel() {
-    duckWheel.setPosition(1.0);
-    duckWheel.setPosition(0.0);
+    duckWheel.setPosition((duckWheel.getPosition() + (Math.PI / 19.06)) % 1.0); // Applied calculations for 1 full rotation after first
+    // TODO: Calculate amount of turns needed to do full carousel rotation
+    // TODO: Find a prettier calculation if possible
   }
 }
