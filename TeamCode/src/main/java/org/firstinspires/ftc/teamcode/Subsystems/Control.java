@@ -60,11 +60,7 @@ public class Control extends Subsystem {
   // res is short for resolution, so we can determine how smooth or clunky we want the servo's
   // motions to be.
 
-  public void setIntakeDirection(
-      boolean status,
-      boolean
-          direction) { // simplified so only one method is needed for intake. status is true/false
-    // for on/off,
+  public void setIntakeDirection(boolean status, boolean direction) { // simplified so only one method is needed for intake. status is true/false for on/off,
     double power = status ? 0.5 : 0; // direction is true/false for forward/reverse respectively.
 
     if (direction) {
@@ -74,8 +70,7 @@ public class Control extends Subsystem {
     }
   }
 
-  public void setBucketDirection(
-      boolean status, boolean direction) { // Usage similar to the setIntakeDirection function.
+  public void setBucketDirection(boolean status, boolean direction) { // Usage similar to the setIntakeDirection function.
     int power = status ? 1 : 0;
 
     if (direction) {
@@ -86,7 +81,7 @@ public class Control extends Subsystem {
   }
 
   public void rotateCarousel() {
-    duckWheel.setPosition(1.0);
-    duckWheel.setPosition(0.0);
+    duckWheel.setPosition((duckWheel.getPosition() + (Math.PI / 19.06)) % 1.0); // Applied calculations for 1 full rotation after first
+    // TODO: Calculate amount of turns needed to do full carousel rotation
   }
 }
