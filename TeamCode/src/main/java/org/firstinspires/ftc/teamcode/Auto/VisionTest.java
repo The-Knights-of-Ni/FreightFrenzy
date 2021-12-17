@@ -20,30 +20,21 @@ public class VisionTest extends LinearOpMode {
 
     while (opModeIsActive()) {
       location = vision.detectMarkerRun();
+      switch(location) {
+        case LEFT:
+          telemetry.addData("Location", "LEFT");
+          break;
+        case MIDDLE:
+          telemetry.addData("Location", "MIDDLE");
+          break;
+        case RIGHT:
+          telemetry.addData("Location", "RIGHT");
+          break;
+        case NOT_FOUND:
+          telemetry.addData("Location", "NOT_FOUND");
+          break;
+      }
+      telemetry.update();
     }
-
-    //        DetectMarkerPipeline.MarkerLocation location = vision.detectMarkerRun();
-
-    //        telemetry.addData("Location", "NOT_FOUND");
-    //        telemetry.update();
-
-    //        switch(location) {
-    //            case LEFT:
-    //                telemetry.addData("Location", "LEFT");
-    //                break;
-    //            case MIDDLE:
-    //                telemetry.addData("Location", "MIDDLE");
-    //                break;
-    //            case RIGHT:
-    //                telemetry.addData("Location", "RIGHT");
-    //                break;
-    //            case NOT_FOUND:
-    //                telemetry.addData("Location", "NOT_FOUND");
-    //                break;
-    //            case SEARCHING:
-    //                telemetry.addData("Location", "SEARCHING");
-    //                break;
-    //        }
-    //        telemetry.update();
   }
 }
