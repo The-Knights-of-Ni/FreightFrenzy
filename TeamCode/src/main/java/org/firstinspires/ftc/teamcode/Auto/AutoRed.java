@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -35,16 +36,28 @@ public class AutoRed extends Auto {
   public void runOpMode() throws InterruptedException {
     Robot robot = null;
     try {
-      robot = init(AllianceColor.RED);
+      robot = init(AllianceColor.BLUE);
     } catch (IOException e) {
       e.printStackTrace();
     }
-    assert robot != null;
-    int placementLevel = getHubLevel(robot.vision);
-    waitForStart();
 
-    if (isStopRequested()) {
-      return;
+    assert robot != null;
+    waitForStart();
+    int placementLevel;
+    Drive drive = robot.drive;
+
+    placementLevel = getHubLevel(robot.vision);
+    telemetry.addData("Location", placementLevel);
+    telemetry.update();
+
+    drive.moveForward(6 * mmPerInch);
+    drive.turnRobotByTick(-90);
+    drive.moveBackward(24 * mmPerInch);
+
+    robot.control.startCarousel();
+
+
+    while (opModeIsActive()) {
     }
   }
 }
