@@ -64,8 +64,6 @@ public class AutoRed extends Auto {
     drive.moveBackward(4*mmPerInch);
     drive.turnRobotByTick(-90);
     drive.moveForward(60*mmPerInch);
-
-    while (opModeIsActive()) {
-    }
+    telemetry.addLine("Done");
   }
 }
