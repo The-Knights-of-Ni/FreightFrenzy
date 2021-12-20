@@ -81,8 +81,8 @@ public class Control extends Subsystem {
     }
   }
 
-  public void startCarousel() {
-    duckWheel.set(1);
+  public void startCarousel(boolean direction) {
+    duckWheel.set(direction ? 1 : 0);
   }
   public void stopCarousel() {
     duckWheel.set(0);
