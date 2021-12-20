@@ -24,6 +24,8 @@ import java.io.IOException;
 // Park in warehouse (10)
 @Autonomous(name = "Auto", group = "Concept")
 public class Auto extends LinearOpMode {
+
+  public static float mmPerInch = 25.4f;
   /**
    * Override of runOpMode()
    *

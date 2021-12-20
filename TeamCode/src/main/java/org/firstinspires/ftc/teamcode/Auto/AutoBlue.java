@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
+import org.firstinspires.ftc.teamcode.Util.MathUtil;
 
 import java.io.IOException;
 
@@ -45,6 +46,7 @@ public class AutoBlue extends Auto {
     int placementLevel = getHubLevel(robot.vision);
     Drive drive = robot.drive;
     while (opModeIsActive()) {
+      drive.moveForward(12* mmPerInch);
     }
   }
 }
