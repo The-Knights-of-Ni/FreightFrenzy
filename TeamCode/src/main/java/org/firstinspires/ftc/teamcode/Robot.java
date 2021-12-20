@@ -192,7 +192,7 @@ public class Robot {
     }
 
     // Subsystems
-    opMode.telemetry.addData("Mode", " drive/control initializing...");
+    opMode.telemetry.addData("Mode", " drive initializing...");
     opMode.telemetry.update();
     drive =
         new Drive(
@@ -211,11 +211,13 @@ public class Robot {
     // wobbleGoalArm);
     //        control = new Control(intake, launch1, launch2a, launch2b, imu, opMode, timer,
     // wobbleClaw, wobbleGoalArm);
+    opMode.telemetry.addData("Mode", " control initializing...");
     control = new Control(intake, bucket, duckWheel, imu, opMode, timer);
 
     opMode.telemetry.addData("Mode", " vision initializing...");
     opMode.telemetry.update();
     vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
+    opMode.telemetry.addData("Mode", " done, wait for start");
   }
 
   public void initServosAuto() {
