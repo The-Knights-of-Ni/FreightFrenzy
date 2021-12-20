@@ -39,8 +39,12 @@ public class AutoRed extends Auto {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
     assert robot != null;
     int placementLevel = getHubLevel(robot.vision);
+    waitForStart();
+
+    if (isStopRequested()) {
+      return;
+    }
   }
 }

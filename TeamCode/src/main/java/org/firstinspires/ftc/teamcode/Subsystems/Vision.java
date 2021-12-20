@@ -89,7 +89,7 @@ public class Vision extends Subsystem {
 
     initDetectionPipeline();
 
-    telemetry.addLine("Pipeline init complete");
+    telemetry.addLine("Vision init complete");
     telemetry.update();
   }
 

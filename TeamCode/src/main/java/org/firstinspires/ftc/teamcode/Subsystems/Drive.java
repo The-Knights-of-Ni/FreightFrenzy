@@ -55,7 +55,6 @@ public class Drive extends Subsystem {
   public DcMotorEx odL;
   public DcMotorEx odB;
   public DcMotorEx odR;
-  private HardwareMap hardwareMap;
   private LinearOpMode opMode;
   // Sensors
   private BNO055IMU imu;
@@ -72,10 +71,6 @@ public class Drive extends Subsystem {
   private int odometryCountL = 0;
   private int odometryCountR = 0;
   private int odometryCountB = 0;
-  private boolean isBlue = false;
-
-  private OpenGLMatrix lastLocation = null;
-  private boolean targetVisible = false;
 
   private long startTime;
 
@@ -96,7 +91,6 @@ public class Drive extends Subsystem {
     this.odB = odB;
     this.odR = odR;
     this.opMode = opMode;
-    this.hardwareMap = opMode.hardwareMap;
     this.imu = imu;
     this.timer = timer;
     setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -198,7 +192,13 @@ public class Drive extends Subsystem {
     return new double[] {lfPower, rfPower, lrPower, rrPower};
   }
 
-  // robot only move in forward/backward/left/right directions
+  /** robot only move in forward/backward/left/right directions
+   *
+   * @param leftStickX
+   * @param leftStickY
+   * @param rightStickX
+   * @return
+   */
   public double[] calcMotorPowers2(double leftStickX, double leftStickY, double rightStickX) {
     if (Math.abs(leftStickX) >= Math.abs((leftStickY))) {
       leftStickY = 0;
