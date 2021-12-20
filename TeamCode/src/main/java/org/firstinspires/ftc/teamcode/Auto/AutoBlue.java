@@ -43,10 +43,18 @@ public class AutoBlue extends Auto {
     }
 
     assert robot != null;
+    waitForStart();
     int placementLevel = getHubLevel(robot.vision);
     Drive drive = robot.drive;
+
     while (opModeIsActive()) {
-      drive.moveForward(12* mmPerInch);
+      placementLevel = getHubLevel(robot.vision);
+      telemetry.addData("Location", placementLevel);
+
+      telemetry.update();
     }
+//    while (opModeIsActive()) {
+//      drive.moveForward(12* mmPerInch);
+//    }
   }
 }

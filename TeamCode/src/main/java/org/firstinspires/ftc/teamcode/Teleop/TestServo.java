@@ -21,6 +21,6 @@ public class TestServo extends LinearOpMode {
       e.printStackTrace();
     }
     waitForStart();
-    robot.control.rotateCarousel();
+//    robot.control.rotateCarousel();
   }
 }

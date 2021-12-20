@@ -28,7 +28,11 @@ public class VisionTest extends LinearOpMode {
   }
   @Override
   public void runOpMode() throws InterruptedException {
-    ElapsedTime timer = new ElapsedTime();
+    try {
+      this.initOpMode();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     DetectMarkerPipeline.MarkerLocation location;
 
