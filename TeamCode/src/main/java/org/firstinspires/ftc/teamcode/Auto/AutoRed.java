@@ -36,7 +36,7 @@ public class AutoRed extends Auto {
   public void runOpMode() throws InterruptedException {
     Robot robot = null;
     try {
-      robot = init(AllianceColor.BLUE);
+      robot = init(AllianceColor.RED);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -50,12 +50,20 @@ public class AutoRed extends Auto {
     telemetry.addData("Location", placementLevel);
     telemetry.update();
 
-    drive.moveForward(6 * mmPerInch);
+    drive.moveForward(7 * mmPerInch);
     drive.turnRobotByTick(-90);
     drive.moveBackward(24 * mmPerInch);
 
-    robot.control.startCarousel();
-
+    robot.control.startCarousel(false);
+    sleep(5000);
+    robot.control.stopCarousel();
+    drive.moveForward(48*mmPerInch);
+    drive.turnRobotByTick(90);
+    drive.moveForward(9*mmPerInch);
+    sleep(1000); // delivery point here
+    drive.moveBackward(4*mmPerInch);
+    drive.turnRobotByTick(-90);
+    drive.moveForward(66*mmPerInch);
 
     while (opModeIsActive()) {
     }

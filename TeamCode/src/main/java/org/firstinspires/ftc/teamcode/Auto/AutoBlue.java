@@ -22,6 +22,7 @@ import java.io.IOException;
 // Deliver freight to hub (6)
 // - deliver freight to corresponding level of custom element (20)
 // Park in warehouse (10)
+// startcarousel should be true here
 @Autonomous(name = "Auto Blue", group = "Auto")
 public class AutoBlue extends Auto {
   /**
@@ -51,8 +52,20 @@ public class AutoBlue extends Auto {
     telemetry.addData("Location", placementLevel);
     telemetry.update();
 
-    drive.moveLeft(24* mmPerInch);
-    drive.turnByAngle(.5, -90);
+    drive.moveForward(7 * mmPerInch);
+    drive.turnRobotByTick(-90);
+    drive.moveBackward(24 * mmPerInch);
+
+    robot.control.startCarousel(false);
+    sleep(5000);
+    robot.control.stopCarousel();
+    drive.moveForward(48*mmPerInch);
+    drive.turnRobotByTick(90);
+    drive.moveForward(9*mmPerInch);
+    sleep(1000); // delivery point here
+    drive.moveBackward(4*mmPerInch);
+    drive.turnRobotByTick(-90);
+    drive.moveForward(66*mmPerInch);
 
     while (opModeIsActive()) {
     }
