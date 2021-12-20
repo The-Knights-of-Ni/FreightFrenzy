@@ -63,7 +63,7 @@ public class AutoRed extends Auto {
     sleep(1000); // delivery point here
     drive.moveBackward(4*mmPerInch);
     drive.turnRobotByTick(-90);
-    drive.moveForward(66*mmPerInch);
+    drive.moveForward(60*mmPerInch);
 
     while (opModeIsActive()) {
     }
