@@ -124,8 +124,12 @@ public class Teleop extends LinearOpMode {
         }
       }
 
-      if (robot.xButton && !robot.isxButtonPressedPrev) {
-        robot.control.rotateCarousel();
+
+      if (robot.xButton) {
+        robot.control.startCarousel();
+      }
+      if(robot.yButton) {
+        robot.control.stopCarousel();
       }
     }
   }

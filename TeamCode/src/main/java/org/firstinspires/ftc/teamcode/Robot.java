@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -26,7 +27,7 @@ public class Robot {
   public DcMotorEx intake;
   public DcMotorEx bucket;
   // Servos
-  public Servo duckWheel;
+  public CRServo duckWheel;
   // Odometry
   public List<LynxModule> allHubs;
   public DigitalChannel odometryRA;
@@ -166,7 +167,7 @@ public class Robot {
     bucket.setPower(0.0);
 
     // Servos
-    duckWheel = hardwareMap.servo.get("duckWheel");
+    duckWheel = new CRServo(hardwareMap, "duckWheel");
 
     imu = hardwareMap.get(BNO055IMU.class, "imu");
 

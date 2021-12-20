@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -20,7 +21,7 @@ public class Control extends Subsystem {
   // DC Motors
   private DcMotorEx intake;
   private DcMotorEx bucket;
-  private Servo duckWheel;
+  private CRServo duckWheel;
 
   // Servos
 
@@ -30,7 +31,7 @@ public class Control extends Subsystem {
   public Control(
       DcMotorEx intake,
       DcMotorEx bucket,
-      Servo duckWheel,
+      CRServo duckWheel,
       BNO055IMU imu,
       LinearOpMode opMode,
       ElapsedTime timer) {
@@ -80,10 +81,15 @@ public class Control extends Subsystem {
     }
   }
 
-  public void rotateCarousel() {
-    for (int i = 0; i < 5; i++) {
-      duckWheel.setPosition((duckWheel.getPosition() + (Math.PI / 19.06)) % 1.0); // Applied calculations for 1 full rotation after first
-      // TODO: Calculate amount of turns needed to do full carousel rotation
-    }
+  public void startCarousel() {
+    duckWheel.set(1);
   }
+  public void stopCarousel() {
+    duckWheel.set(0);
+  }
+//  public void rotateCarousel() {
+//    for (int i = 0; i < 5; i++) {
+//      duckWheel.setPosition((duckWheel.getPosition() + (Math.PI / 19.06)) % 1.0); // Applied calculations for 1 full rotation after first
+//    }
+//  }
 }
