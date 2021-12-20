@@ -82,7 +82,7 @@ public class Control extends Subsystem {
   }
 
   public void startCarousel(boolean direction) {
-    duckWheel.set(direction ? 1 : 0);
+    duckWheel.set(direction ? 1 : -1);
   }
   public void stopCarousel() {
     duckWheel.set(0);
