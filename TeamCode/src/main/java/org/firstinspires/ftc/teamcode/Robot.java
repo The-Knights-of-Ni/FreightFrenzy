@@ -180,10 +180,10 @@ public class Robot {
     parameters.loggingTag = "IMU";
     parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
-    opMode.telemetry.addData("Mode", " IMU initializing...");
+    opMode.telemetry.addData("Status", " IMU initializing...");
     opMode.telemetry.update();
     imu.initialize(parameters);
-    opMode.telemetry.addData("Mode", " IMU calibrating...");
+    opMode.telemetry.addData("Status", " IMU calibrating...");
     opMode.telemetry.update();
     // make sure the imu gyro is calibrated before continuing.
     while (opMode.opModeIsActive() && !imu.isGyroCalibrated()) {
@@ -192,7 +192,7 @@ public class Robot {
     }
 
     // Subsystems
-    opMode.telemetry.addData("Mode", " drive/control initializing...");
+    opMode.telemetry.addData("Status", " drive initializing...");
     opMode.telemetry.update();
     drive =
         new Drive(
@@ -211,11 +211,13 @@ public class Robot {
     // wobbleGoalArm);
     //        control = new Control(intake, launch1, launch2a, launch2b, imu, opMode, timer,
     // wobbleClaw, wobbleGoalArm);
+    opMode.telemetry.addData("Status", " control initializing...");
     control = new Control(intake, bucket, duckWheel, imu, opMode, timer);
 
-    opMode.telemetry.addData("Mode", " vision initializing...");
+    opMode.telemetry.addData("Status", " vision initializing...");
     opMode.telemetry.update();
     vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
+    opMode.telemetry.addData("Status", " done, wait for start");
   }
 
   public void initServosAuto() {
