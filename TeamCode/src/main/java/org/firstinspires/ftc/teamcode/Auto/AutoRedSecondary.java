@@ -31,7 +31,7 @@ public class AutoRedSecondary extends Auto {
         drive.moveForward(7 * mmPerInch);
         drive.turnRobotByTick(45);
         drive.moveForward(18 * mmPerInch);
-        sleep(5000);
+        sleep(1000);
 
         // Move back to the warehouse
         drive.turnRobotByTick(45);
