@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
 
-@Autonomous(name = "Auto Red Secondary", group = "Auto")
+@Autonomous(name = "Auto Red Secondary", group = "Auto Red")
 public class AutoRedSecondary extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -31,12 +31,11 @@ public class AutoRedSecondary extends Auto {
         drive.moveForward(7 * mmPerInch);
         drive.turnRobotByTick(45);
         drive.moveForward(18 * mmPerInch);
-        sleep(5000);
+        sleep(1000);
 
         // Move back to the warehouse
         drive.turnRobotByTick(45);
-        drive.moveBackward(50 * mmPerInch);
+        drive.moveBackward(74 * mmPerInch);
 
-        while (opModeIsActive());
     }
 }

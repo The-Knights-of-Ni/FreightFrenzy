@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
 
-@Autonomous(name = "Auto Blue Secondary", group = "Auto")
+@Autonomous(name = "Auto Blue Secondary", group = "Auto Blue")
 public class AutoBlueSecondary extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -28,16 +28,14 @@ public class AutoBlueSecondary extends Auto {
         telemetry.addData("Location", placementLevel);
         telemetry.update();
 
-        // Move in front of the big pole thingy
+        // Move in front of the hub
         drive.moveForward(7 * mmPerInch);
-        drive.turnRobotByTick(-30);
-        drive.moveForward(22 * mmPerInch);
-        sleep(5000);
+        drive.turnRobotByTick(-45);
+        drive.moveForward(18 * mmPerInch);
+        sleep(1000);
 
         // Move back to the warehouse
-        drive.turnRobotByTick(120);
-        drive.moveForward(50 * mmPerInch);
-
-        while (opModeIsActive());
+        drive.turnRobotByTick(-45);
+        drive.moveForward(74 * mmPerInch);
     }
 }

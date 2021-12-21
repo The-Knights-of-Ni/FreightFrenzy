@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -23,6 +24,7 @@ import java.io.IOException;
 // - deliver freight to corresponding level of custom element (20)
 // Park in warehouse (10)
 @Autonomous(name = "Auto", group = "Concept")
+@Disabled
 public class Auto extends LinearOpMode {
 
   public static float mmPerInch = 25.4f;
