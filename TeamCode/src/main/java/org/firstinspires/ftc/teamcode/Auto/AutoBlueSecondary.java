@@ -30,13 +30,13 @@ public class AutoBlueSecondary extends Auto {
 
         // Move in front of the big pole thingy
         drive.moveForward(7 * mmPerInch);
-        drive.turnRobotByTick(-30);
-        drive.moveForward(22 * mmPerInch);
-        sleep(5000);
+        drive.turnRobotByTick(-45);
+        drive.moveForward(18 * mmPerInch);
+        sleep(1000);
 
         // Move back to the warehouse
-        drive.turnRobotByTick(120);
-        drive.moveForward(50 * mmPerInch);
+        drive.turnRobotByTick(-45);
+        drive.moveForward(74 * mmPerInch);
 
         while (opModeIsActive());
     }
