@@ -23,7 +23,7 @@ import java.io.IOException;
 // - deliver freight to corresponding level of custom element (20)
 // Park in warehouse (10)
 // startcarousel should be true here
-@Autonomous(name = "Auto Blue", group = "Auto")
+@Autonomous(name = "Auto Blue", group = "Auto Blue")
 public class AutoBlue extends Auto {
   /**
    * Override of runOpMode()
