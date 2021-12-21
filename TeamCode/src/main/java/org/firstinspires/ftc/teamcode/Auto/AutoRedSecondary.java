@@ -37,6 +37,5 @@ public class AutoRedSecondary extends Auto {
         drive.turnRobotByTick(45);
         drive.moveBackward(74 * mmPerInch);
 
-        while (opModeIsActive());
     }
 }

@@ -64,5 +64,6 @@ public class AutoRedPrimary extends Auto {
     drive.moveForward(64*mmPerInch);
     drive.moveRight(10*mmPerInch);
     telemetry.addLine("Done");
+    telemetry.update();
   }
 }

@@ -28,7 +28,7 @@ public class AutoBlueSecondary extends Auto {
         telemetry.addData("Location", placementLevel);
         telemetry.update();
 
-        // Move in front of the big pole thingy
+        // Move in front of the hub
         drive.moveForward(7 * mmPerInch);
         drive.turnRobotByTick(-45);
         drive.moveForward(18 * mmPerInch);
@@ -37,7 +37,5 @@ public class AutoBlueSecondary extends Auto {
         // Move back to the warehouse
         drive.turnRobotByTick(-45);
         drive.moveForward(74 * mmPerInch);
-
-        while (opModeIsActive());
     }
 }
