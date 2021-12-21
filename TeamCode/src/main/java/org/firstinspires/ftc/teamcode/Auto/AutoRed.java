@@ -21,7 +21,7 @@ import java.io.IOException;
 // Deliver freight to hub (6)
 // - deliver freight to corresponding level of custom element (20)
 // Park in warehouse (10)
-@Autonomous(name = "Auto Red", group = "Concept")
+@Autonomous(name = "Auto Red", group = "Auto")
 public class AutoRed extends Auto {
   /**
    * Override of {@link Auto#runOpMode()}
@@ -42,13 +42,11 @@ public class AutoRed extends Auto {
     }
 
     assert robot != null;
-    waitForStart();
     int placementLevel;
     Drive drive = robot.drive;
 
     placementLevel = getHubLevel(robot.vision);
-    telemetry.addData("Location", placementLevel);
-    telemetry.update();
+    waitForStart();
 
     drive.moveForward(7 * mmPerInch);
     drive.turnRobotByTick(-90);
@@ -64,8 +62,6 @@ public class AutoRed extends Auto {
     drive.moveBackward(4*mmPerInch);
     drive.turnRobotByTick(-90);
     drive.moveForward(60*mmPerInch);
-
-    while (opModeIsActive()) {
-    }
+    telemetry.addLine("Done");
   }
 }

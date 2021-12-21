@@ -64,10 +64,6 @@ public class Teleop extends LinearOpMode {
     while (opModeIsActive()) { // clearer nomenclature for variables
       robot.getGamePadInputs();
 
-      DetectMarkerPipeline.MarkerLocation where = robot.vision.detectMarkerRun();
-      // telemetry.addData("Marker Location", "", where);
-      // telemetry.update();
-
       timeCurrent = timer.nanoseconds();
       deltaT = timeCurrent - timePre;
       timePre = timeCurrent;
@@ -102,27 +98,27 @@ public class Teleop extends LinearOpMode {
         }
       }
 
-      // Toggle bucket up
-      if (robot.bumperLeft) {
-        if (isBucketMoving) {
-          robot.control.setBucketDirection(false, true);
-          isBucketMoving = false;
-        } else {
-          robot.control.setBucketDirection(true, true);
-          isBucketMoving = true;
-        }
-      }
-
-      // Toggle bucket down
-      if (robot.bumperRight) {
-        if (isBucketMoving) {
-          robot.control.setBucketDirection(false, false);
-          isBucketMoving = false;
-        } else {
-          robot.control.setBucketDirection(true, false);
-          isBucketMoving = true;
-        }
-      }
+//      // Toggle bucket up
+//      if (robot.bumperLeft) {
+//        if (isBucketMoving) {
+//          robot.control.setBucketDirection(false, true);
+//          isBucketMoving = false;
+//        } else {
+//          robot.control.setBucketDirection(true, true);
+//          isBucketMoving = true;
+//        }
+//      }
+//
+//      // Toggle bucket down
+//      if (robot.bumperRight) {
+//        if (isBucketMoving) {
+//          robot.control.setBucketDirection(false, false);
+//          isBucketMoving = false;
+//        } else {
+//          robot.control.setBucketDirection(true, false);
+//          isBucketMoving = true;
+//        }
+//      }
 
 
       if (robot.xButton) {

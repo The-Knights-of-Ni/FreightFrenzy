@@ -114,9 +114,6 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         result = "RIGHT";
         break;
     }
-    telemetry.addData("Marker Location", result);
-
-    telemetry.update();
 
     Imgproc.cvtColor(
         mask,
