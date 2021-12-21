@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
 
-@Autonomous(name = "Auto Blue Secondary", group = "Auto")
+@Autonomous(name = "Auto Blue Secondary", group = "Auto Blue")
 public class AutoBlueSecondary extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {

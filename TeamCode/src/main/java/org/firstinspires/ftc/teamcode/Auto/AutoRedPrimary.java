@@ -21,8 +21,8 @@ import java.io.IOException;
 // Deliver freight to hub (6)
 // - deliver freight to corresponding level of custom element (20)
 // Park in warehouse (10)
-@Autonomous(name = "Auto Red", group = "Auto Red")
-public class AutoRed extends Auto {
+@Autonomous(name = "Auto Red Primary", group = "Auto Red")
+public class AutoRedPrimary extends Auto {
   /**
    * Override of {@link Auto#runOpMode()}
    *
@@ -61,7 +61,7 @@ public class AutoRed extends Auto {
     sleep(1000); // delivery point here
     drive.moveBackward(4*mmPerInch);
     drive.turnRobotByTick(-90);
-    drive.moveForward(60*mmPerInch);
+    drive.moveForward(64*mmPerInch);
     drive.moveRight(10*mmPerInch);
     telemetry.addLine("Done");
   }
