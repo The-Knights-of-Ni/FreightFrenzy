@@ -42,13 +42,11 @@ public class AutoRed extends Auto {
     }
 
     assert robot != null;
-    waitForStart();
     int placementLevel;
     Drive drive = robot.drive;
 
     placementLevel = getHubLevel(robot.vision);
-    telemetry.addData("Location", placementLevel);
-    telemetry.update();
+    waitForStart();
 
     drive.moveForward(7 * mmPerInch);
     drive.turnRobotByTick(-90);
