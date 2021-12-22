@@ -73,14 +73,15 @@ public class Control extends Subsystem {
         }
     }
 
-    public void setBucketDirection(boolean status, boolean direction) { // Usage similar to the setIntakeDirection function.
-        int power = status ? 1 : 0;
+    public void setBucketState(BucketState bucketState) { // Usage similar to the setIntakeDirection function.
+        final int TOUCHING_FLOOR = 0;
+        final int LEVEL = -5;
+        final int RAISED = -74;
 
-        if (direction) {
-            bucket.setPower(power);
-        } else {
-            bucket.setPower(-power);
-        }
+        if(bucketState == BucketState.TOUCHING_FLOOR) { bucket.setTargetPosition(TOUCHING_FLOOR); }
+        if(bucketState == BucketState.LEVEL) { bucket.setTargetPosition(LEVEL); }
+        if(bucketState == BucketState.RAISED) { bucket.setTargetPosition(RAISED); }
+
     }
 
     public void startCarousel(boolean direction) {
@@ -90,9 +91,15 @@ public class Control extends Subsystem {
     public void stopCarousel() {
         duckWheel.set(0);
     }
-//  public void rotateCarousel() {
+
+    //  public void rotateCarousel() {
 //    for (int i = 0; i < 5; i++) {
 //      duckWheel.setPosition((duckWheel.getPosition() + (Math.PI / 19.06)) % 1.0); // Applied calculations for 1 full rotation after first
 //    }
 //  }
+    enum BucketState {
+        TOUCHING_FLOOR,
+        LEVEL,
+        RAISED
+    }
 }
