@@ -143,8 +143,6 @@ public class Robot {
 
         frontRightDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rearRightDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //        frontLeftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //        rearLeftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         frontLeftDriveMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         frontRightDriveMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
@@ -156,15 +154,12 @@ public class Robot {
         intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         intake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         intake.setPower(0.0);
 
         bucket = (DcMotorEx) hardwareMap.dcMotor.get("bucket");
         bucket.setDirection(DcMotorSimple.Direction.REVERSE);
         bucket.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         bucket.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        bucket.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         bucket.setPower(0.0);
 
@@ -206,13 +201,6 @@ public class Robot {
                         opMode,
                         timer);
 
-        //        drive.setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //        drive.setRunMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        //        control = new Control(intake, launch1, launch2, imu, opMode, timer, wobbleClaw,
-        // wobbleGoalArm);
-        //        control = new Control(intake, launch1, launch2a, launch2b, imu, opMode, timer,
-        // wobbleClaw, wobbleGoalArm);
         opMode.telemetry.addData("Status", " control initializing...");
         control = new Control(intake, bucket, duckWheel, imu, opMode, timer);
 
