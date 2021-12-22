@@ -157,10 +157,8 @@ public class Robot {
         intake.setPower(0.0);
 
         bucket = (DcMotorEx) hardwareMap.dcMotor.get("bucket");
-        bucket.setDirection(DcMotorSimple.Direction.REVERSE);
         bucket.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         bucket.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         bucket.setPower(0.0);
 
         // Servos
