@@ -73,14 +73,34 @@ public class Control extends Subsystem {
         }
     }
 
-    public void setBucketState(BucketState bucketState) { // Usage similar to the setIntakeDirection function.
-        final int TOUCHING_FLOOR = 0;
+    public void setBucketState(int bucketState) { // Usage similar to the setIntakeDirection function.
+        final int FLOOR = 0;
         final int LEVEL = -5;
         final int RAISED = -74;
-
-        if(bucketState == BucketState.TOUCHING_FLOOR) { bucket.setTargetPosition(TOUCHING_FLOOR); }
-        if(bucketState == BucketState.LEVEL) { bucket.setTargetPosition(LEVEL); }
-        if(bucketState == BucketState.RAISED) { bucket.setTargetPosition(RAISED); }
+        
+        switch(bucketState) {
+            case 0:
+                //TOUCHING_FLOOR
+                bucket.setTargetPosition(FLOOR);
+                bucket.setPower(0.5);
+                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                break;
+            case 1:
+                //LEVEL
+                bucket.setTargetPosition(LEVEL);
+                bucket.setPower(0.5);
+                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                break;
+            case 2:
+                //RAISED
+                bucket.setTargetPosition(RAISED);
+                bucket.setPower(0.5);
+                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+            default:
+                bucket.setTargetPosition(FLOOR);
+                bucket.setPower(0.5);
+                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        }
 
     }
 
@@ -97,9 +117,4 @@ public class Control extends Subsystem {
 //      duckWheel.setPosition((duckWheel.getPosition() + (Math.PI / 19.06)) % 1.0); // Applied calculations for 1 full rotation after first
 //    }
 //  }
-    enum BucketState {
-        TOUCHING_FLOOR,
-        LEVEL,
-        RAISED
-    }
 }
