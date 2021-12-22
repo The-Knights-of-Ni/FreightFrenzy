@@ -2,9 +2,13 @@ package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.jetbrains.annotations.TestOnly;
+
+@TeleOp(name = "Bucket Position Test")
 public class TestBucketPosition extends LinearOpMode {
 
     private DcMotorEx bucket;
@@ -16,16 +20,22 @@ public class TestBucketPosition extends LinearOpMode {
         bucket = (DcMotorEx) hardwareMap.dcMotor.get("bucket");
         bucket.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bucket.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
+        waitForStart();
         while (opModeIsActive()) {
 
             // Toggle bucket up
             if (this.gamepad1.left_bumper) {
                 if (isBucketMoving) {
-                    bucket.setTargetPosition(bucket.getCurrentPosition() + 1);
+                    bucket.setTargetPosition(-74);
+                    bucket.setPower(1);
+                    bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     isBucketMoving = false;
                 } else {
+//                    if(bucket.getCurrentPosition() == -74) {
+//                        bucket.setPower(0);
+//                        isBucketMoving = true;
+//                    }
                     isBucketMoving = true;
                 }
             }
@@ -33,15 +43,21 @@ public class TestBucketPosition extends LinearOpMode {
             // Toggle bucket down
             if (this.gamepad1.right_bumper) {
                 if (isBucketMoving) {
-                    bucket.setTargetPosition(bucket.getCurrentPosition() - 1);
+                    bucket.setTargetPosition(0);
+                    bucket.setPower(1);
+                    bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     isBucketMoving = false;
                 } else {
+//                    if(bucket.getCurrentPosition() == 0) {
+//                        bucket.setPower(0);
+//                        isBucketMoving = true;
+//                    }
                     isBucketMoving = true;
                 }
             }
 
-
             telemetry.addData("Position", bucket.getCurrentPosition());
+            telemetry.update();
         }
     }
 
