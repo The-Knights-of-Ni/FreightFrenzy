@@ -102,10 +102,12 @@ public class Teleop extends LinearOpMode {
 //      // Toggle bucket up
 //      if (robot.bumperLeft) {
 //        if (isBucketMoving) {
-//          robot.control.setBucketDirection(false, true);
+//          bucket.setTargetPosition(-74);
+//          bucket.setPower(0.5);
+//          bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 //          isBucketMoving = false;
 //        } else {
-//          robot.control.setBucketDirection(true, true);
+//          bucket.setPower(0);
 //          isBucketMoving = true;
 //        }
 //      }
@@ -113,10 +115,11 @@ public class Teleop extends LinearOpMode {
 //      // Toggle bucket down
 //      if (robot.bumperRight) {
 //        if (isBucketMoving) {
-//          robot.control.setBucketDirection(false, false);
+//          bucket.setTargetPosition(0);
+//          bucket.setPower(0.5);
+//          bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 //          isBucketMoving = false;
 //        } else {
-//          robot.control.setBucketDirection(true, false);
 //          isBucketMoving = true;
 //        }
 //      }
