@@ -164,6 +164,7 @@ public class Robot {
     bucket.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
     bucket.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
     //        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+    bucket.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     bucket.setPower(0.0);
 
     // Servos
