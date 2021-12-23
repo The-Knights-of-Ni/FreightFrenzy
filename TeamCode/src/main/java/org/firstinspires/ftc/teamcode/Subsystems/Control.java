@@ -73,7 +73,12 @@ public class Control extends Subsystem {
         }
     }
 
-    public void setBucketState(int bucketState) { // Usage similar to the setIntakeDirection function.
+    /**
+     *
+     * @param bucketState should be set to 0 for touching the floor, 1 for level, and 2 for raised.
+     */
+
+    public void setBucketState(int bucketState) {
         final int FLOOR = 0;
         final int LEVEL = -5;
         final int RAISED = -74;
@@ -97,7 +102,7 @@ public class Control extends Subsystem {
                 bucket.setPower(0.5);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
             default:
-                bucket.setTargetPosition(FLOOR);
+                bucket.setTargetPosition(LEVEL);
                 bucket.setPower(0.5);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         }
@@ -111,10 +116,4 @@ public class Control extends Subsystem {
     public void stopCarousel() {
         duckWheel.set(0);
     }
-
-    //  public void rotateCarousel() {
-//    for (int i = 0; i < 5; i++) {
-//      duckWheel.setPosition((duckWheel.getPosition() + (Math.PI / 19.06)) % 1.0); // Applied calculations for 1 full rotation after first
-//    }
-//  }
 }
