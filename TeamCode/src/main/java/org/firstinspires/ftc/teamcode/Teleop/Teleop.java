@@ -99,51 +99,36 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-//      // Toggle bucket up
-//      if (robot.bumperLeft) {
-//        if (isBucketMoving) {
-//          bucket.setTargetPosition(-74);
-//          bucket.setPower(0.5);
-//          bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-//          isBucketMoving = false;
-//        } else {
-//          bucket.setPower(0);
-//          isBucketMoving = true;
-//        }
-//      }
-//
-//      // Toggle bucket down
-//      if (robot.bumperRight) {
-//        if (isBucketMoving) {
-//          bucket.setTargetPosition(0);
-//          bucket.setPower(0.5);
-//          bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-//          isBucketMoving = false;
-//        } else {
-//          isBucketMoving = true;
-//        }
-//      }
-
-
-            if (robot.xButton) {
+            // Toggle duck wheel forward
+            if (robot.yButton && !robot.isyButtonPressedPrev) {
                 if (isDuckOn) {
-                    robot.control.startCarousel(false);
+                    robot.control.stopCarousel();
                     isDuckOn = false;
                 } else {
-                    robot.control.stopCarousel();
+                    robot.control.startCarousel(true);
                     isDuckOn = true;
                 }
+            }
 
-
-                if (robot.yButton) {
-                    if (isDuckOn) {
-                        robot.control.startCarousel(true);
-                        isDuckOn = false;
-                    } else {
-                        robot.control.stopCarousel();
-                        isDuckOn = true;
-                    }
+            // Toggle duck wheel reverse
+            if (robot.xButton && !robot.isxButtonPressedPrev) {
+                if (isDuckOn) {
+                    robot.control.stopCarousel();
+                    isDuckOn = false;
+                } else {
+                    robot.control.startCarousel(false);
+                    isDuckOn = true;
                 }
+            }
+
+            // Toggle bucket up
+            if (robot.bumperLeft && !robot.islBumperPressedPrev) {
+                robot.control.setBucketState(2);
+            }
+
+            // Toggle bucket down
+            if (robot.bumperRight && !robot.isrBumperPressedPrev) {
+                robot.control.setBucketState(0);
             }
         }
     }
