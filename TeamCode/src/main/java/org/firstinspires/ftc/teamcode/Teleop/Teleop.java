@@ -20,7 +20,6 @@ public class Teleop extends LinearOpMode {
     private double robotAngle;
     private boolean isIntakeOn = false;
     private boolean isDuckOn = false;
-    private boolean isBucketMoving = false;
 
     private void initOpMode() {
         // Initialize DC motor objects
