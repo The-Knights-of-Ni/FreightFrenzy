@@ -75,8 +75,6 @@ public class Teleop extends LinearOpMode {
                     robot.drive.calcMotorPowers(robot.leftStickX, robot.leftStickY, robot.rightStickX);
             robot.drive.setDrivePowers(motorPowers);
 
-            robot.drive.setDrivePowers(motorPowers);
-
             // Toggle intake regular
             if (robot.aButton && !robot.isaButtonPressedPrev) {
                 if (isIntakeOn) {
