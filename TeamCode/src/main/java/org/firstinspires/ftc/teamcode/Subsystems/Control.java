@@ -27,6 +27,12 @@ public class Control extends Subsystem {
     // Sensors
     private BNO055IMU imu;
 
+    public enum PlacementLevel {
+        TOP,
+        MIDDLE,
+        BOTTOM,
+    }
+
     public Control(
             DcMotorEx intake,
             DcMotorEx bucket,
