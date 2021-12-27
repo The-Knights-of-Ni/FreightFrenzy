@@ -19,11 +19,15 @@ import java.io.IOException;
  * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
  */
 
-// Tasks:
-// Deliver duck from carousel (10)
-// Deliver freight to hub (6)
-// - deliver freight to corresponding level of custom element (20)
-// Park in warehouse (10)
+/**
+ Tasks:
+ Deliver duck from carousel (10)
+ Deliver freight to hub (6)
+ - deliver freight to corresponding level of custom element (20)
+ park in warehouse (10)
+ */
+
+
 @Autonomous(name = "Auto", group = "Concept")
 @Disabled
 public class Auto extends LinearOpMode {
