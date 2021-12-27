@@ -27,6 +27,13 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
     Mat mask = new Mat();
     private MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
 
+    public enum MarkerLocation {
+        LEFT,
+        MIDDLE,
+        RIGHT,
+        NOT_FOUND
+    }
+
     /**
      * Class instantiation
      *
@@ -151,12 +158,5 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
      */
     public MarkerLocation getMarkerLocation() {
         return markerLocation;
-    }
-
-    public enum MarkerLocation {
-        LEFT,
-        MIDDLE,
-        RIGHT,
-        NOT_FOUND
     }
 }
