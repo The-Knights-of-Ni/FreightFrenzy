@@ -55,7 +55,7 @@ public class AutoRedPrimary extends Auto {
         robot.control.setBucketState(1);
 
         robot.control.startCarousel(false);
-        sleep(5000);
+        sleep(2500);
         robot.control.stopCarousel();
         drive.moveForward(48 * mmPerInch);
         drive.turnRobotByTick(90);

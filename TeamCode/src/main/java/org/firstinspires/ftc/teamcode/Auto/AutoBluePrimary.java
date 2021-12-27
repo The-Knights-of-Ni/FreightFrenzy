@@ -58,7 +58,7 @@ public class AutoBluePrimary extends Auto {
         robot.control.setBucketState(1);
 
         robot.control.startCarousel(true);
-        sleep(5000);
+        sleep(2500);
         robot.control.stopCarousel();
         drive.moveLeft(48 * mmPerInch);
         drive.moveForward(9 * mmPerInch);
