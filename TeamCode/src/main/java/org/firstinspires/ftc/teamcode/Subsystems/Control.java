@@ -30,7 +30,7 @@ public class Control extends Subsystem {
     public enum PlacementLevel {
         TOP,
         MIDDLE,
-        BOTTOM,
+        BOTTOM
     }
 
     public Control(
