@@ -49,6 +49,7 @@ public class AutoRedPrimary extends Auto {
         placementLevel = getHubLevel(robot.vision);
         waitForStart();
 
+        robot.control.setBucketState(1);
         drive.moveForward(3 * mmPerInch);
         drive.turnRobotByTick(-80);
         drive.moveBackward(24 * mmPerInch);
