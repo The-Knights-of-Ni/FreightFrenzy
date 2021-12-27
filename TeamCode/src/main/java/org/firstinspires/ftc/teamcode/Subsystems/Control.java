@@ -80,7 +80,7 @@ public class Control extends Subsystem {
     public void setBucketState(int bucketState) {
         final int FLOOR = 0;
         final int LEVEL = -5;
-        final int RAISED = -74;
+        final int RAISED = -60;
         
         switch(bucketState) {
             case 0:
