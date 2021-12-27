@@ -62,7 +62,7 @@ public class AutoRedPrimary extends Auto {
         sleep(1000); // delivery point here
         drive.moveBackward(4 * mmPerInch);
         drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
-        drive.moveLeft(20 * mmPerInch); //TODO: potentially add intake reversing to clear elements.
+        drive.moveLeft(20 * mmPerInch);
         robot.control.setIntakeDirection(true, false);
         drive.moveBackward(56 * mmPerInch);
         robot.control.setIntakeDirection(false, false);
