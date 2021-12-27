@@ -49,22 +49,23 @@ public class AutoRedPrimary extends Auto {
         placementLevel = getHubLevel(robot.vision);
         waitForStart();
 
-        drive.moveForward(7 * mmPerInch);
-        drive.turnRobotByTick(-90);
+        drive.moveForward(3 * mmPerInch);
+        drive.turnRobotByTick(-80);
         drive.moveBackward(24 * mmPerInch);
-        robot.control.setBucketState(1);
-
+//        robot.control.setBucketState(1); //TODO adjust this back to 90 once robot is heavier
         robot.control.startCarousel(false);
-        sleep(2500);
+        sleep(3800);
         robot.control.stopCarousel();
         drive.moveForward(48 * mmPerInch);
-        drive.turnRobotByTick(90);
-        drive.moveForward(9 * mmPerInch);
+        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
+        drive.moveForward(18 * mmPerInch);
         sleep(1000); // delivery point here
         drive.moveBackward(4 * mmPerInch);
-        drive.turnRobotByTick(-90);
-        drive.moveForward(64 * mmPerInch);
-        drive.moveRight(10 * mmPerInch);
+        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
+        drive.moveLeft(20 * mmPerInch); //TODO: potentially add intake reversing to clear elements.
+        robot.control.setIntakeDirection(true, false);
+        drive.moveBackward(56 * mmPerInch);
+        robot.control.setIntakeDirection(false, false);
         telemetry.addLine("Done");
         telemetry.update();
     }

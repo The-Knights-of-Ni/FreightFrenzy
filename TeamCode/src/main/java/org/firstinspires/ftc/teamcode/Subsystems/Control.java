@@ -10,8 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
- * Control subsystem for controlling arms and claws Created by AndrewC on 1/17/2020 Cleaned up by
- * Alessandro Bonecchi
+ * Control subsystem for controlling arms and claws
  */
 public class Control extends Subsystem {
     // device declaration
