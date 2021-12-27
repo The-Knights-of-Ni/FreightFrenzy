@@ -9,38 +9,39 @@ import java.util.ArrayList;
 
 public class fobj {
 
-  public fobj() {}
-
-  public static ArrayList<Coordinate> read(String path) throws IOException {
-    java.io.File file = new java.io.File(path);
-    FileReader fr = new FileReader(file);
-    char[] a = new char[50];
-    fr.read(a); // reads the content to the array
-    StringBuilder output = new StringBuilder();
-
-    for (char c : a) output.append(c); // prints the characters one by one
-    fr.close();
-    String contains = output.toString();
-    String[] splitCoordinate = contains.split("\\|");
-    ArrayList<Coordinate> coordinates = new ArrayList<>();
-    int now = 0;
-    for (String coordinate : splitCoordinate) {
-      coordinates.set(now, new Coordinate(
-              Integer.parseInt(coordinate.split(",")[0]),
-              Integer.parseInt(coordinate.split(",")[1])));
-      now++;
-    }
-    return coordinates;
-  }
-
-  public static void write(ArrayList<Coordinate> coordinates, String path) throws IOException {
-    StringBuilder output = new StringBuilder();
-    for (Coordinate coordinate : coordinates) {
-      output.append(coordinate.getX() + "," + coordinate.getY() + "|");
+    public fobj() {
     }
 
-    java.io.File file = new java.io.File(path);
-    FileWriter fw = new FileWriter(file);
-    fw.write(output.toString());
-  }
+    public static ArrayList<Coordinate> read(String path) throws IOException {
+        java.io.File file = new java.io.File(path);
+        FileReader fr = new FileReader(file);
+        char[] a = new char[50];
+        fr.read(a); // reads the content to the array
+        StringBuilder output = new StringBuilder();
+
+        for (char c : a) output.append(c); // prints the characters one by one
+        fr.close();
+        String contains = output.toString();
+        String[] splitCoordinate = contains.split("\\|");
+        ArrayList<Coordinate> coordinates = new ArrayList<>();
+        int now = 0;
+        for (String coordinate : splitCoordinate) {
+            coordinates.set(now, new Coordinate(
+                    Integer.parseInt(coordinate.split(",")[0]),
+                    Integer.parseInt(coordinate.split(",")[1])));
+            now++;
+        }
+        return coordinates;
+    }
+
+    public static void write(ArrayList<Coordinate> coordinates, String path) throws IOException {
+        StringBuilder output = new StringBuilder();
+        for (Coordinate coordinate : coordinates) {
+            output.append(coordinate.getX() + "," + coordinate.getY() + "|");
+        }
+
+        java.io.File file = new java.io.File(path);
+        FileWriter fw = new FileWriter(file);
+        fw.write(output.toString());
+    }
 }

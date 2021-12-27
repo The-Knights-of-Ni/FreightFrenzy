@@ -13,48 +13,49 @@ import java.io.IOException;
 
 @Autonomous(name = "Vision Test", group = "Concept")
 public class VisionTest extends LinearOpMode {
-  private Robot robot;
-  private ElapsedTime timer;
+    private Robot robot;
+    private ElapsedTime timer;
 
-  private void initOpMode() throws IOException {
-    telemetry.addData("Init Robot", "");
-    telemetry.update();
-    timer = new ElapsedTime();
+    private void initOpMode() throws IOException {
+        telemetry.addData("Init Robot", "");
+        telemetry.update();
+        timer = new ElapsedTime();
 
-    this.robot = new Robot(this, timer, AllianceColor.BLUE);
+        this.robot = new Robot(this, timer, AllianceColor.BLUE);
 
-    telemetry.addData("Wait for start", "");
-    telemetry.update();
-  }
-  @Override
-  public void runOpMode() throws InterruptedException {
-    try {
-      this.initOpMode();
-    } catch (IOException e) {
-      e.printStackTrace();
+        telemetry.addData("Wait for start", "");
+        telemetry.update();
     }
 
-    DetectMarkerPipeline.MarkerLocation location;
+    @Override
+    public void runOpMode() throws InterruptedException {
+        try {
+            this.initOpMode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    waitForStart();
+        DetectMarkerPipeline.MarkerLocation location;
 
-    while (opModeIsActive()) {
-      location = robot.vision.detectMarkerRun();
-      switch(location) {
-        case LEFT:
-          telemetry.addData("Location", "LEFT");
-          break;
-        case MIDDLE:
-          telemetry.addData("Location", "MIDDLE");
-          break;
-        case RIGHT:
-          telemetry.addData("Location", "RIGHT");
-          break;
-        case NOT_FOUND:
-          telemetry.addData("Location", "NOT_FOUND");
-          break;
-      }
-      telemetry.update();
+        waitForStart();
+
+        while (opModeIsActive()) {
+            location = robot.vision.detectMarkerRun();
+            switch (location) {
+                case LEFT:
+                    telemetry.addData("Location", "LEFT");
+                    break;
+                case MIDDLE:
+                    telemetry.addData("Location", "MIDDLE");
+                    break;
+                case RIGHT:
+                    telemetry.addData("Location", "RIGHT");
+                    break;
+                case NOT_FOUND:
+                    telemetry.addData("Location", "NOT_FOUND");
+                    break;
+            }
+            telemetry.update();
+        }
     }
-  }
 }
