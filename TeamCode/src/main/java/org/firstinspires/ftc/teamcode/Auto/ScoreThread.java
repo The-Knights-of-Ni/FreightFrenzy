@@ -3,12 +3,10 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class ScoreThread extends Thread implements Runnable{
-    DcMotorEx left;
-    DcMotorEx right;
+    DcMotorEx slide;
 
-    ScoreThread(DcMotorEx left, DcMotorEx right) {
-        this.left = left;
-        this.right = right;
+    ScoreThread(DcMotorEx slide) {
+        this.slide = slide;
     }
 
     @Override
