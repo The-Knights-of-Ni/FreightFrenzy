@@ -698,11 +698,11 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
-    public void moveLeft_odometry(double distance) throws InterruptedException {
+    public void moveLeft_odometry(double distance) {
         moveLeft_odometry(distance, DRIVE_SPEED_X);
     }
 
-    public void moveLeft_odometry(double distance, double motorSpeed) throws InterruptedException {
+    public void moveLeft_odometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, -distance, 0.0);
         allMotorPIDControl(
@@ -795,11 +795,11 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
-    public void moveRight_odometry(double distance) throws InterruptedException {
+    public void moveRight_odometry(double distance) {
         moveRight_odometry(distance, DRIVE_SPEED_X);
     }
 
-    public void moveRight_odometry(double distance, double motorSpeed) throws InterruptedException {
+    public void moveRight_odometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, distance, 0.0);
         allMotorPIDControl(
@@ -1443,7 +1443,7 @@ public class Drive extends Subsystem {
 
     private double getTargetSpeed(int tickCount, double speed, double rampTime, double elapsedTime) {
         double targetSpeed;
-        double tickCountD = (double) tickCount;
+        double tickCountD = tickCount;
         double speedOffset =
                 speed * 0.15; // ramp up and ramp down with this speed offset so that there is no time the
         // speed is close to zero
