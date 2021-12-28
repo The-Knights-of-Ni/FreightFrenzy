@@ -781,10 +781,20 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
+    /**
+     * Strafes the robot left by the specified distance with the default speed.
+     * @param distance The distance to strafe left by, in millimeters, use the mmPerInch constant if you want to use
+     * inches.
+     */
     public void moveLeft(double distance) {
         moveLeft(distance, DRIVE_SPEED_X);
     }
 
+    /**
+     * Strafes the robot left by the specified distance with the specified speed.
+     * @param distance The distance to strafe left by
+     * @param motorSpeed The speed, a value between 0 and 1
+     */
     public void moveLeft(double distance, double motorSpeed) {
         //        this.moveToPos2D(motorSpeed, -distance, 0.0);
         allMotorPIDControl(
@@ -868,10 +878,20 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
+    /**
+     * Strafes the robot right by the specified distance with the default speed.
+     * @param distance The distance to strafe right by, in millimeters, use the mmPerInch constant if you want to use
+     * inches.
+     */
     public void moveRight(double distance) {
         moveRight(distance, DRIVE_SPEED_X);
     }
 
+    /**
+     * Strafes the robot right by the specified distance with the specified speed.
+     * @param distance The distance to strafe right by
+     * @param motorSpeed The speed, a value between 0 and 1
+     */
     public void moveRight(double distance, double motorSpeed) {
         //        this.moveToPos2D(motorSpeed, distance, 0.0);
         allMotorPIDControl(
