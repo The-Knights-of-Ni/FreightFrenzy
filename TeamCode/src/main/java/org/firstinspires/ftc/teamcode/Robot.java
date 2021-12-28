@@ -9,12 +9,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Control;
-import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-import org.firstinspires.ftc.teamcode.Subsystems.Vision;
-import org.firstinspires.ftc.teamcode.Util.AllianceColor;
+import org.firstinspires.ftc.teamcode.subsystems.Control;
+import org.firstinspires.ftc.teamcode.subsystems.Drive;
+import org.firstinspires.ftc.teamcode.subsystems.Vision;
+import org.firstinspires.ftc.teamcode.util.AllianceColor;
 
-import java.io.IOException;
 import java.util.List;
 
 public class Robot {
@@ -110,7 +109,7 @@ public class Robot {
     private LinearOpMode opMode;
     private double joystickDeadZone = 0.1;
 
-    public Robot(LinearOpMode opMode, ElapsedTime timer) throws IOException {
+    public Robot(LinearOpMode opMode, ElapsedTime timer) {
         hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;
@@ -125,8 +124,7 @@ public class Robot {
      *                      initialized for Vuforia and frontWebcam is initialized for OpenCV 4: armWebcam is
      *                      initialized for OpenCV and frontWebcam is initialized for OpenCV
      */
-    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor)
-            throws IOException {
+    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) {
         hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;
