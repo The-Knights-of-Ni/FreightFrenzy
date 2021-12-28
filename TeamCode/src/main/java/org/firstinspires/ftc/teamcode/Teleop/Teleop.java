@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -42,11 +41,10 @@ public class Teleop extends LinearOpMode {
      * <p>Please do not swallow the InterruptedException, as it is used in cases where the op mode
      * needs to be terminated early.
      *
-     * @throws InterruptedException
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
      */
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         initOpMode();
 
         ElapsedTime timer = new ElapsedTime();

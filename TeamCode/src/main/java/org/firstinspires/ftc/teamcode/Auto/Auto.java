@@ -14,20 +14,18 @@ import java.io.IOException;
 /**
  * Auto creates a robots and runs it in auto mode.
  *
- * <p>Auto currently just initializes the Robot as Auto.runOpMode() is empty.
+ * <p>Auto currently just initializes the Robot as Auto.runOpMode() is empty.</p>
+ * <p>Tasks:</p>
+ * <p>Deliver duck from carousel (10)</p>
+ *
+ * <p>Deliver freight to hub (6)</p>
+ *
+ * <p>   - deliver freight to corresponding level of custom element (20)</p>
+ *
+ * <p>Park in warehouse (10)</p>
  *
  * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
  */
-
-/**
- Tasks:
- Deliver duck from carousel (10)
- Deliver freight to hub (6)
- - deliver freight to corresponding level of custom element (20)
- park in warehouse (10)
- */
-
-
 @Autonomous(name = "Auto", group = "Concept")
 @Disabled
 public class Auto extends LinearOpMode {

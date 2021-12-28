@@ -47,7 +47,7 @@ public class JavaUtil {
      * @return the converted integer.
      */
     public static int bytesToInt(byte data) {
-        return (int) data;
+        return data;
     }
 
     /**

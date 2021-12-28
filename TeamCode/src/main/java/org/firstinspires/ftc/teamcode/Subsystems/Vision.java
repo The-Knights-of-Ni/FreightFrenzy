@@ -36,19 +36,18 @@ public class Vision extends Subsystem {
     // Since ImageTarget trackable use mm to specify their dimensions, we must use mm for all the
     // physical dimension.
     // Define constants
-    private static final float mmPerInch = 25.4f;
-    private static final float mmTargetHeight = (6) * mmPerInch;
+    private static final double mmPerInch = 25.4;
     // Constants for perimeter targets
-    private static final float halfField = 72 * mmPerInch;
-    private static final float quadField = 36 * mmPerInch;
+    private static final double halfField = 72 * mmPerInch;
+    private static final double quadField = 36 * mmPerInch;
     // Define where camera is in relation to center of robot in inches
-    final float CAMERA_FORWARD_DISPLACEMENT = 6.0f * mmPerInch; // TODO: CALIBRATE WHEN ROBOT IS BUILT
-    final float CAMERA_VERTICAL_DISPLACEMENT = 6.5f * mmPerInch;
-    final float CAMERA_LEFT_DISPLACEMENT = -0.75f * mmPerInch;
+    final double CAMERA_FORWARD_DISPLACEMENT = 6.0f * mmPerInch; // TODO: CALIBRATE WHEN ROBOT IS BUILT
+    final double CAMERA_VERTICAL_DISPLACEMENT = 6.5f * mmPerInch;
+    final double CAMERA_LEFT_DISPLACEMENT = -0.75f * mmPerInch;
     WebcamName webcamName = null;
     OpenGLMatrix robotFromCamera = null;
-    private HardwareMap hardwareMap;
-    private AllianceColor allianceColor;
+    private final HardwareMap hardwareMap;
+    private final AllianceColor allianceColor;
     // Class Members
     private OpenGLMatrix lastLocation;
     private VuforiaLocalizer vuforia;
@@ -108,9 +107,9 @@ public class Vision extends Subsystem {
 
         OpenGLMatrix robotFromCamera =
                 createMatrix(
-                        CAMERA_LEFT_DISPLACEMENT,
-                        CAMERA_FORWARD_DISPLACEMENT,
-                        CAMERA_VERTICAL_DISPLACEMENT,
+                        (float) CAMERA_LEFT_DISPLACEMENT,
+                        (float) CAMERA_FORWARD_DISPLACEMENT,
+                        (float) CAMERA_VERTICAL_DISPLACEMENT,
                         90,
                         0,
                         0);

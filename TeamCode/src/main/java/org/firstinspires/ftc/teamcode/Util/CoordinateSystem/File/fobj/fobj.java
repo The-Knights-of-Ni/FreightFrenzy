@@ -37,7 +37,7 @@ public class fobj {
     public static void write(ArrayList<Coordinate> coordinates, String path) throws IOException {
         StringBuilder output = new StringBuilder();
         for (Coordinate coordinate : coordinates) {
-            output.append(coordinate.getX() + "," + coordinate.getY() + "|");
+            output.append(coordinate.getX()).append(",").append(coordinate.getY()).append("|");
         }
 
         java.io.File file = new java.io.File(path);

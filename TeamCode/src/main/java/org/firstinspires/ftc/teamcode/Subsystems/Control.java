@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -14,8 +13,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 public class Control extends Subsystem {
     // device declaration
-    private HardwareMap hardwareMap;
-    private LinearOpMode opMode;
+    private final HardwareMap hardwareMap;
+    private final LinearOpMode opMode;
 
     // DC Motors
     private DcMotorEx intake;
@@ -25,7 +24,7 @@ public class Control extends Subsystem {
     // Servos
 
     // Sensors
-    private BNO055IMU imu;
+    private final BNO055IMU imu;
 
     public enum PlacementLevel {
         TOP,

@@ -11,7 +11,7 @@ public class DjikstraPathFinder {
 
     List<List<NodeDjikstra>> adj;
     // Member variables of this class
-    private int dist[];
+    private int[] dist;
     private Set<Integer> settled;
     private PriorityQueue<NodeDjikstra> pq;
     // Number of vertices
@@ -22,8 +22,8 @@ public class DjikstraPathFinder {
         // This keyword refers to current object itself
         this.V = V;
         dist = new int[V];
-        settled = new HashSet<Integer>();
-        pq = new PriorityQueue<NodeDjikstra>(V, new NodeDjikstra());
+        settled = new HashSet<>();
+        pq = new PriorityQueue<>(V, new NodeDjikstra());
     }
 
     // Dijkstra's Algorithm
@@ -99,11 +99,11 @@ public class DjikstraPathFinder {
         // Adjacency list representation of the
         // connected edges by declaring List class object
         // Declaring object of type List<Node>
-        List<List<NodeDjikstra>> adj = new ArrayList<List<NodeDjikstra>>();
+        List<List<NodeDjikstra>> adj = new ArrayList<>();
 
         // Initialize list for every node
         for (int i = 0; i < V; i++) {
-            List<NodeDjikstra> item = new ArrayList<NodeDjikstra>();
+            List<NodeDjikstra> item = new ArrayList<>();
             adj.add(item);
         }
 

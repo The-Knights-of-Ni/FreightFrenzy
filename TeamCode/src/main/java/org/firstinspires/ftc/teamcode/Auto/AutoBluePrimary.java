@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
-import org.firstinspires.ftc.teamcode.Util.MathUtil;
 
 import java.io.IOException;
 
@@ -23,7 +22,6 @@ import java.io.IOException;
 // Deliver freight to hub (6)
 // - deliver freight to corresponding level of custom element (20)
 // Park in warehouse (10)
-// startcarousel should be true here
 @Autonomous(name = "Auto Blue Primary", group = "Auto Blue")
 public class AutoBluePrimary extends Auto {
     /**

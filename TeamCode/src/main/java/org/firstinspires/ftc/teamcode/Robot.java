@@ -134,7 +134,7 @@ public class Robot {
         init();
     }
 
-    public void init() throws IOException {
+    public void init() {
         // DC Motors
         frontLeftDriveMotor = (DcMotorEx) hardwareMap.dcMotor.get("fl");
         frontRightDriveMotor = (DcMotorEx) hardwareMap.dcMotor.get("fr");

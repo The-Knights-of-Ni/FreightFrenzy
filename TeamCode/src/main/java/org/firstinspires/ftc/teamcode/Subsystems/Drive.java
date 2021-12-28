@@ -5,9 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
-
 import java.util.Locale;
 
 /**
@@ -43,12 +40,12 @@ public class Drive extends Subsystem {
     private static final double ROBOT_INIT_POS_X = 15.0;
     private static final double ROBOT_INIT_POS_Y = 15.0;
     private static final double ROBOT_INIT_ANGLE = 45.0;
-    private static final float mmPerInch = 25.4f;
+    private static final double mmPerInch = 25.4;
     private static boolean driveFullPower = false;
-    private static double motorKp = 0.015;
-    private static double motorKi = 0.02;
-    private static double motorKd = 0.0003;
-    private static double motorRampTime = 0.3;
+    private static final double motorKp = 0.015;
+    private static final double motorKi = 0.02;
+    private static final double motorKd = 0.0003;
+    private static final double motorRampTime = 0.3;
     // DC Motors
     public DcMotorEx frontLeft;
     public DcMotorEx frontRight;
@@ -58,9 +55,9 @@ public class Drive extends Subsystem {
     public DcMotorEx odL;
     public DcMotorEx odB;
     public DcMotorEx odR;
-    private LinearOpMode opMode;
+    private final LinearOpMode opMode;
     // Sensors
-    private BNO055IMU imu;
+    private final BNO055IMU imu;
     private double robotCurrentPosX; // unit in mm
     private double robotCurrentPosY; // unit in mm
     private double robotCurrentAngle; // unit in degrees
@@ -449,20 +446,19 @@ public class Drive extends Subsystem {
         // targetPositionY)*Math.sqrt(2.0)));
         //        rearRight.setTargetPosition((int)  ((+ targetPositionX +
         // targetPositionY)*Math.sqrt(2.0)));
-        frontLeft.setTargetPosition((int) (+targetPositionX + targetPositionY));
+        frontLeft.setTargetPosition((int) (targetPositionX + targetPositionY));
         frontRight.setTargetPosition((int) (-targetPositionX + targetPositionY));
         rearLeft.setTargetPosition((int) (-targetPositionX + targetPositionY));
-        rearRight.setTargetPosition((int) (+targetPositionX + targetPositionY));
+        rearRight.setTargetPosition((int) (targetPositionX + targetPositionY));
     }
 
-    public double[] calcMotorPowers2D(
-            double targetPositionX, double targetPositionY, double motorPower) {
+    public double[] calcMotorPowers2D(double targetPositionX, double targetPositionY, double motorPower) {
         // targetPositionX and targetPositionY determine the direction of movement
         // motorPower determines the magnitude of motor power
         double angleScale = Math.abs(targetPositionX) + Math.abs(targetPositionY);
         double lrPower = motorPower * (-targetPositionX + targetPositionY) / angleScale;
-        double lfPower = motorPower * (+targetPositionX + targetPositionY) / angleScale;
-        double rrPower = motorPower * (+targetPositionX + targetPositionY) / angleScale;
+        double lfPower = motorPower * (targetPositionX + targetPositionY) / angleScale;
+        double rrPower = motorPower * (targetPositionX + targetPositionY) / angleScale;
         double rfPower = motorPower * (-targetPositionX + targetPositionY) / angleScale;
         return new double[]{lrPower, lfPower, rrPower, rfPower};
     }
@@ -601,12 +597,11 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
-    public void moveBackward_odometry(double distance) throws InterruptedException {
+    public void moveBackward_odometry(double distance) {
         moveBackward_odometry(distance, DRIVE_SPEED_Y);
     }
 
-    public void moveBackward_odometry(double distance, double motorSpeed)
-            throws InterruptedException {
+    public void moveBackward_odometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, 0.0, -distance);
         allMotorPIDControl(
@@ -1097,11 +1092,7 @@ public class Drive extends Subsystem {
                                 rampTime,
                                 currentTime); // get the target speed on the speed profile
                 if (initialized) { // check if the motor is rotating
-                    if (Math.abs(currentCount - prevCountFL) < timeOutThreshold) {
-                        isMotorFLNotMoving = true;
-                    } else {
-                        isMotorFLNotMoving = false;
-                    }
+                    isMotorFLNotMoving = Math.abs(currentCount - prevCountFL) < timeOutThreshold;
                 }
                 if (motorFLForward) { // tick count increasing
                     if (currentCount >= tickCount) {
@@ -1109,7 +1100,7 @@ public class Drive extends Subsystem {
                         isMotorFLNotMoving = true;
                         frontLeft.setPower(0.0);
                     } else {
-                        currentError = (double) (currentCount - targetCount);
+                        currentError = currentCount - targetCount;
                         if (initialized) { // after the first point, the previous data is valid
                             acculErrorFL =
                                     acculErrorFL * alpha
@@ -1133,7 +1124,7 @@ public class Drive extends Subsystem {
                         isMotorFLNotMoving = true;
                         frontLeft.setPower(0.0);
                     } else {
-                        currentError = (double) (-currentCount - targetCount);
+                        currentError = -currentCount - targetCount;
                         if (initialized) { // after the first point, the previous data is valid
                             acculErrorFL =
                                     acculErrorFL * alpha
@@ -1162,11 +1153,7 @@ public class Drive extends Subsystem {
                 targetCount = getTargetTickCount(tickCount, peakSpeed, rampTime, currentTime);
                 currentTargetSpeed = getTargetSpeed(tickCount, peakSpeed, rampTime, currentTime);
                 if (initialized) { // check if the motor is rotating
-                    if (Math.abs(currentCount - prevCountFR) < timeOutThreshold) {
-                        isMotorFRNotMoving = true;
-                    } else {
-                        isMotorFRNotMoving = false;
-                    }
+                    isMotorFRNotMoving = Math.abs(currentCount - prevCountFR) < timeOutThreshold;
                 }
                 if (motorFRForward) {
                     if (currentCount >= tickCount) {
@@ -1174,7 +1161,7 @@ public class Drive extends Subsystem {
                         isMotorFRNotMoving = true;
                         frontRight.setPower(0.0);
                     } else {
-                        currentError = (double) (currentCount - targetCount);
+                        currentError = currentCount - targetCount;
                         if (initialized) { // after the first point, the previous data is valid
                             acculErrorFR =
                                     acculErrorFR * alpha
@@ -1198,7 +1185,7 @@ public class Drive extends Subsystem {
                         isMotorFRNotMoving = true;
                         frontRight.setPower(0.0);
                     } else {
-                        currentError = (double) (-currentCount - targetCount);
+                        currentError = -currentCount - targetCount;
                         if (initialized) { // after the first point, the previous data is valid
                             acculErrorFR =
                                     acculErrorFR * alpha
@@ -1227,11 +1214,7 @@ public class Drive extends Subsystem {
                 targetCount = getTargetTickCount(tickCount, peakSpeed, rampTime, currentTime);
                 currentTargetSpeed = getTargetSpeed(tickCount, peakSpeed, rampTime, currentTime);
                 if (initialized) { // check if the motor is rotating
-                    if (Math.abs(currentCount - prevCountRL) < timeOutThreshold) {
-                        isMotorRLNotMoving = true;
-                    } else {
-                        isMotorRLNotMoving = false;
-                    }
+                    isMotorRLNotMoving = Math.abs(currentCount - prevCountRL) < timeOutThreshold;
                 }
                 if (motorRLForward) {
                     if (currentCount >= tickCount) {
@@ -1239,7 +1222,7 @@ public class Drive extends Subsystem {
                         isMotorRLNotMoving = true;
                         rearLeft.setPower(0.0);
                     } else {
-                        currentError = (double) (currentCount - targetCount);
+                        currentError = currentCount - targetCount;
                         if (initialized) { // after the first point, the previous data is valid
                             acculErrorRL =
                                     acculErrorRL * alpha
@@ -1263,7 +1246,7 @@ public class Drive extends Subsystem {
                         isMotorRLNotMoving = true;
                         rearLeft.setPower(0.0);
                     } else {
-                        currentError = (double) (-currentCount - targetCount);
+                        currentError = -currentCount - targetCount;
                         if (initialized) { // after the first point, the previous data is valid
                             acculErrorRL =
                                     acculErrorRL * alpha
@@ -1292,14 +1275,10 @@ public class Drive extends Subsystem {
                 targetCount = getTargetTickCount(tickCount, peakSpeed, rampTime, currentTime);
                 currentTargetSpeed = getTargetSpeed(tickCount, peakSpeed, rampTime, currentTime);
                 if (initialized) { // check if the motor is rotating
-                    if (Math.abs(currentCount - prevCountRR) < timeOutThreshold) {
-                        isMotorRRNotMoving = true;
-                    } else {
-                        isMotorRRNotMoving = false;
-                    }
+                    isMotorRRNotMoving = Math.abs(currentCount - prevCountRR) < timeOutThreshold;
                 }
                 if (motorRRForward) {
-                    currentError = (double) (currentCount - targetCount);
+                    currentError = currentCount - targetCount;
                     if (currentCount >= tickCount) {
                         isMotorRRDone = true;
                         isMotorRRNotMoving = true;
@@ -1324,7 +1303,7 @@ public class Drive extends Subsystem {
                         rearRight.setPower(currentPower);
                     }
                 } else { // motorFLForward is false
-                    currentError = (double) (-currentCount - targetCount);
+                    currentError = -currentCount - targetCount;
                     if (currentCount <= -tickCount) {
                         isMotorRRDone = true;
                         isMotorRRNotMoving = true;
@@ -1398,7 +1377,7 @@ public class Drive extends Subsystem {
 
     private int getTargetTickCount(int tickCount, double speed, double rampTime, double elapsedTime) {
         int targetTick;
-        double tickCountD = (double) tickCount;
+        double tickCountD = tickCount;
         double speedOffset =
                 speed * 0.15; // ramp up and ramp down with this speed offset so that there is no time the
         // speed is close to zero

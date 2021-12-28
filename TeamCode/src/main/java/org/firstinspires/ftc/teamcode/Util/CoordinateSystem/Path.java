@@ -9,7 +9,7 @@ public class Path {
     ArrayList<Move> moves;
 
     public Path() {
-        path = new ArrayList<Coordinate>();
+        path = new ArrayList<>();
     }
 
     public Path(ArrayList<Coordinate> path) {
