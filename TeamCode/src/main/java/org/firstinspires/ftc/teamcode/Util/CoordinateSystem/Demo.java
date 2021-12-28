@@ -15,7 +15,7 @@ public class Demo {
         Path path = new Path();
         ArrayList<Coordinate> allianceHubCoordinates = fobj.read("allianceHub.fobj");
 
-        Object allianceHub = new Object(allianceHubCoordinates);
+        Object2 allianceHub = new Object2(allianceHubCoordinates);
         field.addObject(allianceHub);
 
         Coordinate start = new Coordinate(0, 0);

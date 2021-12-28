@@ -50,7 +50,7 @@ public class Path {
         add(pF.getShortestPath(path.get(path.size() - 1), place));
     }
 
-    public void goTo(Object place, PathFinder pF) {
+    public void goTo(Object2 place, PathFinder pF) {
         add(
                 pF.getShortestPath(
                         path.get(path.size() - 1), place.getClosestCoordinate(path.get(path.size() - 1), pF)));
