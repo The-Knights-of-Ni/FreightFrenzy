@@ -77,6 +77,16 @@ public class Drive extends Subsystem {
 
     private long startTime;
 
+    /**
+     * Inited the drive subsystem
+     * @param frontLeft The front left motor
+     * @param frontRight The front right motor
+     * @param rearLeft The rear left motor
+     * @param rearRight The rear right motor
+     * @param imu The imu
+     * @param opMode The current opmode for telemetry and the hardware map
+     * @param timer The timer for the elapsed time
+     */
     public Drive(
             DcMotorEx frontLeft,
             DcMotorEx frontRight,
@@ -577,10 +587,20 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
+    /**
+     * Moves the robot forward by the specified distance with the default speed.
+     * @param distance The distance to move forward by, in millimeters, use the mmPerInch constant if you want to use
+     * inches.
+     */
     public void moveForward(double distance) {
         moveForward(distance, DRIVE_SPEED_Y);
     }
 
+    /**
+     * Moves the robot forward by the specified distance with the specified speed.
+     * @param distance The distance to move forward by
+     * @param motorSpeed The speed, a value between 0 and 1
+     */
     public void moveForward(double distance, double motorSpeed) {
         //        this.moveToPos2D(motorSpeed, 0.0, distance);
         allMotorPIDControl(
@@ -664,10 +684,20 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
+    /**
+     * Moves the robot backwards by the specified distance with the default speed.
+     * @param distance The distance to move backward by, in millimeters, use the mmPerInch constant if you want to use
+     * inches.
+     */
     public void moveBackward(double distance) {
         moveBackward(distance, DRIVE_SPEED_Y);
     }
 
+    /**
+     * Moves the robot backwards by the specified distance with the specified speed.
+     * @param distance The distance to move forward by
+     * @param motorSpeed The speed, a value between 0 and 1
+     */
     public void moveBackward(double distance, double motorSpeed) {
         //        this.moveToPos2D(motorSpeed, 0.0, -distance);
         allMotorPIDControl(
