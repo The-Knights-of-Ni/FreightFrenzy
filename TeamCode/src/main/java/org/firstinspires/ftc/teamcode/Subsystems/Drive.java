@@ -296,8 +296,11 @@ public class Drive extends Subsystem {
         rearRight.setTargetPosition(targetPosition);
     }
 
+    /**
+     * Turns the robot by the specified angle, ticks and angles are equivalent.
+     * @param angle The angle to turn by.
+     */
     public void turnRobotByTick(double angle) {
-        //        this.turnByTick(TURN_SPEED, angle);
         if (angle > 0.0) {
             allMotorPIDControl(
                     (int) (angle * COUNTS_PER_DEGREE),
@@ -366,8 +369,12 @@ public class Drive extends Subsystem {
         logDriveEncoders();
     }
 
+    /**
+     * Turns the robot by the specified angle.
+     * @param degrees The angle to turn by.
+     */
     public void turnRobot(double degrees) {
-        this.turnByAngle(TURN_SPEED, degrees);
+        this.turnByAngle(degrees);
         //        robotCurrentPosX += ROBOT_HALF_LENGTH *
         // (Math.cos((robotCurrentAngle+degrees)*Math.PI/180.0)
         //                - Math.cos(robotCurrentAngle*Math.PI/180.0));
@@ -385,42 +392,12 @@ public class Drive extends Subsystem {
         return imu.getAngularOrientation().firstAngle;
     }
 
-    public void turnByAngle(double power, double turnAngle) {
-        double initialAngle = getYaw();
-        double currentAngle;
-        setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setRunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if (turnAngle > 0.0) {
-            // counter-clockwise
-            currentAngle = initialAngle;
-            while (Math.abs(currentAngle - initialAngle - turnAngle) > 2) {
-                turn(-power);
-                currentAngle = getYaw();
-                if (currentAngle < initialAngle) {
-                    // angle wraparound
-                    currentAngle += 360.0;
-                }
-            }
-        } else {
-            // clockwise
-            currentAngle = initialAngle;
-            while (Math.abs(currentAngle - initialAngle - turnAngle) > 2) {
-                turn(power);
-                currentAngle = getYaw();
-                if (currentAngle > initialAngle) {
-                    // angle wraparound
-                    currentAngle -= 360.0;
-                }
-            }
-        }
-        stop();
-        opMode.telemetry.addData("initial angle", "%7.2f degrees", initialAngle);
-        opMode.telemetry.addData("last read angle", "%7.2f degrees", currentAngle);
-        opMode.telemetry.addData("final angle", "%7.2f degrees", getYaw());
-        opMode.sleep(3000);
-        opMode.telemetry.addData("final2 angle", "%7.2f degrees", getYaw());
-        opMode.telemetry.update();
-        opMode.sleep(3000);
+    /**
+     * Turn the robot by the specified angle.
+     * @param turnAngle The angle to turn by.
+     */
+    public void turnByAngle(double turnAngle) {
+        turnRobotByTick(turnAngle);
     }
 
     public void moveToPos2D(double power, double targetPositionX, double targetPositionY) {
