@@ -1,9 +1,6 @@
 package org.firstinspires.ftc.teamcode.Util.CoordinateSystem;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * This is the Playing Field
@@ -12,7 +9,7 @@ import java.util.Iterator;
 public class Field {
     public final int length = 100; // length
     public final int width = 100; // width
-    ArrayList<Object> Objects = new ArrayList<>(); // List of objects
+    ArrayList<Object2> object2s = new ArrayList<>(); // List of objects
     private final int[][] field = new int[length][width]; // Objects are baked here
 
     public Field() {
@@ -25,15 +22,15 @@ public class Field {
         }
     }
 
-    public Field(ArrayList<Object> Objects) {
+    public Field(ArrayList<Object2> object2s) {
         for (int x = 0; x < length; x++) {
             for (int y = 0; y < width; y++) {
                 this.field[x][y] = 0;
             }
         }
-        this.Objects = Objects;
-        for (Object object : Objects) {
-            for (Coordinate coordinate : object.getOccupies()) {
+        this.object2s = object2s;
+        for (Object2 object2 : object2s) {
+            for (Coordinate coordinate : object2.getOccupies()) {
                 this.field[coordinate.getX()][coordinate.getY()] = 1;
             }
         }
@@ -43,11 +40,11 @@ public class Field {
         return field[goTo.getX()][goTo.getY()] == -1;
     }
 
-    public void addObject(Object object) {
-        for (Coordinate coordinate : object.getOccupies()) {
+    public void addObject(Object2 object2) {
+        for (Coordinate coordinate : object2.getOccupies()) {
             this.field[coordinate.getX()][coordinate.getY()] = 1;
         }
-        Objects.add(object);
+        object2s.add(object2);
     }
 
     public int get(Coordinate coordinate) {

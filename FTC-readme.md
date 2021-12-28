@@ -104,7 +104,7 @@ The readme.md file located in the [/TeamCode/src/main/java/org/firstinspires/ftc
     * See section 3 of the [TI I2C spec](https://www.ti.com/lit/an/slva704/slva704.pdf)
     * Calling these new methods when using Modern Robotics hardware will result in an UnsupportedOperationException
 * Changes VuforiaLocalizer `close()` method to be public
-* Adds support for TensorFlow v2 object detection models.
+* Adds support for TensorFlow v2 object2 detection models.
 * Reduces ambiguity of the Self Inspect language and graphics.
 * OnBotJava now warns about potentially unintended file overwrites
 * Improves behavior of the Wi-Fi band and channel selector on the Manage webpage.
@@ -194,7 +194,7 @@ The readme.md file located in the [/TeamCode/src/main/java/org/firstinspires/ftc
 ### New features
 * Includes TensorFlow inference model and sample op modes to detect Ultimate Goal Starter Stacks (four rings vs single ring stack).
 * Includes Vuforia Ultimate Goal vision targets and sample op modes.
-* Introduces a digital zoom feature for TensorFlow object detection (to detect objects more accurately at greater distances).
+* Introduces a digital zoom feature for TensorFlow object2 detection (to detect objects more accurately at greater distances).
 * Adds configuration entry for the REV UltraPlanetary HD Hex motor
 
 ### Enhancements
@@ -506,7 +506,7 @@ Known issues:
      - Includes a fix for a problem with the Velocity blocks that were reported in the FTC Technology forum (Blocks Programming subforum).
      - Change the "Save completed successfully." message to a white color so it will contrast with a green background.
      - Fixed the "Download image" feature so it will work if there are text blocks in the op mode.
- * Introduce support for Google's TensorFlow Lite technology for object detetion for 2018-2019 game.
+ * Introduce support for Google's TensorFlow Lite technology for object2 detetion for 2018-2019 game.
      - TensorFlow lite can recognize Gold Mineral and Silver Mineral from 2018-2019 game.
      - Example Java and Block op modes are included to show how to determine the relative position of the gold block (left, center, right).
 
@@ -793,7 +793,7 @@ Changes include:
 
 ## Version 2.61 (released on 16.12.19)
   * Blocks Programming mode changes:
-     - Fix to correct issue when an exception was thrown because an OpticalDistanceSensor object appears twice in the hardware map (the second time as a LightSensor).
+     - Fix to correct issue when an exception was thrown because an OpticalDistanceSensor object2 appears twice in the hardware map (the second time as a LightSensor).
 
 ## Version 2.6 (released on 16.12.16)
   * Fixes for Gyro class:
