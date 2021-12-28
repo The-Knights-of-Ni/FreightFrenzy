@@ -11,7 +11,7 @@ public class DriveInterface {
     }
 
     public void move(Move move) {
-        this.drive.turnByAngle(move.getPower(), move.getAngle()); // Make angle correct
+//        this.drive.turnByAngle(move.getPower(), move.getAngle()); // Make angle correct
         this.drive.moveForward(move.getPower(), move.getDistance());
     }
 }
