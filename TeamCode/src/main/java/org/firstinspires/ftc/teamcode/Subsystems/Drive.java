@@ -505,11 +505,11 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
-    public void moveForward_odometry(double distance) throws InterruptedException {
+    public void moveForward_odometry(double distance) {
         moveForward_odometry(distance, DRIVE_SPEED_Y);
     }
 
-    public void moveForward_odometry(double distance, double motorSpeed) throws InterruptedException {
+    public void moveForward_odometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, 0.0, distance);
         allMotorPIDControl(
