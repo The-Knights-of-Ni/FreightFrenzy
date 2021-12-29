@@ -4,20 +4,26 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class ScoreThread extends Thread implements Runnable{
     DcMotorEx slide;
+    boolean direction;
 
-    ScoreThread(DcMotorEx slide) {
+    ScoreThread(DcMotorEx slide, boolean direction) {
         this.slide = slide;
+        this.direction = direction;
     }
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (direction) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //paused for 5 sec to simulate workflow.
+            //actual code goes here.
+        } else {
+
         }
-        //paused for 5 sec to simulate workflow.
-        //actual code goes here.
     }
 
 }
