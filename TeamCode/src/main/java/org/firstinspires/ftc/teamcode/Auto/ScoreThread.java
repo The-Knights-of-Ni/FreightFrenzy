@@ -5,22 +5,29 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 public class ScoreThread extends Thread implements Runnable{
     DcMotorEx slide;
     boolean direction;
+    int placementLevel;
 
-    ScoreThread(DcMotorEx slide, boolean direction) {
+    ScoreThread(DcMotorEx slide, boolean direction, int placementLevel) {
         this.slide = slide;
         this.direction = direction;
+        this.placementLevel = placementLevel;
     }
 
     @Override
     public void run() {
         if (direction) {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            //extend code goes into the switch.
+            switch(placementLevel) {
+                case 1:
+                    //lower level
+                    break;
+                case 2:
+                    //middle level
+                    break;
+                case 3:
+                    //upper level
+                    break;
             }
-            //paused for 5 sec to simulate workflow.
-            //extend code goes here.
         } else {
             //retract code goes here.
         }
