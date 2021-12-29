@@ -7,12 +7,15 @@ import java.util.ArrayList;
  * The objects are baked into the field for speed
  */
 public class Field {
-    public final int length = 100; // length
-    public final int width = 100; // width
-    ArrayList<Object2> object2s = new ArrayList<>(); // List of objects
-    private final int[][] field = new int[length][width]; // Objects are baked here
+    public final int length; // length
+    public final int width; // width
+    ArrayList<FieldObject> fieldObjects = new ArrayList<>(); // List of objects
+    private final int[][] field; // Objects are baked here
 
-    public Field() {
+    public Field(int length, int width) {
+        this.length = length;
+        this.width = width;
+        this.field = new int[length][width];
         int x;
         int y;
         for (x = 0; x < length; x++) {
@@ -22,15 +25,18 @@ public class Field {
         }
     }
 
-    public Field(ArrayList<Object2> object2s) {
+    public Field(int length, int width, ArrayList<FieldObject> fieldObjects) {
+        this.length = length;
+        this.width = width;
+        this.field = new int[length][width];
         for (int x = 0; x < length; x++) {
             for (int y = 0; y < width; y++) {
                 this.field[x][y] = 0;
             }
         }
-        this.object2s = object2s;
-        for (Object2 object2 : object2s) {
-            for (Coordinate coordinate : object2.getOccupies()) {
+        this.fieldObjects = fieldObjects;
+        for (FieldObject fieldObject : fieldObjects) {
+            for (Coordinate coordinate : fieldObject.getOccupies()) {
                 this.field[coordinate.getX()][coordinate.getY()] = 1;
             }
         }
@@ -40,11 +46,11 @@ public class Field {
         return field[goTo.getX()][goTo.getY()] == -1;
     }
 
-    public void addObject(Object2 object2) {
-        for (Coordinate coordinate : object2.getOccupies()) {
+    public void addObject(FieldObject fieldObject) {
+        for (Coordinate coordinate : fieldObject.getOccupies()) {
             this.field[coordinate.getX()][coordinate.getY()] = 1;
         }
-        object2s.add(object2);
+        fieldObjects.add(fieldObject);
     }
 
     public int get(Coordinate coordinate) {

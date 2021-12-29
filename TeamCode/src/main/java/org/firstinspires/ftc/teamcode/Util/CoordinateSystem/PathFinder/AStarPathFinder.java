@@ -33,39 +33,6 @@ public class AStarPathFinder implements PathFinder {
         return array.stream().anyMatch((n) -> (n.getX() == node.getX() && n.getY() == node.getY()));
     }
 
-    public static void main(String[] args) {
-        // -1 = blocked
-        // 0+ = additional movement cost
-        Field field = new Field();
-        AStarPathFinder as = new AStarPathFinder(field, true);
-        Path path = as.getShortestPath(new Coordinate(0, 0), new Coordinate(7, 7));
-        if (path != null) {
-            path.getPath()
-                    .forEach(
-                            (n) -> {
-                                System.out.print("[" + n.getX() + ", " + n.getY() + "] ");
-                                field.set(new Coordinate(n.getX(), n.getY()), -1);
-                            });
-            System.out.printf("\nTotal cost: %.02f\n", path.get(path.length() - 1).getG());
-
-            for (int[] fieldRow : field.getField()) {
-                for (int vertex : fieldRow) {
-                    switch (vertex) {
-                        case 0:
-                            System.out.print("_");
-                            break;
-                        case -1:
-                            System.out.print("*");
-                            break;
-                        default:
-                            System.out.print("#");
-                    }
-                }
-                System.out.println();
-            }
-        }
-    }
-
     /**
      * Finds path to xEnd/yEnd or returns null
      *

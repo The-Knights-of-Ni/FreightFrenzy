@@ -17,9 +17,9 @@ public class Control extends Subsystem {
     private final LinearOpMode opMode;
 
     // DC Motors
-    private DcMotorEx intake;
-    private DcMotorEx bucket;
-    private CRServo duckWheel;
+    private final DcMotorEx intake;
+    private final DcMotorEx bucket;
+    private final CRServo duckWheel;
 
     // Servos
 

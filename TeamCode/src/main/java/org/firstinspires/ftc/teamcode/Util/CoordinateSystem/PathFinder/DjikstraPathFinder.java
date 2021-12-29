@@ -11,11 +11,11 @@ public class DjikstraPathFinder {
 
     List<List<NodeDjikstra>> adj;
     // Member variables of this class
-    private int[] dist;
-    private Set<Integer> settled;
-    private PriorityQueue<NodeDjikstra> pq;
+    private final int[] dist;
+    private final Set<Integer> settled;
+    private final PriorityQueue<NodeDjikstra> pq;
     // Number of vertices
-    private int V;
+    private final int V;
 
     // Constructor of this class
     public DjikstraPathFinder(int V) {
