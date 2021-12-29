@@ -50,22 +50,23 @@ public class Path {
         add(pF.getShortestPath(path.get(path.size() - 1), place));
     }
 
-    public void goTo(Object2 place, PathFinder pF) {
-        add(
-                pF.getShortestPath(
-                        path.get(path.size() - 1), place.getClosestCoordinate(path.get(path.size() - 1), pF)));
+    public void goTo(FieldObject place, PathFinder pF) {
+        goTo(place.getClosestCoordinate(path.get(path.size() - 1), pF), pF);
     }
 
+    /**
+     * Optimizes the moves such that two moves that do the same thing are combined into one.
+     */
     private void optimizeMoves() {
-        Move previousMove = new Move(0, 0, 0);
+        Move previousMove = new Move(0, -1, 0);
         int previousMovePlace;
         for (Move move : moves) {
-            if (move.getAngle() == previousMove.getAngle()) {
-                moves.remove(move);
-                previousMovePlace = moves.indexOf(previousMove);
-                moves
-                        .get(previousMovePlace)
-                        .setDistance(moves.get(previousMovePlace).getDistance() + move.getDistance());
+            if (move.getAngle() == previousMove.getAngle()) { // Checks if two consecutive moves have the same angle
+                moves.remove(move); // removes the current move
+                previousMovePlace = moves.indexOf(previousMove); // gets the index of the previous move
+                moves.get(previousMovePlace).setDistance(moves.get(previousMovePlace).getDistance() +
+                        move.getDistance()); // Sets the previous moves distance to the sum of its distance and the
+                                             // current moves distance
             }
             previousMove = move;
         }
@@ -75,19 +76,19 @@ public class Path {
         Coordinate previousMove = null;
         int x;
         int y;
-        for (Coordinate c : path) {
+        for (Coordinate currentCoordinate : path) {
             if (!(previousMove == null)) {
-                if (c.getX() == previousMove.getX()) {
+                if (currentCoordinate.getX() == previousMove.getX()) {
                     x = 0;
-                } else if (c.getX() == previousMove.getX() + 1) {
+                } else if (currentCoordinate.getX() == previousMove.getX() + 1) {
                     x = 1;
                 } else {
                     x = -1;
                 }
 
-                if (c.getY() == previousMove.getY()) {
+                if (currentCoordinate.getY() == previousMove.getY()) {
                     y = 0;
-                } else if (c.getY() == previousMove.getY() + 1) {
+                } else if (currentCoordinate.getY() == previousMove.getY() + 1) {
                     y = 1;
                 } else {
                     y = -1;
@@ -113,7 +114,7 @@ public class Path {
                     }
                 }
             }
-            previousMove = c;
+            previousMove = currentCoordinate;
         }
         optimizeMoves();
     }

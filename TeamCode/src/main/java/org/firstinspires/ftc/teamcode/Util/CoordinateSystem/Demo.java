@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Util.CoordinateSystem;
 import org.firstinspires.ftc.teamcode.Util.CoordinateSystem.File.fobj.fobj;
 import org.firstinspires.ftc.teamcode.Util.CoordinateSystem.PathFinder.SimplePathFinder;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,11 +12,11 @@ import java.util.ArrayList;
  */
 public class Demo {
     public Demo() throws IOException {
-        Field field = new Field();
+        Field field = new Field(144, 144);
         Path path = new Path();
         ArrayList<Coordinate> allianceHubCoordinates = fobj.read("allianceHub.fobj");
 
-        Object2 allianceHub = new Object2(allianceHubCoordinates);
+        FieldObject allianceHub = new FieldObject(allianceHubCoordinates);
         field.addObject(allianceHub);
 
         Coordinate start = new Coordinate(0, 0);
