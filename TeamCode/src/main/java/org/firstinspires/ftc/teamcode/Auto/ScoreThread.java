@@ -20,9 +20,9 @@ public class ScoreThread extends Thread implements Runnable{
                 e.printStackTrace();
             }
             //paused for 5 sec to simulate workflow.
-            //actual code goes here.
+            //extend code goes here.
         } else {
-
+            //retract code goes here.
         }
     }
 
