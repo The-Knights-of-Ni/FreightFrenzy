@@ -4,7 +4,7 @@ import org.firstinspires.ftc.teamcode.util.coordinateSystem.pathFinder.PathFinde
 
 import java.util.ArrayList;
 
-public class Object2 {    private ArrayList<Coordinate> occupies;
+public class Object2 {    private final ArrayList<Coordinate> occupies;
 
     public Object2(ArrayList<Coordinate> occupies) {
         this.occupies = occupies;

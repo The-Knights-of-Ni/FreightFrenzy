@@ -5,10 +5,10 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.Control;
 import org.firstinspires.ftc.teamcode.subsystems.Drive;
 import org.firstinspires.ftc.teamcode.subsystems.Vision;
@@ -105,30 +105,30 @@ public class Robot {
     public Control control;
     public Vision vision;
     private AllianceColor allianceColor;
-    private HardwareMap hardwareMap;
-    private LinearOpMode opMode;
-    private double joystickDeadZone = 0.1;
+    private final HardwareMap hardwareMap;
+    private final LinearOpMode opMode;
+    private final Telemetry telemetry;
+    private final double joystickDeadZone = 0.1;
 
-    public Robot(LinearOpMode opMode, ElapsedTime timer) {
-        hardwareMap = opMode.hardwareMap;
+    public Robot(LinearOpMode opMode, ElapsedTime timer, Telemetry telemetry) {
+        this.hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;
+        this.telemetry = telemetry;
         init();
     }
 
     /**
-     * @param opMode
-     * @param timer
-     * @param allianceColor the alliance color o: no camera is initialized 1: only armWebcam is
-     *                      initialized for OpenCV 2: backWebcam is initialized for Vuforia 3: backWebcam is
-     *                      initialized for Vuforia and frontWebcam is initialized for OpenCV 4: armWebcam is
-     *                      initialized for OpenCV and frontWebcam is initialized for OpenCV
+     * @param opMode The op mode
+     * @param timer The elapsed time
+     * @param allianceColor the alliance color
      */
     public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) {
-        hardwareMap = opMode.hardwareMap;
+        this.hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;
         this.allianceColor = allianceColor;
+        this.telemetry = opMode.telemetry;
         init();
     }
 
@@ -185,33 +185,21 @@ public class Robot {
         }
 
         // Subsystems
-        opMode.telemetry.addData("Status", " drive initializing...");
-        opMode.telemetry.update();
-        drive =
-                new Drive(
-                        frontLeftDriveMotor,
-                        frontRightDriveMotor,
-                        rearLeftDriveMotor,
-                        rearRightDriveMotor,
-                        imu,
-                        opMode,
-                        timer);
+        telemetry.addData("Status", " drive initializing...");
+        telemetry.update();
+        drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer);
 
-        opMode.telemetry.addData("Status", " control initializing...");
+        telemetry.addData("Status", " control initializing...");
         control = new Control(intake, bucket, duckWheel, imu, opMode, timer);
 
-        opMode.telemetry.addData("Status", " vision initializing...");
-        opMode.telemetry.update();
+        telemetry.addData("Status", " vision initializing...");
+        telemetry.update();
         vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
-        opMode.telemetry.addData("Status", " done, wait for start");
+        telemetry.addData("Status", " done, wait for start");
     }
 
     public void initServosAuto() {
         // code here
-    }
-
-    public OpMode getOpmode() {
-        return this.opMode;
     }
 
     public void getGamePadInputs() {

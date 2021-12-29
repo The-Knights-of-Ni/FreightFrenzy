@@ -4,7 +4,10 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Hardware;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import java.util.Hashtable;
 import java.util.Locale;
 
 /**
@@ -55,7 +58,6 @@ public class Drive extends Subsystem {
     public DcMotorEx odL;
     public DcMotorEx odB;
     public DcMotorEx odR;
-    private final LinearOpMode opMode;
     // Sensors
     private final BNO055IMU imu;
     private double robotCurrentPosX; // unit in mm
@@ -81,7 +83,8 @@ public class Drive extends Subsystem {
      * @param rearLeft The rear left motor
      * @param rearRight The rear right motor
      * @param imu The imu
-     * @param opMode The current opmode for telemetry and the hardware map
+     * @param telemetry The telemetry
+     * @param hardwareMap The hardware map for getting the motors
      * @param timer The timer for the elapsed time
      */
     public Drive(
@@ -90,9 +93,10 @@ public class Drive extends Subsystem {
             DcMotorEx rearLeft,
             DcMotorEx rearRight,
             BNO055IMU imu,
-            LinearOpMode opMode,
+            Telemetry telemetry,
+            HardwareMap hardwareMap,
             ElapsedTime timer) {
-        super(opMode.telemetry, opMode.hardwareMap, timer);
+        super(telemetry, hardwareMap, timer);
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.rearLeft = rearLeft;
@@ -100,7 +104,6 @@ public class Drive extends Subsystem {
         this.odL = odL;
         this.odB = odB;
         this.odR = odR;
-        this.opMode = opMode;
         this.imu = imu;
         this.timer = timer;
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -213,10 +216,10 @@ public class Drive extends Subsystem {
     /**
      * robot only move in forward/backward/left/right directions
      *
-     * @param leftStickX
-     * @param leftStickY
-     * @param rightStickX
-     * @return
+     * @param leftStickX the x of the left stick
+     * @param leftStickY the y of the left stick
+     * @param rightStickX the x of the right stick
+     * @return the power of all the motors
      */
     public double[] calcMotorPowers2(double leftStickX, double leftStickY, double rightStickX) {
         if (Math.abs(leftStickX) >= Math.abs((leftStickY))) {
@@ -333,8 +336,8 @@ public class Drive extends Subsystem {
         //                - Math.sin(robotCurrentAngle*Math.PI/180.0));
         robotCurrentAngle += angle;
         // Display it for the driver.
-        opMode.telemetry.addData("turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
-        opMode.telemetry.update();
+        telemetry.addData("turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
+        telemetry.update();
         //        opMode.sleep(100);
     }
 
@@ -380,8 +383,8 @@ public class Drive extends Subsystem {
         //                - Math.sin(robotCurrentAngle*Math.PI/180.0));
         robotCurrentAngle += degrees;
         // Display it for the driver.
-        opMode.telemetry.addData("turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
-        opMode.telemetry.update();
+        telemetry.addData("turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
+        telemetry.update();
         //        opMode.sleep(100);
     }
 
@@ -479,9 +482,9 @@ public class Drive extends Subsystem {
         robotCurrentPosX = targetPositionX;
         robotCurrentPosY = targetPositionY;
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveToPosABS", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(100);
     }
 
@@ -495,9 +498,9 @@ public class Drive extends Subsystem {
                 targetPositionY * Math.sin(robotCurrentAngle * Math.PI / 180.0)
                         + targetPositionX * Math.sin((robotCurrentAngle - 90.0) * Math.PI / 180.0);
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveToPosREL", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(100);
     }
 
@@ -523,16 +526,16 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos(robotCurrentAngle * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin(robotCurrentAngle * Math.PI / 180.0);
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveForward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         updateOdometry();
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "odometry",
                 " L %7.2f R %7.2f B %7.2f",
                 odometryCountL * ODOMETRY_mm_PER_COUNT,
                 odometryCountR * ODOMETRY_mm_PER_COUNT,
                 odometryCountB * ODOMETRY_mm_PER_COUNT);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(1000);
         double angleError =
                 (((double) odometryCountR) - ((double) odometryCountL))
@@ -542,14 +545,14 @@ public class Drive extends Subsystem {
                         / ODOMETRY_RADIUS_X;
         turnRobotByTick(-angleError);
         updateOdometry();
-        opMode.telemetry.addData("correction angle", " %7.2f", -angleError);
-        opMode.telemetry.addData(
+        telemetry.addData("correction angle", " %7.2f", -angleError);
+        telemetry.addData(
                 "odometry",
                 " L %7.2f R %7.2f B %7.2f",
                 odometryCountL * ODOMETRY_mm_PER_COUNT,
                 odometryCountR * ODOMETRY_mm_PER_COUNT,
                 odometryCountB * ODOMETRY_mm_PER_COUNT);
-        opMode.telemetry.update();
+        telemetry.update();
         if (odometryCountB * ODOMETRY_mm_PER_COUNT > 25.0) {
             moveLeft(odometryCountB * ODOMETRY_mm_PER_COUNT);
         }
@@ -591,9 +594,9 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos(robotCurrentAngle * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin(robotCurrentAngle * Math.PI / 180.0);
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveForward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(100);
     }
 
@@ -619,16 +622,16 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos((robotCurrentAngle + 180.0) * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin((robotCurrentAngle + 180.0) * Math.PI / 180.0);
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveBackward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         updateOdometry();
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "odometry",
                 " L %7.2f R %7.2f B %7.2f",
                 odometryCountL * ODOMETRY_mm_PER_COUNT,
                 odometryCountR * ODOMETRY_mm_PER_COUNT,
                 odometryCountB * ODOMETRY_mm_PER_COUNT);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(1000);
         double angleError =
                 (((double) odometryCountR) - ((double) odometryCountL))
@@ -638,14 +641,14 @@ public class Drive extends Subsystem {
                         / ODOMETRY_RADIUS_X;
         turnRobotByTick(-angleError);
         updateOdometry();
-        opMode.telemetry.addData("correction angle", " %7.2f", -angleError);
-        opMode.telemetry.addData(
+        telemetry.addData("correction angle", " %7.2f", -angleError);
+        telemetry.addData(
                 "odometry",
                 " L %7.2f R %7.2f B %7.2f",
                 odometryCountL * ODOMETRY_mm_PER_COUNT,
                 odometryCountR * ODOMETRY_mm_PER_COUNT,
                 odometryCountB * ODOMETRY_mm_PER_COUNT);
-        opMode.telemetry.update();
+        telemetry.update();
         if (odometryCountB * ODOMETRY_mm_PER_COUNT > 25.0) {
             moveLeft(odometryCountB * ODOMETRY_mm_PER_COUNT);
         }
@@ -687,9 +690,9 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos((robotCurrentAngle + 180.0) * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin((robotCurrentAngle + 180.0) * Math.PI / 180.0);
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveBackward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(100);
     }
 
@@ -715,16 +718,16 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos((robotCurrentAngle + 90.0) * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin((robotCurrentAngle + 90.0) * Math.PI / 180.0);
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveLeft", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         updateOdometry();
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "odometry",
                 " L %7.2f R %7.2f B %7.2f",
                 odometryCountL * ODOMETRY_mm_PER_COUNT,
                 odometryCountR * ODOMETRY_mm_PER_COUNT,
                 odometryCountB * ODOMETRY_mm_PER_COUNT);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(1000);
         double angleError =
                 (((double) odometryCountR) - ((double) odometryCountL))
@@ -734,14 +737,14 @@ public class Drive extends Subsystem {
                         / ODOMETRY_RADIUS_X;
         turnRobotByTick(-angleError);
         updateOdometry();
-        opMode.telemetry.addData("correction angle", " %7.2f", -angleError);
-        opMode.telemetry.addData(
+        telemetry.addData("correction angle", " %7.2f", -angleError);
+        telemetry.addData(
                 "odometry",
                 " L %7.2f R %7.2f B %7.2f",
                 odometryCountL * ODOMETRY_mm_PER_COUNT,
                 odometryCountR * ODOMETRY_mm_PER_COUNT,
                 odometryCountB * ODOMETRY_mm_PER_COUNT);
-        opMode.telemetry.update();
+        telemetry.update();
         double offsetY = (((double) odometryCountR) + ((double) odometryCountL)) * 0.5;
         if (offsetY * ODOMETRY_mm_PER_COUNT > 25.0) {
             moveBackward(offsetY * ODOMETRY_mm_PER_COUNT);
@@ -784,9 +787,9 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos((robotCurrentAngle + 90.0) * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin((robotCurrentAngle + 90.0) * Math.PI / 180.0);
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveLeft", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(100);
     }
 
@@ -812,16 +815,16 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos((robotCurrentAngle - 90.0) * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin((robotCurrentAngle - 90.0) * Math.PI / 180.0);
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveRight", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         updateOdometry();
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "odometry",
                 " L %7.2f R %7.2f B %7.2f",
                 odometryCountL * ODOMETRY_mm_PER_COUNT,
                 odometryCountR * ODOMETRY_mm_PER_COUNT,
                 odometryCountB * ODOMETRY_mm_PER_COUNT);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(1000);
         double angleError =
                 (((double) odometryCountR) - ((double) odometryCountL))
@@ -831,14 +834,14 @@ public class Drive extends Subsystem {
                         / ODOMETRY_RADIUS_X;
         turnRobotByTick(-angleError);
         updateOdometry();
-        opMode.telemetry.addData("correction angle", " %7.2f", -angleError);
-        opMode.telemetry.addData(
+        telemetry.addData("correction angle", " %7.2f", -angleError);
+        telemetry.addData(
                 "odometry",
                 " L %7.2f R %7.2f B %7.2f",
                 odometryCountL * ODOMETRY_mm_PER_COUNT,
                 odometryCountR * ODOMETRY_mm_PER_COUNT,
                 odometryCountB * ODOMETRY_mm_PER_COUNT);
-        opMode.telemetry.update();
+        telemetry.update();
         double offsetY = (((double) odometryCountR) + ((double) odometryCountL)) * 0.5;
         if (offsetY * ODOMETRY_mm_PER_COUNT > 25.0) {
             moveBackward(offsetY * ODOMETRY_mm_PER_COUNT);
@@ -881,16 +884,16 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos((robotCurrentAngle - 90.0) * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin((robotCurrentAngle - 90.0) * Math.PI / 180.0);
         // Display it for the driver.
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "moveRight", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
-        opMode.telemetry.update();
+        telemetry.update();
         //        sleep(100);
     }
 
     public void printMotorPIDCoefficients() {
         PIDFCoefficients pidCoeff;
         pidCoeff = getMotorPIDCoefficients(frontLeft, DcMotor.RunMode.RUN_TO_POSITION);
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "Front Left ",
                 "P: %.2f I: %.2f D: %.2f F: %.2f A: %s",
                 pidCoeff.p,
@@ -899,7 +902,7 @@ public class Drive extends Subsystem {
                 pidCoeff.f,
                 pidCoeff.algorithm.toString());
         pidCoeff = getMotorPIDCoefficients(frontRight, DcMotor.RunMode.RUN_TO_POSITION);
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "Front Right",
                 "P: %.2f I: %.2f D: %.2f F: %.2f A: %s",
                 pidCoeff.p,
@@ -908,7 +911,7 @@ public class Drive extends Subsystem {
                 pidCoeff.f,
                 pidCoeff.algorithm.toString());
         pidCoeff = getMotorPIDCoefficients(rearLeft, DcMotor.RunMode.RUN_TO_POSITION);
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "Rear Left  ",
                 "P: %.2f I: %.2f D: %.2f F: %.2f A: %s",
                 pidCoeff.p,
@@ -917,7 +920,7 @@ public class Drive extends Subsystem {
                 pidCoeff.f,
                 pidCoeff.algorithm.toString());
         pidCoeff = getMotorPIDCoefficients(rearRight, DcMotor.RunMode.RUN_TO_POSITION);
-        opMode.telemetry.addData(
+        telemetry.addData(
                 "Rear Right ",
                 "P: %.2f I: %.2f D: %.2f F: %.2f A: %s",
                 pidCoeff.p,
@@ -925,7 +928,7 @@ public class Drive extends Subsystem {
                 pidCoeff.d,
                 pidCoeff.f,
                 pidCoeff.algorithm.toString());
-        opMode.telemetry.update();
+        telemetry.update();
     }
 
     public void setMotorKp(double motorKPFL, double motorKPFR, double motorKPRL, double motorKPRR) {
