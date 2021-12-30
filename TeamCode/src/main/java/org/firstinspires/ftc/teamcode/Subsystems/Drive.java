@@ -335,8 +335,8 @@ public class Drive extends Subsystem {
         //                - Math.sin(robotCurrentAngle*Math.PI/180.0));
         robotCurrentAngle += angle;
         // Display it for the driver.
-        telemetry.addData("turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
-        telemetry.update();
+//        telemetry.addData("turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
+//        telemetry.update();
         //        opMode.sleep(100);
     }
 
@@ -597,9 +597,9 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos(robotCurrentAngle * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin(robotCurrentAngle * Math.PI / 180.0);
         // Display it for the driver.
-        telemetry.addData(
-                "moveForward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
-        telemetry.update();
+//        telemetry.addData(
+//                "moveForward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
+//        telemetry.update();
         //        sleep(100);
     }
 
@@ -695,9 +695,9 @@ public class Drive extends Subsystem {
         robotCurrentPosX += distance * Math.cos((robotCurrentAngle + 180.0) * Math.PI / 180.0);
         robotCurrentPosY += distance * Math.sin((robotCurrentAngle + 180.0) * Math.PI / 180.0);
         // Display it for the driver.
-        telemetry.addData(
-                "moveBackward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
-        telemetry.update();
+//        telemetry.addData(
+//                "moveBackward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
+//        telemetry.update();
         //        sleep(100);
     }
 

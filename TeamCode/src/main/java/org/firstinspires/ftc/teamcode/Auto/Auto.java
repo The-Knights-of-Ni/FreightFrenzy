@@ -48,10 +48,10 @@ public class Auto extends LinearOpMode {
         this.robot =  new Robot(this, timer, allianceColor);
     }
 
-    public int getHubLevel(Vision vision) {
+    public int getHubLevel() {
         int placementLevel;
         do {
-            switch (vision.detectMarkerRun()) {
+            switch (robot.vision.detectMarkerRun()) {
                 case LEFT:
                     placementLevel = 1;
                     break;

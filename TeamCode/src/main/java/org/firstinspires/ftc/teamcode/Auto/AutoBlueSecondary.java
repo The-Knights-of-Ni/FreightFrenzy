@@ -23,7 +23,7 @@ public class AutoBlueSecondary extends Auto {
         int placementLevel;
         Drive drive = robot.drive;
 
-        placementLevel = getHubLevel(robot.vision);
+        placementLevel = getHubLevel();
         telemetry.addData("Location", placementLevel);
         telemetry.update();
 
