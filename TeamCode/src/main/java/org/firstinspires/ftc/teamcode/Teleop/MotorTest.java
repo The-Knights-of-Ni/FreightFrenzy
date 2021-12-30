@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp(name = "Bucket Position Test")
-public class TestBucketPosition extends LinearOpMode {
+public class MotorTest extends LinearOpMode {
 
     private DcMotorEx bucket;
     private DcMotorEx slide;
