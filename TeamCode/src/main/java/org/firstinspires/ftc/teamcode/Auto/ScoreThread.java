@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-
 import org.firstinspires.ftc.teamcode.Robot;
 
 public class ScoreThread extends Thread implements Runnable{
