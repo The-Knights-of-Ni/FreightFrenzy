@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Auto.ScoreThread;
 import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision;
@@ -111,6 +112,8 @@ public class Robot {
     private final Telemetry telemetry;
     private final double joystickDeadZone = 0.1;
 
+    //Threads
+
     public Robot(LinearOpMode opMode, ElapsedTime timer, Telemetry telemetry) {
         this.hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
@@ -201,7 +204,19 @@ public class Robot {
         telemetry.addData("Status", " vision initializing...");
         telemetry.update();
         vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
+
+        //Threads
+        telemetry.addData("Status", "Threads init started");
+        telemetry.update();
+        ScoreThread extendedUpper = new ScoreThread(slide, true, 3);
+        ScoreThread extendedMiddle = new ScoreThread(slide, true, 2);
+        ScoreThread extendedLower = new ScoreThread(slide, true, 1);
+        ScoreThread retracted = new ScoreThread(slide, false, 0);
+        telemetry.addData("Status", "Threads init complete");
+        telemetry.update();
         telemetry.addData("Status", " done, wait for start");
+        telemetry.update();
+
     }
 
     public void initServosAuto() {

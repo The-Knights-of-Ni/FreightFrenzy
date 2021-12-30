@@ -11,7 +11,7 @@ public class ScoreThread extends Thread implements Runnable{
     final int MIDDLE = -758;
     final int TOP = -1292;
 
-    ScoreThread(DcMotorEx slide, boolean direction, int placementLevel) {
+    public ScoreThread(DcMotorEx slide, boolean direction, int placementLevel) {
         this.slide = slide;
         this.direction = direction;
         this.placementLevel = placementLevel;
