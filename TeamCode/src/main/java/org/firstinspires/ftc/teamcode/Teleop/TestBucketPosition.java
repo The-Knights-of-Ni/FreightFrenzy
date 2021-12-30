@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 public class TestBucketPosition extends LinearOpMode {
 
     private DcMotorEx bucket;
+    private DcMotorEx slide;
     private boolean isBucketMoving;
 
     @Override
@@ -18,42 +19,14 @@ public class TestBucketPosition extends LinearOpMode {
         bucket.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bucket.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
+        slide = (DcMotorEx) hardwareMap.dcMotor.get("slide");
+        slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slide.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
         waitForStart();
         while (opModeIsActive()) {
-
-            // Toggle bucket up
-            if (this.gamepad1.left_bumper) {
-                if (isBucketMoving) {
-                    bucket.setTargetPosition(-74);
-                    bucket.setPower(1);
-                    bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                    isBucketMoving = false;
-                } else {
-//                    if(bucket.getCurrentPosition() == -74) {
-//                        bucket.setPower(0);
-//                        isBucketMoving = true;
-//                    }
-                    isBucketMoving = true;
-                }
-            }
-
-            // Toggle bucket down
-            if (this.gamepad1.right_bumper) {
-                if (isBucketMoving) {
-                    bucket.setTargetPosition(0);
-                    bucket.setPower(1);
-                    bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                    isBucketMoving = false;
-                } else {
-//                    if(bucket.getCurrentPosition() == 0) {
-//                        bucket.setPower(0);
-//                        isBucketMoving = true;
-//                    }
-                    isBucketMoving = true;
-                }
-            }
-
             telemetry.addData("Position", bucket.getCurrentPosition());
+            telemetry.addData("Position", slide.getCurrentPosition());
             telemetry.update();
         }
     }

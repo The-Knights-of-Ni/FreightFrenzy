@@ -23,11 +23,8 @@ public class Teleop extends LinearOpMode {
     private void initOpMode() {
         // Initialize DC motor objects
         timer = new ElapsedTime();
-        try {
-            robot = new Robot(this, timer, AllianceColor.BLUE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        robot = new Robot(this, timer, AllianceColor.BLUE);
+
         timeCurrent = timer.nanoseconds();
         timePre = timeCurrent;
 
