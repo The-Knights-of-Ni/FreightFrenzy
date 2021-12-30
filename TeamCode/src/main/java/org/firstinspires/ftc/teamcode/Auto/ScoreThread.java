@@ -6,6 +6,10 @@ public class ScoreThread extends Thread implements Runnable{
     DcMotorEx slide;
     boolean direction;
     int placementLevel;
+    final int RETRACTED = 0;
+    final int BOTTOM = -481;
+    final int MIDDLE = -758;
+    final int TOP = -1292;
 
     ScoreThread(DcMotorEx slide, boolean direction, int placementLevel) {
         this.slide = slide;
@@ -16,20 +20,27 @@ public class ScoreThread extends Thread implements Runnable{
     @Override
     public void run() {
         if (direction) {
-            //extend code goes into the switch.
             switch(placementLevel) {
                 case 1:
-                    //lower level
+                    slide.setTargetPosition(BOTTOM);
+                    slide.setPower(0.5);
+                    slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     break;
                 case 2:
-                    //middle level
+                    slide.setTargetPosition(MIDDLE);
+                    slide.setPower(0.5);
+                    slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     break;
                 case 3:
-                    //upper level
+                    slide.setTargetPosition(TOP);
+                    slide.setPower(0.5);
+                    slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                     break;
             }
         } else {
-            //retract code goes here.
+            slide.setTargetPosition(RETRACTED);
+            slide.setPower(0.5);
+            slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         }
     }
 
