@@ -34,20 +34,21 @@ public class Auto extends LinearOpMode {
     public static float mmPerInch = 25.4f;
     public Robot robot;
 
+
     /**
-     * Override of runOpMode()
-     *
-     * <p>Please do not swallow the InterruptedException, as it is used in cases where the op mode
-     * needs to be terminated early.
-     *
-     * @param allianceColor The alliance color
-     * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+     * Inits the robot class and sets the robot as the newly inited robot.
+     * @param allianceColor
+     * @throws IOException
      */
     public void initAuto(AllianceColor allianceColor) throws IOException {
         ElapsedTime timer = new ElapsedTime();
         this.robot =  new Robot(this, timer, allianceColor);
     }
 
+    /**
+     * Returns the hub level by running until the hub level is not {@link DetectMarkerPipeline.MarkerLocation#NOT_FOUND}
+     * @return The hub level as an int.
+     */
     public int getHubLevel() {
         int level = 0;
         DetectMarkerPipeline.MarkerLocation location = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
@@ -68,6 +69,14 @@ public class Auto extends LinearOpMode {
         return level;
     }
 
+    /**
+     * Override of runOpMode()
+     *
+     * <p>Please do not swallow the InterruptedException, as it is used in cases where the op mode
+     * needs to be terminated early.</p>
+     *
+     * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+     */
     @Override
     public void runOpMode() throws InterruptedException {
     }
