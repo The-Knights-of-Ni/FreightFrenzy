@@ -3,9 +3,9 @@ var DOCUMENTATION_OPTIONS = {
     VERSION: '0.0.0-alpha',
     LANGUAGE: 'None',
     COLLAPSE_INDEX: false,
-    BUILDER: 'html',
-    FILE_SUFFIX: '.html',
-    LINK_SUFFIX: '.html',
+    BUILDER: 'epub',
+    FILE_SUFFIX: '.xhtml',
+    LINK_SUFFIX: '.xhtml',
     HAS_SOURCE: true,
     SOURCELINK_SUFFIX: '.txt',
     NAVIGATION_WITH_KEYS: false
