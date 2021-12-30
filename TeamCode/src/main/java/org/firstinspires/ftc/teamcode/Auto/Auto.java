@@ -50,20 +50,22 @@ public class Auto extends LinearOpMode {
 
     public int getHubLevel(Vision vision) {
         int placementLevel;
-        switch (vision.detectMarkerRun()) {
-            case LEFT:
-                placementLevel = 1;
-                break;
-            case MIDDLE:
-                placementLevel = 2;
-                break;
-            case RIGHT:
-                placementLevel = 3;
-                break;
-            default:
-                placementLevel = -1;
-                break;
-        }
+        do {
+            switch (vision.detectMarkerRun()) {
+                case LEFT:
+                    placementLevel = 1;
+                    break;
+                case MIDDLE:
+                    placementLevel = 2;
+                    break;
+                case RIGHT:
+                    placementLevel = 3;
+                    break;
+                default:
+                    placementLevel = -1;
+                    break;
+            }
+        } while (placementLevel == -1);
         return placementLevel;
     }
 
