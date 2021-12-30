@@ -148,6 +148,9 @@ public class Drive extends Subsystem {
         rearRight.setPower(0);
     }
 
+    /**
+     * Stops the motors only if they are not busy.
+     */
     public void checkAndStopMotors() {
         if (!frontLeft.isBusy()) {
             frontLeft.setPower(0);
@@ -193,6 +196,10 @@ public class Drive extends Subsystem {
         rearRight.setZeroPowerBehavior(mode);
     }
 
+    /**
+     * Turns with the specified power
+     * @param power The power to turn by.
+     */
     public void turn(double power) {
         frontLeft.setPower(-power);
         frontRight.setPower(power);
@@ -200,7 +207,13 @@ public class Drive extends Subsystem {
         rearRight.setPower(power);
     }
 
-    // robot move in all directions
+    /**
+     * Calculates the motor powers when given the position o the left and right sticks
+     * @param leftStickX left joystick x position
+     * @param leftStickY left joystick y position
+     * @param rightStickX right joystick x position for turning
+     * @return
+     */
     public double[] calcMotorPowers(double leftStickX, double leftStickY, double rightStickX) {
         double r = Math.hypot(leftStickX, leftStickY);
         double robotAngle = Math.atan2(leftStickY, leftStickX) - Math.PI / 4;
@@ -234,6 +247,10 @@ public class Drive extends Subsystem {
         return new double[]{lfPower, rfPower, lrPower, rrPower};
     }
 
+    /**
+     * Sets the drive power
+     * @param power the power to set the motors to
+     */
     public void setDrivePower(double power) {
         frontLeft.setPower(power);
         frontRight.setPower(power);
@@ -241,6 +258,10 @@ public class Drive extends Subsystem {
         rearRight.setPower(power);
     }
 
+    /**
+     * Sets the drive power of each motor individually.
+     * @param powers the powers to set each of the motors to
+     */
     public void setDrivePowers(double[] powers) {
         frontLeft.setPower(powers[0]);
         frontRight.setPower(powers[1]);
@@ -970,9 +991,8 @@ public class Drive extends Subsystem {
         int motorIndex = motor.getPortNumber();
 
         // get the PID coefficients for the specific motor mode.
-        PIDFCoefficients pidOrig = motorControllerEx.getPIDFCoefficients(motorIndex, mode);
 
-        return pidOrig;
+        return motorControllerEx.getPIDFCoefficients(motorIndex, mode);
     }
 
     public void setMotorPIDCoefficients(
@@ -1452,7 +1472,7 @@ public class Drive extends Subsystem {
                             / speedExcess;
             if (elapsedTime < halfTime) { // during ramp up time
                 targetSpeed = speedExcess * elapsedTime / rampTime + speedOffset;
-            } else { // during ramp down time
+            } else { // during ramp downtime
                 double remainTime = halfTime + halfTime - elapsedTime;
                 targetSpeed = speedExcess * remainTime / rampTime + speedOffset;
             }
@@ -1462,7 +1482,7 @@ public class Drive extends Subsystem {
             } else if (tickCountD - speedOffset * rampTime
                     > speed * elapsedTime) { // during constant speed period
                 targetSpeed = speed;
-            } else { // during ramp down time
+            } else { // during ramp downtime
                 double remainTime = (tickCountD - speedOffset * rampTime) / speed + rampTime - elapsedTime;
                 targetSpeed = speedExcess * remainTime / rampTime + speedOffset;
             }
