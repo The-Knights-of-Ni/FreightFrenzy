@@ -1037,17 +1037,17 @@ public class Drive extends Subsystem {
     /**
      * PID motor control program to ensure all four motors are synchronized
      *
-     * @param tickCount:      absolute value of target tickcount of motor
-     * @param peakSpeed:      peak speed of motor rotation in tick per second
-     * @param maxSpeed:       max speed of motor rotation in tick per second
-     * @param rampTime:       motor speed ramp up/down time in sec
+     * @param tickCount: absolute value of target tickcount of motor
+     * @param peakSpeed: peak speed of motor rotation in tick per second
+     * @param maxSpeed: max speed of motor rotation in tick per second
+     * @param rampTime: motor speed ramp up/down time in sec
      * @param motorFLForward: front left motor is forward
      * @param motorFRForward: front right motor is forward
      * @param motorRLForward: rear left motor is forward
      * @param motorRRForward: rear right motor is forward
-     * @param Kp:             coefficient Kp
-     * @param Ki:             coefficient Ki
-     * @param Kd:             coefficient Kd by Andrew Chiang on 1/28/2020
+     * @param Kp: coefficient Kp
+     * @param Ki: coefficient Ki
+     * @param Kd: coefficient Kd by Andrew Chiang on 1/28/2020
      */
     public void allMotorPIDControl(
             int tickCount,
