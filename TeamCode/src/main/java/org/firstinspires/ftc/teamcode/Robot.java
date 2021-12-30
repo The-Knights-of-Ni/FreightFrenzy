@@ -5,9 +5,11 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.*;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
@@ -119,8 +121,8 @@ public class Robot {
     }
 
     /**
-     * @param opMode The op mode
-     * @param timer The elapsed time
+     * @param opMode        The op mode
+     * @param timer         The elapsed time
      * @param allianceColor the alliance color
      */
     public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) {

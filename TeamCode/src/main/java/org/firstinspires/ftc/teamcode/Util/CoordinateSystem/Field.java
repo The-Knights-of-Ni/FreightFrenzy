@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode.Util.CoordinateSystem;
 import java.util.ArrayList;
 
 /**
- * This is the Playing Field
- * The objects are baked into the field for speed
+ * This is the Playing Field The objects are baked into the field for speed
  */
 public class Field {
     public final int length; // length

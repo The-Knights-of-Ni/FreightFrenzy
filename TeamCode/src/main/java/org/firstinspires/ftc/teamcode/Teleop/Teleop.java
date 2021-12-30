@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
@@ -23,11 +22,7 @@ public class Teleop extends LinearOpMode {
     private void initOpMode() {
         // Initialize DC motor objects
         timer = new ElapsedTime();
-        try {
-            robot = new Robot(this, timer, AllianceColor.BLUE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        robot = new Robot(this, timer, AllianceColor.BLUE);
         timeCurrent = timer.nanoseconds();
         timePre = timeCurrent;
 

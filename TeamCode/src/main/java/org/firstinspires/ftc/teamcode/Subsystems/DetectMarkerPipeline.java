@@ -28,10 +28,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
     private MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
 
     public enum MarkerLocation {
-        LEFT,
-        MIDDLE,
-        RIGHT,
-        NOT_FOUND
+        LEFT, MIDDLE, RIGHT, NOT_FOUND
     }
 
     /**
@@ -123,10 +120,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
                 break;
         }
 
-        Imgproc.cvtColor(
-                mask,
-                mask,
-                Imgproc.COLOR_GRAY2RGB); // TODO: Change COLOR_GRAY2RGB to something more useful.
+        Imgproc.cvtColor(mask, mask, Imgproc.COLOR_GRAY2RGB); // TODO: Change COLOR_GRAY2RGB to something more useful.
 
         Scalar colorNormal;
 
@@ -140,12 +134,9 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
 
         Scalar colorMarker = new Scalar(0, 255, 0); // Pure Green
 
-        Imgproc.rectangle(
-                mask, LEFT_RECT, markerLocation == MarkerLocation.LEFT ? colorMarker : colorNormal);
-        Imgproc.rectangle(
-                mask, MIDDLE_RECT, markerLocation == MarkerLocation.MIDDLE ? colorMarker : colorNormal);
-        Imgproc.rectangle(
-                mask, RIGHT_RECT, markerLocation == MarkerLocation.RIGHT ? colorMarker : colorNormal);
+        Imgproc.rectangle(mask, LEFT_RECT, markerLocation == MarkerLocation.LEFT ? colorMarker : colorNormal);
+        Imgproc.rectangle(mask, MIDDLE_RECT, markerLocation == MarkerLocation.MIDDLE ? colorMarker : colorNormal);
+        Imgproc.rectangle(mask, RIGHT_RECT, markerLocation == MarkerLocation.RIGHT ? colorMarker : colorNormal);
 
         return mask;
     }

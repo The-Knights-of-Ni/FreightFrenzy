@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Hardware;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import java.util.Hashtable;
 import java.util.Locale;
 
 /**
@@ -78,14 +75,15 @@ public class Drive extends Subsystem {
 
     /**
      * Inited the drive subsystem
-     * @param frontLeft The front left motor
-     * @param frontRight The front right motor
-     * @param rearLeft The rear left motor
-     * @param rearRight The rear right motor
-     * @param imu The imu
-     * @param telemetry The telemetry
+     *
+     * @param frontLeft   The front left motor
+     * @param frontRight  The front right motor
+     * @param rearLeft    The rear left motor
+     * @param rearRight   The rear right motor
+     * @param imu         The imu
+     * @param telemetry   The telemetry
      * @param hardwareMap The hardware map for getting the motors
-     * @param timer The timer for the elapsed time
+     * @param timer       The timer for the elapsed time
      */
     public Drive(
             DcMotorEx frontLeft,
@@ -216,8 +214,8 @@ public class Drive extends Subsystem {
     /**
      * robot only move in forward/backward/left/right directions
      *
-     * @param leftStickX the x of the left stick
-     * @param leftStickY the y of the left stick
+     * @param leftStickX  the x of the left stick
+     * @param leftStickY  the y of the left stick
      * @param rightStickX the x of the right stick
      * @return the power of all the motors
      */
@@ -298,6 +296,7 @@ public class Drive extends Subsystem {
 
     /**
      * Turns the robot by the specified angle, ticks and angles are equivalent.
+     *
      * @param angle The angle to turn by.
      */
     public void turnRobotByTick(double angle) {
@@ -371,6 +370,7 @@ public class Drive extends Subsystem {
 
     /**
      * Turns the robot by the specified angle.
+     *
      * @param degrees The angle to turn by.
      */
     public void turnRobot(double degrees) {
@@ -394,6 +394,7 @@ public class Drive extends Subsystem {
 
     /**
      * Turn the robot by the specified angle.
+     *
      * @param turnAngle The angle to turn by.
      */
     public void turnByAngle(double turnAngle) {
@@ -565,8 +566,9 @@ public class Drive extends Subsystem {
 
     /**
      * Moves the robot forward by the specified distance with the default speed.
+     *
      * @param distance The distance to move forward by, in millimeters, use the mmPerInch constant if you want to use
-     * inches.
+     *                 inches.
      */
     public void moveForward(double distance) {
         moveForward(distance, DRIVE_SPEED_Y);
@@ -574,7 +576,8 @@ public class Drive extends Subsystem {
 
     /**
      * Moves the robot forward by the specified distance with the specified speed.
-     * @param distance The distance to move forward by
+     *
+     * @param distance   The distance to move forward by
      * @param motorSpeed The speed, a value between 0 and 1
      */
     public void moveForward(double distance, double motorSpeed) {
@@ -661,8 +664,9 @@ public class Drive extends Subsystem {
 
     /**
      * Moves the robot backwards by the specified distance with the default speed.
+     *
      * @param distance The distance to move backward by, in millimeters, use the mmPerInch constant if you want to use
-     * inches.
+     *                 inches.
      */
     public void moveBackward(double distance) {
         moveBackward(distance, DRIVE_SPEED_Y);
@@ -670,7 +674,8 @@ public class Drive extends Subsystem {
 
     /**
      * Moves the robot backwards by the specified distance with the specified speed.
-     * @param distance The distance to move forward by
+     *
+     * @param distance   The distance to move forward by
      * @param motorSpeed The speed, a value between 0 and 1
      */
     public void moveBackward(double distance, double motorSpeed) {
@@ -758,8 +763,9 @@ public class Drive extends Subsystem {
 
     /**
      * Strafes the robot left by the specified distance with the default speed.
+     *
      * @param distance The distance to strafe left by, in millimeters, use the mmPerInch constant if you want to use
-     * inches.
+     *                 inches.
      */
     public void moveLeft(double distance) {
         moveLeft(distance, DRIVE_SPEED_X);
@@ -767,7 +773,8 @@ public class Drive extends Subsystem {
 
     /**
      * Strafes the robot left by the specified distance with the specified speed.
-     * @param distance The distance to strafe left by
+     *
+     * @param distance   The distance to strafe left by
      * @param motorSpeed The speed, a value between 0 and 1
      */
     public void moveLeft(double distance, double motorSpeed) {
@@ -855,8 +862,9 @@ public class Drive extends Subsystem {
 
     /**
      * Strafes the robot right by the specified distance with the default speed.
+     *
      * @param distance The distance to strafe right by, in millimeters, use the mmPerInch constant if you want to use
-     * inches.
+     *                 inches.
      */
     public void moveRight(double distance) {
         moveRight(distance, DRIVE_SPEED_X);
@@ -864,7 +872,8 @@ public class Drive extends Subsystem {
 
     /**
      * Strafes the robot right by the specified distance with the specified speed.
-     * @param distance The distance to strafe right by
+     *
+     * @param distance   The distance to strafe right by
      * @param motorSpeed The speed, a value between 0 and 1
      */
     public void moveRight(double distance, double motorSpeed) {

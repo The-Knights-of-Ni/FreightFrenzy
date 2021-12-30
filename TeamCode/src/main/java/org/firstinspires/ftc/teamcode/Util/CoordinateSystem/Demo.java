@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Util.CoordinateSystem;
 import org.firstinspires.ftc.teamcode.Util.CoordinateSystem.File.fobj.fobj;
 import org.firstinspires.ftc.teamcode.Util.CoordinateSystem.PathFinder.SimplePathFinder;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 

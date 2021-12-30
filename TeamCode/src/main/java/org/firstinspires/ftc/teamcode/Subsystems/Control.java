@@ -78,7 +78,6 @@ public class Control extends Subsystem {
     }
 
     /**
-     *
      * @param bucketState should be set to 0 for touching the floor, 1 for level, and 2 for raised.
      */
 
@@ -86,8 +85,8 @@ public class Control extends Subsystem {
         final int FLOOR = 0;
         final int LEVEL = -5;
         final int RAISED = -60;
-        
-        switch(bucketState) {
+
+        switch (bucketState) {
             case 0:
                 //TOUCHING_FLOOR
                 bucket.setTargetPosition(FLOOR);
