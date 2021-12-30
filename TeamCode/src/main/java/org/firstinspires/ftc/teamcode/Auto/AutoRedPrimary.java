@@ -62,7 +62,7 @@ public class AutoRedPrimary extends Auto {
         robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
-        new ScoreThread(robot, placementLevel).run();
+        new ScoreThread(robot, placementLevel).start();
         drive.moveForward(48 * mmPerInch);
         drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
         drive.moveForward(10 * mmPerInch); //TODO adjust this constant
