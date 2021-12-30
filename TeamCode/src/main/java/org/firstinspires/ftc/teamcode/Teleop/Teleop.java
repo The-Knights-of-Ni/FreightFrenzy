@@ -23,11 +23,8 @@ public class Teleop extends LinearOpMode {
     private void initOpMode() {
         // Initialize DC motor objects
         timer = new ElapsedTime();
-        try {
-            robot = new Robot(this, timer, AllianceColor.BLUE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        robot = new Robot(this, timer, AllianceColor.BLUE);
+
         timeCurrent = timer.nanoseconds();
         timePre = timeCurrent;
 
@@ -117,13 +114,22 @@ public class Teleop extends LinearOpMode {
             }
 
             // Toggle bucket up
-            if (robot.bumperLeft && !robot.islBumperPressedPrev) {
+            if (robot.xButton2 && !robot.isxButton2PressedPrev) {
                 robot.control.setBucketState(2);
             }
 
             // Toggle bucket down
-            if (robot.bumperRight && !robot.isrBumperPressedPrev) {
+            if (robot.yButton2 && !robot.isyButton2PressedPrev) {
                 robot.control.setBucketState(0);
+            }
+
+            // Toggle slide up
+            if (robot.aButton2 && !robot.isaButton2PressedPrev) {
+                robot.control.setSlide(3);
+            }
+            // Toggle slide down
+            if (robot.bButton2 && !robot.isbButton2PressedPrev) {
+                robot.control.setSlide(0);
             }
         }
     }
