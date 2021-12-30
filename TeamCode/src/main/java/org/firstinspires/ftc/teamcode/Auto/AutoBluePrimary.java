@@ -50,18 +50,31 @@ public class AutoBluePrimary extends Auto {
         telemetry.addData("Location", placementLevel);
         telemetry.update();
 
-        drive.moveForward(7 * mmPerInch);
-        drive.moveRight(24 * mmPerInch);
+        // Move to carousel
         robot.control.setBucketState(1);
+        drive.moveForward(3 * mmPerInch);
+        drive.moveRight(20 * mmPerInch);
 
+        // Deliver Duck
         robot.control.startCarousel(true);
-        sleep(2500);
+        sleep(3800);
         robot.control.stopCarousel();
-        drive.moveLeft(48 * mmPerInch);
-        drive.moveForward(9 * mmPerInch);
-        sleep(1000); // delivery point here
-        drive.moveBackward(4 * mmPerInch);
-        drive.turnRobotByTick(90);
-        drive.moveForward(60 * mmPerInch);
+
+        // Move to hub (and start ScoreThread)
+//        ScoreThread place = new ScoreThread(robot, placementLevel);
+//        place.run();
+//        drive.moveLeft(48 * mmPerInch);
+//        drive.moveForward(9 * mmPerInch);
+//
+//        // Release clamp
+//        sleep(1000); // delivery point here
+//
+//        // Move to warehouse
+//        drive.moveBackward(4 * mmPerInch);
+//        drive.turnRobotByTick(-80);
+//        drive.moveRight(20 * mmPerInch);
+//        robot.control.setIntakeDirection(true, false);
+//        drive.moveBackward(56 * mmPerInch);
+//        robot.control.setIntakeDirection(false, false);
     }
 }
