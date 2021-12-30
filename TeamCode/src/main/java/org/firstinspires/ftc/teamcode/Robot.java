@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Robot {
@@ -119,7 +120,7 @@ public class Robot {
     public ScoreThread retracted;
 
 
-    public Robot(LinearOpMode opMode, ElapsedTime timer, Telemetry telemetry) {
+    public Robot(LinearOpMode opMode, ElapsedTime timer, Telemetry telemetry) throws IOException {
         this.hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;
@@ -132,7 +133,7 @@ public class Robot {
      * @param timer The elapsed time
      * @param allianceColor the alliance color
      */
-    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) {
+    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) throws IOException{
         this.hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;

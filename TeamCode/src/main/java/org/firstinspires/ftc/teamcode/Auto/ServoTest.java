@@ -27,7 +27,7 @@ public class ServoTest extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException{
 //        try {
 //            initOpMode();
 //        } catch (IOException e) {

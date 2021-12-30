@@ -20,7 +20,7 @@ public class Teleop extends LinearOpMode {
     private boolean isIntakeOn = false;
     private boolean isDuckOn = false;
 
-    private void initOpMode() {
+    private void initOpMode() throws IOException{
         // Initialize DC motor objects
         timer = new ElapsedTime();
         robot = new Robot(this, timer, AllianceColor.BLUE);
@@ -41,8 +41,12 @@ public class Teleop extends LinearOpMode {
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
      */
     @Override
-    public void runOpMode() {
-        initOpMode();
+    public void runOpMode() throws InterruptedException{
+        try {
+            initOpMode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         ElapsedTime timer = new ElapsedTime();
 
