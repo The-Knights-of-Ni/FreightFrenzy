@@ -19,13 +19,16 @@ public class AutoBlueSecondary extends Auto {
         }
 
         assert robot != null;
+
+        int placementLevel = getHubLevel();
+
         waitForStart();
-        int placementLevel;
         Drive drive = robot.drive;
 
-        placementLevel = getHubLevel();
-        telemetry.addData("Location", placementLevel);
-        telemetry.update();
+        if(placementLevel != 0) {
+            telemetry.addData("Level", placementLevel);
+            telemetry.update();
+        }
 
         // Move in front of the hub
         drive.moveForward(7 * mmPerInch);

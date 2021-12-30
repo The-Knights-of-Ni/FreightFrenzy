@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
@@ -48,24 +49,23 @@ public class Auto extends LinearOpMode {
     }
 
     public int getHubLevel() {
-        int placementLevel;
+        int level = 0;
+        DetectMarkerPipeline.MarkerLocation location = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
         do {
-            switch (robot.vision.detectMarkerRun()) {
-                case LEFT:
-                    placementLevel = 1;
-                    break;
-                case MIDDLE:
-                    placementLevel = 2;
-                    break;
-                case RIGHT:
-                    placementLevel = 3;
-                    break;
-                default:
-                    placementLevel = -1;
-                    break;
-            }
-        } while (placementLevel == -1);
-        return placementLevel;
+            location = robot.vision.detectMarkerRun();
+        } while (location == DetectMarkerPipeline.MarkerLocation.NOT_FOUND);
+        switch(location) {
+            case LEFT:
+                level = 1;
+                break;
+            case MIDDLE:
+                level = 2;
+                break;
+            case RIGHT:
+                level = 3;
+                break;
+        }
+        return level;
     }
 
     @Override

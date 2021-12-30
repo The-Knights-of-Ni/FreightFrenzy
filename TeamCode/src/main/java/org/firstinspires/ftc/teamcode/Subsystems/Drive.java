@@ -1402,8 +1402,8 @@ public class Drive extends Subsystem {
                             isTimeOutStarted ? "Y" : "N",
                             timeOutStartedTime * 1000.0,
                             isTimeOutExceeded ? "Y" : "N");
-            telemetry.addData("motorEnc", output);
-            telemetry.update();
+//            telemetry.addData("motorEnc", output);
+//            telemetry.update();
         }
     }
 
