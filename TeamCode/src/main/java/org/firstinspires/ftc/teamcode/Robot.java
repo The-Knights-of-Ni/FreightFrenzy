@@ -11,11 +11,13 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Auto.ScoreThread;
 import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Robot {
@@ -28,6 +30,7 @@ public class Robot {
     public DcMotorEx rearLeftDriveMotor;
     public DcMotorEx intake;
     public DcMotorEx bucket;
+    public DcMotorEx slide;
     // Servos
     public CRServo duckWheel;
     // Odometry
@@ -112,7 +115,14 @@ public class Robot {
     private final Telemetry telemetry;
     private final double joystickDeadZone = 0.1;
 
-    public Robot(LinearOpMode opMode, ElapsedTime timer, Telemetry telemetry) {
+    //Threads
+    public ScoreThread extend;
+//    public ScoreThread extendedMiddle;
+//    public ScoreThread extendedLower;
+    public ScoreThread retract;
+
+
+    public Robot(LinearOpMode opMode, ElapsedTime timer, Telemetry telemetry) throws IOException {
         this.hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;
@@ -125,7 +135,7 @@ public class Robot {
      * @param timer         The elapsed time
      * @param allianceColor the alliance color
      */
-    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) {
+    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) throws IOException{
         this.hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;
@@ -161,6 +171,11 @@ public class Robot {
         bucket.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         bucket.setPower(0.0);
 
+        slide = (DcMotorEx) hardwareMap.dcMotor.get("slide");
+        slide.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        slide.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        slide.setPower(0.0);
+
         // Servos
         duckWheel = new CRServo(hardwareMap, "duckWheel");
 
@@ -192,12 +207,24 @@ public class Robot {
         drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer);
 
         telemetry.addData("Status", " control initializing...");
-        control = new Control(intake, bucket, duckWheel, imu, opMode, timer);
+        control = new Control(intake, bucket, slide, duckWheel, imu, opMode, timer);
 
         telemetry.addData("Status", " vision initializing...");
         telemetry.update();
         vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
+
+        //Threads
+        telemetry.addData("Status", "Threads init started");
+        telemetry.update();
+        extend = new ScoreThread(this, 3);
+//        extendedMiddle = new ScoreThread(this, 2);
+//        extendedLower = new ScoreThread(this, 1);
+        retract = new ScoreThread(this, 0);
+        telemetry.addData("Status", "Threads init complete");
+        telemetry.update();
         telemetry.addData("Status", " done, wait for start");
+        telemetry.update();
+
     }
 
     public void initServosAuto() {

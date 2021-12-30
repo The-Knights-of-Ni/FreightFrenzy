@@ -35,38 +35,50 @@ public class AutoRedPrimary extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
-        Robot robot = null;
         try {
-            robot = init(AllianceColor.RED);
+            initAuto(AllianceColor.RED);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         assert robot != null;
+        waitForStart();
         int placementLevel;
         Drive drive = robot.drive;
 
         placementLevel = getHubLevel(robot.vision);
-        waitForStart();
+        telemetry.addData("Location", placementLevel);
+        telemetry.update();
 
+        // Move to carousel
         robot.control.setBucketState(1);
         drive.moveForward(3 * mmPerInch);
-        drive.turnRobotByTick(-80);
+        drive.turnRobotByTick(-80); //TODO adjust this back to 90 once robot is heavier
         drive.moveBackward(24 * mmPerInch);
-//        robot.control.setBucketState(1); //TODO adjust this back to 90 once robot is heavier
+
+        // Deliver Duck
         robot.control.startCarousel(false);
         sleep(3800);
         robot.control.stopCarousel();
+
+        // Move to hub (and start ScoreThread)
+        ScoreThread place = new ScoreThread(robot, placementLevel);
+        place.run();
         drive.moveForward(48 * mmPerInch);
         drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
-        drive.moveForward(18 * mmPerInch);
+        drive.moveForward(10 * mmPerInch); //TODO adjust this constant
+
+        // Release clamp
         sleep(1000); // delivery point here
+
+        // Move to warehouse
         drive.moveBackward(4 * mmPerInch);
         drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
         drive.moveLeft(20 * mmPerInch);
         robot.control.setIntakeDirection(true, false);
         drive.moveBackward(56 * mmPerInch);
         robot.control.setIntakeDirection(false, false);
+
         telemetry.addLine("Done");
         telemetry.update();
     }

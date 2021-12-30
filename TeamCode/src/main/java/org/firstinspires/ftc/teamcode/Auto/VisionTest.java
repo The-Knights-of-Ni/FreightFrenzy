@@ -27,7 +27,7 @@ public class VisionTest extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException{
         try {
             this.initOpMode();
         } catch (IOException e) {

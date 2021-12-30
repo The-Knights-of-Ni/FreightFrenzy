@@ -31,6 +31,7 @@ import java.io.IOException;
 public class Auto extends LinearOpMode {
 
     public static float mmPerInch = 25.4f;
+    public Robot robot;
 
     /**
      * Override of runOpMode()
@@ -42,9 +43,9 @@ public class Auto extends LinearOpMode {
      * @return
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
      */
-    public Robot init(AllianceColor allianceColor) throws IOException {
+    public void initAuto(AllianceColor allianceColor) throws IOException {
         ElapsedTime timer = new ElapsedTime();
-        return new Robot(this, timer, allianceColor);
+        this.robot =  new Robot(this, timer, allianceColor);
     }
 
     public int getHubLevel(Vision vision) {

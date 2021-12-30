@@ -2,22 +2,25 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-public class ScoreThread extends Thread implements Runnable{
-    DcMotorEx slide;
+import org.firstinspires.ftc.teamcode.Robot;
 
-    ScoreThread(DcMotorEx slide) {
-        this.slide = slide;
+public class ScoreThread extends Thread implements Runnable{
+    private Robot robot;
+    boolean direction;
+    int placementLevel;
+    final int RETRACTED = 0;
+    final int BOTTOM = -481;
+    final int MIDDLE = -758;
+    final int TOP = -1292;
+
+    public ScoreThread(Robot robot, int placementLevel) {
+        this.robot = robot;
+        this.placementLevel = placementLevel;
     }
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //paused for 5 sec to simulate workflow.
-        //actual code goes here.
+        robot.control.setSlide(placementLevel);
     }
 
 }

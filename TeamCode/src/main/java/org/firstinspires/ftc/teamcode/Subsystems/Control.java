@@ -19,6 +19,7 @@ public class Control extends Subsystem {
     // DC Motors
     private final DcMotorEx intake;
     private final DcMotorEx bucket;
+    private final DcMotorEx slide;
     private final CRServo duckWheel;
 
     // Servos
@@ -35,6 +36,7 @@ public class Control extends Subsystem {
     public Control(
             DcMotorEx intake,
             DcMotorEx bucket,
+            DcMotorEx slide,
             CRServo duckWheel,
             BNO055IMU imu,
             LinearOpMode opMode,
@@ -45,6 +47,7 @@ public class Control extends Subsystem {
 
         this.intake = intake;
         this.bucket = bucket;
+        this.slide = slide;
         this.duckWheel = duckWheel;
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
@@ -59,6 +62,7 @@ public class Control extends Subsystem {
     private void setZeroPowerBehavior(DcMotor.ZeroPowerBehavior mode) {
         intake.setZeroPowerBehavior(mode);
         bucket.setZeroPowerBehavior(mode);
+        slide.setZeroPowerBehavior(mode);
     }
 
     // made custom servoRotation function because ftc devs are bad at their job.
@@ -84,7 +88,7 @@ public class Control extends Subsystem {
     public void setBucketState(int bucketState) {
         final int FLOOR = 0;
         final int LEVEL = -5;
-        final int RAISED = -60;
+        final int RAISED = -68;
 
         switch (bucketState) {
             case 0:
@@ -109,7 +113,38 @@ public class Control extends Subsystem {
                 bucket.setPower(0.5);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         }
+    }
 
+    public void setSlide(int slideState) {
+        final int RETRACTED = 0;
+        final int BOTTOM = -481;
+        final int MIDDLE = -758;
+        final int TOP = -1292;
+
+        switch (slideState) {
+            case 0:
+                //RETRACTED
+                slide.setTargetPosition(RETRACTED);
+                slide.setPower(0.5);
+                slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                break;
+            case 1:
+                //BOTTOM
+                slide.setTargetPosition(BOTTOM);
+                slide.setPower(0.5);
+                slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                break;
+            case 2:
+                //MIDDLE
+                slide.setTargetPosition(MIDDLE);
+                slide.setPower(0.5);
+                slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+            case 3:
+                //TOP
+                slide.setTargetPosition(TOP);
+                slide.setPower(0.5);
+                slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        }
     }
 
     public void startCarousel(boolean direction) {

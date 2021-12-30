@@ -35,9 +35,8 @@ public class AutoBluePrimary extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
-        Robot robot = null;
         try {
-            robot = init(AllianceColor.RED);
+            initAuto(AllianceColor.BLUE);
         } catch (IOException e) {
             e.printStackTrace();
         }

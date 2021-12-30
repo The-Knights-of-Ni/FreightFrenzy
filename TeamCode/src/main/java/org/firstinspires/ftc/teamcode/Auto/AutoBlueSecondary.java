@@ -12,9 +12,8 @@ import java.io.IOException;
 public class AutoBlueSecondary extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {
-        Robot robot = null;
         try {
-            robot = init(AllianceColor.RED);
+            initAuto(AllianceColor.BLUE);
         } catch (IOException e) {
             e.printStackTrace();
         }
