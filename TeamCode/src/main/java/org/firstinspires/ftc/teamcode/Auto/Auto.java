@@ -41,7 +41,6 @@ public class Auto extends LinearOpMode {
      * needs to be terminated early.
      *
      * @param allianceColor The alliance color
-     * @return
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
      */
     public void initAuto(AllianceColor allianceColor) throws IOException {
