@@ -113,6 +113,11 @@ public class Robot {
     private final double joystickDeadZone = 0.1;
 
     //Threads
+    public ScoreThread extendedUpper;
+    public ScoreThread extendedMiddle;
+    public ScoreThread extendedLower;
+    public ScoreThread retracted;
+
 
     public Robot(LinearOpMode opMode, ElapsedTime timer, Telemetry telemetry) {
         this.hardwareMap = opMode.hardwareMap;
@@ -208,10 +213,10 @@ public class Robot {
         //Threads
         telemetry.addData("Status", "Threads init started");
         telemetry.update();
-        ScoreThread extendedUpper = new ScoreThread(slide, true, 3);
-        ScoreThread extendedMiddle = new ScoreThread(slide, true, 2);
-        ScoreThread extendedLower = new ScoreThread(slide, true, 1);
-        ScoreThread retracted = new ScoreThread(slide, false, 0);
+        extendedUpper = new ScoreThread(slide, true, 3);
+        extendedMiddle = new ScoreThread(slide, true, 2);
+        extendedLower = new ScoreThread(slide, true, 1);
+        retracted = new ScoreThread(slide, false, 0);
         telemetry.addData("Status", "Threads init complete");
         telemetry.update();
         telemetry.addData("Status", " done, wait for start");
