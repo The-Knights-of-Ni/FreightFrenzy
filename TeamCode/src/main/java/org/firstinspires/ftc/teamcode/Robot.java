@@ -26,6 +26,7 @@ public class Robot {
     public DcMotorEx rearLeftDriveMotor;
     public DcMotorEx intake;
     public DcMotorEx bucket;
+    public DcMotorEx slide;
     // Servos
     public CRServo duckWheel;
     // Odometry
@@ -159,6 +160,11 @@ public class Robot {
         bucket.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         bucket.setPower(0.0);
 
+        slide = (DcMotorEx) hardwareMap.dcMotor.get("slide");
+        slide.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        slide.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        slide.setPower(0.0);
+
         // Servos
         duckWheel = new CRServo(hardwareMap, "duckWheel");
 
@@ -190,7 +196,7 @@ public class Robot {
         drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer);
 
         telemetry.addData("Status", " control initializing...");
-        control = new Control(intake, bucket, duckWheel, imu, opMode, timer);
+        control = new Control(intake, bucket, slide, duckWheel, imu, opMode, timer);
 
         telemetry.addData("Status", " vision initializing...");
         telemetry.update();

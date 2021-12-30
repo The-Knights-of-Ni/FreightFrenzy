@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-@TeleOp(name = "Bucket Position Test")
+@TeleOp(name = "Motor Position Test")
 public class MotorTest extends LinearOpMode {
 
     private DcMotorEx bucket;
@@ -25,8 +25,18 @@ public class MotorTest extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            telemetry.addData("Position", bucket.getCurrentPosition());
-            telemetry.addData("Position", slide.getCurrentPosition());
+            if(this.gamepad1.a) {
+                bucket.setTargetPosition(-68);
+                bucket.setPower(0.5);
+                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+            }
+            if(this.gamepad1.b) {
+                bucket.setTargetPosition(0);
+                bucket.setPower(0.5);
+                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+            }
+            telemetry.addData("Position (bucket)", bucket.getCurrentPosition());
+            telemetry.addData("Position (slide)", slide.getCurrentPosition());
             telemetry.update();
         }
     }
