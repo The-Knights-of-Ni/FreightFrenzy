@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
@@ -42,13 +43,16 @@ public class AutoRedPrimary extends Auto {
         }
 
         assert robot != null;
+
         waitForStart();
-        int placementLevel;
         Drive drive = robot.drive;
 
-        placementLevel = getHubLevel();
-        telemetry.addData("Location", placementLevel);
-        telemetry.update();
+        int placementLevel = getHubLevel();
+
+        if(placementLevel != 0) {
+            telemetry.addData("Level", placementLevel);
+            telemetry.update();
+        }
 
         // Move to carousel
         robot.control.setBucketState(1);
@@ -62,9 +66,9 @@ public class AutoRedPrimary extends Auto {
         robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
-//        ScoreThread place = new ScoreThread(robot, placementLevel, telemetry);
-//        place.start();
-        robot.control.setSlide(placementLevel);
+        ScoreThread place = new ScoreThread(robot, placementLevel, telemetry);
+        place.start();
+//        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
 
         drive.moveForward(48 * mmPerInch);
         drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
@@ -72,10 +76,8 @@ public class AutoRedPrimary extends Auto {
 
         // Release clamp
         sleep(1000); // delivery point here
-        robot.control.setSlide(0);
-//        robot.retract.start();
-
-
+        robot.retract.start();
+//        robot.control.setSlide(0); // Can be used instead of multithreading
 
 //        // Move to warehouse
 //        drive.moveBackward(4 * mmPerInch);

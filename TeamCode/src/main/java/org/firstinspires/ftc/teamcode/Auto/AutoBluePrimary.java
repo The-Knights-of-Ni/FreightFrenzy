@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
@@ -42,13 +43,16 @@ public class AutoBluePrimary extends Auto {
         }
 
         assert robot != null;
+
+        int placementLevel = getHubLevel();
+
         waitForStart();
-        int placementLevel;
         Drive drive = robot.drive;
 
-        placementLevel = getHubLevel();
-        telemetry.addData("Location", placementLevel);
-        telemetry.update();
+        if(placementLevel != 0) {
+            telemetry.addData("Level", placementLevel);
+            telemetry.update();
+        }
 
         // Move to carousel
         robot.control.setBucketState(1);
