@@ -31,7 +31,7 @@ public class AutoRedPrimary extends Auto {
      * <p>Please do not swallow the InterruptedException, as it is used in cases where the op mode
      * needs to be terminated early.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Thrown when the op mode needs to be terminated early.
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
      */
     @Override

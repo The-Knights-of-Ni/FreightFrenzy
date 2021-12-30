@@ -33,13 +33,22 @@ public class Drive extends Subsystem {
     private static final double COUNTS_CORRECTION_X = 1.167;
     private static final double COUNTS_CORRECTION_Y = 0.9918;
     private static final double COUNTS_PER_DEGREE = 10.833 * 0.99; // 975 ticks per 90 degrees
+    /**
+     * Default drive speed
+     */
     private static final double DRIVE_SPEED = 0.40;
     private static final double DRIVE_SPEED_X = 0.35;
     private static final double DRIVE_SPEED_Y = 0.40;
+    /**
+     * Default turn speed
+     */
     private static final double TURN_SPEED = 0.40;
     private static final double ROBOT_INIT_POS_X = 15.0;
     private static final double ROBOT_INIT_POS_Y = 15.0;
     private static final double ROBOT_INIT_ANGLE = 45.0;
+    /**
+     * Number of millimeters per an Inch
+     */
     private static final double mmPerInch = 25.4;
     private static boolean driveFullPower = false;
     private static final double motorKp = 0.015;
@@ -122,6 +131,9 @@ public class Drive extends Subsystem {
         return odometryCountR;
     }
 
+    /**
+     * Reset the odometry.
+     */
     private void resetOdometry() {
         odometryCountOffsetL = -odL.getCurrentPosition();
         odometryCountOffsetB = odB.getCurrentPosition();
@@ -168,6 +180,7 @@ public class Drive extends Subsystem {
 
     /**
      * Sets all drive motors to specified run mode
+     * @param mode the specified mode
      */
     public void setRunMode(DcMotor.RunMode mode) {
         frontLeft.setMode(mode);
@@ -212,7 +225,7 @@ public class Drive extends Subsystem {
      * @param leftStickX left joystick x position
      * @param leftStickY left joystick y position
      * @param rightStickX right joystick x position for turning
-     * @return
+     * @return A list with the motor powers
      */
     public double[] calcMotorPowers(double leftStickX, double leftStickY, double rightStickX) {
         double r = Math.hypot(leftStickX, leftStickY);
@@ -269,10 +282,18 @@ public class Drive extends Subsystem {
         rearRight.setPower(powers[3]);
     }
 
+    /**
+     * Set the full power
+     * @param fullPower full power boolean
+     */
     public void setDriveFullPower(boolean fullPower) {
         driveFullPower = fullPower;
     }
 
+    /**
+     * Set the target position
+     * @param targetPosition the target position
+     */
     public void setTargetPosition(int targetPosition) {
         frontLeft.setTargetPosition(targetPosition);
         frontRight.setTargetPosition(targetPosition);
@@ -280,6 +301,10 @@ public class Drive extends Subsystem {
         rearRight.setTargetPosition(targetPosition);
     }
 
+    /**
+     * Get the current positions of all the motors
+     * @return the list of all the positions of the drive motors
+     */
     public int[] getCurrentPositions() {
         return new int[]{
                 frontLeft.getCurrentPosition() - encoderOffsetFL,
@@ -316,8 +341,8 @@ public class Drive extends Subsystem {
     }
 
     /**
-     * Turns the robot by the specified angle, ticks and angles are equivalent.
-     *
+     * Turns the robot by the specified angle, ticks and angles are equivalent. Use this method to turn the robot instead
+     * of {@link #turnByTick(double, double)}
      * @param angle The angle to turn by.
      */
     public void turnRobotByTick(double angle) {
@@ -361,6 +386,11 @@ public class Drive extends Subsystem {
         //        opMode.sleep(100);
     }
 
+    /**
+     * Turns the robot by tick. Use {@link #turnRobotByTick(double)}
+     * @param power the motor power
+     * @param angle the angle in ticks
+     */
     public void turnByTick(double power, double angle) {
         setRunMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeft.setTargetPosition(0);
@@ -422,6 +452,12 @@ public class Drive extends Subsystem {
         turnRobotByTick(turnAngle);
     }
 
+    /**
+     * 2D move to position
+     * @param power motor power
+     * @param targetPositionX target x coordinate
+     * @param targetPositionY target y coordinate
+     */
     public void moveToPos2D(double power, double targetPositionX, double targetPositionY) {
         // move to X, Y position relative to the robot coordinate system
         // the center of robot is 0,0
@@ -452,8 +488,13 @@ public class Drive extends Subsystem {
         logDriveEncoders();
     }
 
+    /**
+     * distribute power appropriately according to the direction of motion.
+     * @param targetPositionX The x target position
+     * @param targetPositionY The y target position
+     * @param motorPower the motor power
+     */
     public void setPower2D(double targetPositionX, double targetPositionY, double motorPower) {
-        // distribute power appropriately according to the direction of motion
         double[] motorPowers = calcMotorPowers2D(targetPositionX, targetPositionY, motorPower);
         rearLeft.setPower(motorPowers[0]);
         frontLeft.setPower(motorPowers[1]);
@@ -461,8 +502,12 @@ public class Drive extends Subsystem {
         frontRight.setPower(motorPowers[3]);
     }
 
+    /**
+     * set motor rotation targets appropriately according to the direction of motion.
+     * @param targetPositionX The x target position
+     * @param targetPositionY The y target position
+     */
     public void setTargetPosition2D(double targetPositionX, double targetPositionY) {
-        // set motor rotation targets appropriately according to the direction of motion
         //        frontLeft.setTargetPosition((int)  ((+ targetPositionX +
         // targetPositionY)*Math.sqrt(2.0)));
         //        frontRight.setTargetPosition((int) ((- targetPositionX +
@@ -477,9 +522,15 @@ public class Drive extends Subsystem {
         rearRight.setTargetPosition((int) (targetPositionX + targetPositionY));
     }
 
+    /**
+     * targetPositionX and targetPositionY determine the direction of movement
+     * motorPower determines the magnitude of motor power
+     * @param targetPositionX The target x position
+     * @param targetPositionY the target y position
+     * @param motorPower the motor power
+     * @return a list with the motor powers
+     */
     public double[] calcMotorPowers2D(double targetPositionX, double targetPositionY, double motorPower) {
-        // targetPositionX and targetPositionY determine the direction of movement
-        // motorPower determines the magnitude of motor power
         double angleScale = Math.abs(targetPositionX) + Math.abs(targetPositionY);
         double lrPower = motorPower * (-targetPositionX + targetPositionY) / angleScale;
         double lfPower = motorPower * (targetPositionX + targetPositionY) / angleScale;
@@ -526,10 +577,22 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
+    /**
+     * Moves the robot forward by the specified distance with the default speed with odometry.
+     *
+     * @param distance The distance to move forward by, in millimeters, use the mmPerInch constant if you want to use
+     *                 inches.
+     */
     public void moveForward_odometry(double distance) {
         moveForward_odometry(distance, DRIVE_SPEED_Y);
     }
 
+    /**
+     * Moves the robot forward by the specified distance with the specified speed with odometry.
+     *
+     * @param distance   The distance to move forward by
+     * @param motorSpeed The speed, a value between 0 and 1
+     */
     public void moveForward_odometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, 0.0, distance);
@@ -624,10 +687,22 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
+    /**
+     * Moves the robot backwards by the specified distance with the default speed with odometry.
+     *
+     * @param distance The distance to move backward by, in millimeters, use the mmPerInch constant if you want to use
+     *                 inches.
+     */
     public void moveBackward_odometry(double distance) {
         moveBackward_odometry(distance, DRIVE_SPEED_Y);
     }
 
+    /**
+     * Moves the robot backwards by the specified distance with the specified speed with odometry.
+     *
+     * @param distance   The distance to move forward by
+     * @param motorSpeed The speed, a value between 0 and 1
+     */
     public void moveBackward_odometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, 0.0, -distance);
@@ -722,10 +797,22 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
+    /**
+     * Strafes the robot left by the specified distance with the default speed with odometry.
+     *
+     * @param distance The distance to strafe left by, in millimeters, use the mmPerInch constant if you want to use
+     *                 inches.
+     */
     public void moveLeft_odometry(double distance) {
         moveLeft_odometry(distance, DRIVE_SPEED_X);
     }
 
+    /**
+     * Strafes the robot left by the specified distance with the specified speed with odometry.
+     *
+     * @param distance   The distance to strafe left by
+     * @param motorSpeed The speed, a value between 0 and 1
+     */
     public void moveLeft_odometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, -distance, 0.0);
@@ -821,10 +908,22 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
+    /**
+     * Strafes the robot right by the specified distance with the default speed with odometry.
+     *
+     * @param distance The distance to strafe right by, in millimeters, use the mmPerInch constant if you want to use
+     *                 inches.
+     */
     public void moveRight_odometry(double distance) {
         moveRight_odometry(distance, DRIVE_SPEED_X);
     }
 
+    /**
+     * Strafes the robot right by the specified distance with the specified speed with odometry.
+     *
+     * @param distance   The distance to strafe right by
+     * @param motorSpeed The speed, a value between 0 and 1
+     */
     public void moveRight_odometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, distance, 0.0);
