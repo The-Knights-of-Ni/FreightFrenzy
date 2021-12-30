@@ -114,10 +114,10 @@ public class Robot {
     private final double joystickDeadZone = 0.1;
 
     //Threads
-    public ScoreThread extendedUpper;
-    public ScoreThread extendedMiddle;
-    public ScoreThread extendedLower;
-    public ScoreThread retracted;
+    public ScoreThread extend;
+//    public ScoreThread extendedMiddle;
+//    public ScoreThread extendedLower;
+    public ScoreThread retract;
 
 
     public Robot(LinearOpMode opMode, ElapsedTime timer, Telemetry telemetry) throws IOException {
@@ -214,10 +214,10 @@ public class Robot {
         //Threads
         telemetry.addData("Status", "Threads init started");
         telemetry.update();
-        extendedUpper = new ScoreThread(slide, true, 3);
-        extendedMiddle = new ScoreThread(slide, true, 2);
-        extendedLower = new ScoreThread(slide, true, 1);
-        retracted = new ScoreThread(slide, false, 0);
+        extend = new ScoreThread(this, 3);
+//        extendedMiddle = new ScoreThread(this, 2);
+//        extendedLower = new ScoreThread(this, 1);
+        retract = new ScoreThread(this, 0);
         telemetry.addData("Status", "Threads init complete");
         telemetry.update();
         telemetry.addData("Status", " done, wait for start");
