@@ -42,16 +42,16 @@ public class VisionTest extends LinearOpMode {
             location = robot.vision.detectMarkerRun();
             switch (location) {
                 case LEFT:
-                    telemetry.addData("Location", "LEFT");
+                    telemetry.addData("Location", "Left");
                     break;
                 case MIDDLE:
-                    telemetry.addData("Location", "MIDDLE");
+                    telemetry.addData("Location", "Middle");
                     break;
                 case RIGHT:
-                    telemetry.addData("Location", "RIGHT");
+                    telemetry.addData("Location", "Right");
                     break;
                 case NOT_FOUND:
-                    telemetry.addData("Location", "NOT_FOUND");
+                    telemetry.addData("Location", "Not Found");
                     break;
             }
             telemetry.update();

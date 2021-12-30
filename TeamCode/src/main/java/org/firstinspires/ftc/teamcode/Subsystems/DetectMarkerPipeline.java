@@ -8,11 +8,11 @@ import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 /**
- * This pipeline detects where the marker is.
+ * This pipeline detects where the custom marker is.
  *
  * <p>It does this by splitting the camera input into 3 parts, the Left, Middle, and Right. It
  * checks each part for a custom marker (which is set to be green in the code), or some blue or red
- * tape, dependant on the alliance color.
+ * tape, dependant on the alliance color. The marker is assumed to be yellow.</p>
  *
  * @see OpenCvPipeline
  * @see Vision
