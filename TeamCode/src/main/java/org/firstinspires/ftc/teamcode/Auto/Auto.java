@@ -37,8 +37,8 @@ public class Auto extends LinearOpMode {
 
     /**
      * Inits the robot class and sets the robot as the newly inited robot.
-     * @param allianceColor
-     * @throws IOException
+     * @param allianceColor The alliance color
+     * @throws IOException The robot might throw a {@link IOException} because of vision.
      */
     public void initAuto(AllianceColor allianceColor) throws IOException {
         ElapsedTime timer = new ElapsedTime();
