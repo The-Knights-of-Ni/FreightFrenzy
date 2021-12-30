@@ -62,22 +62,27 @@ public class AutoRedPrimary extends Auto {
         robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
-        ScoreThread place = new ScoreThread(robot, placementLevel);
-        place.run();
+        ScoreThread place = new ScoreThread(robot, placementLevel, telemetry);
+        place.start();
+//        robot.control.setSlide(placementLevel);
         drive.moveForward(48 * mmPerInch);
         drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
-        drive.moveForward(10 * mmPerInch); //TODO adjust this constant
+        drive.moveForward(8 * mmPerInch); //TODO adjust this constant
 
         // Release clamp
         sleep(1000); // delivery point here
+        robot.control.setSlide(0);
+//        robot.retract.start();
 
-        // Move to warehouse
-        drive.moveBackward(4 * mmPerInch);
-        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
-        drive.moveLeft(20 * mmPerInch);
-        robot.control.setIntakeDirection(true, false);
-        drive.moveBackward(56 * mmPerInch);
-        robot.control.setIntakeDirection(false, false);
+
+
+//        // Move to warehouse
+//        drive.moveBackward(4 * mmPerInch);
+//        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
+//        drive.moveLeft(20 * mmPerInch);
+//        robot.control.setIntakeDirection(true, false);
+//        drive.moveBackward(56 * mmPerInch);
+//        robot.control.setIntakeDirection(false, false);
 
         telemetry.addLine("Done");
         telemetry.update();

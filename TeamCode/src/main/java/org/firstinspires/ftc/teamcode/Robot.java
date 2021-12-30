@@ -216,10 +216,10 @@ public class Robot {
         //Threads
         telemetry.addData("Status", "Threads init started");
         telemetry.update();
-        extend = new ScoreThread(this, 3);
+        extend = new ScoreThread(this, 3, telemetry);
 //        extendedMiddle = new ScoreThread(this, 2);
 //        extendedLower = new ScoreThread(this, 1);
-        retract = new ScoreThread(this, 0);
+        retract = new ScoreThread(this, 0, telemetry);
         telemetry.addData("Status", "Threads init complete");
         telemetry.update();
         telemetry.addData("Status", " done, wait for start");
