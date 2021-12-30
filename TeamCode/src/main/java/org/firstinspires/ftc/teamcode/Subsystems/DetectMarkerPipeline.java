@@ -67,8 +67,8 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
     @Override
     public Mat processFrame(Mat input) {
         Imgproc.cvtColor(input, mask, Imgproc.COLOR_RGB2HSV);
-        Scalar lowHSV = new Scalar(25, 25, 35);
-        Scalar highHSV = new Scalar(40, 255, 255);
+        Scalar lowHSV = new Scalar(25, 75, 20);
+        Scalar highHSV = new Scalar(35, 255, 255);
 
         Core.inRange(mask, lowHSV, highHSV, mask);
 
