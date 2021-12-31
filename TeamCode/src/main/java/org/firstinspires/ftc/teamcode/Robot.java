@@ -297,4 +297,10 @@ public class Robot {
         }
         return joystickOutput;
     }
+
+    public void telemetryBroadcast(String caption, String value) {
+        telemetry.addData(caption, value);
+        telemetry.update();
+    }
+
 }

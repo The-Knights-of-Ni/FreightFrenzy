@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.Teleop;
 
-import com.arcrobotics.ftclib.hardware.motors.CRServo;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
 
-@Autonomous(name = "Servo Test", group = "Concept")
+@TeleOp(name = "Servo Test", group= "Concept")
 public class ServoTest extends LinearOpMode {
     private Robot robot;
     public ElapsedTime timer;
@@ -27,20 +26,15 @@ public class ServoTest extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode() throws InterruptedException{
-//        try {
-//            initOpMode();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    public void runOpMode() throws InterruptedException {
+        ServoEx servo = (ServoEx) hardwareMap.servo.get("lid");
+        int position = 0;
 
-        CRServo hi = new CRServo(hardwareMap, "duckWheel");
-        telemetry.addLine("done!");
-        telemetry.update();
-
-        waitForStart();
-        hi.set(1.0);
-        //hi.set(0);
-        //robot.duckWheel.setPosition(0.5);
+        while (opModeIsActive()) {
+            servo.setPosition(position);
+            if(robot.aButton) {position += 0.01;}
+            else if(robot.bButton) {position -= 0.01;}
+        }
     }
+
 }

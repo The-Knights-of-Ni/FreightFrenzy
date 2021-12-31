@@ -20,8 +20,7 @@ public class ScoreThread extends Thread{
     @Override
     public void run() {
         try {
-            telemetry.addData("Thread Status", "Running");
-            telemetry.update();
+            robot.telemetryBroadcast("Thread Status", "Running");
             robot.control.setLidPosition(LidPosition.CLOSED);
             switch (placementLevel) {
                 case TOP:
