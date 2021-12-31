@@ -23,7 +23,6 @@ import java.util.List;
 public class DetectMarkerPipeline extends OpenCvPipeline {
     private final AllianceColor allianceColor;
     private final int CAMERA_WIDTH;
-    Telemetry telemetry;
     private MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
 
     public enum MarkerLocation {
@@ -33,13 +32,11 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
     /**
      * Class instantiation
      *
-     * @param telemetry used for {@link Telemetry}
      * @see Robot
      * @see Telemetry
      * @see AllianceColor
      */
-    public DetectMarkerPipeline(Telemetry telemetry, AllianceColor allianceColor, int width) {
-        this.telemetry = telemetry;
+    public DetectMarkerPipeline(AllianceColor allianceColor, int width) {
         this.allianceColor = allianceColor;
         this.CAMERA_WIDTH = width;
     }

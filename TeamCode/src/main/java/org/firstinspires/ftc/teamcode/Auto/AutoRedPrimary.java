@@ -69,8 +69,7 @@ public class AutoRedPrimary extends Auto {
         robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
-        ScoreThread place = new ScoreThread(robot, placementLevel, telemetry);
-        place.start();
+        new ScoreThread(robot, placementLevel, telemetry).start();
 //        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
 
         drive.moveForward(48 * mmPerInch);

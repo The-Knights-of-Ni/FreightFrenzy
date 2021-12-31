@@ -107,7 +107,7 @@ public class Vision extends Subsystem {
                         .createWebcam(hardwareMap.get(WebcamName.class, WEBCAM_NAME), cameraMonitorViewId);
 
         // Create a detection pipeline for detecting the position
-        pipeline = new DetectMarkerPipeline(telemetry, allianceColor, CAMERA_WIDTH);
+        pipeline = new DetectMarkerPipeline(allianceColor, CAMERA_WIDTH);
         camera.setPipeline(pipeline);
 
         // Create listeners for the camera
