@@ -33,6 +33,7 @@ public class ServoTest extends LinearOpMode {
             servo.setPosition(position);
             if(robot.aButton) {position += 0.01;}
             else if(robot.bButton) {position -= 0.01;}
+            robot.telemetryBroadcast("Position", String.valueOf(position));
         }
     }
 
