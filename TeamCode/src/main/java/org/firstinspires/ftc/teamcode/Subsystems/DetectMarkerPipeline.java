@@ -22,11 +22,11 @@ import java.util.List;
  */
 public class DetectMarkerPipeline extends OpenCvPipeline {
     private final AllianceColor allianceColor;
-    private final int width = 1920;
     private final Rect LEFT_RECT = new Rect(new Point(0, 0), new Point(640, 1080));
     private final Rect MIDDLE_RECT = new Rect(new Point(640, 0), new Point(1280, 1080));
     private final Rect RIGHT_RECT = new Rect(new Point(1280, 0), new Point(1920, 1080));
     private final double PERCENT_COLOR_THRESHOLD = 0.1;
+    private final int CAMERA_WIDTH;
     Telemetry telemetry;
     private MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
 
@@ -42,9 +42,10 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
      * @see Telemetry
      * @see AllianceColor
      */
-    public DetectMarkerPipeline(Telemetry telemetry, AllianceColor allianceColor) {
+    public DetectMarkerPipeline(Telemetry telemetry, AllianceColor allianceColor, int width) {
         this.telemetry = telemetry;
         this.allianceColor = allianceColor;
+        this.CAMERA_WIDTH = width;
     }
 
     /**
@@ -99,8 +100,8 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
             boundRect[i] = Imgproc.boundingRect(new MatOfPoint(contoursPoly[i].toArray()));
         }
 
-        double left_x = 0.4 * width;
-        double right_x = 0.6 * width;
+        double left_x = 0.4 * CAMERA_WIDTH;
+        double right_x = 0.6 * CAMERA_WIDTH;
 
         boolean left = false;
         boolean middle = false;
@@ -118,7 +119,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         if(middle) markerLocation = MarkerLocation.MIDDLE;
         if(right) markerLocation = MarkerLocation.RIGHT;
 
-        return mat;
+        return thresh;
     }
 
     /**
