@@ -153,6 +153,7 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
+            // Toggle lid open/closed
             if(robot.bumperLeft2 && !robot.islBumper2PressedPrev) {
                 if(isLidOpen) {
                     robot.control.setLidPosition(LidPosition.CLOSED);
