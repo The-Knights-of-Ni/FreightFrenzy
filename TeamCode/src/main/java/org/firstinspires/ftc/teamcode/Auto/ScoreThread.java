@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
 
 public class ScoreThread extends Thread{
     private Robot robot;
