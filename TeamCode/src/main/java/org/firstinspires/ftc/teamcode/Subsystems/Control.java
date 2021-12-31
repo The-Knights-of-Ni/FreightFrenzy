@@ -153,9 +153,9 @@ public class Control extends Subsystem {
 
     public void setLidPosition(LidPosition position) {
         // TODO: find the lid position constants
-        final int DEPLOYED = 0;
-        final int OPEN = 1;
-        final int CLOSED = 2;
+        final double DEPLOYED = 0.5;
+        final double OPEN = 1;
+        final double CLOSED = 0;
 
         switch(position) {
             case CLOSED:
