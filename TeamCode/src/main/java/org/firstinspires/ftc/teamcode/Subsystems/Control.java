@@ -154,6 +154,7 @@ public class Control extends Subsystem {
     }
 
     public void setLidPosition(LidPosition position) {
+        // TODO find the positions
         final int DEPLOYED = 0;
         final int OPEN = 1;
         final int CLOSED = 2;
