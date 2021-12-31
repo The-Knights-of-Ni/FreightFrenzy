@@ -48,22 +48,29 @@ public class Control extends Subsystem {
     }
 
     public enum SlideState {
-        RETRACTED(0),
-        BOTTOM(-481),
-        MIDDLE(-758),
-        TOP(-1292);
+        RETRACTED(0, 0.2),
+        BOTTOM(-481, 0.2),
+        MIDDLE(-758, 0.2),
+        TOP(-1292, 0.2);
 
         public final int place;
+        public final double power;
 
-        SlideState(int place) {
+        SlideState(int place, double power) {
             this.place = place;
+            this.power = power;
         }
     }
 
     public enum LidPosition {
-        CLOSED,
-        DEPLOYED,
-        OPEN
+        CLOSED(0),
+        DEPLOYED(0.5),
+        OPEN(1);
+
+        public final double position;
+        LidPosition(double position) {
+            this.position = position;
+        }
     }
 
     public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx slide, CRServo duckWheel, ServoEx lid, BNO055IMU imu,
@@ -108,31 +115,13 @@ public class Control extends Subsystem {
     }
 
     public void setSlide(SlideState slideState) {
-        slide.setPower(0.2);
+        slide.setPower(slideState.power);
         slide.setTargetPosition(slideState.place);
         slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
-    public void setLidPosition(LidPosition position) {
-        // TODO: find the lid position constants
-        final double DEPLOYED = 0.5;
-        final double OPEN = 1;
-        final double CLOSED = 0;
-
-        switch(position) {
-            case CLOSED:
-                //CLOSED
-                lid.setPosition(CLOSED);
-                break;
-            case DEPLOYED:
-                //DEPLOYED
-                lid.setPosition(DEPLOYED);
-                break;
-            case OPEN:
-                //OPEN
-                lid.setPosition(OPEN);
-                break;
-        }
+    public void setLidPosition(LidPosition lidPosition) {
+        lid.setPosition(lidPosition.position);
     }
 
 
