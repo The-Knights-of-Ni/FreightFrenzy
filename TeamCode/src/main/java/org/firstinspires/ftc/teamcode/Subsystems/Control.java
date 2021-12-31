@@ -88,13 +88,13 @@ public class Control extends Subsystem {
     public void setBucketState(int bucketState) {
         final int FLOOR = 0;
         final int LEVEL = -5;
-        final int RAISED = -68;
+        final int RAISED = -65;
 
         switch (bucketState) {
             case 0:
                 //TOUCHING_FLOOR
                 bucket.setTargetPosition(FLOOR);
-                bucket.setPower(0.5);
+                bucket.setPower(0.1);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
             case 1:
@@ -106,12 +106,9 @@ public class Control extends Subsystem {
             case 2:
                 //RAISED
                 bucket.setTargetPosition(RAISED);
-                bucket.setPower(0.5);
+                bucket.setPower(1.0);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-            default:
-                bucket.setTargetPosition(LEVEL);
-                bucket.setPower(0.5);
-                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                break;
         }
     }
 
