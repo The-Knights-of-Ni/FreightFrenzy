@@ -27,6 +27,9 @@ public class Drive extends Subsystem {
             (MOTOR_TICK_PER_REV_YELLOJACKET312 * DRIVE_GEAR_REDUCTION)
                     / (GOBUILDA_MECANUM_DIAMETER_MM * Math.PI);
     private static final double WHEEL_DIAMETER_INCHES = 100.0 / 25.4; // For figuring circumference
+    /**
+     * Wheel Diameter MM
+     */
     private static final double WHEEL_DIAMETER_MM = 100.0;
     private static final double COUNTS_PER_INCH =
             (TICKS_PER_MOTOR_REV_20 * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -183,6 +186,7 @@ public class Drive extends Subsystem {
 
     /**
      * Sets all drive motors to specified run mode
+     *
      * @param mode the specified mode
      */
     public void setRunMode(DcMotor.RunMode mode) {
@@ -214,6 +218,7 @@ public class Drive extends Subsystem {
 
     /**
      * Turns with the specified power
+     *
      * @param power The power to turn by.
      */
     public void turn(double power) {
@@ -225,8 +230,9 @@ public class Drive extends Subsystem {
 
     /**
      * Calculates the motor powers when given the position o the left and right sticks
-     * @param leftStickX left joystick x position
-     * @param leftStickY left joystick y position
+     *
+     * @param leftStickX  left joystick x position
+     * @param leftStickY  left joystick y position
      * @param rightStickX right joystick x position for turning
      * @return A list with the motor powers
      */
@@ -265,6 +271,7 @@ public class Drive extends Subsystem {
 
     /**
      * Sets the drive power
+     *
      * @param power the power to set the motors to
      */
     public void setDrivePower(double power) {
@@ -276,6 +283,7 @@ public class Drive extends Subsystem {
 
     /**
      * Sets the drive power of each motor individually.
+     *
      * @param powers the powers to set each of the motors to
      */
     public void setDrivePowers(double[] powers) {
@@ -287,6 +295,7 @@ public class Drive extends Subsystem {
 
     /**
      * Set the full power
+     *
      * @param fullPower full power boolean
      */
     public void setDriveFullPower(boolean fullPower) {
@@ -295,6 +304,7 @@ public class Drive extends Subsystem {
 
     /**
      * Set the target position
+     *
      * @param targetPosition the target position
      */
     public void setTargetPosition(int targetPosition) {
@@ -306,6 +316,7 @@ public class Drive extends Subsystem {
 
     /**
      * Get the current positions of all the motors
+     *
      * @return the list of all the positions of the drive motors
      */
     public int[] getCurrentPositions() {
@@ -346,6 +357,7 @@ public class Drive extends Subsystem {
     /**
      * Turns the robot by the specified angle, ticks and angles are equivalent. Use this method to turn the robot instead
      * of {@link #turnByTick(double, double)}
+     *
      * @param angle The angle to turn by.
      */
     public void turnRobotByTick(double angle) {
@@ -391,6 +403,7 @@ public class Drive extends Subsystem {
 
     /**
      * Turns the robot by tick. Use {@link #turnRobotByTick(double)}
+     *
      * @param power the motor power
      * @param angle the angle in ticks
      */
@@ -457,7 +470,8 @@ public class Drive extends Subsystem {
 
     /**
      * 2D move to position
-     * @param power motor power
+     *
+     * @param power           motor power
      * @param targetPositionX target x coordinate
      * @param targetPositionY target y coordinate
      */
@@ -493,9 +507,10 @@ public class Drive extends Subsystem {
 
     /**
      * distribute power appropriately according to the direction of motion.
+     *
      * @param targetPositionX The x target position
      * @param targetPositionY The y target position
-     * @param motorPower the motor power
+     * @param motorPower      the motor power
      */
     public void setPower2D(double targetPositionX, double targetPositionY, double motorPower) {
         double[] motorPowers = calcMotorPowers2D(targetPositionX, targetPositionY, motorPower);
@@ -507,6 +522,7 @@ public class Drive extends Subsystem {
 
     /**
      * set motor rotation targets appropriately according to the direction of motion.
+     *
      * @param targetPositionX The x target position
      * @param targetPositionY The y target position
      */
@@ -528,9 +544,10 @@ public class Drive extends Subsystem {
     /**
      * targetPositionX and targetPositionY determine the direction of movement
      * motorPower determines the magnitude of motor power
+     *
      * @param targetPositionX The target x position
      * @param targetPositionY the target y position
-     * @param motorPower the motor power
+     * @param motorPower      the motor power
      * @return a list with the motor powers
      */
     public double[] calcMotorPowers2D(double targetPositionX, double targetPositionY, double motorPower) {
@@ -1139,17 +1156,17 @@ public class Drive extends Subsystem {
     /**
      * PID motor control program to ensure all four motors are synchronized
      *
-     * @param tickCount: absolute value of target tickcount of motor
-     * @param peakSpeed: peak speed of motor rotation in tick per second
-     * @param maxSpeed: max speed of motor rotation in tick per second
-     * @param rampTime: motor speed ramp up/down time in sec
+     * @param tickCount:      absolute value of target tickcount of motor
+     * @param peakSpeed:      peak speed of motor rotation in tick per second
+     * @param maxSpeed:       max speed of motor rotation in tick per second
+     * @param rampTime:       motor speed ramp up/down time in sec
      * @param motorFLForward: front left motor is forward
      * @param motorFRForward: front right motor is forward
      * @param motorRLForward: rear left motor is forward
      * @param motorRRForward: rear right motor is forward
-     * @param Kp: coefficient Kp
-     * @param Ki: coefficient Ki
-     * @param Kd: coefficient Kd by Andrew Chiang on 1/28/2020
+     * @param Kp:             coefficient Kp
+     * @param Ki:             coefficient Ki
+     * @param Kd:             coefficient Kd by Andrew Chiang on 1/28/2020
      */
     public void allMotorPIDControl(
             int tickCount,

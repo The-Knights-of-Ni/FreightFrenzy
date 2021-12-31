@@ -14,6 +14,12 @@ public abstract class Subsystem {
     protected ElapsedTime timer;
     protected HardwareMap hardwareMap;
 
+    /**
+     * inits with telemetry, the hardware map, and the timer.
+     * @param telemetry The telemetry for logging
+     * @param hardwareMap The hardware map
+     * @param timer The elapsed timer
+     */
     public Subsystem(Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer) {
         this.telemetry = telemetry;
         this.hardwareMap = hardwareMap;
