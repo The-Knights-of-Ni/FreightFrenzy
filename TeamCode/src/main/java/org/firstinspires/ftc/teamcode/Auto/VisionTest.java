@@ -22,8 +22,8 @@ public class VisionTest extends LinearOpMode {
 
         this.robot = new Robot(this, timer, AllianceColor.BLUE);
 
-        telemetry.addData("Wait for start", "");
-        telemetry.update();
+        robot.telemetryBroadcast("Wait for start", "");
+
     }
 
     @Override
