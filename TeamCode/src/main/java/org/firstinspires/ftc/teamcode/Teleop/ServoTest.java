@@ -21,8 +21,7 @@ public class ServoTest extends LinearOpMode {
 
         this.robot = new Robot(this, timer, AllianceColor.BLUE);
 
-        telemetry.addData("Wait for start", "");
-        telemetry.update();
+        robot.telemetryBroadcast("wait for start", "");
     }
 
     @Override
