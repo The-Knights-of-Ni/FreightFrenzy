@@ -114,13 +114,13 @@ public class Vision extends Subsystem {
         camera.openCameraDeviceAsync(
                 new OpenCvCamera.AsyncCameraOpenListener() {
                     @Override
-                    public void onOpened() { // Add
+                    public void onOpened() { // Listener for when the camera first starts
                         telemetry.addLine("Streaming");
                         camera.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
                     }
 
                     @Override
-                    public void onError(int errorCode) {
+                    public void onError(int errorCode) { // Listener to log if the camera stops abruptly
                         telemetry.addLine("Error Streaming, aborting");
                         telemetry.update();
                     }
@@ -134,6 +134,7 @@ public class Vision extends Subsystem {
     }
 
     public void stop() {
+        // Stop streaming
         camera.stopStreaming();
         camera.closeCameraDevice();
     }
@@ -145,6 +146,7 @@ public class Vision extends Subsystem {
      * @return Where the marker is
      */
     public DetectMarkerPipeline.MarkerLocation detectMarkerRun() {
+        // Return the marker location
         return pipeline.getMarkerLocation();
     }
 }
