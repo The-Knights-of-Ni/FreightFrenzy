@@ -4,6 +4,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
 
 public class ScoreThread extends Thread{
     private Robot robot;
@@ -25,6 +26,7 @@ public class ScoreThread extends Thread{
         try {
             telemetry.addData("Thread Status", "Running");
             telemetry.update();
+            robot.control.setLidPosition(LidPosition.CLOSED);
             switch (placementLevel) {
                 case TOP:
                     robot.control.setSlide(SlideState.TOP);

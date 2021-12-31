@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -21,6 +22,7 @@ public class Control extends Subsystem {
     private final DcMotorEx bucket;
     private final DcMotorEx slide;
     private final CRServo duckWheel;
+    private final ServoEx lid;
 
     // Servos
 
@@ -47,6 +49,12 @@ public class Control extends Subsystem {
         TOP
     }
 
+    public enum LidPosition {
+        CLOSED,
+        DEPLOYED,
+        OPEN
+    }
+
     public Control(
             DcMotorEx intake,
             DcMotorEx bucket,
@@ -54,7 +62,7 @@ public class Control extends Subsystem {
             CRServo duckWheel,
             BNO055IMU imu,
             LinearOpMode opMode,
-            ElapsedTime timer) {
+            ElapsedTime timer, ServoEx lid) {
         super(opMode.telemetry, opMode.hardwareMap, timer);
 
         // store device information locally
@@ -66,6 +74,7 @@ public class Control extends Subsystem {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
         this.imu = imu;
+        this.lid = lid;
         this.timer = timer;
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
@@ -146,6 +155,29 @@ public class Control extends Subsystem {
                 slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         }
     }
+
+    public void setLidPosition(LidPosition position) {
+        // TODO find the positions
+        final int DEPLOYED = 0;
+        final int OPEN = 1;
+        final int CLOSED = 2;
+
+        switch(position) {
+            case CLOSED:
+                //CLOSED
+                lid.setPosition(CLOSED);
+                break;
+            case DEPLOYED:
+                //DEPLOYED
+                lid.setPosition(DEPLOYED);
+                break;
+            case OPEN:
+                //OPEN
+                lid.setPosition(OPEN);
+                break;
+        }
+    }
+
 
     public void startCarousel(boolean direction) {
         duckWheel.set(direction ? 1 : -1);
