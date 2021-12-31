@@ -57,8 +57,8 @@ public class Auto extends LinearOpMode {
      * @return The hub level as an int.
      */
     public PlacementLevel getHubLevel() {
-        PlacementLevel level = null;
-        DetectMarkerPipeline.MarkerLocation location = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
+        PlacementLevel level;
+        DetectMarkerPipeline.MarkerLocation location;
         do {
             location = robot.vision.detectMarkerRun();
         } while (location == DetectMarkerPipeline.MarkerLocation.NOT_FOUND);
