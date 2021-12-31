@@ -12,7 +12,7 @@
   <navMap>    
     <navPoint id="navPoint1" playOrder="1">
       <navLabel>
-        <text>Welcome to Freight Frenzy’s documentation!</text>
+        <text>Welcome to The Knights of Ni’s Freight Frenzy Game Robot’s Manual!</text>
       </navLabel>
       <content src="index.xhtml" />  
     </navPoint>
@@ -69,25 +69,43 @@
         <text>Game Pad</text>
       </navLabel>
       <content src="game_pad.xhtml" />  
+      <navPoint id="navPoint11" playOrder="8">
+        <navLabel>
+          <text>Game Pad</text>
+        </navLabel>
+        <content src="game_pad.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint12" playOrder="9">
+        <navLabel>
+          <text>Game Pad 1</text>
+        </navLabel>
+        <content src="game_pad.xhtml#game-pad-1" />  
+      </navPoint>
+      <navPoint id="navPoint13" playOrder="10">
+        <navLabel>
+          <text>Gamepad 2</text>
+        </navLabel>
+        <content src="game_pad.xhtml#gamepad-2" />  
+      </navPoint>
     </navPoint>
-    <navPoint id="navPoint11" playOrder="9">
+    <navPoint id="navPoint14" playOrder="11">
       <navLabel>
         <text>Common Errors</text>
       </navLabel>
       <content src="common_errors.xhtml" />  
-      <navPoint id="navPoint12" playOrder="9">
+      <navPoint id="navPoint15" playOrder="11">
         <navLabel>
           <text>Common Errors</text>
         </navLabel>
         <content src="common_errors.xhtml" />  
       </navPoint>
-      <navPoint id="navPoint13" playOrder="10">
+      <navPoint id="navPoint16" playOrder="12">
         <navLabel>
           <text>Out of Memory error</text>
         </navLabel>
         <content src="common_errors.xhtml#out-of-memory-error" />  
       </navPoint>
-      <navPoint id="navPoint14" playOrder="11">
+      <navPoint id="navPoint17" playOrder="13">
         <navLabel>
           <text>Java 1.8 Error</text>
         </navLabel>

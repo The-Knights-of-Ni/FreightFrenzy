@@ -1,20 +1,25 @@
 Game Pad
 ==========
-Xbox Controller
+Game Pad 1
 ________________
 .. image:: _static/xbox-360-controller-front.jpg
    :scale: 30%
    :alt: Xbox 360 Game Pad
    :align: center
 
-Start - Start
+Left Joystick - Movement
+Right Joystick - Turning
+A - Intake counter clockwise
+B - Intake clockwise
+X -  Bucket Up
+Y - Bucket Down
 
-Joystick 1 - Up and down are forwards and backwards. Left and right strafe.
+Gamepad 2
+________________
+A - Linear Slide Level 3
+B - Linear Slide Retract
+X - Duck Wheel Toggle Forward
+Y - Duck Wheel Toggle Backward
+Left Bumper - Claw Retract
+Right Bumper - Claw Extend
 
-Y - "Fast Mode" switch
-
-B - Omni Directional drive switch
-
-Joystick 2 - Rotate the duck wheel (Left and Right), and move the duck wheel up and down (Up and Down)
-
-Use the non-joystick controller to turn the robot.
