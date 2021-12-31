@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
@@ -21,6 +23,7 @@ public class Teleop extends LinearOpMode {
     private boolean isIntakeOn = false;
     private boolean isDuckOn = false;
     private boolean isBucketLevel = false;
+    private boolean isLidOpen = false;
 
     private void initOpMode() throws IOException {
         // Initialize DC motor objects
@@ -147,6 +150,16 @@ public class Teleop extends LinearOpMode {
                 } else {
                     robot.control.startCarousel(false);
                     isDuckOn = true;
+                }
+            }
+
+            if(robot.bumperLeft2 && !robot.islBumper2PressedPrev) {
+                if(isLidOpen) {
+                    robot.control.setLidPosition(LidPosition.CLOSED);
+                    isLidOpen = false;
+                } else {
+                    robot.control.setLidPosition(LidPosition.OPEN);
+                    isLidOpen = true;
                 }
             }
 
