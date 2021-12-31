@@ -94,26 +94,26 @@ public class Vision extends Subsystem {
         telemetry.update();
     }
 
-    private void initVuforia() {
-        // Configure parameters
-        VuforiaLocalizer.Parameters parameters =
-                new VuforiaLocalizer.Parameters(viewportContainerIds[1]);
-        parameters.vuforiaLicenseKey = VUFORIA_KEY; // moved it to VisionConfig for easier access
-        parameters.cameraName = webcamName;
-        parameters.useExtendedTracking = false;
-
-        // Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
-
-        OpenGLMatrix robotFromCamera =
-                createMatrix(
-                        (float) CAMERA_LEFT_DISPLACEMENT,
-                        (float) CAMERA_FORWARD_DISPLACEMENT,
-                        (float) CAMERA_VERTICAL_DISPLACEMENT,
-                        90,
-                        0,
-                        0);
-    }
+//    private void initVuforia() {
+//        // Configure parameters
+//        VuforiaLocalizer.Parameters parameters =
+//                new VuforiaLocalizer.Parameters(viewportContainerIds[1]);
+//        parameters.vuforiaLicenseKey = VUFORIA_KEY; // moved it to VisionConfig for easier access
+//        parameters.cameraName = webcamName;
+//        parameters.useExtendedTracking = false;
+//
+//        // Instantiate the Vuforia engine
+//        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+//
+//        OpenGLMatrix robotFromCamera =
+//                createMatrix(
+//                        (float) CAMERA_LEFT_DISPLACEMENT,
+//                        (float) CAMERA_FORWARD_DISPLACEMENT,
+//                        (float) CAMERA_VERTICAL_DISPLACEMENT,
+//                        90,
+//                        0,
+//                        0);
+//    }
 
     private void initDetectionPipeline() {
         int cameraMonitorViewId =

@@ -18,6 +18,7 @@ public class Teleop extends LinearOpMode {
     private double robotAngle;
     private boolean isIntakeOn = false;
     private boolean isDuckOn = false;
+    private boolean isBucketLevel = false;
 
     private void initOpMode() throws IOException {
         // Initialize DC motor objects
@@ -94,36 +95,26 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-            // Toggle duck wheel forward
-            if (robot.yButton && !robot.isyButtonPressedPrev) {
-                if (isDuckOn) {
-                    robot.control.stopCarousel();
-                    isDuckOn = false;
-                } else {
-                    robot.control.startCarousel(true);
-                    isDuckOn = true;
-                }
-            }
-
-            // Toggle duck wheel reverse
+            // Toggle bucket up-level
             if (robot.xButton && !robot.isxButtonPressedPrev) {
-                if (isDuckOn) {
-                    robot.control.stopCarousel();
-                    isDuckOn = false;
+                if (isBucketLevel) {
+                    robot.control.setBucketState(2);
+                    isBucketLevel = false;
                 } else {
-                    robot.control.startCarousel(false);
-                    isDuckOn = true;
+                    robot.control.setBucketState(1);
+                    isBucketLevel = true;
                 }
             }
 
-            // Toggle bucket up
-            if (robot.xButton2 && !robot.isxButton2PressedPrev) {
-                robot.control.setBucketState(2);
-            }
-
-            // Toggle bucket down
-            if (robot.yButton2 && !robot.isyButton2PressedPrev) {
-                robot.control.setBucketState(0);
+            // Toggle bucket down-level
+            if (robot.yButton && !robot.isyButtonPressedPrev) {
+                if (isBucketLevel) {
+                    robot.control.setBucketState(0);
+                    isBucketLevel = false;
+                } else {
+                    robot.control.setBucketState(1);
+                    isBucketLevel = true;
+                }
             }
 
             // Toggle slide up
@@ -134,6 +125,30 @@ public class Teleop extends LinearOpMode {
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setSlide(0);
             }
+
+            // Toggle duck wheel forward
+            if (robot.xButton2 && !robot.isxButton2PressedPrev) {
+                if (isDuckOn) {
+                    robot.control.stopCarousel();
+                    isDuckOn = false;
+                } else {
+                    robot.control.startCarousel(true);
+                    isDuckOn = true;
+                }
+            }
+
+            // Toggle duck wheel reverse
+            if (robot.yButton2 && !robot.isyButton2PressedPrev) {
+                if (isDuckOn) {
+                    robot.control.stopCarousel();
+                    isDuckOn = false;
+                } else {
+                    robot.control.startCarousel(false);
+                    isDuckOn = true;
+                }
+            }
+
+            // TODO: Claw extend and retract (for marker)
         }
     }
 }
