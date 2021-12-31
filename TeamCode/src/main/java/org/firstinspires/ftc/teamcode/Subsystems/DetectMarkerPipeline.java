@@ -19,9 +19,9 @@ import org.openftc.easyopencv.OpenCvPipeline;
  */
 public class DetectMarkerPipeline extends OpenCvPipeline {
     private final AllianceColor allianceColor;
-    private final Rect LEFT_RECT = new Rect(new Point(0, 0), new Point(640, 540));
-    private final Rect MIDDLE_RECT = new Rect(new Point(640, 0), new Point(1280, 540));
-    private final Rect RIGHT_RECT = new Rect(new Point(1280, 0), new Point(1920, 540));
+    private final Rect LEFT_RECT = new Rect(new Point(0, 0), new Point(640, 1080));
+    private final Rect MIDDLE_RECT = new Rect(new Point(640, 0), new Point(1280, 1080));
+    private final Rect RIGHT_RECT = new Rect(new Point(1280, 0), new Point(1920, 1080));
     private final double PERCENT_COLOR_THRESHOLD = 0.1;
     Telemetry telemetry;
     Mat mask = new Mat();
@@ -67,7 +67,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
     @Override
     public Mat processFrame(Mat input) {
         Imgproc.cvtColor(input, mask, Imgproc.COLOR_RGB2HSV);
-        Scalar lowHSV = new Scalar(25, 25, 35);
+        Scalar lowHSV = new Scalar(25, 75, 20);
         Scalar highHSV = new Scalar(40, 255, 255);
 
         Core.inRange(mask, lowHSV, highHSV, mask);
