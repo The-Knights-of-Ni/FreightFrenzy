@@ -347,6 +347,9 @@ public class Drive extends Subsystem {
         };
     }
 
+    /**
+     * Resets the motor encoders for the drivetrain motors.
+     */
     public void resetDriveMotorEncoders() {
         encoderOffsetFL = frontLeft.getCurrentPosition();
         encoderOffsetFR = frontRight.getCurrentPosition();
@@ -1100,6 +1103,13 @@ public class Drive extends Subsystem {
         rearRight.setPositionPIDFCoefficients(motorKPRR);
     }
 
+    /**
+     * Sets the motor pid coefficients
+     * @param Kp
+     * @param Ki
+     * @param Kd
+     * @param Kf
+     */
     public void setMotorPID(double Kp, double Ki, double Kd, double Kf) {
         PIDFCoefficients pidFCoefficients = new PIDFCoefficients();
         pidFCoefficients.p = Kp;
@@ -1133,6 +1143,12 @@ public class Drive extends Subsystem {
         return motorControllerEx.getPIDFCoefficients(motorIndex, mode);
     }
 
+    /**
+     * Sets the pid coefficients
+     * @param motor The motor
+     * @param mode The run mode
+     * @param pidfCoefficients The pid coefficients.
+     */
     public void setMotorPIDCoefficients(
             DcMotorEx motor, DcMotor.RunMode mode, PIDFCoefficients pidfCoefficients) {
         // get a reference to the motor controller and cast it as an extended functionality controller.
@@ -1548,6 +1564,14 @@ public class Drive extends Subsystem {
         }
     }
 
+    /**
+     * Gets the target tick count
+     * @param tickCount The tick count
+     * @param speed The speed
+     * @param rampTime The ramp time
+     * @param elapsedTime The total elapsed time
+     * @return The tick count
+     */
     private int getTargetTickCount(int tickCount, double speed, double rampTime, double elapsedTime) {
         int targetTick;
         double tickCountD = tickCount;
