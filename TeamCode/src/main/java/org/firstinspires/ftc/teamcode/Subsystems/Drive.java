@@ -81,9 +81,18 @@ public class Drive extends Subsystem {
     public DcMotorEx odR;
     // Sensors
     private final BNO055IMU imu;
-    private double robotCurrentPosX; // unit in mm
-    private double robotCurrentPosY; // unit in mm
-    private double robotCurrentAngle; // unit in degrees
+    /**
+     * Current Robot x position in millimeters
+     */
+    private double robotCurrentPosX;
+    /**
+     * Current Robot y position in millimeters
+     */
+    private double robotCurrentPosY;
+    /**
+     * Current Robot angle
+     */
+    private double robotCurrentAngle;
     private int encoderOffsetFL = 0;
     private int encoderOffsetFR = 0;
     private int encoderOffsetRL = 0;
