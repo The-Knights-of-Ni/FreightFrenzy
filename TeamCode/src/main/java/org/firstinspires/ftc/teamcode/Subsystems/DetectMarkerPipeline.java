@@ -66,10 +66,10 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
      */
     @Override
     public Mat processFrame(Mat input) {
-        Mat mat = new Mat();
-        Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
+        Mat mask = new Mat();
+        Imgproc.cvtColor(input, mask, Imgproc.COLOR_RGB2HSV);
 
-        if(mat.empty()) {
+        if(mask.empty()) {
             markerLocation = MarkerLocation.NOT_FOUND;
             return input;
         }
@@ -78,7 +78,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         Scalar highHSV = new Scalar(30, 255, 255);
         Mat thresh = new Mat();
 
-        Core.inRange(mat, lowHSV, highHSV, thresh);
+        Core.inRange(mask, lowHSV, highHSV, thresh);
 
         Mat edges = new Mat();
         Imgproc.Canny(thresh, edges, 100, 300);
