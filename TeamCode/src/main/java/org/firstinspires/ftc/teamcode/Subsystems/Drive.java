@@ -613,8 +613,8 @@ public class Drive extends Subsystem {
      * @param distance The distance to move forward by, in millimeters, use the mmPerInch constant if you want to use
      *                 inches.
      */
-    public void moveForward_odometry(double distance) {
-        moveForward_odometry(distance, DRIVE_SPEED_Y);
+    public void moveForwardOdometry(double distance) {
+        moveForwardOdometry(distance, DRIVE_SPEED_Y);
     }
 
     /**
@@ -623,7 +623,7 @@ public class Drive extends Subsystem {
      * @param distance   The distance to move forward by
      * @param motorSpeed The speed, a value between 0 and 1
      */
-    public void moveForward_odometry(double distance, double motorSpeed) {
+    public void moveForwardOdometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, 0.0, distance);
         allMotorPIDControl(
@@ -723,8 +723,8 @@ public class Drive extends Subsystem {
      * @param distance The distance to move backward by, in millimeters, use the mmPerInch constant if you want to use
      *                 inches.
      */
-    public void moveBackward_odometry(double distance) {
-        moveBackward_odometry(distance, DRIVE_SPEED_Y);
+    public void moveBackwardOdometry(double distance) {
+        moveBackwardOdometry(distance, DRIVE_SPEED_Y);
     }
 
     /**
@@ -733,7 +733,7 @@ public class Drive extends Subsystem {
      * @param distance   The distance to move forward by
      * @param motorSpeed The speed, a value between 0 and 1
      */
-    public void moveBackward_odometry(double distance, double motorSpeed) {
+    public void moveBackwardOdometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, 0.0, -distance);
         allMotorPIDControl(
@@ -833,8 +833,8 @@ public class Drive extends Subsystem {
      * @param distance The distance to strafe left by, in millimeters, use the mmPerInch constant if you want to use
      *                 inches.
      */
-    public void moveLeft_odometry(double distance) {
-        moveLeft_odometry(distance, DRIVE_SPEED_X);
+    public void moveLeftOdometry(double distance) {
+        moveLeftOdometry(distance, DRIVE_SPEED_X);
     }
 
     /**
@@ -843,7 +843,7 @@ public class Drive extends Subsystem {
      * @param distance   The distance to strafe left by
      * @param motorSpeed The speed, a value between 0 and 1
      */
-    public void moveLeft_odometry(double distance, double motorSpeed) {
+    public void moveLeftOdometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, -distance, 0.0);
         allMotorPIDControl(
@@ -944,8 +944,8 @@ public class Drive extends Subsystem {
      * @param distance The distance to strafe right by, in millimeters, use the mmPerInch constant if you want to use
      *                 inches.
      */
-    public void moveRight_odometry(double distance) {
-        moveRight_odometry(distance, DRIVE_SPEED_X);
+    public void moveRightOdometry(double distance) {
+        moveRightOdometry(distance, DRIVE_SPEED_X);
     }
 
     /**
@@ -954,7 +954,7 @@ public class Drive extends Subsystem {
      * @param distance   The distance to strafe right by
      * @param motorSpeed The speed, a value between 0 and 1
      */
-    public void moveRight_odometry(double distance, double motorSpeed) {
+    public void moveRightOdometry(double distance, double motorSpeed) {
         resetOdometry();
         //        this.moveToPos2D(motorSpeed, distance, 0.0);
         allMotorPIDControl(
