@@ -67,8 +67,17 @@ public class Drive extends Subsystem {
     public DcMotorEx rearLeft;
     public DcMotorEx rearRight;
     // use motor encoder for odometry
+    /**
+     * Odometry Left
+     */
     public DcMotorEx odL;
+    /**
+     * Odometry Back
+     */
     public DcMotorEx odB;
+    /**
+     * Odometry Right
+     */
     public DcMotorEx odR;
     // Sensors
     private final BNO055IMU imu;

@@ -136,6 +136,7 @@ public class Robot {
      * @param opMode        The op mode
      * @param timer         The elapsed time
      * @param allianceColor the alliance color
+     * @throws IOException {@link Vision} can throw an IOException
      */
     public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) throws IOException{
         this.hardwareMap = opMode.hardwareMap;
