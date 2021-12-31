@@ -62,7 +62,8 @@ public class Control extends Subsystem {
             CRServo duckWheel,
             BNO055IMU imu,
             LinearOpMode opMode,
-            ElapsedTime timer, ServoEx lid) {
+            ElapsedTime timer,
+            ServoEx lid) {
         super(opMode.telemetry, opMode.hardwareMap, timer);
 
         // store device information locally
@@ -87,12 +88,6 @@ public class Control extends Subsystem {
         bucket.setZeroPowerBehavior(mode);
         slide.setZeroPowerBehavior(mode);
     }
-
-    // made custom servoRotation function because ftc devs are bad at their job.
-    // Usage: the Direction incorporates the Servo class' Direction enum,
-    // the Servo takes a Servo, TPM is how many times the pause should happen, aka the speed setting.
-    // res is short for resolution, so we can determine how smooth or clunky we want the servo's
-    // motions to be.
 
     public void setIntakeDirection(boolean status, boolean direction) { // simplified so only one method is needed for intake. status is true/false for on/off,
         double power = status ? 0.5 : 0; // direction is true/false for forward/reverse respectively.
@@ -157,7 +152,7 @@ public class Control extends Subsystem {
     }
 
     public void setLidPosition(LidPosition position) {
-        // TODO find the positions
+        // TODO: find the lid position constants
         final int DEPLOYED = 0;
         final int OPEN = 1;
         final int CLOSED = 2;

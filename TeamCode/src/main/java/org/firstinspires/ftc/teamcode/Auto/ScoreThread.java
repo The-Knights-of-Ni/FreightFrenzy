@@ -30,16 +30,19 @@ public class ScoreThread extends Thread{
             switch (placementLevel) {
                 case TOP:
                     robot.control.setSlide(SlideState.TOP);
+                    robot.control.setLidPosition(LidPosition.DEPLOYED);
                     break;
                 case MIDDLE:
                     robot.control.setSlide(SlideState.MIDDLE);
+                    robot.control.setLidPosition(LidPosition.DEPLOYED);
                     break;
                 case BOTTOM:
                     robot.control.setSlide(SlideState.BOTTOM);
+                    robot.control.setLidPosition(LidPosition.DEPLOYED);
                     break;
             }
         } catch (Exception e) {
-            telemetry.addData("Thread Status", "Interrupted");
+            telemetry.addData("Thread Status", "Interrupted " + e);
             telemetry.update();
         }
     }
