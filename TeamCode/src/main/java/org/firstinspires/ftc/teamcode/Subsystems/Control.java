@@ -22,7 +22,6 @@ public class Control extends Subsystem {
 
     // Servos
     private final CRServo duckWheel;
-
     /**
      * Enums stores the semantic position of each motor along with motor constants in ticks when relevant
      */
