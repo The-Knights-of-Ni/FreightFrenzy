@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
+
 
 public class ScoreThread extends Thread{
     private Robot robot;
@@ -24,6 +26,7 @@ public class ScoreThread extends Thread{
             telemetry.addData("Thread Status", "Running");
             telemetry.update();
             robot.control.setSlide(placementLevel);
+            robot.control.setLidPosition(LidPosition.CLOSED);
         } catch (Exception e) {
             telemetry.addData("Thread Status", "Interrupted");
             telemetry.update();
