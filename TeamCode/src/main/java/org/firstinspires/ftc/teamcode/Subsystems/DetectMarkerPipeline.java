@@ -105,7 +105,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         boolean right = false;
 
         for(int i = 0; i != boundRect.length; i++) {
-            if(boundRect[i].width > 0.07 * CAMERA_WIDTH) {
+            if(boundRect[i].width > 0.07 * CAMERA_WIDTH && boundRect[i].width < 0.20 * CAMERA_WIDTH) {
                 if (boundRect[i].x + boundRect[i].width < left_x)
                     left = true;
                 if (left_x <= boundRect[i].x && boundRect[i].x + boundRect[i].width <= right_x)
