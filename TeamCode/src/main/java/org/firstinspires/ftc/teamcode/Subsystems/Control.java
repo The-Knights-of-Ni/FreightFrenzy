@@ -81,7 +81,6 @@ public class Control extends Subsystem {
         this.bucket = bucket;
         this.slide = slide;
         this.duckWheel = duckWheel;
-        this.imu = imu;
         this.lid = lid;
         this.timer = timer;
 
