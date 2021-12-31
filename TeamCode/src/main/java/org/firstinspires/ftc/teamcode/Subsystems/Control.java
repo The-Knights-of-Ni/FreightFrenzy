@@ -43,10 +43,16 @@ public class Control extends Subsystem {
     }
 
     public enum SlideState {
-        RETRACTED,
-        BOTTOM,
-        MIDDLE,
-        TOP
+        RETRACTED(0),
+        BOTTOM(-481),
+        MIDDLE(-758),
+        TOP(-1292);
+
+        public final int place;
+
+        SlideState(int name) {
+            place = name;
+        }
     }
 
     public enum LidPosition {
@@ -108,47 +114,23 @@ public class Control extends Subsystem {
             case FLOOR:
                 bucket.setTargetPosition(FLOOR);
                 bucket.setPower(0.1);
-                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
             case LEVEL:
                 bucket.setTargetPosition(LEVEL);
                 bucket.setPower(0.5);
-                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
             case RAISED:
                 bucket.setTargetPosition(RAISED);
                 bucket.setPower(1.0);
-                bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
         }
+        bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
     public void setSlide(SlideState slideState) {
-        final int RETRACTED = 0;
-        final int BOTTOM = -481;
-        final int MIDDLE = -758;
-        final int TOP = -1292;
-
-        switch (slideState) {
-            case RETRACTED:
-                slide.setTargetPosition(RETRACTED);
-                slide.setPower(0.5);
-                slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                break;
-            case BOTTOM:
-                slide.setTargetPosition(BOTTOM);
-                slide.setPower(0.5);
-                slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                break;
-            case MIDDLE:
-                slide.setTargetPosition(MIDDLE);
-                slide.setPower(0.5);
-                slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-            case TOP:
-                slide.setTargetPosition(TOP);
-                slide.setPower(0.5);
-                slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        }
+        slide.setPower(0.2);
+        slide.setTargetPosition(slideState.place);
+        slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
     public void setLidPosition(LidPosition position) {
