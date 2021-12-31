@@ -102,7 +102,7 @@ public class Vision extends Subsystem {
                 OpenCvCameraFactory.getInstance()
                         .createWebcam(hardwareMap.get(WebcamName.class, WEBCAM_NAME), cameraMonitorViewId);
 
-        pipeline = new DetectMarkerPipeline(telemetry, allianceColor, CAMERA_WIDTH);
+        pipeline = new DetectMarkerPipeline(allianceColor, CAMERA_WIDTH);
         camera.setPipeline(pipeline);
 
         camera.openCameraDeviceAsync(
