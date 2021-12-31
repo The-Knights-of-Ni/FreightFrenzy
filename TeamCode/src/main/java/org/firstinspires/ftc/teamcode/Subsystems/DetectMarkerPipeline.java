@@ -98,22 +98,25 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
             contoursPoly[i] = new MatOfPoint2f();
             Imgproc.approxPolyDP(new MatOfPoint2f(contours.get(i).toArray()), contoursPoly[i], 3, true);
             boundRect[i] = Imgproc.boundingRect(new MatOfPoint(contoursPoly[i].toArray()));
+//            Imgproc.contourArea(contoursPoly[i]); // TODO Maybe implement contour area check for next tourney
         }
 
-        double left_x = 0.4 * CAMERA_WIDTH;
-        double right_x = 0.6 * CAMERA_WIDTH;
+        double left_x = 0.375 * CAMERA_WIDTH;
+        double right_x = 0.625 * CAMERA_WIDTH;
 
         boolean left = false;
         boolean middle = false;
         boolean right = false;
 
         for(int i = 0; i != boundRect.length; i++) {
-            if(boundRect[i].x + boundRect[i].width < left_x)
-                left = true;
-            if(left_x <= boundRect[i].x && boundRect[i].x + boundRect[i].width <= right_x)
-                middle = true;
-            if(right_x < boundRect[i].x)
-                right = true;
+            if(boundRect[i].width > 0.07 * CAMERA_WIDTH) {
+                if (boundRect[i].x + boundRect[i].width < left_x)
+                    left = true;
+                if (left_x <= boundRect[i].x && boundRect[i].x + boundRect[i].width <= right_x)
+                    middle = true;
+                if (right_x < boundRect[i].x)
+                    right = true;
+            }
         }
         if(left) markerLocation = MarkerLocation.LEFT;
         if(middle) markerLocation = MarkerLocation.MIDDLE;
