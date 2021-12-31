@@ -30,7 +30,21 @@ public class Control extends Subsystem {
     public enum PlacementLevel {
         TOP,
         MIDDLE,
-        BOTTOM
+        BOTTOM,
+        NOT_FOUND
+    }
+
+    public enum BucketState {
+        FLOOR,
+        LEVEL,
+        RAISED
+    }
+
+    public enum SlideState {
+        RETRACTED,
+        BOTTOM,
+        MIDDLE,
+        TOP
     }
 
     public Control(
@@ -81,30 +95,23 @@ public class Control extends Subsystem {
         }
     }
 
-    /**
-     * @param bucketState should be set to 0 for touching the floor, 1 for level, and 2 for raised.
-     */
-
-    public void setBucketState(int bucketState) {
+    public void setBucketState(BucketState bucketState) {
         final int FLOOR = 0;
         final int LEVEL = -5;
         final int RAISED = -65;
 
         switch (bucketState) {
-            case 0:
-                //TOUCHING_FLOOR
+            case FLOOR:
                 bucket.setTargetPosition(FLOOR);
                 bucket.setPower(0.1);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
-            case 1:
-                //LEVEL
+            case LEVEL:
                 bucket.setTargetPosition(LEVEL);
                 bucket.setPower(0.5);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
-            case 2:
-                //RAISED
+            case RAISED:
                 bucket.setTargetPosition(RAISED);
                 bucket.setPower(1.0);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -112,32 +119,28 @@ public class Control extends Subsystem {
         }
     }
 
-    public void setSlide(int slideState) {
+    public void setSlide(SlideState slideState) {
         final int RETRACTED = 0;
         final int BOTTOM = -481;
         final int MIDDLE = -758;
         final int TOP = -1292;
 
         switch (slideState) {
-            case 0:
-                //RETRACTED
+            case RETRACTED:
                 slide.setTargetPosition(RETRACTED);
                 slide.setPower(0.5);
                 slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
-            case 1:
-                //BOTTOM
+            case BOTTOM:
                 slide.setTargetPosition(BOTTOM);
                 slide.setPower(0.5);
                 slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
-            case 2:
-                //MIDDLE
+            case MIDDLE:
                 slide.setTargetPosition(MIDDLE);
                 slide.setPower(0.5);
                 slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-            case 3:
-                //TOP
+            case TOP:
                 slide.setTargetPosition(TOP);
                 slide.setPower(0.5);
                 slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);

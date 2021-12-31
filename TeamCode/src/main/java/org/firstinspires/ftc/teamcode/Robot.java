@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Auto.ScoreThread;
-import org.firstinspires.ftc.teamcode.Subsystems.Control;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
@@ -216,10 +216,6 @@ public class Robot {
         //Threads
         telemetry.addData("Status", "Threads init started");
         telemetry.update();
-        extend = new ScoreThread(this, 3, telemetry);
-//        extendedMiddle = new ScoreThread(this, 2);
-//        extendedLower = new ScoreThread(this, 1);
-        retract = new ScoreThread(this, 0, telemetry);
         telemetry.addData("Status", "Threads init complete");
         telemetry.update();
         telemetry.addData("Status", " done, wait for start");

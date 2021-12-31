@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
@@ -49,21 +50,24 @@ public class Auto extends LinearOpMode {
      * Returns the hub level by running until the hub level is not {@link DetectMarkerPipeline.MarkerLocation#NOT_FOUND}
      * @return The hub level as an int.
      */
-    public int getHubLevel() {
-        int level = 0;
+    public PlacementLevel getHubLevel() {
+        PlacementLevel level = null;
         DetectMarkerPipeline.MarkerLocation location = DetectMarkerPipeline.MarkerLocation.NOT_FOUND;
         do {
             location = robot.vision.detectMarkerRun();
         } while (location == DetectMarkerPipeline.MarkerLocation.NOT_FOUND);
         switch(location) {
             case LEFT:
-                level = 1;
+                level = PlacementLevel.BOTTOM;
                 break;
             case MIDDLE:
-                level = 2;
+                level = PlacementLevel.MIDDLE;
                 break;
             case RIGHT:
-                level = 3;
+                level = PlacementLevel.TOP;
+                break;
+            default:
+                level = PlacementLevel.NOT_FOUND;
                 break;
         }
         robot.vision.stop(); // DO NOT remove this line. It is to avoid potential memory leaks

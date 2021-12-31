@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -98,10 +100,10 @@ public class Teleop extends LinearOpMode {
             // Toggle bucket up-level
             if (robot.xButton && !robot.isxButtonPressedPrev) {
                 if (isBucketLevel) {
-                    robot.control.setBucketState(2);
+                    robot.control.setBucketState(BucketState.RAISED);
                     isBucketLevel = false;
                 } else {
-                    robot.control.setBucketState(1);
+                    robot.control.setBucketState(BucketState.LEVEL);
                     isBucketLevel = true;
                 }
             }
@@ -109,21 +111,21 @@ public class Teleop extends LinearOpMode {
             // Toggle bucket down-level
             if (robot.yButton && !robot.isyButtonPressedPrev) {
                 if (isBucketLevel) {
-                    robot.control.setBucketState(0);
+                    robot.control.setBucketState(BucketState.FLOOR);
                     isBucketLevel = false;
                 } else {
-                    robot.control.setBucketState(1);
+                    robot.control.setBucketState(BucketState.LEVEL);
                     isBucketLevel = true;
                 }
             }
 
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
-                robot.control.setSlide(3);
+                robot.control.setSlide(SlideState.TOP);
             }
             // Toggle slide down
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
-                robot.control.setSlide(0);
+                robot.control.setSlide(SlideState.RETRACTED);
             }
 
             // Toggle duck wheel forward
