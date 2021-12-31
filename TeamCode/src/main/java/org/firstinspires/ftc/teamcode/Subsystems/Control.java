@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -21,6 +22,7 @@ public class Control extends Subsystem {
     private final DcMotorEx bucket;
     private final DcMotorEx slide;
     private final CRServo duckWheel;
+    private final ServoEx lid;
 
     // Servos
 
@@ -30,7 +32,27 @@ public class Control extends Subsystem {
     public enum PlacementLevel {
         TOP,
         MIDDLE,
-        BOTTOM
+        BOTTOM,
+        NOT_FOUND
+    }
+
+    public enum BucketState {
+        FLOOR,
+        LEVEL,
+        RAISED
+    }
+
+    public enum SlideState {
+        RETRACTED,
+        BOTTOM,
+        MIDDLE,
+        TOP
+    }
+
+    public enum LidPosition {
+        CLOSED,
+        DEPLOYED,
+        OPEN
     }
 
     public Control(
@@ -40,7 +62,8 @@ public class Control extends Subsystem {
             CRServo duckWheel,
             BNO055IMU imu,
             LinearOpMode opMode,
-            ElapsedTime timer) {
+            ElapsedTime timer,
+            ServoEx lid) {
         super(opMode.telemetry, opMode.hardwareMap, timer);
 
         // store device information locally
@@ -52,6 +75,7 @@ public class Control extends Subsystem {
         this.opMode = opMode;
         this.hardwareMap = opMode.hardwareMap;
         this.imu = imu;
+        this.lid = lid;
         this.timer = timer;
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
@@ -65,12 +89,6 @@ public class Control extends Subsystem {
         slide.setZeroPowerBehavior(mode);
     }
 
-    // made custom servoRotation function because ftc devs are bad at their job.
-    // Usage: the Direction incorporates the Servo class' Direction enum,
-    // the Servo takes a Servo, TPM is how many times the pause should happen, aka the speed setting.
-    // res is short for resolution, so we can determine how smooth or clunky we want the servo's
-    // motions to be.
-
     public void setIntakeDirection(boolean status, boolean direction) { // simplified so only one method is needed for intake. status is true/false for on/off,
         double power = status ? 0.5 : 0; // direction is true/false for forward/reverse respectively.
 
@@ -81,30 +99,23 @@ public class Control extends Subsystem {
         }
     }
 
-    /**
-     * @param bucketState should be set to 0 for touching the floor, 1 for level, and 2 for raised.
-     */
-
-    public void setBucketState(int bucketState) {
+    public void setBucketState(BucketState bucketState) {
         final int FLOOR = 0;
         final int LEVEL = -5;
         final int RAISED = -65;
 
         switch (bucketState) {
-            case 0:
-                //TOUCHING_FLOOR
+            case FLOOR:
                 bucket.setTargetPosition(FLOOR);
                 bucket.setPower(0.1);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
-            case 1:
-                //LEVEL
+            case LEVEL:
                 bucket.setTargetPosition(LEVEL);
                 bucket.setPower(0.5);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
-            case 2:
-                //RAISED
+            case RAISED:
                 bucket.setTargetPosition(RAISED);
                 bucket.setPower(1.0);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -112,37 +123,56 @@ public class Control extends Subsystem {
         }
     }
 
-    public void setSlide(int slideState) {
+    public void setSlide(SlideState slideState) {
         final int RETRACTED = 0;
         final int BOTTOM = -481;
         final int MIDDLE = -758;
         final int TOP = -1292;
 
         switch (slideState) {
-            case 0:
-                //RETRACTED
+            case RETRACTED:
                 slide.setTargetPosition(RETRACTED);
                 slide.setPower(0.5);
                 slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
-            case 1:
-                //BOTTOM
+            case BOTTOM:
                 slide.setTargetPosition(BOTTOM);
                 slide.setPower(0.5);
                 slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
                 break;
-            case 2:
-                //MIDDLE
+            case MIDDLE:
                 slide.setTargetPosition(MIDDLE);
                 slide.setPower(0.5);
                 slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-            case 3:
-                //TOP
+            case TOP:
                 slide.setTargetPosition(TOP);
                 slide.setPower(0.5);
                 slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         }
     }
+
+    public void setLidPosition(LidPosition position) {
+        // TODO: find the lid position constants
+        final double DEPLOYED = 0.5;
+        final double OPEN = 1;
+        final double CLOSED = 0;
+
+        switch(position) {
+            case CLOSED:
+                //CLOSED
+                lid.setPosition(CLOSED);
+                break;
+            case DEPLOYED:
+                //DEPLOYED
+                lid.setPosition(DEPLOYED);
+                break;
+            case OPEN:
+                //OPEN
+                lid.setPosition(OPEN);
+                break;
+        }
+    }
+
 
     public void startCarousel(boolean direction) {
         duckWheel.set(direction ? 1 : -1);

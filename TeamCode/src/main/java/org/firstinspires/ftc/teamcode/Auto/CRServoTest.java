@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
 
-@Autonomous(name = "Servo Test", group = "Concept")
-public class ServoTest extends LinearOpMode {
+@Autonomous(name = "CR Servo Test", group = "Concept")
+public class CRServoTest extends LinearOpMode {
     private Robot robot;
     public ElapsedTime timer;
 

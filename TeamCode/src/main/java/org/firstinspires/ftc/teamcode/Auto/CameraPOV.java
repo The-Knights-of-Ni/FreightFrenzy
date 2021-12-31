@@ -1,31 +1,24 @@
-package org.firstinspires.ftc.teamcode.Subsystems;
+package org.firstinspires.ftc.teamcode.Auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
-
-/**
- * The Vision Subsystem
- *
- * @see org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline
- * @see <a href="https://github.com/OpenFTC/EasyOpenCV">EasyOpenCV</a>
- */
-public class Vision extends Subsystem {
+@Autonomous(name = "CameraPOV", group = "Concept")
+public class CameraPOV extends LinearOpMode {
     public static final int CAMERA_WIDTH = 1920; // width of wanted camera resolution
     public static final int CAMERA_HEIGHT = 1080; // height of wanted camera resolution
     public static final int HORIZON = 100; // horizon value to tune
@@ -44,9 +37,9 @@ public class Vision extends Subsystem {
     final double CAMERA_FORWARD_DISPLACEMENT = 6.0f * mmPerInch; // TODO: CALIBRATE WHEN ROBOT IS BUILT
     final double CAMERA_VERTICAL_DISPLACEMENT = 6.5f * mmPerInch;
     final double CAMERA_LEFT_DISPLACEMENT = -0.75f * mmPerInch;
+    WebcamName webcamName = null;
     OpenGLMatrix robotFromCamera = null;
-    private final HardwareMap hardwareMap;
-    private final AllianceColor allianceColor;
+
     // Class Members
     private OpenGLMatrix lastLocation;
     private VuforiaLocalizer vuforia;
@@ -58,40 +51,7 @@ public class Vision extends Subsystem {
     private DetectMarkerPipeline pipeline;
     private OpenCvCamera camera;
 
-    private int[] viewportContainerIds;
-
-    // Move stuff
-
-    /**
-     * Class instantiation
-     *
-     * @param telemetry   Telemetry
-     * @param hardwareMap the hardware map
-     * @param timer       how much time elapsed
-     */
-    public Vision(
-            Telemetry telemetry,
-            HardwareMap hardwareMap,
-            ElapsedTime timer,
-            AllianceColor allianceColor) {
-        super(telemetry, hardwareMap, timer);
-        this.hardwareMap = hardwareMap;
-        this.telemetry = telemetry;
-        this.allianceColor = allianceColor;
-
-        // viewportContainerIds =
-        // OpenCvCameraFactory.getInstance().splitLayoutForMultipleViewports(cameraMonitorViewId, 1,
-        // OpenCvCameraFactory.ViewportSplitMethod.HORIZONTALLY);
-        telemetry.addLine("Vision init started");
-        telemetry.update();
-
-        initDetectionPipeline();
-
-        telemetry.addLine("Vision init complete");
-        telemetry.update();
-    }
-
-    private void initDetectionPipeline() {
+    private void initCamera() {
         int cameraMonitorViewId =
                 hardwareMap
                         .appContext
@@ -101,10 +61,6 @@ public class Vision extends Subsystem {
         camera =
                 OpenCvCameraFactory.getInstance()
                         .createWebcam(hardwareMap.get(WebcamName.class, WEBCAM_NAME), cameraMonitorViewId);
-
-        pipeline = new DetectMarkerPipeline(telemetry, allianceColor, CAMERA_WIDTH);
-        camera.setPipeline(pipeline);
-
         camera.openCameraDeviceAsync(
                 new OpenCvCamera.AsyncCameraOpenListener() {
                     @Override
@@ -121,24 +77,9 @@ public class Vision extends Subsystem {
                 });
     }
 
-    // Helper method to create matrix to identify locations
-    public OpenGLMatrix createMatrix(float x, float y, float z, float u, float v, float w) {
-        return OpenGLMatrix.translation(x, y, z)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, u, v, w));
-    }
-
-    public void stop() {
-        camera.stopStreaming();
-        camera.closeCameraDevice();
-    }
-
-    /**
-     * This method waits until the search for the marker is done, and then it return the marker
-     * location. It waits until the marker is found, then it returns the marker location.
-     *
-     * @return Where the marker is
-     */
-    public DetectMarkerPipeline.MarkerLocation detectMarkerRun() {
-        return pipeline.getMarkerLocation();
+    @Override
+    public void runOpMode() throws InterruptedException {
+        initCamera();
+        waitForStart();
     }
 }

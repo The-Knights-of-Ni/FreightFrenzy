@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -33,6 +34,7 @@ public class Robot {
     public DcMotorEx slide;
     // Servos
     public CRServo duckWheel;
+    public ServoEx lid;
     // Odometry
     public List<LynxModule> allHubs;
     public DigitalChannel odometryRA;
@@ -178,6 +180,7 @@ public class Robot {
 
         // Servos
         duckWheel = new CRServo(hardwareMap, "duckWheel");
+        lid = (ServoEx) hardwareMap.servo.get("lid");
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
@@ -207,7 +210,7 @@ public class Robot {
         drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer);
 
         telemetry.addData("Status", " control initializing...");
-        control = new Control(intake, bucket, slide, duckWheel, imu, opMode, timer);
+        control = new Control(intake, bucket, slide, duckWheel, imu, opMode, timer, lid);
 
         telemetry.addData("Status", " vision initializing...");
         telemetry.update();
@@ -216,10 +219,6 @@ public class Robot {
         //Threads
         telemetry.addData("Status", "Threads init started");
         telemetry.update();
-        extend = new ScoreThread(this, 3, telemetry);
-//        extendedMiddle = new ScoreThread(this, 2);
-//        extendedLower = new ScoreThread(this, 1);
-        retract = new ScoreThread(this, 0, telemetry);
         telemetry.addData("Status", "Threads init complete");
         telemetry.update();
         telemetry.addData("Status", " done, wait for start");
@@ -298,4 +297,10 @@ public class Robot {
         }
         return joystickOutput;
     }
+
+    public void telemetryBroadcast(String caption, String value) {
+        telemetry.addData(caption, value);
+        telemetry.update();
+    }
+
 }

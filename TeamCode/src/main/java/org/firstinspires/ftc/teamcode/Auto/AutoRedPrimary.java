@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
@@ -47,15 +49,15 @@ public class AutoRedPrimary extends Auto {
         waitForStart();
         Drive drive = robot.drive;
 
-        int placementLevel = getHubLevel();
+        PlacementLevel placementLevel = getHubLevel();
 
-        if(placementLevel != 0) {
+        if(placementLevel != PlacementLevel.NOT_FOUND) {
             telemetry.addData("Level", placementLevel);
             telemetry.update();
         }
 
         // Move to carousel
-        robot.control.setBucketState(1);
+        robot.control.setBucketState(BucketState.LEVEL);
         drive.moveForward(3 * mmPerInch);
         drive.turnRobotByTick(-80); //TODO adjust this back to 90 once robot is heavier
         drive.moveBackward(24 * mmPerInch);

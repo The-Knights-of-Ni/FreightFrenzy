@@ -7,6 +7,9 @@ import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This pipeline detects where the custom marker is.
  *
@@ -19,12 +22,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
  */
 public class DetectMarkerPipeline extends OpenCvPipeline {
     private final AllianceColor allianceColor;
-    private final Rect LEFT_RECT = new Rect(new Point(0, 0), new Point(640, 1080));
-    private final Rect MIDDLE_RECT = new Rect(new Point(640, 0), new Point(1280, 1080));
-    private final Rect RIGHT_RECT = new Rect(new Point(1280, 0), new Point(1920, 1080));
-    private final double PERCENT_COLOR_THRESHOLD = 0.1;
+    private final int CAMERA_WIDTH;
     Telemetry telemetry;
-    Mat mask = new Mat();
     private MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
 
     public enum MarkerLocation {
@@ -39,9 +38,10 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
      * @see Telemetry
      * @see AllianceColor
      */
-    public DetectMarkerPipeline(Telemetry telemetry, AllianceColor allianceColor) {
+    public DetectMarkerPipeline(Telemetry telemetry, AllianceColor allianceColor, int width) {
         this.telemetry = telemetry;
         this.allianceColor = allianceColor;
+        this.CAMERA_WIDTH = width;
     }
 
     /**
@@ -66,79 +66,59 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
      */
     @Override
     public Mat processFrame(Mat input) {
-        Imgproc.cvtColor(input, mask, Imgproc.COLOR_RGB2HSV);
-        Scalar lowHSV = new Scalar(25, 75, 20);
-        Scalar highHSV = new Scalar(40, 255, 255);
+        Mat mat = new Mat();
+        Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
 
-        Core.inRange(mask, lowHSV, highHSV, mask);
-
-        Mat left = mask.submat(LEFT_RECT);
-        Mat middle = mask.submat(MIDDLE_RECT);
-        Mat right = mask.submat(RIGHT_RECT);
-
-        double leftValue = Core.sumElems(left).val[0] / LEFT_RECT.area() / 255;
-        double middleValue = Core.sumElems(middle).val[0] / MIDDLE_RECT.area() / 255;
-        double rightValue = Core.sumElems(right).val[0] / RIGHT_RECT.area() / 255;
-
-        left.release();
-        middle.release();
-        right.release();
-
-        //        telemetry.addData("Left raw value", ((Integer) ((int)
-        // Core.sumElems(left).val[0])).toString());
-        //        telemetry.addData("Middle raw value", ((Integer) ((int)
-        // Core.sumElems(middle).val[0])).toString());
-        //        telemetry.addData("Right raw value", ((Integer) ((int)
-        // Core.sumElems(right).val[0])).toString());
-        //
-        //        telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
-        //        telemetry.addData("Middle percentage", Math.round(leftValue * 100) + "%");
-        //        telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
-        //        telemetry.update();
-
-        double greatestValue = leftValue;
-
-        markerLocation = MarkerLocation.LEFT;
-        if (middleValue > greatestValue) {
-            markerLocation = MarkerLocation.MIDDLE;
-            greatestValue = middleValue;
-        }
-        if (rightValue > greatestValue) {
-            markerLocation = MarkerLocation.RIGHT;
+        if(mat.empty()) {
+            markerLocation = MarkerLocation.NOT_FOUND;
+            return input;
         }
 
-//        String result = "NOT_FOUND";
-//        switch (markerLocation) {
-//            case LEFT:
-//                result = "LEFT";
-//                break;
-//            case MIDDLE:
-//                result = "MIDDLE";
-//                break;
-//            case RIGHT:
-//                result = "RIGHT";
-//                break;
-//        }
+        Scalar lowHSV = new Scalar(20, 100, 100);
+        Scalar highHSV = new Scalar(30, 255, 255);
+        Mat thresh = new Mat();
 
-        Imgproc.cvtColor(mask, mask, Imgproc.COLOR_GRAY2RGB); // TODO: Change COLOR_GRAY2RGB to something more useful.
+        Core.inRange(mat, lowHSV, highHSV, thresh);
 
-        Scalar colorNormal;
+        Mat edges = new Mat();
+        Imgproc.Canny(thresh, edges, 100, 300);
 
-        if (this.allianceColor == AllianceColor.RED) {
-            colorNormal = new Scalar(255, 0, 0); // Pure Red
-        } else if (this.allianceColor == AllianceColor.BLUE) {
-            colorNormal = new Scalar(0, 0, 255); // Pure Blue
-        } else {
-            colorNormal = new Scalar(255, 0, 255); // Pure Blue
+        List<MatOfPoint> contours = new ArrayList<>();
+        Mat hierarchy = new Mat();
+        Imgproc.findContours(edges, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+
+        MatOfPoint2f[] contoursPoly = new MatOfPoint2f[contours.size()];
+        Rect[] boundRect = new Rect[contours.size()];
+
+        for(int i = 0; i < contours.size(); i++) {
+            contoursPoly[i] = new MatOfPoint2f();
+            Imgproc.approxPolyDP(new MatOfPoint2f(contours.get(i).toArray()), contoursPoly[i], 3, true);
+            boundRect[i] = Imgproc.boundingRect(new MatOfPoint(contoursPoly[i].toArray()));
+//            Imgproc.contourArea(contoursPoly[i]); // TODO Maybe implement contour area check for next tourney
         }
 
-        Scalar colorMarker = new Scalar(0, 255, 0); // Pure Green
+        double left_x = 0.375 * CAMERA_WIDTH;
+        double right_x = 0.625 * CAMERA_WIDTH;
 
-        Imgproc.rectangle(mask, LEFT_RECT, markerLocation == MarkerLocation.LEFT ? colorMarker : colorNormal);
-        Imgproc.rectangle(mask, MIDDLE_RECT, markerLocation == MarkerLocation.MIDDLE ? colorMarker : colorNormal);
-        Imgproc.rectangle(mask, RIGHT_RECT, markerLocation == MarkerLocation.RIGHT ? colorMarker : colorNormal);
+        boolean left = false;
+        boolean middle = false;
+        boolean right = false;
 
-        return mask;
+        for(int i = 0; i != boundRect.length; i++) {
+            if(boundRect[i].width > 0.07 * CAMERA_WIDTH && boundRect[i].width < 0.20 * CAMERA_WIDTH) {
+                if (boundRect[i].x + boundRect[i].width < left_x)
+                    left = true;
+                if (left_x <= boundRect[i].x && boundRect[i].x + boundRect[i].width <= right_x)
+                    middle = true;
+                if (right_x < boundRect[i].x)
+                    right = true;
+            }
+        }
+        if(left) markerLocation = MarkerLocation.LEFT;
+        if(middle) markerLocation = MarkerLocation.MIDDLE;
+        if(right) markerLocation = MarkerLocation.RIGHT;
+
+        return thresh;
     }
 
     /**

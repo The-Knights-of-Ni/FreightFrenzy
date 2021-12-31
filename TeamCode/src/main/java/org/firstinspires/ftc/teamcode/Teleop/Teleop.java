@@ -4,6 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -18,6 +22,8 @@ public class Teleop extends LinearOpMode {
     private double robotAngle;
     private boolean isIntakeOn = false;
     private boolean isDuckOn = false;
+    private boolean isBucketLevel = false;
+    private boolean isLidOpen = false;
 
     private void initOpMode() throws IOException {
         // Initialize DC motor objects
@@ -94,8 +100,39 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-            // Toggle duck wheel forward
+            // Toggle bucket up-level
+            if (robot.xButton && !robot.isxButtonPressedPrev) {
+                if (isBucketLevel) {
+                    robot.control.setBucketState(BucketState.RAISED);
+                    isBucketLevel = false;
+                } else {
+                    robot.control.setBucketState(BucketState.LEVEL);
+                    isBucketLevel = true;
+                }
+            }
+
+            // Toggle bucket down-level
             if (robot.yButton && !robot.isyButtonPressedPrev) {
+                if (isBucketLevel) {
+                    robot.control.setBucketState(BucketState.FLOOR);
+                    isBucketLevel = false;
+                } else {
+                    robot.control.setBucketState(BucketState.LEVEL);
+                    isBucketLevel = true;
+                }
+            }
+
+            // Toggle slide up
+            if (robot.aButton2 && !robot.isaButton2PressedPrev) {
+                robot.control.setSlide(SlideState.TOP);
+            }
+            // Toggle slide down
+            if (robot.bButton2 && !robot.isbButton2PressedPrev) {
+                robot.control.setSlide(SlideState.RETRACTED);
+            }
+
+            // Toggle duck wheel forward
+            if (robot.xButton2 && !robot.isxButton2PressedPrev) {
                 if (isDuckOn) {
                     robot.control.stopCarousel();
                     isDuckOn = false;
@@ -106,7 +143,7 @@ public class Teleop extends LinearOpMode {
             }
 
             // Toggle duck wheel reverse
-            if (robot.xButton && !robot.isxButtonPressedPrev) {
+            if (robot.yButton2 && !robot.isyButton2PressedPrev) {
                 if (isDuckOn) {
                     robot.control.stopCarousel();
                     isDuckOn = false;
@@ -116,24 +153,18 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-            // Toggle bucket up
-            if (robot.xButton2 && !robot.isxButton2PressedPrev) {
-                robot.control.setBucketState(2);
+            // Toggle lid open/closed
+            if(robot.bumperLeft2 && !robot.islBumper2PressedPrev) {
+                if(isLidOpen) {
+                    robot.control.setLidPosition(LidPosition.CLOSED);
+                    isLidOpen = false;
+                } else {
+                    robot.control.setLidPosition(LidPosition.OPEN);
+                    isLidOpen = true;
+                }
             }
 
-            // Toggle bucket down
-            if (robot.yButton2 && !robot.isyButton2PressedPrev) {
-                robot.control.setBucketState(0);
-            }
-
-            // Toggle slide up
-            if (robot.aButton2 && !robot.isaButton2PressedPrev) {
-                robot.control.setSlide(3);
-            }
-            // Toggle slide down
-            if (robot.bButton2 && !robot.isbButton2PressedPrev) {
-                robot.control.setSlide(0);
-            }
+            // TODO: Claw extend and retract (for marker)
         }
     }
 }
