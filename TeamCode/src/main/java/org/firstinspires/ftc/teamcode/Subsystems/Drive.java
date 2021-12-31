@@ -11,6 +11,9 @@ import java.util.Locale;
  * Mecanum drivetrain subsystem
  */
 public class Drive extends Subsystem {
+    /**
+     * The number of millimeters per a count in odometry
+     */
     private static final double ODOMETRY_mm_PER_COUNT = 38.85 * 3.14159265 / 8192.0;
     private static final double ODOMETRY_RADIUS_X = 201.0;
     private static final double ODOMETRY_RADIUS_Y = 178.0;
@@ -97,12 +100,7 @@ public class Drive extends Subsystem {
      * @param hardwareMap The hardware map for getting the motors
      * @param timer       The timer for the elapsed time
      */
-    public Drive(
-            DcMotorEx frontLeft,
-            DcMotorEx frontRight,
-            DcMotorEx rearLeft,
-            DcMotorEx rearRight,
-            BNO055IMU imu,
+    public Drive(DcMotorEx frontLeft, DcMotorEx frontRight, DcMotorEx rearLeft, DcMotorEx rearRight, BNO055IMU imu,
             Telemetry telemetry,
             HardwareMap hardwareMap,
             ElapsedTime timer) {
@@ -119,16 +117,28 @@ public class Drive extends Subsystem {
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
+    /**
+     * Gets the left odometry
+     * @return The left odometry
+     */
     private int getOdometryCountL() {
         odometryCountL = -odL.getCurrentPosition() - odometryCountOffsetL;
         return odometryCountL;
     }
 
+    /**
+     * Gets the back odometry
+     * @return The back odometry
+     */
     private int getOdometryCountB() {
         odometryCountB = odB.getCurrentPosition() - odometryCountOffsetB;
         return odometryCountB;
     }
 
+    /**
+     * Gets the right odometry
+     * @return The right odometry
+     */
     private int getOdometryCountR() {
         odometryCountR = odR.getCurrentPosition() - odometryCountOffsetR;
         return odometryCountR;
@@ -1039,44 +1049,47 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
+    /**
+     * Print the motor PID coefficients to telemetry
+     */
     public void printMotorPIDCoefficients() {
-        PIDFCoefficients pidCoeff;
-        pidCoeff = getMotorPIDCoefficients(frontLeft, DcMotor.RunMode.RUN_TO_POSITION);
+        PIDFCoefficients pidfCoefficients;
+        pidfCoefficients = getMotorPIDCoefficients(frontLeft, DcMotor.RunMode.RUN_TO_POSITION);
         telemetry.addData(
                 "Front Left ",
                 "P: %.2f I: %.2f D: %.2f F: %.2f A: %s",
-                pidCoeff.p,
-                pidCoeff.i,
-                pidCoeff.d,
-                pidCoeff.f,
-                pidCoeff.algorithm.toString());
-        pidCoeff = getMotorPIDCoefficients(frontRight, DcMotor.RunMode.RUN_TO_POSITION);
+                pidfCoefficients.p,
+                pidfCoefficients.i,
+                pidfCoefficients.d,
+                pidfCoefficients.f,
+                pidfCoefficients.algorithm.toString());
+        pidfCoefficients = getMotorPIDCoefficients(frontRight, DcMotor.RunMode.RUN_TO_POSITION);
         telemetry.addData(
                 "Front Right",
                 "P: %.2f I: %.2f D: %.2f F: %.2f A: %s",
-                pidCoeff.p,
-                pidCoeff.i,
-                pidCoeff.d,
-                pidCoeff.f,
-                pidCoeff.algorithm.toString());
-        pidCoeff = getMotorPIDCoefficients(rearLeft, DcMotor.RunMode.RUN_TO_POSITION);
+                pidfCoefficients.p,
+                pidfCoefficients.i,
+                pidfCoefficients.d,
+                pidfCoefficients.f,
+                pidfCoefficients.algorithm.toString());
+        pidfCoefficients = getMotorPIDCoefficients(rearLeft, DcMotor.RunMode.RUN_TO_POSITION);
         telemetry.addData(
                 "Rear Left  ",
                 "P: %.2f I: %.2f D: %.2f F: %.2f A: %s",
-                pidCoeff.p,
-                pidCoeff.i,
-                pidCoeff.d,
-                pidCoeff.f,
-                pidCoeff.algorithm.toString());
-        pidCoeff = getMotorPIDCoefficients(rearRight, DcMotor.RunMode.RUN_TO_POSITION);
+                pidfCoefficients.p,
+                pidfCoefficients.i,
+                pidfCoefficients.d,
+                pidfCoefficients.f,
+                pidfCoefficients.algorithm.toString());
+        pidfCoefficients = getMotorPIDCoefficients(rearRight, DcMotor.RunMode.RUN_TO_POSITION);
         telemetry.addData(
                 "Rear Right ",
                 "P: %.2f I: %.2f D: %.2f F: %.2f A: %s",
-                pidCoeff.p,
-                pidCoeff.i,
-                pidCoeff.d,
-                pidCoeff.f,
-                pidCoeff.algorithm.toString());
+                pidfCoefficients.p,
+                pidfCoefficients.i,
+                pidfCoefficients.d,
+                pidfCoefficients.f,
+                pidfCoefficients.algorithm.toString());
         telemetry.update();
     }
 
@@ -1088,18 +1101,24 @@ public class Drive extends Subsystem {
     }
 
     public void setMotorPID(double Kp, double Ki, double Kd, double Kf) {
-        PIDFCoefficients pidCoeff = new PIDFCoefficients();
-        pidCoeff.p = Kp;
-        pidCoeff.i = Ki;
-        pidCoeff.d = Kd;
-        pidCoeff.f = Kf;
-        pidCoeff.algorithm = MotorControlAlgorithm.PIDF;
-        setMotorPIDCoefficients(frontLeft, DcMotor.RunMode.RUN_TO_POSITION, pidCoeff);
-        setMotorPIDCoefficients(frontRight, DcMotor.RunMode.RUN_TO_POSITION, pidCoeff);
-        setMotorPIDCoefficients(rearLeft, DcMotor.RunMode.RUN_TO_POSITION, pidCoeff);
-        setMotorPIDCoefficients(rearRight, DcMotor.RunMode.RUN_TO_POSITION, pidCoeff);
+        PIDFCoefficients pidFCoefficients = new PIDFCoefficients();
+        pidFCoefficients.p = Kp;
+        pidFCoefficients.i = Ki;
+        pidFCoefficients.d = Kd;
+        pidFCoefficients.f = Kf;
+        pidFCoefficients.algorithm = MotorControlAlgorithm.PIDF;
+        setMotorPIDCoefficients(frontLeft, DcMotor.RunMode.RUN_TO_POSITION, pidFCoefficients);
+        setMotorPIDCoefficients(frontRight, DcMotor.RunMode.RUN_TO_POSITION, pidFCoefficients);
+        setMotorPIDCoefficients(rearLeft, DcMotor.RunMode.RUN_TO_POSITION, pidFCoefficients);
+        setMotorPIDCoefficients(rearRight, DcMotor.RunMode.RUN_TO_POSITION, pidFCoefficients);
     }
 
+    /**
+     * Gets the Motor PID Coefficients
+     * @param motor The motor to calculate the PID Coefficients
+     * @param mode The Run Mode
+     * @return The PIDFCoefficients
+     */
     public PIDFCoefficients getMotorPIDCoefficients(DcMotorEx motor, DcMotor.RunMode mode) {
         // get a reference to the motor controller and cast it as an extended functionality controller.
         // we assume it's a REV Robotics Expansion Hub (which supports the extended controller
@@ -1128,6 +1147,9 @@ public class Drive extends Subsystem {
         motorControllerEx.setPIDFCoefficients(motorIndex, mode, pidfCoefficients);
     }
 
+    /**
+     * Logs the drive encoder results to telemetry and the phone.
+     */
     public void logDriveEncoders() {
         int currentCountFL = frontLeft.getCurrentPosition();
         double currentTimeFL = ((double) (timer.nanoseconds() - startTime)) * 1.0e-6;
@@ -1521,8 +1543,8 @@ public class Drive extends Subsystem {
                             isTimeOutStarted ? "Y" : "N",
                             timeOutStartedTime * 1000.0,
                             isTimeOutExceeded ? "Y" : "N");
-//            telemetry.addData("motorEnc", output);
-//            telemetry.update();
+            telemetry.addData("motorEnc", output);
+            telemetry.update();
         }
     }
 
@@ -1571,6 +1593,14 @@ public class Drive extends Subsystem {
         return targetTick;
     }
 
+    /**
+     * Gets the targets speed
+     * @param tickCount the tick count
+     * @param speed the speed
+     * @param rampTime the ramp time
+     * @param elapsedTime the total elapsed time
+     * @return the target speed
+     */
     private double getTargetSpeed(int tickCount, double speed, double rampTime, double elapsedTime) {
         double targetSpeed;
         double tickCountD = tickCount;

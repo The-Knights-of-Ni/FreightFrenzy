@@ -12,21 +12,19 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 import java.io.IOException;
 
 /**
- * Auto creates a robots and runs it in auto mode. This auto class is for when we are on the blue
+ * Auto Blue Primary creates a robots and runs it in auto mode. This auto class is for when we are on the blue and are
+ * the primary auto
  * alliance.
- *
- * <p>Auto currently just initializes the Robot as Auto.runOpMode() is empty.
  *
  * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
  */
-
-// Tasks:
-// Deliver duck from carousel (10)
-// Deliver freight to hub (6)
-// - deliver freight to corresponding level of custom element (20)
-// Park in warehouse (10)
 @Autonomous(name = "Auto Blue Primary", group = "Auto Blue")
 public class AutoBluePrimary extends Auto {
+    // Tasks:
+    // Deliver duck from carousel (10)
+    // Deliver freight to hub (6)
+    // - deliver freight to corresponding level of custom element (20)
+    // Park in warehouse (10)
     /**
      * Override of runOpMode()
      *

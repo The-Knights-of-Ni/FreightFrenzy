@@ -17,6 +17,9 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
+/**
+ * This shows what the camera is seeing
+ */
 @Autonomous(name = "CameraPOV", group = "Concept")
 public class CameraPOV extends LinearOpMode {
     public static final int CAMERA_WIDTH = 1920; // width of wanted camera resolution
