@@ -81,7 +81,6 @@ public class Control extends Subsystem {
         this.bucket = bucket;
         this.slide = slide;
         this.duckWheel = duckWheel;
-        this.imu = imu;
         this.lid = lid;
         this.timer = timer;
 
@@ -127,7 +126,7 @@ public class Control extends Subsystem {
     /**
      * Set the position of the slide
      *
-     * @param slideState    the position to set the slide. Must be either RETRACTED, BOTTOM, MIDDLE, or TOP.
+     * @param slideState the position to set the slide. Must be either RETRACTED, BOTTOM, MIDDLE, or TOP.
      */
     public void setSlide(SlideState slideState) {
         slide.setPower(slideState.power);
@@ -147,7 +146,7 @@ public class Control extends Subsystem {
     /**
      * Start the duck wheel in order to spin the carousel
      *
-     * @param direction the rotation direction. True/false corresponds to forwards/backwards respectively.
+     * @param direction the rotation direction. True/false corresponds to forward and backwards respectively.
      */
     public void startCarousel(boolean direction) {
         duckWheel.set(direction ? 1 : -1);
