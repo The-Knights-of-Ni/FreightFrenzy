@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -39,10 +38,10 @@ public class Control extends Subsystem {
         RAISED(-65, 1);
 
         public final double power;
-        public final int place;
+        public final int position;
 
-        BucketState(int place, double power) {
-            this.place = place;
+        BucketState(int position, double power) {
+            this.position = position;
             this.power = power;
         }
     }
@@ -53,11 +52,11 @@ public class Control extends Subsystem {
         MIDDLE(-758, 0.2),
         TOP(-1292, 0.2);
 
-        public final int place;
+        public final int position;
         public final double power;
 
-        SlideState(int place, double power) {
-            this.place = place;
+        SlideState(int position, double power) {
+            this.position = position;
             this.power = power;
         }
     }
@@ -109,14 +108,14 @@ public class Control extends Subsystem {
     }
 
     public void setBucketState(BucketState bucketState) {
-        bucket.setTargetPosition(bucketState.place);
+        bucket.setTargetPosition(bucketState.position);
         bucket.setPower(bucketState.power);
         bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
     public void setSlide(SlideState slideState) {
         slide.setPower(slideState.power);
-        slide.setTargetPosition(slideState.place);
+        slide.setTargetPosition(slideState.position);
         slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
