@@ -22,10 +22,6 @@ import java.util.List;
  */
 public class DetectMarkerPipeline extends OpenCvPipeline {
     private final AllianceColor allianceColor;
-    private final Rect LEFT_RECT = new Rect(new Point(0, 0), new Point(640, 1080));
-    private final Rect MIDDLE_RECT = new Rect(new Point(640, 0), new Point(1280, 1080));
-    private final Rect RIGHT_RECT = new Rect(new Point(1280, 0), new Point(1920, 1080));
-    private final double PERCENT_COLOR_THRESHOLD = 0.1;
     private final int CAMERA_WIDTH;
     Telemetry telemetry;
     private MarkerLocation markerLocation = MarkerLocation.NOT_FOUND;
