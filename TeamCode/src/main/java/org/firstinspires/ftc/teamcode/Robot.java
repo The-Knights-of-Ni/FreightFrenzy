@@ -136,6 +136,7 @@ public class Robot {
      * @param opMode        The op mode
      * @param timer         The elapsed time
      * @param allianceColor the alliance color
+     * @throws IOException {@link Vision} can throw an IOException
      */
     public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) throws IOException{
         this.hardwareMap = opMode.hardwareMap;
@@ -193,11 +194,9 @@ public class Robot {
         parameters.loggingTag = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
-        opMode.telemetry.addData("Status", " IMU initializing...");
-        opMode.telemetry.update();
+        telemetryBroadcast("Status", " IMU initializing...");
         imu.initialize(parameters);
-        opMode.telemetry.addData("Status", " IMU calibrating...");
-        opMode.telemetry.update();
+        telemetryBroadcast("Status", " IMU calibrating...");
         // make sure the imu gyro is calibrated before continuing.
         while (opMode.opModeIsActive() && !imu.isGyroCalibrated()) {
             opMode.sleep(50);
@@ -205,24 +204,14 @@ public class Robot {
         }
 
         // Subsystems
-        telemetry.addData("Status", " drive initializing...");
-        telemetry.update();
+        telemetryBroadcast("Status", " drive initializing...");
         drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer);
 
-        telemetry.addData("Status", " control initializing...");
+        telemetryBroadcast("Status", " control initializing...");
         control = new Control(intake, bucket, slide, duckWheel, lid, imu, telemetry, hardwareMap, timer);
 
-        telemetry.addData("Status", " vision initializing...");
-        telemetry.update();
+        telemetryBroadcast("Status", " vision initializing...");
         vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
-
-        //Threads
-        telemetry.addData("Status", "Threads init started");
-        telemetry.update();
-        telemetry.addData("Status", "Threads init complete");
-        telemetry.update();
-        telemetry.addData("Status", " done, wait for start");
-        telemetry.update();
 
     }
 

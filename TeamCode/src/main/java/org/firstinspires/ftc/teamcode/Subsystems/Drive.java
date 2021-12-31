@@ -61,20 +61,49 @@ public class Drive extends Subsystem {
     private static final double motorKi = 0.02;
     private static final double motorKd = 0.0003;
     private static final double motorRampTime = 0.3;
-    // DC Motors
+    /**
+     * DC Motor front left
+     */
     public DcMotorEx frontLeft;
+    /**
+     * DC Motor front right
+     */
     public DcMotorEx frontRight;
+    /**
+     * DC Motor rear left
+     */
     public DcMotorEx rearLeft;
+    /**
+     * DC Motor rear right
+     */
     public DcMotorEx rearRight;
     // use motor encoder for odometry
+    /**
+     * Odometry Left
+     */
     public DcMotorEx odL;
+    /**
+     * Odometry Back
+     */
     public DcMotorEx odB;
+    /**
+     * Odometry Right
+     */
     public DcMotorEx odR;
     // Sensors
     private final BNO055IMU imu;
-    private double robotCurrentPosX; // unit in mm
-    private double robotCurrentPosY; // unit in mm
-    private double robotCurrentAngle; // unit in degrees
+    /**
+     * Current Robot x position in millimeters
+     */
+    private double robotCurrentPosX;
+    /**
+     * Current Robot y position in millimeters
+     */
+    private double robotCurrentPosY;
+    /**
+     * Current Robot angle
+     */
+    private double robotCurrentAngle;
     private int encoderOffsetFL = 0;
     private int encoderOffsetFR = 0;
     private int encoderOffsetRL = 0;
@@ -347,6 +376,9 @@ public class Drive extends Subsystem {
         };
     }
 
+    /**
+     * Resets the motor encoders for the drivetrain motors.
+     */
     public void resetDriveMotorEncoders() {
         encoderOffsetFL = frontLeft.getCurrentPosition();
         encoderOffsetFR = frontRight.getCurrentPosition();
@@ -1100,6 +1132,13 @@ public class Drive extends Subsystem {
         rearRight.setPositionPIDFCoefficients(motorKPRR);
     }
 
+    /**
+     * Sets the motor pid coefficients
+     * @param Kp
+     * @param Ki
+     * @param Kd
+     * @param Kf
+     */
     public void setMotorPID(double Kp, double Ki, double Kd, double Kf) {
         PIDFCoefficients pidFCoefficients = new PIDFCoefficients();
         pidFCoefficients.p = Kp;
@@ -1133,6 +1172,12 @@ public class Drive extends Subsystem {
         return motorControllerEx.getPIDFCoefficients(motorIndex, mode);
     }
 
+    /**
+     * Sets the pid coefficients
+     * @param motor The motor
+     * @param mode The run mode
+     * @param pidfCoefficients The pid coefficients.
+     */
     public void setMotorPIDCoefficients(
             DcMotorEx motor, DcMotor.RunMode mode, PIDFCoefficients pidfCoefficients) {
         // get a reference to the motor controller and cast it as an extended functionality controller.
@@ -1548,6 +1593,14 @@ public class Drive extends Subsystem {
         }
     }
 
+    /**
+     * Gets the target tick count
+     * @param tickCount The tick count
+     * @param speed The speed
+     * @param rampTime The ramp time
+     * @param elapsedTime The total elapsed time
+     * @return The tick count
+     */
     private int getTargetTickCount(int tickCount, double speed, double rampTime, double elapsedTime) {
         int targetTick;
         double tickCountD = tickCount;

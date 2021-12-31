@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -68,6 +67,7 @@ public class Vision extends Subsystem {
      * @param telemetry   Telemetry
      * @param hardwareMap the hardware map
      * @param timer       how much time elapsed
+     * @param allianceColor the alliance color
      */
     public Vision(
             Telemetry telemetry,
@@ -85,30 +85,36 @@ public class Vision extends Subsystem {
         telemetry.addLine("Vision init started");
         telemetry.update();
 
+        // Create camera instances for the detection pipeline
         initDetectionPipeline();
 
+        // Tewemetwy
         telemetry.addLine("Vision init complete");
         telemetry.update();
     }
 
     private void initDetectionPipeline() {
+        // Get the camera ID
         int cameraMonitorViewId =
                 hardwareMap
                         .appContext
                         .getResources()
                         .getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
+        // Obtain camera instance from ID
         camera =
                 OpenCvCameraFactory.getInstance()
                         .createWebcam(hardwareMap.get(WebcamName.class, WEBCAM_NAME), cameraMonitorViewId);
 
-        pipeline = new DetectMarkerPipeline(telemetry, allianceColor, CAMERA_WIDTH);
+        // Create a detection pipeline for detecting the position
+        pipeline = new DetectMarkerPipeline(allianceColor, CAMERA_WIDTH);
         camera.setPipeline(pipeline);
 
+        // Create listeners for the camera
         camera.openCameraDeviceAsync(
                 new OpenCvCamera.AsyncCameraOpenListener() {
                     @Override
-                    public void onOpened() {
+                    public void onOpened() { // Add
                         telemetry.addLine("Streaming");
                         camera.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
                     }
