@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Superclass to all subsystems, it does some bootstrapping for them (Vision, Control, and Drive)
  */
 public abstract class Subsystem {
-    // protected because of inheritance
+    // protected instead of private because of inheritance
     protected Telemetry telemetry;
     protected ElapsedTime timer;
     protected HardwareMap hardwareMap;

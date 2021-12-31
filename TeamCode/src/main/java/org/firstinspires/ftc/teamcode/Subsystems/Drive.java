@@ -140,6 +140,9 @@ public class Drive extends Subsystem {
         odometryCountOffsetR = odR.getCurrentPosition();
     }
 
+    /**
+     * Updates the odometry by getting the left back and right odometry.
+     */
     private void updateOdometry() {
         getOdometryCountL();
         getOdometryCountB();

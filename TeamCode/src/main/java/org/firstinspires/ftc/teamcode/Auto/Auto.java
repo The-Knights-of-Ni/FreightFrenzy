@@ -31,7 +31,13 @@ import java.io.IOException;
 @Disabled
 public class Auto extends LinearOpMode {
 
+    /**
+     * Number of millimeters per an inch
+     */
     public static float mmPerInch = 25.4f;
+    /**
+     * The robot class in the op mode
+     */
     public Robot robot;
 
 
