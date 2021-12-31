@@ -61,10 +61,21 @@ public class Drive extends Subsystem {
     private static final double motorKi = 0.02;
     private static final double motorKd = 0.0003;
     private static final double motorRampTime = 0.3;
-    // DC Motors
+    /**
+     * DC Motor front left
+     */
     public DcMotorEx frontLeft;
+    /**
+     * DC Motor front right
+     */
     public DcMotorEx frontRight;
+    /**
+     * DC Motor rear left
+     */
     public DcMotorEx rearLeft;
+    /**
+     * DC Motor rear right
+     */
     public DcMotorEx rearRight;
     // use motor encoder for odometry
     /**
