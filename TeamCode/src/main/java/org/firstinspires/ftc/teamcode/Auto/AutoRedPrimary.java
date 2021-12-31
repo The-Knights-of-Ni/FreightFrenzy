@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
@@ -79,7 +80,7 @@ public class AutoRedPrimary extends Auto {
         // Release clamp
         sleep(1000); // delivery point here
         robot.retract.start();
-//        robot.control.setSlide(0); // Can be used instead of multithreading
+        robot.control.setSlide(Control.SlideState.MIDDLE); // Can be used instead of multithreading
 
 //        // Move to warehouse
 //        drive.moveBackward(4 * mmPerInch);
