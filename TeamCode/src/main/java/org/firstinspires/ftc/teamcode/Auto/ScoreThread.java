@@ -10,10 +10,6 @@ public class ScoreThread extends Thread{
     private Robot robot;
     PlacementLevel placementLevel;
     Telemetry telemetry;
-    final int RETRACTED = 0;
-    final int BOTTOM = -481;
-    final int MIDDLE = -758;
-    final int TOP = -1292;
 
     public ScoreThread(Robot robot, PlacementLevel placementLevel, Telemetry telemetry) {
         this.robot = robot;
