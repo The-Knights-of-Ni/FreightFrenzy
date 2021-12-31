@@ -66,6 +66,7 @@ public class Auto extends LinearOpMode {
                 level = 3;
                 break;
         }
+        robot.vision.stop(); // DO NOT remove this line. It is to avoid potential memory leaks
         return level;
     }
 

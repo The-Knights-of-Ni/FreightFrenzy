@@ -127,6 +127,11 @@ public class Vision extends Subsystem {
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, u, v, w));
     }
 
+    public void stop() {
+        camera.stopStreaming();
+        camera.closeCameraDevice();
+    }
+
     /**
      * This method waits until the search for the marker is done, and then it return the marker
      * location. It waits until the marker is found, then it returns the marker location.
