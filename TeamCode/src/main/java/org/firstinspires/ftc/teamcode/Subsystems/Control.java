@@ -8,15 +8,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  * Control subsystem for controlling arms and claws
  */
 public class Control extends Subsystem {
-    // device declaration
-    private final HardwareMap hardwareMap;
-    private final LinearOpMode opMode;
-
     // DC Motors
     private final DcMotorEx intake;
     private final DcMotorEx bucket;
@@ -37,9 +34,17 @@ public class Control extends Subsystem {
     }
 
     public enum BucketState {
-        FLOOR,
-        LEVEL,
-        RAISED
+        FLOOR(0, 0.1),
+        LEVEL(-5, 0.5),
+        RAISED(-65, 1);
+
+        public final double power;
+        public final int place;
+
+        BucketState(int place, double power) {
+            this.place = place;
+            this.power = power;
+        }
     }
 
     public enum SlideState {
@@ -50,8 +55,8 @@ public class Control extends Subsystem {
 
         public final int place;
 
-        SlideState(int name) {
-            place = name;
+        SlideState(int place) {
+            this.place = place;
         }
     }
 
@@ -61,16 +66,9 @@ public class Control extends Subsystem {
         OPEN
     }
 
-    public Control(
-            DcMotorEx intake,
-            DcMotorEx bucket,
-            DcMotorEx slide,
-            CRServo duckWheel,
-            BNO055IMU imu,
-            LinearOpMode opMode,
-            ElapsedTime timer,
-            ServoEx lid) {
-        super(opMode.telemetry, opMode.hardwareMap, timer);
+    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx slide, CRServo duckWheel, ServoEx lid, BNO055IMU imu,
+                   Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer) {
+        super(telemetry, hardwareMap, timer);
 
         // store device information locally
 
@@ -78,8 +76,6 @@ public class Control extends Subsystem {
         this.bucket = bucket;
         this.slide = slide;
         this.duckWheel = duckWheel;
-        this.opMode = opMode;
-        this.hardwareMap = opMode.hardwareMap;
         this.imu = imu;
         this.lid = lid;
         this.timer = timer;
@@ -106,24 +102,8 @@ public class Control extends Subsystem {
     }
 
     public void setBucketState(BucketState bucketState) {
-        final int FLOOR = 0;
-        final int LEVEL = -5;
-        final int RAISED = -65;
-
-        switch (bucketState) {
-            case FLOOR:
-                bucket.setTargetPosition(FLOOR);
-                bucket.setPower(0.1);
-                break;
-            case LEVEL:
-                bucket.setTargetPosition(LEVEL);
-                bucket.setPower(0.5);
-                break;
-            case RAISED:
-                bucket.setTargetPosition(RAISED);
-                bucket.setPower(1.0);
-                break;
-        }
+        bucket.setTargetPosition(bucketState.place);
+        bucket.setPower(bucketState.power);
         bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 

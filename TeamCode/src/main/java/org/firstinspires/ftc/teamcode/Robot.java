@@ -210,7 +210,7 @@ public class Robot {
         drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer);
 
         telemetry.addData("Status", " control initializing...");
-        control = new Control(intake, bucket, slide, duckWheel, imu, opMode, timer, lid);
+        control = new Control(intake, bucket, slide, duckWheel, lid, imu, telemetry, hardwareMap, timer);
 
         telemetry.addData("Status", " vision initializing...");
         telemetry.update();
