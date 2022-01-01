@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
@@ -22,8 +21,8 @@ public class VisionTest extends LinearOpMode {
 
         this.robot = new Robot(this, timer, AllianceColor.BLUE, true);
 
-        telemetry.addData("Wait for start", "");
-        telemetry.update();
+        robot.telemetryBroadcast("Wait for start", "");
+
     }
 
     @Override

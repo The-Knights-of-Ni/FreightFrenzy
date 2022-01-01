@@ -29,13 +29,13 @@ public class MotorTest extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             if(this.gamepad1.a) {
-                bucket.setTargetPosition(-65);
-                bucket.setPower(1.0);
+                bucket.setTargetPosition(-68);
+                bucket.setPower(0.5);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
             }
             if(this.gamepad1.b) {
-                bucket.setTargetPosition(-5);
-                bucket.setPower(0.1);
+                bucket.setTargetPosition(0);
+                bucket.setPower(0.5);
                 bucket.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
             }
             telemetry.addData("Position (bucket)", bucket.getCurrentPosition());

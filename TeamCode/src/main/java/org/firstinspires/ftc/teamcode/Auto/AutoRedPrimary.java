@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
-import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.Control;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
-import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
@@ -69,7 +66,7 @@ public class AutoRedPrimary extends Auto {
         robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
-        new ScoreThread(robot, placementLevel, telemetry).start();
+        new ScoreThread(robot, placementLevel).start();
 //        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
 
         drive.moveForward(48 * mmPerInch);

@@ -1,20 +1,17 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
 
 public class ScoreThread extends Thread{
     private Robot robot;
     PlacementLevel placementLevel;
-    Telemetry telemetry;
 
-    public ScoreThread(Robot robot, PlacementLevel placementLevel, Telemetry telemetry) {
+    public ScoreThread(Robot robot, PlacementLevel placementLevel) {
         this.robot = robot;
         this.placementLevel = placementLevel;
-        this.telemetry = telemetry;
     }
 
     @Override
@@ -37,8 +34,7 @@ public class ScoreThread extends Thread{
                     break;
             }
         } catch (Exception e) {
-            telemetry.addData("Thread Status", "Interrupted " + e);
-            telemetry.update();
+            robot.telemetryBroadcast("Thread Status", "Interrupted " + e);
         }
     }
 

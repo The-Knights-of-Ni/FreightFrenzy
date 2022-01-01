@@ -24,8 +24,9 @@ public class Control extends Subsystem {
 
     // Servos
     private final CRServo duckWheel;
-
-    // Enums store semantic position of each motor along with motor constants in ticks when relevant
+    /**
+     * Enums stores the semantic position of each motor along with motor constants in ticks when relevant
+     */
     public enum PlacementLevel {
         TOP,
         MIDDLE,
@@ -128,7 +129,7 @@ public class Control extends Subsystem {
     /**
      * Set the position of the slide
      *
-     * @param slideState    the position to set the slide. Must be either RETRACTED, BOTTOM, MIDDLE, or TOP.
+     * @param slideState the position to set the slide. Must be either RETRACTED, BOTTOM, MIDDLE, or TOP.
      */
     public void setSlide(SlideState slideState) {
         slide.setPower(slideState.power);
@@ -148,7 +149,7 @@ public class Control extends Subsystem {
     /**
      * Start the duck wheel in order to spin the carousel
      *
-     * @param direction the rotation direction. True/false corresponds to forwards/backwards respectively.
+     * @param direction the rotation direction. True/false corresponds to forward and backwards respectively.
      */
     public void startCarousel(boolean direction) {
         duckWheel.set(direction ? 1 : -1);

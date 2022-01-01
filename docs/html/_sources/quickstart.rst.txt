@@ -10,11 +10,9 @@ To start the robot press the Start key, and then the A key.
 
 Joystick 1 - Up and down are forwards and backwards. Left and right strafe.
 
-Y - "Fast Mode" switch
+X, Y - Duck wheel with direction
 
-B - Omni Directional drive switch
-
-Joystick 2 - Rotate the duck wheel (Left and Right), and move the duck wheel up and down (Up and Down)
+A, B - Intake motor with direction
 
 Robot Configuration
 ___________________
