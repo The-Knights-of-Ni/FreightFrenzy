@@ -22,7 +22,6 @@ public class Teleop extends LinearOpMode {
     private boolean isIntakeOn = false;
     private boolean isDuckOn = false;
     private boolean isBucketLevel = false;
-    private boolean isLidOpen = false;
 
     private void initOpMode() throws IOException {
         // Initialize DC motor objects
@@ -121,33 +120,21 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-            //POSSIBLY USELESS (intake can funnel in freight even when bucket is level)
-//            // Toggle bucket down-level
-//            if (robot.yButton && !robot.isyButtonPressedPrev) {
-//                if (isBucketLevel) {
-//                    robot.control.setBucketState(BucketState.FLOOR);
-//                    isBucketLevel = false;
-//                } else {
-//                    robot.control.setBucketState(BucketState.LEVEL);
-//                    isBucketLevel = true;
-//                }
-//            }
-
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
-                if(isBucketLevel) {
+                if(isIntakeOn) {
                     robot.control.setIntakeDirection(false, true);
                     isIntakeOn = false;
-                    robot.control.setLidPosition(LidPosition.CLOSED);
-                    robot.control.setSlide(SlideState.TOP);
                 }
+                robot.control.setLidPosition(LidPosition.CLOSED);
+                robot.control.setSlide(SlideState.TOP);
             }
 
             // Toggle slide down
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.RETRACTED);
-                sleep(5000); //NEEDS TO STAY (and be adjusted) or else lid will get caught on pulley)
+                sleep(4500); //NEEDS TO STAY (and be adjusted) or else lid will get caught on pulley)
                 robot.control.setLidPosition(LidPosition.OPEN);
             }
 
