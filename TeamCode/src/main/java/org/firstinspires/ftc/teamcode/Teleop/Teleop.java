@@ -57,11 +57,11 @@ public class Teleop extends LinearOpMode {
             e.printStackTrace();
         }
 
-        initServos();
-
         ElapsedTime timer = new ElapsedTime();
 
         waitForStart();
+
+        initServos();
 
         if (isStopRequested()) {
             return;
@@ -137,6 +137,7 @@ public class Teleop extends LinearOpMode {
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.RETRACTED);
+                sleep(5000); //NEEDS TO STAY (and be adjusted) or else lid will get caught on pulley)
                 robot.control.setLidPosition(LidPosition.OPEN);
             }
 
