@@ -36,7 +36,9 @@ public class Teleop extends LinearOpMode {
         telemetry.update();
     }
 
-    private void initServos() {
+    private void initDevices() {
+        robot.control.setBucketState(BucketState.LEVEL);
+        isBucketLevel = true;
         robot.control.setLidPosition(LidPosition.OPEN);
     }
 
@@ -60,7 +62,7 @@ public class Teleop extends LinearOpMode {
 
         waitForStart();
 
-        initServos();
+        initDevices();
 
         if (isStopRequested()) {
             return;
@@ -77,6 +79,7 @@ public class Teleop extends LinearOpMode {
             deltaT = timeCurrent - timePre;
             timePre = timeCurrent;
 
+            // Robot drive movement
             double[] motorPowers;
             robotAngle = robot.imu.getAngularOrientation().firstAngle;
             motorPowers =
@@ -108,30 +111,38 @@ public class Teleop extends LinearOpMode {
             // Toggle bucket up-level
             if (robot.xButton && !robot.isxButtonPressedPrev) {
                 if (isBucketLevel) {
+                    robot.control.setIntakeDirection(true, true);
                     robot.control.setBucketState(BucketState.RAISED);
                     isBucketLevel = false;
                 } else {
+                    robot.control.setIntakeDirection(true, false);
                     robot.control.setBucketState(BucketState.LEVEL);
                     isBucketLevel = true;
                 }
             }
 
-            // Toggle bucket down-level
-            if (robot.yButton && !robot.isyButtonPressedPrev) {
-                if (isBucketLevel) {
-                    robot.control.setBucketState(BucketState.FLOOR);
-                    isBucketLevel = false;
-                } else {
-                    robot.control.setBucketState(BucketState.LEVEL);
-                    isBucketLevel = true;
-                }
-            }
+            //POSSIBLY USELESS (intake can funnel in freight even when bucket is level)
+//            // Toggle bucket down-level
+//            if (robot.yButton && !robot.isyButtonPressedPrev) {
+//                if (isBucketLevel) {
+//                    robot.control.setBucketState(BucketState.FLOOR);
+//                    isBucketLevel = false;
+//                } else {
+//                    robot.control.setBucketState(BucketState.LEVEL);
+//                    isBucketLevel = true;
+//                }
+//            }
 
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
-                robot.control.setLidPosition(LidPosition.CLOSED);
-                robot.control.setSlide(SlideState.TOP);
+                if(isBucketLevel) {
+                    robot.control.setIntakeDirection(false, true);
+                    isIntakeOn = false;
+                    robot.control.setLidPosition(LidPosition.CLOSED);
+                    robot.control.setSlide(SlideState.TOP);
+                }
             }
+
             // Toggle slide down
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
@@ -162,15 +173,12 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-            // Toggle lid open/closed
+            // Toggle lid deployed/closed
             if(robot.bumperLeft2 && !robot.islBumper2PressedPrev) {
-                if(isLidOpen) {
-                    robot.control.setLidPosition(LidPosition.CLOSED);
-                    isLidOpen = false;
-                } else {
-                    robot.control.setLidPosition(LidPosition.DEPLOYED);
-                    isLidOpen = true;
-                }
+                robot.control.setLidPosition(LidPosition.CLOSED);
+            }
+            if(robot.bumperRight2 && !robot.isrBumper2PressedPrev) {
+                robot.control.setLidPosition(LidPosition.DEPLOYED);
             }
 
             // TODO: Claw extend and retract (for marker)
