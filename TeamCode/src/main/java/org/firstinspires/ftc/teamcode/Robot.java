@@ -114,6 +114,7 @@ public class Robot {
     public Control control;
     public Vision vision;
     private AllianceColor allianceColor;
+    private boolean visionEnabled = false;
     private final HardwareMap hardwareMap;
     private final LinearOpMode opMode;
     private final Telemetry telemetry;
@@ -126,13 +127,6 @@ public class Robot {
     public ScoreThread retract;
 
 
-    public Robot(LinearOpMode opMode, ElapsedTime timer, Telemetry telemetry) throws IOException {
-        this.hardwareMap = opMode.hardwareMap;
-        this.opMode = opMode;
-        this.timer = timer;
-        this.telemetry = telemetry;
-        init();
-    }
 
     /**
      * @param opMode        The op mode
@@ -140,11 +134,12 @@ public class Robot {
      * @param allianceColor the alliance color
      * @throws IOException {@link Vision} can throw an IOException
      */
-    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor) throws IOException{
+    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor, boolean visionEnabled) throws IOException{
         this.hardwareMap = opMode.hardwareMap;
         this.opMode = opMode;
         this.timer = timer;
         this.allianceColor = allianceColor;
+        this.visionEnabled = visionEnabled;
         this.telemetry = opMode.telemetry;
         init();
     }
@@ -212,8 +207,11 @@ public class Robot {
         telemetryBroadcast("Status", " control initializing...");
         control = new Control(intake, bucket, slide, duckWheel, lid, imu, telemetry, hardwareMap, timer);
 
-        telemetryBroadcast("Status", " vision initializing...");
-        vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
+        if(visionEnabled) {
+            telemetryBroadcast("Status", " vision initializing...");
+            vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
+        }
+
 
     }
 
