@@ -126,8 +126,6 @@ public class Robot {
 //    public ScoreThread extendedLower;
     public ScoreThread retract;
 
-
-
     /**
      * @param opMode        The op mode
      * @param timer         The elapsed time
