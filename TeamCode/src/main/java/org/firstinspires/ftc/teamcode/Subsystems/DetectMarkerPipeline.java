@@ -115,7 +115,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         if(middle) markerLocation = MarkerLocation.MIDDLE;
         if(right) markerLocation = MarkerLocation.RIGHT;
 
-        return thresh;
+        return edges;
     }
 
     /**

@@ -6,6 +6,8 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -18,7 +20,7 @@ public class Control extends Subsystem {
     private final DcMotorEx intake;
     private final DcMotorEx bucket;
     private final DcMotorEx slide;
-    private final ServoEx lid;
+    private final Servo lid;
 
     // Servos
     private final CRServo duckWheel;
@@ -47,9 +49,9 @@ public class Control extends Subsystem {
 
     public enum SlideState {
         RETRACTED(0, 0.2),
-        BOTTOM(-454, 0.2),
-        MIDDLE(-753, 0.2),
-        TOP(-1279, 0.2);
+        BOTTOM(454, 0.2),
+        MIDDLE(753, 0.2),
+        TOP(1279, 0.2);
 
         public final int position;
         public final double power;
@@ -61,9 +63,9 @@ public class Control extends Subsystem {
     }
 
     public enum LidPosition {
-        CLOSED(0),
-        DEPLOYED(0.5),
-        OPEN(1);
+        CLOSED(0.75),
+        DEPLOYED(0.6),
+        OPEN(0.5);
 
         public final double position;
 
@@ -72,7 +74,7 @@ public class Control extends Subsystem {
         }
     }
 
-    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx slide, CRServo duckWheel, ServoEx lid, BNO055IMU imu,
+    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx slide, CRServo duckWheel, Servo lid, BNO055IMU imu,
                    Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer) {
         super(telemetry, hardwareMap, timer);
 
@@ -81,7 +83,6 @@ public class Control extends Subsystem {
         this.bucket = bucket;
         this.slide = slide;
         this.duckWheel = duckWheel;
-        this.imu = imu;
         this.lid = lid;
         this.timer = timer;
 
@@ -158,5 +159,13 @@ public class Control extends Subsystem {
      */
     public void stopCarousel() {
         duckWheel.set(0);
+    }
+
+    public void modifyServo(Servo servo, double value) {
+        double currentValue = servo.getPosition();
+        currentValue = currentValue + value;
+        if (currentValue > 1.0) currentValue = 1.0;
+        if (currentValue < 0.0) currentValue = 0.0;
+        servo.setPosition(currentValue);
     }
 }

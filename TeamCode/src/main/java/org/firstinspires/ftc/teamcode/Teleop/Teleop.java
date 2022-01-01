@@ -37,6 +37,10 @@ public class Teleop extends LinearOpMode {
         telemetry.update();
     }
 
+    private void initServos() {
+        robot.control.setLidPosition(LidPosition.OPEN);
+    }
+
     /**
      * Override of runOpMode()
      *
@@ -52,6 +56,8 @@ public class Teleop extends LinearOpMode {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        initServos();
 
         ElapsedTime timer = new ElapsedTime();
 
@@ -124,11 +130,14 @@ public class Teleop extends LinearOpMode {
 
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
+                robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.TOP);
             }
             // Toggle slide down
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
+                robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.RETRACTED);
+                robot.control.setLidPosition(LidPosition.OPEN);
             }
 
             // Toggle duck wheel forward
@@ -159,7 +168,7 @@ public class Teleop extends LinearOpMode {
                     robot.control.setLidPosition(LidPosition.CLOSED);
                     isLidOpen = false;
                 } else {
-                    robot.control.setLidPosition(LidPosition.OPEN);
+                    robot.control.setLidPosition(LidPosition.DEPLOYED);
                     isLidOpen = true;
                 }
             }

@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Auto.ScoreThread;
@@ -34,7 +36,7 @@ public class Robot {
     public DcMotorEx slide;
     // Servos
     public CRServo duckWheel;
-    public ServoEx lid;
+    public Servo lid;
     // Odometry
     public List<LynxModule> allHubs;
     public DigitalChannel odometryRA;
@@ -181,7 +183,7 @@ public class Robot {
 
         // Servos
         duckWheel = new CRServo(hardwareMap, "duckWheel");
-        lid = (ServoEx) hardwareMap.servo.get("lid");
+        lid = hardwareMap.servo.get("lid");
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 

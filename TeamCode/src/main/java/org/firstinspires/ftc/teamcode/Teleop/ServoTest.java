@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class ServoTest extends LinearOpMode {
     private Robot robot;
     public ElapsedTime timer;
+    double absIncrementStep = 0.005;
 
     private void initOpMode() throws IOException {
         telemetry.addData("Init Robot", "");
@@ -26,14 +28,28 @@ public class ServoTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        ServoEx servo = (ServoEx) hardwareMap.servo.get("lid");
-        int position = 0;
+        try {
+            initOpMode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        waitForStart();
+        robot.vision.stop();
+        while(opModeIsActive()) {
+            robot.getGamePadInputs();
 
-        while (opModeIsActive()) {
-            servo.setPosition(position);
-            if(robot.aButton) {position += 0.01;}
-            else if(robot.bButton) {position -= 0.01;}
-            robot.telemetryBroadcast("Position", String.valueOf(position));
+            // Deploy
+            if (robot.aButton && !robot.isaButtonPressedPrev) {
+                robot.lid.setPosition(0.60);
+            }
+            // Open
+            if (robot.bButton && !robot.isbButtonPressedPrev) {
+                robot.lid.setPosition(0.5);
+            }
+            // Closed
+            if(robot.xButton && !robot.isxButtonPressedPrev) {
+                robot.lid.setPosition(0.75);
+            }
         }
     }
 
