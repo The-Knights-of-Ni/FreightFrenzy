@@ -98,26 +98,27 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
 //            Imgproc.contourArea(contoursPoly[i]); // TODO Maybe implement contour area check for next tourney
         }
 
-        double left_x = 0.333 * CAMERA_WIDTH;
-        double right_x = 0.667 * CAMERA_WIDTH;
+        double left_x = 0.375 * CAMERA_WIDTH;
+        double right_x = 0.625 * CAMERA_WIDTH;
 
         boolean left = false;
         boolean middle = false;
         boolean right = false;
 
         for(int i = 0; i != boundRect.length; i++) {
+            int midpoint = boundRect[i].x + boundRect[i].width/2;
             if (boundRect[i].x + boundRect[i].width < left_x)
                 left = true;
-            if (left_x <= boundRect[i].x && boundRect[i].x + boundRect[i].width <= right_x)
+            if (left_x <= midpoint && midpoint <= right_x)
                 middle = true;
-            if (right_x < boundRect[i].x)
+            if (right_x < midpoint)
                 right = true;
         }
         if(left) markerLocation = MarkerLocation.LEFT;
         if(middle) markerLocation = MarkerLocation.MIDDLE;
         if(right) markerLocation = MarkerLocation.RIGHT;
 
-        return crop;
+        return edges;
     }
 
     /**
