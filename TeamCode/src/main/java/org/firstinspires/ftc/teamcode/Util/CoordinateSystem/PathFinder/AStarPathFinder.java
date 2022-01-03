@@ -30,7 +30,7 @@ public class AStarPathFinder implements PathFinder {
      * Looks in a given List for a node * * @return (bool) NeighborInListFound
      */
     private static boolean findNeighborInList(List<Node> array, Node node) {
-        return array.stream().anyMatch((n) -> (n.getX() == node.getX() && n.getY() == node.getY()));
+        return array.stream().noneMatch((n) -> (n.getX() == node.getX() && n.getY() == node.getY()));
     }
 
     /**
@@ -99,8 +99,8 @@ public class AStarPathFinder implements PathFinder {
                         && this.field.isBlocked(
                         new Coordinate(
                                 this.now.getY() + y, this.now.getX() + x)) // check if square is walkable
-                        && !findNeighborInList(this.open, node)
-                        && !findNeighborInList(this.closed, node)) { // if not already done
+                        && findNeighborInList(this.open, node)
+                        && findNeighborInList(this.closed, node)) { // if not already done
                     node.setG(node.parent.getG() + 1.); // Horizontal/vertical cost = 1.0
                     node.setG(
                             node.getG()

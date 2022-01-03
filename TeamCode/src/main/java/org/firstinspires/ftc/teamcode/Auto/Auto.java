@@ -33,7 +33,7 @@ public class Auto extends LinearOpMode {
     /**
      * Number of millimeters per an inch
      */
-    public static float mmPerInch = 25.4f;
+    public static final float mmPerInch = 25.4f;
     /**
      * The robot class in the op mode
      */
@@ -47,7 +47,7 @@ public class Auto extends LinearOpMode {
      */
     public void initAuto(AllianceColor allianceColor) throws IOException {
         ElapsedTime timer = new ElapsedTime();
-        this.robot =  new Robot(this, timer, allianceColor, true);
+        this.robot =  new Robot(this, hardwareMap, telemetry, timer, allianceColor, gamepad1, gamepad2,true);
     }
 
     /**

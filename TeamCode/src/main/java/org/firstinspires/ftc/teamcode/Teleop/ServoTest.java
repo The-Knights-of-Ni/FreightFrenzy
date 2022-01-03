@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
-import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
@@ -21,7 +19,7 @@ public class ServoTest extends LinearOpMode {
         telemetry.update();
         timer = new ElapsedTime();
 
-        this.robot = new Robot(this, timer, AllianceColor.BLUE, false);
+        this.robot =  new Robot(this, hardwareMap, telemetry, timer, AllianceColor.BLUE, gamepad1, gamepad2,false);
 
         robot.telemetryBroadcast("wait for start", "");
     }

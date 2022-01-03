@@ -64,19 +64,19 @@ public class Drive extends Subsystem {
     /**
      * DC Motor front left
      */
-    public DcMotorEx frontLeft;
+    public final DcMotorEx frontLeft;
     /**
      * DC Motor front right
      */
-    public DcMotorEx frontRight;
+    public final DcMotorEx frontRight;
     /**
      * DC Motor rear left
      */
-    public DcMotorEx rearLeft;
+    public final DcMotorEx rearLeft;
     /**
      * DC Motor rear right
      */
-    public DcMotorEx rearRight;
+    public final DcMotorEx rearRight;
     // use motor encoder for odometry
     /**
      * Odometry Left
@@ -1603,18 +1603,17 @@ public class Drive extends Subsystem {
      */
     private int getTargetTickCount(int tickCount, double speed, double rampTime, double elapsedTime) {
         int targetTick;
-        double tickCountD = tickCount;
         double speedOffset =
                 speed * 0.15; // ramp up and ramp down with this speed offset so that there is no time the
         // speed is close to zero
         double speedExcess = speed - speedOffset;
 
-        if (tickCountD
+        if ((double) tickCount
                 < rampTime
                 * (speed
                 + speedOffset)) { // distance is shorter than a complete ramp up/ramp down cycle
             double halfTime =
-                    (Math.sqrt(speedOffset * speedOffset + 4.0 * tickCountD * speedExcess / rampTime)
+                    (Math.sqrt(speedOffset * speedOffset + 4.0 * (double) tickCount * speedExcess / rampTime)
                             - speedOffset)
                             * rampTime
                             * 0.5
@@ -1632,11 +1631,11 @@ public class Drive extends Subsystem {
             if (elapsedTime < rampTime) { // during ramp up time
                 targetTick =
                         (int) ((0.5 * speedExcess * elapsedTime / rampTime + speedOffset) * elapsedTime);
-            } else if (tickCountD - speedOffset * rampTime
+            } else if ((double) tickCount - speedOffset * rampTime
                     > speed * elapsedTime) { // during constant speed period
                 targetTick = (int) (speed * (elapsedTime - rampTime * 0.5) + 0.5 * rampTime * speedOffset);
             } else { // during ramp down time
-                double remainTime = (tickCountD - speedOffset * rampTime) / speed + rampTime - elapsedTime;
+                double remainTime = ((double) tickCount - speedOffset * rampTime) / speed + rampTime - elapsedTime;
                 targetTick =
                         tickCount
                                 - ((int) ((0.5 * speedExcess * remainTime / rampTime + speedOffset) * remainTime));
@@ -1656,18 +1655,17 @@ public class Drive extends Subsystem {
      */
     private double getTargetSpeed(int tickCount, double speed, double rampTime, double elapsedTime) {
         double targetSpeed;
-        double tickCountD = tickCount;
         double speedOffset =
                 speed * 0.15; // ramp up and ramp down with this speed offset so that there is no time the
         // speed is close to zero
         double speedExcess = speed - speedOffset;
 
-        if (tickCountD
+        if ((double) tickCount
                 < rampTime
                 * (speed
                 + speedOffset)) { // distance is shorter than a complete ramp up/ramp down cycle
             double halfTime =
-                    (Math.sqrt(speedOffset * speedOffset + 4.0 * tickCountD * speedExcess / rampTime)
+                    (Math.sqrt(speedOffset * speedOffset + 4.0 * (double) tickCount * speedExcess / rampTime)
                             - speedOffset)
                             * rampTime
                             * 0.5
@@ -1681,11 +1679,11 @@ public class Drive extends Subsystem {
         } else { // distance is long enough to reach the cruise speed
             if (elapsedTime < rampTime) { // during ramp up time
                 targetSpeed = speedExcess * elapsedTime / rampTime + speedOffset;
-            } else if (tickCountD - speedOffset * rampTime
+            } else if ((double) tickCount - speedOffset * rampTime
                     > speed * elapsedTime) { // during constant speed period
                 targetSpeed = speed;
             } else { // during ramp downtime
-                double remainTime = (tickCountD - speedOffset * rampTime) / speed + rampTime - elapsedTime;
+                double remainTime = ((double) tickCount - speedOffset * rampTime) / speed + rampTime - elapsedTime;
                 targetSpeed = speedExcess * remainTime / rampTime + speedOffset;
             }
         }

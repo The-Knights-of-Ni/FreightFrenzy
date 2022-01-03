@@ -3,10 +3,12 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.Auto.ScoreThread;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class Teleop extends LinearOpMode {
     private void initOpMode() throws IOException {
         // Initialize DC motor objects
         timer = new ElapsedTime();
-        robot = new Robot(this, timer, AllianceColor.BLUE, false);
+        this.robot =  new Robot(this, hardwareMap, telemetry, timer, AllianceColor.BLUE, gamepad1, gamepad2,false);
 
         timeCurrent = timer.nanoseconds();
         timePre = timeCurrent;
@@ -123,14 +125,15 @@ public class Teleop extends LinearOpMode {
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
                 if(isIntakeOn) {
-                    robot.control.setIntakeDirection(false, true);
+                    robot.control.setLidPosition(LidPosition.CLOSED);
+                    robot.control.setSlide(SlideState.TOP);
+                    robot.control.setIntakeDirection(false, false);
                     isIntakeOn = false;
                 }
                 robot.control.setLidPosition(LidPosition.CLOSED);
-                robot.control.setSlide(SlideState.TOP);
             }
 
-            // Toggle slide down
+            // Toggle slide retracted
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.RETRACTED);

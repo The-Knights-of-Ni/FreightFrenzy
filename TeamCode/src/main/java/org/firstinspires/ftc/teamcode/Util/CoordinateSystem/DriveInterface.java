@@ -4,7 +4,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 
 public class DriveInterface {
 
-    Drive drive;
+    final Drive drive;
 
     public DriveInterface(Drive drive) {
         this.drive = drive;

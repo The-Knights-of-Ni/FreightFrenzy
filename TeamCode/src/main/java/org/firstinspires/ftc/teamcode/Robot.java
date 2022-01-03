@@ -1,17 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoImplEx;
+import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Auto.ScoreThread;
@@ -25,7 +19,7 @@ import java.util.List;
 
 public class Robot {
     public String name;
-    public ElapsedTime timer;
+    public final ElapsedTime timer;
     // DC Motors
     public DcMotorEx frontLeftDriveMotor;
     public DcMotorEx frontRightDriveMotor;
@@ -51,7 +45,7 @@ public class Robot {
     /**
      * Control Hub
      *
-     * <p>-------------------- Expansion Hub 2
+     * <p>-------------------- Expansion Hub 2 --------------------
      */
 
     // Sensors
@@ -113,30 +107,29 @@ public class Robot {
     public Drive drive;
     public Control control;
     public Vision vision;
-    private AllianceColor allianceColor;
-    private boolean visionEnabled = false;
+    private final AllianceColor allianceColor;
+    private final boolean visionEnabled;
     private final HardwareMap hardwareMap;
-    private final LinearOpMode opMode;
     private final Telemetry telemetry;
     private final double joystickDeadZone = 0.1;
-
-    //Threads
-    public ScoreThread extend = new ScoreThread(this, Control.PlacementLevel.TOP);
-    public ScoreThread retract = new ScoreThread(this, Control.PlacementLevel.BOTTOM);
+    private final Gamepad gamepad1;
+    private final Gamepad gamepad2;
+    private final LinearOpMode opMode;
 
     /**
      * @param opMode        The op mode
      * @param timer         The elapsed time
      * @param allianceColor the alliance color
-     * @throws IOException {@link Vision} can throw an IOException
      */
-    public Robot(LinearOpMode opMode, ElapsedTime timer, AllianceColor allianceColor, boolean visionEnabled) throws IOException{
-        this.hardwareMap = opMode.hardwareMap;
+    public Robot(LinearOpMode opMode, HardwareMap hardwareMap, Telemetry telemetry, ElapsedTime timer, AllianceColor allianceColor, Gamepad gamepad1, Gamepad gamepad2, boolean visionEnabled) {
         this.opMode = opMode;
+        this.hardwareMap = hardwareMap;
         this.timer = timer;
         this.allianceColor = allianceColor;
         this.visionEnabled = visionEnabled;
-        this.telemetry = opMode.telemetry;
+        this.telemetry = telemetry;
+        this.gamepad1 = gamepad1;
+        this.gamepad2 = gamepad2;
         init();
     }
 
@@ -205,7 +198,7 @@ public class Robot {
 
         if(visionEnabled) {
             telemetryBroadcast("Status", " vision initializing...");
-            vision = new Vision(opMode.telemetry, hardwareMap, timer, allianceColor);
+            vision = new Vision(telemetry, hardwareMap, timer, allianceColor);
         }
 
 
@@ -226,22 +219,22 @@ public class Robot {
         isdPadRightPressedPrev = dPadRight;
         islBumperPressedPrev = bumperLeft;
         isrBumperPressedPrev = bumperRight;
-        leftStickX = joystickDeadzoneCorrection(opMode.gamepad1.left_stick_x);
-        leftStickY = joystickDeadzoneCorrection(-opMode.gamepad1.left_stick_y);
-        rightStickX = joystickDeadzoneCorrection(opMode.gamepad1.right_stick_x);
-        rightStickY = joystickDeadzoneCorrection(opMode.gamepad1.right_stick_y);
-        triggerLeft = opMode.gamepad1.left_trigger;
-        triggerRight = opMode.gamepad1.right_trigger;
-        aButton = opMode.gamepad1.a;
-        bButton = opMode.gamepad1.b;
-        xButton = opMode.gamepad1.x;
-        yButton = opMode.gamepad1.y;
-        dPadUp = opMode.gamepad1.dpad_up;
-        dPadDown = opMode.gamepad1.dpad_down;
-        dPadLeft = opMode.gamepad1.dpad_left;
-        dPadRight = opMode.gamepad1.dpad_right;
-        bumperLeft = opMode.gamepad1.left_bumper;
-        bumperRight = opMode.gamepad1.right_bumper;
+        leftStickX = joystickDeadzoneCorrection(gamepad1.left_stick_x);
+        leftStickY = joystickDeadzoneCorrection(-gamepad1.left_stick_y);
+        rightStickX = joystickDeadzoneCorrection(gamepad1.right_stick_x);
+        rightStickY = joystickDeadzoneCorrection(gamepad1.right_stick_y);
+        triggerLeft = gamepad1.left_trigger;
+        triggerRight = gamepad1.right_trigger;
+        aButton = gamepad1.a;
+        bButton = gamepad1.b;
+        xButton = gamepad1.x;
+        yButton = gamepad1.y;
+        dPadUp = gamepad1.dpad_up;
+        dPadDown = gamepad1.dpad_down;
+        dPadLeft = gamepad1.dpad_left;
+        dPadRight = gamepad1.dpad_right;
+        bumperLeft = gamepad1.left_bumper;
+        bumperRight = gamepad1.right_bumper;
 
         isaButton2PressedPrev = aButton2;
         isbButton2PressedPrev = bButton2;
@@ -253,22 +246,22 @@ public class Robot {
         isdPadRight2PressedPrev = dPadRight2;
         islBumper2PressedPrev = bumperLeft2;
         isrBumper2PressedPrev = bumperRight2;
-        leftStickX2 = joystickDeadzoneCorrection(opMode.gamepad2.left_stick_x);
-        leftStickY2 = joystickDeadzoneCorrection(-opMode.gamepad2.left_stick_y);
-        rightStickX2 = joystickDeadzoneCorrection(opMode.gamepad2.right_stick_x);
-        rightStickY2 = joystickDeadzoneCorrection(-opMode.gamepad2.right_stick_y);
-        triggerLeft2 = opMode.gamepad2.left_trigger;
-        triggerRight2 = opMode.gamepad2.right_trigger;
-        aButton2 = opMode.gamepad2.a;
-        bButton2 = opMode.gamepad2.b;
-        xButton2 = opMode.gamepad2.x;
-        yButton2 = opMode.gamepad2.y;
-        dPadUp2 = opMode.gamepad2.dpad_up;
-        dPadDown2 = opMode.gamepad2.dpad_down;
-        dPadLeft2 = opMode.gamepad2.dpad_left;
-        dPadRight2 = opMode.gamepad2.dpad_right;
-        bumperLeft2 = opMode.gamepad2.left_bumper;
-        bumperRight2 = opMode.gamepad2.right_bumper;
+        leftStickX2 = joystickDeadzoneCorrection(gamepad2.left_stick_x);
+        leftStickY2 = joystickDeadzoneCorrection(-gamepad2.left_stick_y);
+        rightStickX2 = joystickDeadzoneCorrection(gamepad2.right_stick_x);
+        rightStickY2 = joystickDeadzoneCorrection(-gamepad2.right_stick_y);
+        triggerLeft2 = gamepad2.left_trigger;
+        triggerRight2 = gamepad2.right_trigger;
+        aButton2 = gamepad2.a;
+        bButton2 = gamepad2.b;
+        xButton2 = gamepad2.x;
+        yButton2 = gamepad2.y;
+        dPadUp2 = gamepad2.dpad_up;
+        dPadDown2 = gamepad2.dpad_down;
+        dPadLeft2 = gamepad2.dpad_left;
+        dPadRight2 = gamepad2.dpad_right;
+        bumperLeft2 = gamepad2.left_bumper;
+        bumperRight2 = gamepad2.right_bumper;
     }
 
     public double joystickDeadzoneCorrection(double joystickInput) {
