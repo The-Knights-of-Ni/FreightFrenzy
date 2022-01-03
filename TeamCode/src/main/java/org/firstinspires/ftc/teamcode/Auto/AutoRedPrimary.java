@@ -76,7 +76,6 @@ public class AutoRedPrimary extends Auto {
         // Release clamp
         sleep(1000); // delivery point here
         robot.retract.start();
-        robot.control.setSlide(Control.SlideState.MIDDLE); // Can be used instead of multithreading
 
 //        // Move to warehouse
 //        drive.moveBackward(4 * mmPerInch);

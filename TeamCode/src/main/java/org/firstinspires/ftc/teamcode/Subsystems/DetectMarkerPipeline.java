@@ -66,7 +66,11 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         Mat mask = new Mat();
         Imgproc.cvtColor(input, mask, Imgproc.COLOR_RGB2HSV);
 
-        if(mask.empty()) {
+        Rect rectCrop = new Rect(0, 540, 1920, 540);
+        Mat crop = new Mat(mask, rectCrop);
+
+
+        if(crop.empty()) {
             markerLocation = MarkerLocation.NOT_FOUND;
             return input;
         }
@@ -75,7 +79,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         Scalar highHSV = new Scalar(30, 255, 255);
         Mat thresh = new Mat();
 
-        Core.inRange(mask, lowHSV, highHSV, thresh);
+        Core.inRange(crop, lowHSV, highHSV, thresh);
 
         Mat edges = new Mat();
         Imgproc.Canny(thresh, edges, 100, 300);
@@ -94,28 +98,26 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
 //            Imgproc.contourArea(contoursPoly[i]); // TODO Maybe implement contour area check for next tourney
         }
 
-        double left_x = 0.375 * CAMERA_WIDTH;
-        double right_x = 0.625 * CAMERA_WIDTH;
+        double left_x = 0.333 * CAMERA_WIDTH;
+        double right_x = 0.667 * CAMERA_WIDTH;
 
         boolean left = false;
         boolean middle = false;
         boolean right = false;
 
         for(int i = 0; i != boundRect.length; i++) {
-            if(boundRect[i].width > 0.07 * CAMERA_WIDTH && boundRect[i].width < 0.20 * CAMERA_WIDTH) {
-                if (boundRect[i].x + boundRect[i].width < left_x)
-                    left = true;
-                if (left_x <= boundRect[i].x && boundRect[i].x + boundRect[i].width <= right_x)
-                    middle = true;
-                if (right_x < boundRect[i].x)
-                    right = true;
-            }
+            if (boundRect[i].x + boundRect[i].width < left_x)
+                left = true;
+            if (left_x <= boundRect[i].x && boundRect[i].x + boundRect[i].width <= right_x)
+                middle = true;
+            if (right_x < boundRect[i].x)
+                right = true;
         }
         if(left) markerLocation = MarkerLocation.LEFT;
         if(middle) markerLocation = MarkerLocation.MIDDLE;
         if(right) markerLocation = MarkerLocation.RIGHT;
 
-        return edges;
+        return crop;
     }
 
     /**
