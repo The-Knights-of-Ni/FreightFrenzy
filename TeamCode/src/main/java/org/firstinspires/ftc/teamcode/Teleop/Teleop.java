@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.Auto.ScoreThread;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
