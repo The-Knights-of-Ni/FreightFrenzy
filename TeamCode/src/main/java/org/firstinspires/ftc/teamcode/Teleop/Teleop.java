@@ -126,17 +126,17 @@ public class Teleop extends LinearOpMode {
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
                 if(isIntakeOn) {
                     robot.control.setLidPosition(LidPosition.CLOSED);
-                    new ScoreThread(robot, Control.PlacementLevel.TOP).start();
+                    robot.control.setSlide(SlideState.TOP);
                     robot.control.setIntakeDirection(false, false);
                     isIntakeOn = false;
                 }
                 robot.control.setLidPosition(LidPosition.CLOSED);
             }
 
-            // Toggle slide down
+            // Toggle slide retracted
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
-                robot.retract.start();
+                robot.control.setSlide(SlideState.RETRACTED);
                 sleep(4500); //NEEDS TO STAY (and be adjusted, or else lid will get caught on pulley)
                 robot.control.setLidPosition(LidPosition.OPEN);
             }
