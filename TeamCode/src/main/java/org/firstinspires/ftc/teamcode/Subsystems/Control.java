@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
+import android.transition.Slide;
+
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -19,6 +21,7 @@ public class Control extends Subsystem {
     private final DcMotorEx bucket;
     private final DcMotorEx slide;
     private final Servo lid;
+    private SlideState currentSlidePosition;
 
     // Servos
     private final CRServo duckWheel;
@@ -47,10 +50,10 @@ public class Control extends Subsystem {
     }
 
     public enum SlideState {
-        RETRACTED(0, 0.2),
-        BOTTOM(454, 0.2),
-        MIDDLE(753, 0.2),
-        TOP(1279, 0.2);
+        RETRACTED(0, 0.4),
+        BOTTOM(454, 0.25),
+        MIDDLE(753, 0.25),
+        TOP(1279, 0.25);
 
         public final int position;
         public final double power;
@@ -84,6 +87,9 @@ public class Control extends Subsystem {
         this.duckWheel = duckWheel;
         this.lid = lid;
         this.timer = timer;
+
+        // Default for slide position
+        this.currentSlidePosition = SlideState.RETRACTED;
 
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
@@ -130,9 +136,22 @@ public class Control extends Subsystem {
      * @param slideState the position to set the slide. Must be either RETRACTED, BOTTOM, MIDDLE, or TOP.
      */
     public void setSlide(SlideState slideState) {
+        // Check for if programmers set position to the current position of slide smh
+        if (slideState == currentSlidePosition) return;
+        // Check if the target position or current position are retracted
+        if (slideState == SlideState.RETRACTED || currentSlidePosition == SlideState.RETRACTED) {
+            // Move to bottom first with slower speed
+            slide.setPower(currentSlidePosition.power);
+            slide.setTargetPosition(SlideState.BOTTOM.position);
+            slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        }
+        // Move normally
         slide.setPower(slideState.power);
         slide.setTargetPosition(slideState.position);
         slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        // Update current slide position
+        currentSlidePosition = slideState;
     }
 
     /**
