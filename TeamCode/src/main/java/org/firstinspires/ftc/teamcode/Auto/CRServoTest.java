@@ -19,7 +19,7 @@ public class CRServoTest extends LinearOpMode {
         telemetry.update();
         timer = new ElapsedTime();
 
-        this.robot = new Robot(this, timer, AllianceColor.BLUE, false);
+        this.robot =  new Robot(this, hardwareMap, telemetry, timer, AllianceColor.BLUE, gamepad1, gamepad2,true);
 
         telemetry.addData("Wait for start", "");
         telemetry.update();
