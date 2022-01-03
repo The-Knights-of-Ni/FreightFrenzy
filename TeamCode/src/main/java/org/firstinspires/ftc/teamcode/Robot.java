@@ -121,10 +121,8 @@ public class Robot {
     private final double joystickDeadZone = 0.1;
 
     //Threads
-    public ScoreThread extend;
-//    public ScoreThread extendedMiddle;
-//    public ScoreThread extendedLower;
-    public ScoreThread retract;
+    public ScoreThread extend = new ScoreThread(this, Control.PlacementLevel.TOP);
+    public ScoreThread retract = new ScoreThread(this, Control.PlacementLevel.BOTTOM);
 
     /**
      * @param opMode        The op mode
