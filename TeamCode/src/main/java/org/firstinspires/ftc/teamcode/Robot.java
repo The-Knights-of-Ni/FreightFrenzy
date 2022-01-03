@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -21,7 +19,7 @@ import java.util.List;
 
 public class Robot {
     public String name;
-    public ElapsedTime timer;
+    public final ElapsedTime timer;
     // DC Motors
     public DcMotorEx frontLeftDriveMotor;
     public DcMotorEx frontRightDriveMotor;
@@ -109,8 +107,8 @@ public class Robot {
     public Drive drive;
     public Control control;
     public Vision vision;
-    private AllianceColor allianceColor;
-    private boolean visionEnabled;
+    private final AllianceColor allianceColor;
+    private final boolean visionEnabled;
     private final HardwareMap hardwareMap;
     private final Telemetry telemetry;
     private final double joystickDeadZone = 0.1;
@@ -126,9 +124,8 @@ public class Robot {
      * @param opMode        The op mode
      * @param timer         The elapsed time
      * @param allianceColor the alliance color
-     * @throws IOException {@link Vision} can throw an IOException
      */
-    public Robot(LinearOpMode opMode, HardwareMap hardwareMap, Telemetry telemetry, ElapsedTime timer, AllianceColor allianceColor, Gamepad gamepad1, Gamepad gamepad2, boolean visionEnabled) throws IOException{
+    public Robot(LinearOpMode opMode, HardwareMap hardwareMap, Telemetry telemetry, ElapsedTime timer, AllianceColor allianceColor, Gamepad gamepad1, Gamepad gamepad2, boolean visionEnabled) {
         this.opMode = opMode;
         this.hardwareMap = hardwareMap;
         this.timer = timer;
