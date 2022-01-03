@@ -116,10 +116,6 @@ public class Robot {
     private final Gamepad gamepad2;
     private final LinearOpMode opMode;
 
-    //Threads
-    public ScoreThread extend = new ScoreThread(this, Control.PlacementLevel.TOP);
-    public ScoreThread retract = new ScoreThread(this, Control.PlacementLevel.BOTTOM);
-
     /**
      * @param opMode        The op mode
      * @param timer         The elapsed time
