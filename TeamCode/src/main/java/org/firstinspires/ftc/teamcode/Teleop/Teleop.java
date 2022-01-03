@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.Auto.ScoreThread;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
@@ -123,17 +125,18 @@ public class Teleop extends LinearOpMode {
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
                 if(isIntakeOn) {
-                    robot.control.setIntakeDirection(false, true);
+                    robot.control.setLidPosition(LidPosition.CLOSED);
+                    new ScoreThread(robot, Control.PlacementLevel.TOP).start();
+                    robot.control.setIntakeDirection(false, false);
                     isIntakeOn = false;
                 }
                 robot.control.setLidPosition(LidPosition.CLOSED);
-                robot.control.setSlide(SlideState.TOP);
             }
 
             // Toggle slide down
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
-                robot.control.setSlide(SlideState.RETRACTED);
+                robot.retract.start();
                 sleep(4500); //NEEDS TO STAY (and be adjusted, or else lid will get caught on pulley)
                 robot.control.setLidPosition(LidPosition.OPEN);
             }
