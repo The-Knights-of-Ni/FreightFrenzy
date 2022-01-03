@@ -134,7 +134,7 @@ public class Teleop extends LinearOpMode {
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.RETRACTED);
-                sleep(4500); //NEEDS TO STAY (and be adjusted) or else lid will get caught on pulley)
+                sleep(4500); //NEEDS TO STAY (and be adjusted, or else lid will get caught on pulley)
                 robot.control.setLidPosition(LidPosition.OPEN);
             }
 

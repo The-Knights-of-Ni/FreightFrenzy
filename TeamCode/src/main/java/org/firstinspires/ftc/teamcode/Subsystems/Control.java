@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -161,6 +159,12 @@ public class Control extends Subsystem {
     public void stopCarousel() {
         duckWheel.set(0);
     }
+
+    /**
+     * Servo test/position calibrator method.
+     * @param servo the servo to be tested/modified.
+     * @param value the interval at which to adjust the position.
+     */
 
     public void modifyServo(Servo servo, double value) {
         double currentValue = servo.getPosition();
