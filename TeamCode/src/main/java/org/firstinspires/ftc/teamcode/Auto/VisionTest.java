@@ -19,7 +19,7 @@ public class VisionTest extends LinearOpMode {
         telemetry.update();
         timer = new ElapsedTime();
 
-        this.robot = new Robot(this, timer, AllianceColor.BLUE, true);
+        this.robot =  new Robot(this, hardwareMap, telemetry, timer, AllianceColor.BLUE, gamepad1, gamepad2,true);
 
         robot.telemetryBroadcast("Wait for start", "");
 
