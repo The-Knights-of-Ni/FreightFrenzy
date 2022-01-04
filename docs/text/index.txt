@@ -1,10 +1,10 @@
-Welcome to The Knights of Ni's Freight Frenzy Game Robot's Manual!
+Welcome to The Knights of Ni’s Freight Frenzy Game Robot’s Manual!
 ******************************************************************
 
 If you are looking to see what a game pad key does or how to configure
 the robot, look at the quickstart guide. If there are errors with the
 code, look at the common errors page. If you want detailed instruction
-on how to use the robot take a look at Configuration and Game Pad.
+on how to use the robot take a look at Game Pad.
 
 
 Contents
@@ -12,15 +12,7 @@ Contents
 
 * Quickstart
 
-  * Game Pad Mapping
-
-  * Robot Configuration
-
-* Configuration
-
-  * Main Configuration
-
-  * Vision Configuration
+  * Building the Code
 
 * Game Pad
 
@@ -33,6 +25,10 @@ Contents
   * Out of Memory error
 
   * Java 1.8 Error
+
+  * The Marker is not Detected
+
+* Robot Placement
 
 
 Indices and tables

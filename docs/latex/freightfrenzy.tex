@@ -60,7 +60,7 @@
 
 
 \title{Freight Frenzy}
-\date{Dec 30, 2021}
+\date{Jan 03, 2022}
 \release{0.0.0\sphinxhyphen{}alpha}
 \author{The Knights of Ni}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -79,7 +79,7 @@
 \sphinxAtStartPar
 If you are looking to see what a game pad key does or how to configure the robot, look at the quickstart guide.
 If there are errors with the code, look at the common errors page. If you want detailed instruction on how to use the
-robot take a look at {\hyperref[\detokenize{configuration::doc}]{\sphinxcrossref{\DUrole{doc}{Configuration}}}} and {\hyperref[\detokenize{game_pad::doc}]{\sphinxcrossref{\DUrole{doc}{Game Pad}}}}.
+robot take a look at {\hyperref[\detokenize{game_pad::doc}]{\sphinxcrossref{\DUrole{doc}{Game Pad}}}}.
 
 
 \chapter{Contents}
@@ -87,99 +87,51 @@ robot take a look at {\hyperref[\detokenize{configuration::doc}]{\sphinxcrossref
 
 \section{Quickstart}
 \label{\detokenize{quickstart:quickstart}}\label{\detokenize{quickstart::doc}}
-\sphinxAtStartPar
-This guide will help you quickstart the robot.
 
-
-\subsection{Game Pad Mapping}
-\label{\detokenize{quickstart:game-pad-mapping}}
+\subsection{Building the Code}
+\label{\detokenize{quickstart:building-the-code}}
 \sphinxAtStartPar
-To start the robot press the Start key, and then the A key.
+This guide will help you configure the IDE/Environment.
 
 \sphinxAtStartPar
-Joystick 1 \sphinxhyphen{} Up and down are forwards and backwards. Left and right strafe.
+External Tools:
+\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+Android Studio
+
+\item {} 
+\sphinxAtStartPar
+Gradle
+
+\item {} 
+\sphinxAtStartPar
+Android SDK 29
+
+\item {} 
+\sphinxAtStartPar
+Intellj (Optional)
+
+\end{enumerate}
 
 \sphinxAtStartPar
-X, Y \sphinxhyphen{} Duck wheel with direction
-
+To Build the code:
+\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
 \sphinxAtStartPar
-A, B \sphinxhyphen{} Intake motor with direction
+Build the gradle project
 
-
-\subsection{Robot Configuration}
-\label{\detokenize{quickstart:robot-configuration}}
+\item {} 
 \sphinxAtStartPar
-Most of the configuration of the robot in done in \sphinxcode{\sphinxupquote{/teamcode/org/ftc/firstinspires/teamcode/Config/MainConfig.java}}
+Use adb to connect to the robot
 
-
-\section{Configuration}
-\label{\detokenize{configuration:configuration}}\label{\detokenize{configuration::doc}}
+\item {} 
 \sphinxAtStartPar
-This discusses the configuration files (in \sphinxcode{\sphinxupquote{/teamcode/org/ftc/firstinspires/teamcode/Config/}}) that you might have to edit, the others do not have to be edited.
+Run the code
 
-
-\subsection{Main Configuration}
-\label{\detokenize{configuration:main-configuration}}
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{name}} \sphinxhyphen{} The robot’s name
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{version}} \sphinxhyphen{} The robot’s version
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{allianceColor}} \sphinxhyphen{} The alliance color, it’s either AllianceColor.BLUE or AllianceColor.RED.
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{debug}} \sphinxhyphen{} Either true or false, at the current moment it does not do anything
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{debugTarget}} \sphinxhyphen{} “none” means no target enter a file path to debug a file enter a folder path to debug a folder, “*” means
-debug all
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{logLevel}} \sphinxhyphen{} 0 is quiet, the maximum is 5.
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{initSubsystems}} \sphinxhyphen{} Whether to initialize the subsystems, it might break stuff if it is false.
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{initSubsystemControl}} \sphinxhyphen{} Whether to initialize control (It might crash).
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{initSubsystemDrive}} \sphinxhyphen{} Whether to initialize drive.
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{initSubsystemVision}} \sphinxhyphen{} Whether to initialize vision.
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{initMechanical}} \sphinxhyphen{} Set to false if you don’t want to init Mechanical stuff
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{initGetGamePadInputs}} \sphinxhyphen{} Set to false if you are not using the game pad.
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{initHardwareMap}} \sphinxhyphen{} Set to false if you do not want to init the hardware map.
-
-
-\subsection{Vision Configuration}
-\label{\detokenize{configuration:vision-configuration}}
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{CAMERA\_WIDTH}} \sphinxhyphen{} the width of the wanted camera resolution
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{CAMERA\_HEIGHT}} \sphinxhyphen{} the height of the wanted camera resolution
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{HORIZON}} \sphinxhyphen{} the horizon value to tune
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{WEBCAM\_NAME}} \sphinxhyphen{} the name of the webcam
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{VUFORIA\_KEY}} \sphinxhyphen{} The Vuforia Key
-
-\sphinxAtStartPar
-\sphinxcode{\sphinxupquote{finalMarkerLocation}} \sphinxhyphen{} Where the marker is
+\end{enumerate}
 
 
 \section{Game Pad}
@@ -222,6 +174,18 @@ Try to compile again, if that fails increase java vm size, using \sphinxcode{\sp
 \label{\detokenize{common_errors:java-1-8-error}}
 \sphinxAtStartPar
 Follow the suggested steps, start by checking you android studio preferences.
+
+
+\subsection{The Marker is not Detected}
+\label{\detokenize{common_errors:the-marker-is-not-detected}}
+\sphinxAtStartPar
+Check the robot position and check the biggest.
+
+
+\section{Robot Placement}
+\label{\detokenize{robot_placement:robot-placement}}\label{\detokenize{robot_placement::doc}}
+\sphinxAtStartPar
+Place the robot so that it touches the wall and the camera is aligned with the middle tape.
 
 
 \chapter{Indices and tables}
