@@ -21,6 +21,9 @@ public class Teleop extends LinearOpMode {
     ElapsedTime timer;
     private Robot robot;
     private double robotAngle;
+
+    private boolean driveHighPower = true;
+
     private boolean isIntakeOn = false;
     private boolean isDuckOn = false;
     private boolean isBucketLevel = false;
@@ -83,8 +86,12 @@ public class Teleop extends LinearOpMode {
             // Robot drive movement
             double[] motorPowers;
             robotAngle = robot.imu.getAngularOrientation().firstAngle;
-            motorPowers =
-                    robot.drive.calcMotorPowers(robot.leftStickX, robot.leftStickY, robot.rightStickX);
+            if (driveHighPower) {
+                motorPowers = robot.drive.calcMotorPowers(robot.leftStickX, robot.leftStickY, robot.rightStickX);
+            }
+            else {
+                motorPowers = robot.drive.calcMotorPowers(robot.leftStickX*0.5, robot.leftStickY*0.5, robot.rightStickX*0.5);
+            }
             robot.drive.setDrivePowers(motorPowers);
 
             // Toggle intake regular
@@ -119,6 +126,16 @@ public class Teleop extends LinearOpMode {
                     robot.control.setIntakeDirection(true, false);
                     robot.control.setBucketState(BucketState.LEVEL);
                     isBucketLevel = true;
+                }
+            }
+
+            //Toggle drive power
+            if (robot.yButton && !robot.isyButtonPressedPrev){
+                if(driveHighPower) {
+                    driveHighPower = false;
+                }
+                else{
+                    driveHighPower = true;
                 }
             }
 
