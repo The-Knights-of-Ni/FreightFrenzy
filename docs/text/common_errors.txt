@@ -14,3 +14,9 @@ Java 1.8 Error
 
 Follow the suggested steps, start by checking you android studio
 preferences.
+
+
+The Marker is not Detected
+==========================
+
+Check the robot position and check the biggest.

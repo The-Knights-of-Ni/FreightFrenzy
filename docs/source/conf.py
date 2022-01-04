@@ -23,7 +23,7 @@ author = 'The Knights of Ni'
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.0-alpha'
-
+version = '0.0'
 
 # -- General configuration ---------------------------------------------------
 
@@ -52,7 +52,7 @@ html_theme = 'alabaster'
 html_theme_options = {
     'logo': 'logo.png',
     'logo_name': 'true',
-    'description': 'The Knights of Ni, Freight Frenzy',
+    'description': 'The Freight Frenzy Robot, by The Knights of Ni',
     'github_user': 'The-Knights-of-Ni',
     'github_repo': 'FreightFrenzy',
     'github_button': 'true',

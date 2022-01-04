@@ -1,23 +1,19 @@
 Quickstart
 ===========
 
-This guide will help you quickstart the robot.
-
-Game Pad Mapping
-________________
-
-To start the robot press the Start key, and then the A key.
-
-Joystick 1 - Up and down are forwards and backwards. Left and right strafe.
-
-X, Y - Duck wheel with direction
-
-A, B - Intake motor with direction
-
-Robot Configuration
+Building the Code
 ___________________
+This guide will help you configure the IDE/Environment.
 
-Most of the configuration of the robot in done in ``/teamcode/org/ftc/firstinspires/teamcode/Config/MainConfig.java``
+External Tools:
 
+1. Android Studio
+2. Gradle
+3. Android SDK 29
+4. Intellj (Optional)
 
+To Build the code:
 
+1. Build the gradle project
+2. Use adb to connect to the robot
+3. Run the code
