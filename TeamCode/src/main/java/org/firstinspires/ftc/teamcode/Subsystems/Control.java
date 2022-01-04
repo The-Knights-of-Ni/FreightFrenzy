@@ -51,7 +51,7 @@ public class Control extends Subsystem {
         RETRACTED(0, 0.25),
         BOTTOM(527, 0.2),
         MIDDLE(784, 0.2),
-        TOP(1310, 0.2);
+        TOP(1300, 0.2);
 
         public final int position;
         public final double power;
