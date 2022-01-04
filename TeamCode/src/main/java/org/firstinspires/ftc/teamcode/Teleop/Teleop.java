@@ -124,13 +124,12 @@ public class Teleop extends LinearOpMode {
 
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
+                robot.control.setLidPosition(LidPosition.CLOSED);
+                robot.control.setSlide(SlideState.TOP);
                 if(isIntakeOn) {
-                    robot.control.setLidPosition(LidPosition.CLOSED);
-                    robot.control.setSlide(SlideState.TOP);
                     robot.control.setIntakeDirection(false, false);
                     isIntakeOn = false;
                 }
-                robot.control.setLidPosition(LidPosition.CLOSED);
             }
 
             // Toggle slide retracted

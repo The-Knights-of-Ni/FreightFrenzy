@@ -56,8 +56,9 @@ public class AutoRedPrimary extends Auto {
 
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
+        robot.control.setLidPosition(Control.LidPosition.CLOSED);
         drive.moveForward(3 * mmPerInch);
-        drive.turnRobotByTick(-85); //TODO adjust this back to 90 once robot is heavier
+        drive.turnRobotByTick(-80); //TODO adjust this back to 90 once robot is heavier
         drive.moveBackward(24.5 * mmPerInch);
 
         // Deliver Duck
@@ -81,26 +82,26 @@ public class AutoRedPrimary extends Auto {
                 adjustment = 4;
                 break;
             case TOP:
-                adjustment = 6;
+                adjustment = 4;
                 break;
         }
-        drive.moveForward((12 + adjustment) * mmPerInch); //TODO adjust this constant
+        drive.moveForward((15 + adjustment) * mmPerInch); //TODO adjust this constant
 
 
         // Release clamp
         robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
         sleep(1000);
 
-//        robot.retract.start();
-//
-//        // Move to warehouse
-//        drive.moveBackward(4 * mmPerInch);
-//        sleep(10000);
-//        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
-//        drive.moveLeft(20 * mmPerInch);
-//        robot.control.setIntakeDirection(true, false);
-//        drive.moveBackward(56 * mmPerInch);
-//        robot.control.setIntakeDirection(false, false);
+        // Move back to warehouse
+        drive.moveBackward(4 * mmPerInch);
+        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
+        robot.control.setLidPosition(Control.LidPosition.CLOSED);
+        robot.control.setSlide(Control.SlideState.RETRACTED);
+        drive.moveLeft((24 - adjustment) * mmPerInch);
+
+        robot.control.setIntakeDirection(true, false);
+        drive.moveBackward(56 * mmPerInch);
+        robot.control.setIntakeDirection(false, false);
 
         telemetry.addLine("Done");
         telemetry.update();

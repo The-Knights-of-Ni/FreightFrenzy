@@ -107,7 +107,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
 
         for(int i = 0; i != boundRect.length; i++) {
             int midpoint = boundRect[i].x + boundRect[i].width/2;
-            if (boundRect[i].x + boundRect[i].width < left_x)
+            if (midpoint < left_x)
                 left = true;
             if (left_x <= midpoint && midpoint <= right_x)
                 middle = true;
@@ -118,7 +118,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         if(middle) markerLocation = MarkerLocation.MIDDLE;
         if(right) markerLocation = MarkerLocation.RIGHT;
 
-        return edges;
+        return thresh;
     }
 
     /**

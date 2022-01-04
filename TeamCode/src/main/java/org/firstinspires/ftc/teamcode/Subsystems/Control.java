@@ -48,10 +48,10 @@ public class Control extends Subsystem {
     }
 
     public enum SlideState {
-        RETRACTED(0, 0.25),
-        BOTTOM(527, 0.2),
-        MIDDLE(784, 0.2),
-        TOP(1300, 0.2);
+        RETRACTED(-10, 0.3),
+        BOTTOM(-502, 0.4),
+        MIDDLE(-784, 0.4),
+        TOP(-1315, 0.4);
 
         public final int position;
         public final double power;
@@ -64,7 +64,7 @@ public class Control extends Subsystem {
 
     public enum LidPosition {
         CLOSED(0.75),
-        DEPLOYED(0.6),
+        DEPLOYED(0.65 ),
         OPEN(0.5);
 
         public final double position;
