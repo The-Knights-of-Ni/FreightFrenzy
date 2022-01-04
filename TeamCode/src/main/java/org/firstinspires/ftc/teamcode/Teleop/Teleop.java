@@ -122,19 +122,6 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-//            // Toggle bucket down-level
-//            if (robot.yButton && !robot.isxButtonPressedPrev) {
-//                if (isBucketLevel) {
-//                    robot.control.setIntakeDirection(true, true);
-//                    robot.control.setBucketState(BucketState.FLOOR);
-//                    isBucketLevel = false;
-//                } else {
-//                    robot.control.setIntakeDirection(true, false);
-//                    robot.control.setBucketState(BucketState.LEVEL);
-//                    isBucketLevel = true;
-//                }
-//            }
-
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
