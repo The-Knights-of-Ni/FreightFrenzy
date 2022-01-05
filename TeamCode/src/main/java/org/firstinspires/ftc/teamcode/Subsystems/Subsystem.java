@@ -11,7 +11,7 @@ public abstract class Subsystem {
     // protected instead of private because of inheritance
     protected Telemetry telemetry;
     protected ElapsedTime timer;
-    protected HardwareMap hardwareMap;
+    protected final HardwareMap hardwareMap;
 
     /**
      * inits with telemetry, the hardware map, and the timer.

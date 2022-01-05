@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
 
 public class ScoreThread extends Thread{
     private final Robot robot;
-    PlacementLevel placementLevel;
+    private final PlacementLevel placementLevel;
 
     public ScoreThread(Robot robot, PlacementLevel placementLevel) {
         this.robot = robot;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class IniFile extends org.firstinspires.ftc.teamcode.Util.FileParser.File {
 
-    ArrayList<ArrayList<String>> parseResult = new ArrayList<>(1);
+    private final ArrayList<ArrayList<String>> parseResult = new ArrayList<>(1);
 
     public IniFile(String path) {
         super();
