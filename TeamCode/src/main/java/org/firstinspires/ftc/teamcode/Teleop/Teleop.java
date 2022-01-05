@@ -21,9 +21,13 @@ public class Teleop extends LinearOpMode {
     ElapsedTime timer;
     private Robot robot;
     private double robotAngle;
+
+    private boolean driveHighPower = true;
+
     private boolean isIntakeOn = false;
     private boolean isDuckOn = false;
     private boolean isBucketLevel = false;
+    private boolean isSlideUp = false;
 
     private void initOpMode() throws IOException {
         // Initialize DC motor objects
@@ -83,8 +87,12 @@ public class Teleop extends LinearOpMode {
             // Robot drive movement
             double[] motorPowers;
             robotAngle = robot.imu.getAngularOrientation().firstAngle;
-            motorPowers =
-                    robot.drive.calcMotorPowers(robot.leftStickX, robot.leftStickY, robot.rightStickX);
+            if (driveHighPower) {
+                motorPowers = robot.drive.calcMotorPowers(robot.leftStickX, robot.leftStickY, robot.rightStickX);
+            }
+            else {
+                motorPowers = robot.drive.calcMotorPowers(robot.leftStickX*0.5, robot.leftStickY*0.5, robot.rightStickX*0.5);
+            }
             robot.drive.setDrivePowers(motorPowers);
 
             // Toggle intake regular
@@ -113,31 +121,45 @@ public class Teleop extends LinearOpMode {
             if (robot.xButton && !robot.isxButtonPressedPrev) {
                 if (isBucketLevel) {
                     robot.control.setIntakeDirection(true, true);
+                    isIntakeOn = true;
                     robot.control.setBucketState(BucketState.RAISED);
                     isBucketLevel = false;
                 } else {
                     robot.control.setIntakeDirection(true, false);
+                    isIntakeOn = true;
                     robot.control.setBucketState(BucketState.LEVEL);
                     isBucketLevel = true;
                 }
             }
 
+            //Toggle drive power
+            if (robot.yButton && !robot.isyButtonPressedPrev){
+                if(driveHighPower) {
+                    driveHighPower = false;
+                }
+                else{
+                    driveHighPower = true;
+                }
+            }
+
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
+                robot.control.setLidPosition(LidPosition.CLOSED);
+                robot.control.setSlide(SlideState.TOP);
                 if(isIntakeOn) {
-                    robot.control.setLidPosition(LidPosition.CLOSED);
-                    robot.control.setSlide(SlideState.TOP);
                     robot.control.setIntakeDirection(false, false);
                     isIntakeOn = false;
                 }
-                robot.control.setLidPosition(LidPosition.CLOSED);
+                isSlideUp = true;
             }
 
             // Toggle slide retracted
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.RETRACTED);
-                sleep(4500); //NEEDS TO STAY (and be adjusted, or else lid will get caught on pulley)
+                isSlideUp = false;
+            }
+            if(robot.control.isSlideRetracted() && !isSlideUp) {
                 robot.control.setLidPosition(LidPosition.OPEN);
             }
 
