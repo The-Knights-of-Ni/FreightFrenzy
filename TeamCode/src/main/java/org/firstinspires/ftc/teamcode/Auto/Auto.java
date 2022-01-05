@@ -48,6 +48,8 @@ public class Auto extends LinearOpMode {
     public void initAuto(AllianceColor allianceColor) throws IOException {
         ElapsedTime timer = new ElapsedTime();
         this.robot =  new Robot(this, hardwareMap, telemetry, timer, allianceColor, gamepad1, gamepad2,true);
+        telemetry.addData("Waiting for start", "");
+        telemetry.update();
     }
 
     /**
