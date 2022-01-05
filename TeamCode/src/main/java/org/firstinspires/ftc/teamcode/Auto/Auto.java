@@ -43,15 +43,18 @@ public class Auto extends LinearOpMode {
     /**
      * Inits the robot class and sets the robot as the newly inited robot.
      * @param allianceColor The alliance color
-     * @throws IOException The robot might throw a {@link IOException} because of vision.
      */
     public void initAuto(AllianceColor allianceColor) {
         ElapsedTime timer = new ElapsedTime();
         try {
-            this.robot = new Robot(this, hardwareMap, telemetry, timer, allianceColor, gamepad1, gamepad2, true);
+            this.robot = new Robot(this, hardwareMap, telemetry, timer, allianceColor, gamepad1, gamepad2,
+                    true);
+            telemetry.addData("Waiting for start", "");
+            telemetry.update();
         } catch (Exception ioException) {
             telemetry.addData("ERROR: ", "IO EXCEPTION", ioException);
             telemetry.update();
+            stop();
         }
     }
 

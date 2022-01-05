@@ -155,6 +155,14 @@ public class Teleop extends LinearOpMode {
 
             // Toggle slide retracted
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
+                // Set bucket level first if it's not
+                if(!isBucketLevel) {
+                    robot.control.setIntakeDirection(true, false);
+                    isIntakeOn = true;
+                    robot.control.setBucketState(BucketState.LEVEL);
+                    isBucketLevel = true;
+                }
+
                 robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.RETRACTED);
                 isSlideUp = false;

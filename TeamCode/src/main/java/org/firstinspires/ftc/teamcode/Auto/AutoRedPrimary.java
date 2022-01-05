@@ -49,11 +49,11 @@ public class AutoRedPrimary extends Auto {
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         drive.moveForward(3 * mmPerInch);
         drive.turnRobotByTick(-80); //TODO adjust this back to 90 once robot is heavier
-        drive.moveBackward(24.5 * mmPerInch);
+        drive.moveBackward(24.8 * mmPerInch);
 
         // Deliver Duck
         robot.control.startCarousel(false);
-        sleep(3800);
+        sleep(3500);
         robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
@@ -63,7 +63,7 @@ public class AutoRedPrimary extends Auto {
         drive.moveForward(48 * mmPerInch);
         drive.turnRobotByTick(85); //TODO adjust this back to 90 once robot is heavier
 
-        int adjustment = 0;
+        double adjustment = 0;
         switch(placementLevel) {
             case BOTTOM:
                 adjustment = 2;
@@ -85,7 +85,7 @@ public class AutoRedPrimary extends Auto {
         drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.control.setSlide(Control.SlideState.RETRACTED);
-        drive.moveLeft((24 - adjustment) * mmPerInch);
+        drive.moveLeft((23.5 - adjustment) * mmPerInch);
 
         robot.control.setIntakeDirection(true, false);
         drive.moveBackward(56 * mmPerInch);
