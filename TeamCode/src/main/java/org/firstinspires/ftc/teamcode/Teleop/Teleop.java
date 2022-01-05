@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.Auto.ScoreThread;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
@@ -134,12 +132,7 @@ public class Teleop extends LinearOpMode {
 
             //Toggle drive power
             if (robot.yButton && !robot.isyButtonPressedPrev){
-                if(driveHighPower) {
-                    driveHighPower = false;
-                }
-                else{
-                    driveHighPower = true;
-                }
+                driveHighPower = !driveHighPower;
             }
 
             // Toggle slide up

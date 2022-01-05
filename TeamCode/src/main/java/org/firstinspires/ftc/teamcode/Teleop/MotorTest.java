@@ -8,17 +8,14 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 @TeleOp(name = "Motor Position Test")
 public class MotorTest extends LinearOpMode {
 
-    private DcMotorEx bucket;
-    private DcMotorEx slide;
-
     @Override
     public void runOpMode() {
 
-        bucket = (DcMotorEx) hardwareMap.dcMotor.get("bucket");
+        DcMotorEx bucket = (DcMotorEx) hardwareMap.dcMotor.get("bucket");
         bucket.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bucket.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
-        slide = (DcMotorEx) hardwareMap.dcMotor.get("slide");
+        DcMotorEx slide = (DcMotorEx) hardwareMap.dcMotor.get("slide");
         slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slide.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 

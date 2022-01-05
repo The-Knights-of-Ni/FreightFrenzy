@@ -77,17 +77,13 @@ public class Vision extends Subsystem {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         this.allianceColor = allianceColor;
-
-        // viewportContainerIds =
-        // OpenCvCameraFactory.getInstance().splitLayoutForMultipleViewports(cameraMonitorViewId, 1,
-        // OpenCvCameraFactory.ViewportSplitMethod.HORIZONTALLY);
         telemetry.addLine("Vision init started");
         telemetry.update();
 
         // Create camera instances for the detection pipeline
         initDetectionPipeline();
 
-        // Tewemetwy
+        // Telemetry
         telemetry.addLine("Vision init complete");
         telemetry.update();
     }

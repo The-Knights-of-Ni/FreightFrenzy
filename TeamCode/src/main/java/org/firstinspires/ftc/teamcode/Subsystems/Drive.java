@@ -138,9 +138,9 @@ public class Drive extends Subsystem {
         this.frontRight = frontRight;
         this.rearLeft = rearLeft;
         this.rearRight = rearRight;
-        this.odL = odL;
-        this.odB = odB;
-        this.odR = odR;
+//        this.odL = odL;
+//        this.odB = odB;
+//        this.odR = odR;
         this.imu = imu;
         this.timer = timer;
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -286,29 +286,6 @@ public class Drive extends Subsystem {
     }
 
     /**
-     * robot only move in forward/backward/left/right directions
-     *
-     * @param leftStickX  the x of the left stick
-     * @param leftStickY  the y of the left stick
-     * @param rightStickX the x of the right stick
-     * @return the power of all the motors
-     */
-    public double[] calcMotorPowers2(double leftStickX, double leftStickY, double rightStickX) {
-        if (Math.abs(leftStickX) >= Math.abs((leftStickY))) {
-            leftStickY = 0;
-        } else {
-            leftStickX = 0;
-        }
-        double r = Math.hypot(leftStickX, leftStickY);
-        double robotAngle = Math.atan2(leftStickY, leftStickX) - Math.PI / 4;
-        double lrPower = r * Math.sin(robotAngle) + rightStickX;
-        double lfPower = r * Math.cos(robotAngle) + rightStickX;
-        double rrPower = r * Math.cos(robotAngle) - rightStickX;
-        double rfPower = r * Math.sin(robotAngle) - rightStickX;
-        return new double[]{lfPower, rfPower, lrPower, rrPower};
-    }
-
-    /**
      * Sets the drive power
      *
      * @param power the power to set the motors to
@@ -440,7 +417,6 @@ public class Drive extends Subsystem {
         // Display it for the driver.
 //        telemetry.addData("turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
 //        telemetry.update();
-        //        opMode.sleep(100);
     }
 
     /**
@@ -494,7 +470,6 @@ public class Drive extends Subsystem {
         // Display it for the driver.
         telemetry.addData("turnRobot", "turn to %7.2f degrees", robotCurrentAngle);
         telemetry.update();
-        //        opMode.sleep(100);
     }
 
     public double getYaw() {
@@ -596,9 +571,7 @@ public class Drive extends Subsystem {
         double angleScale = Math.abs(targetPositionX) + Math.abs(targetPositionY);
         double lrPower = motorPower * (-targetPositionX + targetPositionY) / angleScale;
         double lfPower = motorPower * (targetPositionX + targetPositionY) / angleScale;
-        double rrPower = motorPower * (targetPositionX + targetPositionY) / angleScale;
-        double rfPower = motorPower * (-targetPositionX + targetPositionY) / angleScale;
-        return new double[]{lrPower, lfPower, rrPower, rfPower};
+        return new double[]{lrPower, lfPower, lfPower, lrPower}; // rrPower=lfPower and rfPower=lrPower
     }
 
     public void moveToPosABS(double targetPositionX, double targetPositionY) {
@@ -706,8 +679,6 @@ public class Drive extends Subsystem {
         if (odometryCountB * ODOMETRY_mm_PER_COUNT < -25.0) {
             moveRight(-odometryCountB * ODOMETRY_mm_PER_COUNT);
         }
-        //        sleep(1000);
-        //        sleep(100);
     }
 
     /**
@@ -746,7 +717,6 @@ public class Drive extends Subsystem {
 //        telemetry.addData(
 //                "moveForward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
 //        telemetry.update();
-        //        sleep(100);
     }
 
     /**
@@ -816,8 +786,6 @@ public class Drive extends Subsystem {
         if (odometryCountB * ODOMETRY_mm_PER_COUNT < -25.0) {
             moveRight(-odometryCountB * ODOMETRY_mm_PER_COUNT);
         }
-        //        sleep(1000);
-        //        sleep(100);
     }
 
     /**
@@ -856,7 +824,6 @@ public class Drive extends Subsystem {
 //        telemetry.addData(
 //                "moveBackward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
 //        telemetry.update();
-        //        sleep(100);
     }
 
     /**
@@ -927,8 +894,6 @@ public class Drive extends Subsystem {
         if (offsetY * ODOMETRY_mm_PER_COUNT < -25.0) {
             moveForward(-offsetY * ODOMETRY_mm_PER_COUNT);
         }
-        //        sleep(1000);
-        //        sleep(100);
     }
 
     /**
@@ -1038,8 +1003,6 @@ public class Drive extends Subsystem {
         if (offsetY * ODOMETRY_mm_PER_COUNT < -25.0) {
             moveForward(-offsetY * ODOMETRY_mm_PER_COUNT);
         }
-        //        sleep(1000);
-        //        sleep(100);
     }
 
     /**

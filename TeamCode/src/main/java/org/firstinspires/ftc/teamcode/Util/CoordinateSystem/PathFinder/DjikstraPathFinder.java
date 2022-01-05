@@ -68,9 +68,8 @@ public class DjikstraPathFinder {
     // To process all the neighbours
     // of the passed node
     private void e_Neighbours(int u) {
-
-        int edgeDistance = -1;
-        int newDistance = -1;
+        int edgeDistance;
+        int newDistance;
 
         // All the neighbors of v
         for (int i = 0; i < adj.get(u).size(); i++) {
@@ -155,10 +154,7 @@ class NodeDjikstra implements Comparator<NodeDjikstra> {
     @Override
     public int compare(NodeDjikstra node1, NodeDjikstra node2) {
 
-        if (node1.cost < node2.cost) return -1;
+        return Integer.compare(node1.cost, node2.cost);
 
-        if (node1.cost > node2.cost) return 1;
-
-        return 0;
     }
 }

@@ -9,8 +9,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
-import java.io.IOException;
-
 /**
  * Auto creates a robots and runs it in auto mode.
  *

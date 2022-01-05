@@ -70,4 +70,30 @@ public class Coordinate {
         possible[7] = new Coordinate((this.x - 1), (this.y - 1));
         return possible;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Coordinate that = (Coordinate) o;
+
+        if (x != that.x) return false;
+        if (y != that.y) return false;
+        if (Double.compare(that.g, g) != 0) return false;
+        return Double.compare(that.h, h) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = x;
+        result = 31 * result + y;
+        temp = Double.doubleToLongBits(g);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(h);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
