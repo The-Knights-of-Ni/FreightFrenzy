@@ -84,8 +84,6 @@ public class Control extends Subsystem {
         this.slide = slide;
         this.duckWheel = duckWheel;
         this.lid = lid;
-        this.timer = timer;
-
         // Default for slide position
         this.currentSlidePosition = SlideState.RETRACTED;
 

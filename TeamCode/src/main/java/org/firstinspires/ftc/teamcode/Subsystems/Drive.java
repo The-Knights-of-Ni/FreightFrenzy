@@ -142,7 +142,6 @@ public class Drive extends Subsystem {
 //        this.odB = odB;
 //        this.odR = odR;
         this.imu = imu;
-        this.timer = timer;
         setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
