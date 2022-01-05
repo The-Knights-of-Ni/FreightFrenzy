@@ -66,3 +66,5 @@ html_static_path = ['_static']
 
 # EPUB options
 epub_show_urls = 'footnote'
+
+needs_sphinx = '3.4'
