@@ -105,7 +105,5 @@ public class AutoRedPrimary extends Auto {
 
         telemetry.addLine("Done");
         telemetry.update();
-
-        // MAKE SURE TO END THREADS
     }
 }
