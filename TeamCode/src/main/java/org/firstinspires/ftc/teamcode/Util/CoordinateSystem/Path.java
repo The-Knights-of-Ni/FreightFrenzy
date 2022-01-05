@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Util.CoordinateSystem.PathFinder.PathFinde
 import java.util.ArrayList;
 
 public class Path {
-    ArrayList<Coordinate> path;
+    final ArrayList<Coordinate> path;
     ArrayList<Move> moves;
 
     public Path() {

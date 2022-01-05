@@ -24,7 +24,4 @@ public abstract class Subsystem {
         this.hardwareMap = hardwareMap;
         this.timer = timer;
     }
-
-    public void init() {
-    }
 }

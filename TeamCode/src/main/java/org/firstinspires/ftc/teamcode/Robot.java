@@ -202,10 +202,6 @@ public class Robot {
 
     }
 
-    public void initServosAuto() {
-        // code here
-    }
-
     public void getGamePadInputs() {
         isaButtonPressedPrev = aButton;
         isbButtonPressedPrev = bButton;

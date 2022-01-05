@@ -4,7 +4,7 @@ import org.firstinspires.ftc.teamcode.Util.CoordinateSystem.Coordinate;
 
 // Node class for convenience
 public class Node extends Coordinate implements Comparable<Node> {
-    public Node parent;
+    public final Node parent;
 
     public Node(Node parent, int xPos, int yPos, double g, double h) {
         super(xPos, yPos, g, h);
