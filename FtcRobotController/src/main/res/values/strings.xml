@@ -43,8 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <!-- Menu -->
   <string name="inspection_mode_menu_item">Self Inspect</string>
   <string name="program_and_manage_menu_item">Program &amp; Manage</string>
-  <string name="blocks_menu_item">Blocks</string>
-  <string name="settings_menu_item">Settings</string>
+    <string name="settings_menu_item">Settings</string>
   <string name="restart_robot_menu_item">Restart Robot</string>
   <string name="configure_robot_menu_item">Configure Robot</string>
   <string name="about_menu_item">About</string>

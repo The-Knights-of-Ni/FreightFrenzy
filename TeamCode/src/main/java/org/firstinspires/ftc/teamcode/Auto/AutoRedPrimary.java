@@ -7,8 +7,6 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
-import java.io.IOException;
-
 /**
  * Auto creates a robots and runs it in auto mode. This auto class is for when we are on the red
  * alliance.
@@ -36,20 +34,12 @@ public class AutoRedPrimary extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
-        try {
-            initAuto(AllianceColor.RED);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        assert robot != null;
-
+        initAuto(AllianceColor.RED);
+        PlacementLevel placementLevel = getHubLevel();
         waitForStart();
         Drive drive = robot.drive;
 
-        PlacementLevel placementLevel = getHubLevel();
-
-        if(placementLevel != PlacementLevel.NOT_FOUND) {
+        if (placementLevel != PlacementLevel.NOT_FOUND) {
             telemetry.addData("Level", placementLevel);
             telemetry.update();
         }
@@ -79,8 +69,6 @@ public class AutoRedPrimary extends Auto {
                 adjustment = 2;
                 break;
             case MIDDLE:
-                adjustment = 4;
-                break;
             case TOP:
                 adjustment = 4;
                 break;

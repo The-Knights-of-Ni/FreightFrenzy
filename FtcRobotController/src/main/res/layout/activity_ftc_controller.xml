@@ -88,7 +88,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   <RelativeLayout
     android:background="@color/background_very_light_grey"
-    android:id="@+id/RelativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
@@ -133,16 +132,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/cameraMonitorViewId"
-            android:visibility="gone"
+                android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
             />
         <FrameLayout
-            android:id="@+id/tfodMonitorViewId"
-            android:visibility="gone"
+                android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

@@ -1,12 +1,11 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
-
-import java.io.IOException;
 
 /**
  * Auto Blue Primary creates a robots and runs it in auto mode. This auto class is for when we are on the blue and are
@@ -33,26 +32,19 @@ public class AutoBluePrimary extends Auto {
      */
     @Override
     public void runOpMode() throws InterruptedException {
-        try {
-            initAuto(AllianceColor.BLUE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        assert robot != null;
-
+        initAuto(AllianceColor.BLUE);
         PlacementLevel placementLevel = getHubLevel();
-
         waitForStart();
         Drive drive = robot.drive;
 
-        if(placementLevel != PlacementLevel.NOT_FOUND) {
+        if (placementLevel != PlacementLevel.NOT_FOUND) {
             telemetry.addData("Level", placementLevel);
             telemetry.update();
         }
 
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
+        robot.control.setLidPosition(Control.LidPosition.CLOSED);
         drive.moveForward(3 * mmPerInch);
         drive.moveRight(20 * mmPerInch);
 

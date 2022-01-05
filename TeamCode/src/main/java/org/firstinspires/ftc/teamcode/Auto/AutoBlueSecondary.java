@@ -5,22 +5,12 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
-import java.io.IOException;
-
 @Autonomous(name = "Auto Blue Secondary", group = "Auto Blue")
 public class AutoBlueSecondary extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {
-        try {
-            initAuto(AllianceColor.BLUE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        assert robot != null;
-
+        initAuto(AllianceColor.BLUE);
         PlacementLevel placementLevel = getHubLevel();
-
         waitForStart();
         Drive drive = robot.drive;
 
