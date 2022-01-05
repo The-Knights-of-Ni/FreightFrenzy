@@ -49,9 +49,9 @@ public class Control extends Subsystem {
 
     public enum SlideState {
         RETRACTED(-10, 0.3),
-        BOTTOM(-502, 0.4),
-        MIDDLE(-784, 0.4),
-        TOP(-1315, 0.4);
+        BOTTOM(-502, 0.5),
+        MIDDLE(-784, 0.5),
+        TOP(-1315, 0.5);
 
         public final int position;
         public final double power;
@@ -63,8 +63,8 @@ public class Control extends Subsystem {
     }
 
     public enum LidPosition {
-        CLOSED(0.75),
-        DEPLOYED(0.65 ),
+        CLOSED(0.8),
+        DEPLOYED(0.65),
         OPEN(0.5);
 
         public final double position;
@@ -138,7 +138,7 @@ public class Control extends Subsystem {
         if (slideState == currentSlidePosition) return;
         // Check if the target position or current position are retracted
         if (slideState == SlideState.RETRACTED || currentSlidePosition == SlideState.RETRACTED) {
-            // Move to bottom first with slower speed
+            // Move to bottom first with programmable speed
             slide.setPower(currentSlidePosition.power);
             slide.setTargetPosition(SlideState.BOTTOM.position);
             slide.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -182,12 +182,18 @@ public class Control extends Subsystem {
      * @param servo the servo to be tested/modified.
      * @param value the interval at which to adjust the position.
      */
-
     public void modifyServo(Servo servo, double value) {
         double currentValue = servo.getPosition();
         currentValue = currentValue + value;
         if (currentValue > 1.0) currentValue = 1.0;
         if (currentValue < 0.0) currentValue = 0.0;
         servo.setPosition(currentValue);
+    }
+
+    /**
+     * Checks if the slide is retracted (helper method for higher level classes)
+     */
+    public boolean isSlideRetracted() {
+        return Math.abs(slide.getCurrentPosition() - SlideState.RETRACTED.position) <= 3;
     }
 }

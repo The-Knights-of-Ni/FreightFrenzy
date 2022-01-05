@@ -27,6 +27,7 @@ public class Teleop extends LinearOpMode {
     private boolean isIntakeOn = false;
     private boolean isDuckOn = false;
     private boolean isBucketLevel = false;
+    private boolean isSlideUp = false;
 
     private void initOpMode() throws IOException {
         // Initialize DC motor objects
@@ -120,10 +121,12 @@ public class Teleop extends LinearOpMode {
             if (robot.xButton && !robot.isxButtonPressedPrev) {
                 if (isBucketLevel) {
                     robot.control.setIntakeDirection(true, true);
+                    isIntakeOn = true;
                     robot.control.setBucketState(BucketState.RAISED);
                     isBucketLevel = false;
                 } else {
                     robot.control.setIntakeDirection(true, false);
+                    isIntakeOn = true;
                     robot.control.setBucketState(BucketState.LEVEL);
                     isBucketLevel = true;
                 }
@@ -147,13 +150,16 @@ public class Teleop extends LinearOpMode {
                     robot.control.setIntakeDirection(false, false);
                     isIntakeOn = false;
                 }
+                isSlideUp = true;
             }
 
             // Toggle slide retracted
             if (robot.bButton2 && !robot.isbButton2PressedPrev) {
                 robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.RETRACTED);
-                sleep(4500); //NEEDS TO STAY (and be adjusted, or else lid will get caught on pulley)
+                isSlideUp = false;
+            }
+            if(robot.control.isSlideRetracted() && !isSlideUp) {
                 robot.control.setLidPosition(LidPosition.OPEN);
             }
 
