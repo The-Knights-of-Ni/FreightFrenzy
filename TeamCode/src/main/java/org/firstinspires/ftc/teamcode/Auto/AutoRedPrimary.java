@@ -63,7 +63,7 @@ public class AutoRedPrimary extends Auto {
         drive.moveForward(48 * mmPerInch);
         drive.turnRobotByTick(85); //TODO adjust this back to 90 once robot is heavier
 
-        double adjustment = 0;
+        int adjustment = 0;
         switch(placementLevel) {
             case BOTTOM:
                 adjustment = 2;

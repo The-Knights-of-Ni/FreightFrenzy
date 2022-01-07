@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp(name = "Motor Position Test")
 public class MotorTest extends LinearOpMode {
-
     @Override
     public void runOpMode() {
 
