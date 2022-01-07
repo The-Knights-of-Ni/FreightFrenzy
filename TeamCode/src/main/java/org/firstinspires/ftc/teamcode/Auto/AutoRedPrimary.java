@@ -73,7 +73,7 @@ public class AutoRedPrimary extends Auto {
                 adjustment = 4;
                 break;
         }
-        drive.moveForward((15 + adjustment) * mmPerInch); //TODO adjust this constant
+        drive.moveForward((12 + adjustment) * mmPerInch); //TODO adjust this constant
 
 
         // Release clamp
