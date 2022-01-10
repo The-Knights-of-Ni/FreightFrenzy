@@ -137,8 +137,11 @@ public class Teleop extends LinearOpMode {
 
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
-                robot.control.setIntakeDirection(true, false);
-                robot.control.setBucketState(BucketState.LEVEL);
+                if(!isBucketLevel) {
+                    robot.control.setIntakeDirection(true, false);
+                    robot.control.setBucketState(BucketState.LEVEL);
+                    isBucketLevel = true;
+                }
                 robot.control.setLidPosition(LidPosition.CLOSED);
                 robot.control.setSlide(SlideState.TOP);
                 isSlideUp = true;
@@ -160,6 +163,14 @@ public class Teleop extends LinearOpMode {
             }
             if(robot.control.isSlideRetracted() && !isSlideUp) {
                 robot.control.setLidPosition(LidPosition.OPEN);
+            } else {
+                // Toggle lid deployed/closed
+                if(robot.bumperLeft2 && !robot.islBumper2PressedPrev && isSlideUp) {
+                    robot.control.setLidPosition(LidPosition.CLOSED);
+                }
+                if(robot.bumperRight2 && !robot.isrBumper2PressedPrev && isSlideUp) {
+                    robot.control.setLidPosition(LidPosition.DEPLOYED);
+                }
             }
 
             // Toggle duck wheel forward
@@ -183,15 +194,6 @@ public class Teleop extends LinearOpMode {
                     isDuckOn = true;
                 }
             }
-
-            // Toggle lid deployed/closed
-            if(robot.bumperLeft2 && !robot.islBumper2PressedPrev) {
-                robot.control.setLidPosition(LidPosition.CLOSED);
-            }
-            if(robot.bumperRight2 && !robot.isrBumper2PressedPrev) {
-                robot.control.setLidPosition(LidPosition.DEPLOYED);
-            }
-
             // TODO: Claw extend and retract (for marker)
         }
     }
