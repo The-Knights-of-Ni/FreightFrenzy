@@ -46,28 +46,53 @@ public class AutoBluePrimary extends Auto {
         robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         drive.moveForward(3 * mmPerInch);
-        drive.moveRight(20 * mmPerInch);
+        drive.turnRobotByTick(-80); //TODO adjust this back to 90 once robot is heavier
+        drive.moveBackward(24.8 * mmPerInch);
 
         // Deliver Duck
-        robot.control.startCarousel(true);
-        sleep(3800);
+        robot.control.startCarousel(false);
+        sleep(3500);
         robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
-//        ScoreThread place = new ScoreThread(robot, placementLevel);
-//        place.run();
-//        drive.moveLeft(48 * mmPerInch);
-//        drive.moveForward(9 * mmPerInch);
-//
-//        // Release clamp
-//        sleep(1000); // delivery point here
-//
-//        // Move to warehouse
-//        drive.moveBackward(4 * mmPerInch);
-//        drive.turnRobotByTick(-80);
-//        drive.moveRight(20 * mmPerInch);
-//        robot.control.setIntakeDirection(true, false);
-//        drive.moveBackward(56 * mmPerInch);
-//        robot.control.setIntakeDirection(false, false);
+        new ScoreThread(robot, placementLevel).start();
+//        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
+
+        drive.moveForward(48 * mmPerInch);
+        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
+
+        double adjustment = 0;
+        switch(placementLevel) {
+            case BOTTOM:
+                adjustment = 2.5;
+                break;
+            case MIDDLE:
+            case TOP:
+                adjustment = 4;
+                break;
+        }
+        drive.moveForward((12 + adjustment) * mmPerInch); //TODO adjust this constant
+
+
+        // Release clamp
+        robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
+        sleep(1000);
+
+        // Move back to warehouse
+        drive.moveBackward(4 * mmPerInch);
+        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
+        robot.control.setLidPosition(Control.LidPosition.CLOSED);
+        robot.control.setSlide(Control.SlideState.RETRACTED);
+        drive.moveLeft((25 - adjustment) * mmPerInch);
+        robot.control.setIntakeDirection(true, false);
+        drive.moveBackward(56 * mmPerInch);
+
+        // Ready devices for teleop
+        robot.control.setIntakeDirection(false, false);
+        robot.control.setBucketState(BucketState.FLOOR);
+        sleep(2000);
+
+        telemetry.addLine("Done");
+        telemetry.update();
     }
 }
