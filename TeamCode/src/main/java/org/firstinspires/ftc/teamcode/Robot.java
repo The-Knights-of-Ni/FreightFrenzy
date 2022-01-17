@@ -171,7 +171,7 @@ public class Robot {
 
         // Sensors
         imu = hardwareMap.get(BNO055IMU.class, "imu");
-        loadSensor = hardwareMap.get(DistanceSensor.class, "load");
+//        loadSensor = hardwareMap.get(DistanceSensor.class, "load");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;

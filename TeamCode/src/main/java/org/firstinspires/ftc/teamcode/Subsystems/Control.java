@@ -27,7 +27,7 @@ public class Control extends Subsystem {
     private final CRServo duckWheel;
 
     // Sensors
-    private final DistanceSensor loadSensor;
+//    private final DistanceSensor loadSensor;
 
     /**
      * Enums stores the semantic position of each motor along with motor constants in ticks when relevant
@@ -91,7 +91,7 @@ public class Control extends Subsystem {
         this.slide = slide;
         this.duckWheel = duckWheel;
         this.lid = lid;
-        this.loadSensor = loadSensor;
+//        this.loadSensor = loadSensor;
 
         // Default for slide position
         this.currentSlidePosition = SlideState.RETRACTED;
@@ -207,8 +207,8 @@ public class Control extends Subsystem {
     /**
      * Checks if the (initial) bucket is currently holding freight
      */
-    public boolean isLoaded() {
-        double BUCKET_WIDTH = 0; // TODO find out what this is
-        return loadSensor.getDistance(DistanceUnit.CM) < BUCKET_WIDTH;
-    }
+//    public boolean isLoaded() {
+//        double BUCKET_WIDTH = 0; // TODO find out what this is
+//        return loadSensor.getDistance(DistanceUnit.CM) < BUCKET_WIDTH;
+//    }
 }

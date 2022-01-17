@@ -5,9 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Subsystems.Control;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
@@ -17,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
  *
  * <p>Auto currently just initializes the Robot as Auto.runOpMode() is empty.
  *
- * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+ * @see LinearOpMode
  */
 
 // Tasks:
@@ -25,8 +22,8 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 // Deliver freight to hub (6)
 // - deliver freight to corresponding level of custom element (20)
 // Park in warehouse (10)
-@Autonomous(name = "DriveConfigTest", group = "Concept")
-public class DriveConfigTest extends LinearOpMode {
+@Autonomous(name = "DriveConfigTest Turn", group = "Concept")
+public class DriveConfigTestturn extends LinearOpMode {
     private Robot robot;
     public static final float mmPerInch = 25.4f;
 
@@ -37,7 +34,7 @@ public class DriveConfigTest extends LinearOpMode {
      * needs to be terminated early.
      *
      * @throws InterruptedException Thrown when the op mode needs to be terminated early.
-     * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+     * @see LinearOpMode
      */
     @Override
     public void runOpMode() throws InterruptedException {
@@ -47,7 +44,7 @@ public class DriveConfigTest extends LinearOpMode {
         waitForStart();
         Drive drive = robot.drive;
 
-        drive.moveLeft(12*mmPerInch);
+        drive.turnRobotByTick(90);
 
         telemetry.addLine("Done");
         telemetry.update();
