@@ -36,9 +36,9 @@ public class Drive extends Subsystem {
     private static final double WHEEL_DIAMETER_MM = 100.0;
     private static final double COUNTS_PER_INCH =
             (TICKS_PER_MOTOR_REV_20 * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
-    private static final double COUNTS_CORRECTION_X = 1.167;
+    private static final double COUNTS_CORRECTION_X = 1.150;
     private static final double COUNTS_CORRECTION_Y = 0.9918;
-    private static final double COUNTS_PER_DEGREE = 10.833 * 0.99; // 975 ticks per 90 degrees
+    private static final double COUNTS_PER_DEGREE = 10; // 900 ticks per 90 degrees
     /**
      * Default drive speed
      */
@@ -58,12 +58,12 @@ public class Drive extends Subsystem {
     private static final double mmPerInch = 25.4;
     private static boolean driveFullPower = false;
     //OLD CONSTANTS
-//    private static final double motorKp = 0.015;
-//    private static final double motorKi = 0.02;
-//    private static final double motorKd = 0.0003;
-    private static final double motorKp = 0.008;
-    private static final double motorKi = 0;
+    private static final double motorKp = 0.015;
+    private static final double motorKi = 0.02;
     private static final double motorKd = 0.0003;
+//    private static final double motorKp = 0.008;
+//    private static final double motorKi = 0;
+//    private static final double motorKd = 0.0003;
     private static final double motorRampTime = 0.3;
     /**
      * DC Motor front left
