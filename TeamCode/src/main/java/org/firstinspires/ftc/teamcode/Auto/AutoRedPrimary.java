@@ -90,8 +90,8 @@ public class AutoRedPrimary extends Auto {
         drive.moveBackward(56 * mmPerInch);
         robot.control.setIntakeDirection(true, true);
         sleep(1000);
-        scoreForwardCycle(adjustment);
-        scoreReverseCycle(adjustment);
+        scoreForwardCycle();
+        scoreReverseCycle();
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);

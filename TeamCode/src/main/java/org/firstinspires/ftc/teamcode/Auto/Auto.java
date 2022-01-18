@@ -94,18 +94,18 @@ public class Auto extends LinearOpMode {
      * @see com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
      */
 
-    public void scoreForwardCycle(double adjustment) {
+    public void scoreForwardCycle() {
         robot.control.setIntakeDirection(false, false);
         robot.drive.moveBackward(56*mmPerInch);
         robot.drive.moveLeft(5*mmPerInch);
         robot.drive.turnRobotByTick(-90);
         new ScoreThread(robot, PlacementLevel.TOP).start();
-        robot.drive.moveForward((10 + adjustment)*mmPerInch);
+        robot.drive.moveForward(12*mmPerInch);
         robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
     }
 
-    public void scoreReverseCycle(double adjustment) {
-        robot.drive.moveBackward((10 + adjustment)*mmPerInch);
+    public void scoreReverseCycle() {
+        robot.drive.moveBackward(12*mmPerInch);
         robot.control.setSlide(Control.SlideState.RETRACTED);
         robot.drive.turnRobotByTick(90);
         robot.drive.moveLeft(5*mmPerInch);
