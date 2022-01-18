@@ -86,8 +86,12 @@ public class AutoRedPrimary extends Auto {
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.control.setSlide(Control.SlideState.RETRACTED);
         drive.moveLeft((25 - adjustment) * mmPerInch);
-        robot.control.setIntakeDirection(true, false);
+//        robot.control.setIntakeDirection(true, false);
         drive.moveBackward(56 * mmPerInch);
+        robot.control.setIntakeDirection(true, true);
+        sleep(1000);
+        scoreForwardCycle(adjustment);
+        scoreReverseCycle(adjustment);
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
