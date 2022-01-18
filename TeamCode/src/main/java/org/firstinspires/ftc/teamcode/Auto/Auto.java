@@ -110,7 +110,7 @@ public class Auto extends LinearOpMode {
         robot.control.setSlide(Control.SlideState.RETRACTED);
         robot.drive.turnRobotByTick(90);
         robot.drive.moveLeft(5*mmPerInch);
-        robot.drive.moveForward(56*mmPerInch);
+        robot.drive.moveBackward(56*mmPerInch);
     }
 
 
