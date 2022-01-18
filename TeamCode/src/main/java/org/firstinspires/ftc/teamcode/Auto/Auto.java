@@ -96,19 +96,19 @@ public class Auto extends LinearOpMode {
 
     public void scoreForwardCycle() {
         robot.control.setIntakeDirection(false, false);
-        robot.drive.moveBackward(56*mmPerInch);
-        robot.drive.moveLeft(5*mmPerInch);
-        robot.drive.turnRobotByTick(-90);
+        robot.drive.moveForward(56*mmPerInch);
+        robot.drive.moveRight(5*mmPerInch);
+        robot.drive.turnRobotByTick(90);
         new ScoreThread(robot, PlacementLevel.TOP).start();
         robot.drive.moveForward(12*mmPerInch);
         robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
     }
 
     public void scoreReverseCycle() {
-        robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.drive.moveBackward(12*mmPerInch);
+        robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.control.setSlide(Control.SlideState.RETRACTED);
-        robot.drive.turnRobotByTick(90);
+        robot.drive.turnRobotByTick(-90);
         robot.drive.moveLeft(5*mmPerInch);
         robot.drive.moveBackward(56*mmPerInch);
     }
