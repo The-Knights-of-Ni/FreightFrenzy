@@ -105,6 +105,7 @@ public class Auto extends LinearOpMode {
     }
 
     public void scoreReverseCycle() {
+        robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.drive.moveBackward(12*mmPerInch);
         robot.control.setSlide(Control.SlideState.RETRACTED);
         robot.drive.turnRobotByTick(90);
