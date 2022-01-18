@@ -57,13 +57,9 @@ public class Drive extends Subsystem {
      */
     private static final double mmPerInch = 25.4;
     private static boolean driveFullPower = false;
-    //OLD CONSTANTS
     private static final double motorKp = 0.015;
     private static final double motorKi = 0.02;
     private static final double motorKd = 0.0003;
-//    private static final double motorKp = 0.008;
-//    private static final double motorKi = 0;
-//    private static final double motorKd = 0.0003;
     private static final double motorRampTime = 0.3;
     /**
      * DC Motor front left
