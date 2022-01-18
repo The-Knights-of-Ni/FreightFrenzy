@@ -49,7 +49,7 @@ public class AutoRedPrimary extends Auto {
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         drive.moveForward(3 * mmPerInch);
         drive.turnRobotByTick(-90);
-        drive.moveBackward(24.8 * mmPerInch);
+        drive.moveBackward(24.25 * mmPerInch);
 
         // Deliver Duck
         robot.control.startCarousel(false);
