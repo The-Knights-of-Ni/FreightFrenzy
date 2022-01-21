@@ -42,7 +42,7 @@ public class Control extends Subsystem {
     public enum BucketState {
         FLOOR(0, 0.2),
         LEVEL(-5, 0.3),
-        RAISED(-92, 0.3);
+        RAISED(-98, 0.3);
 
         public final double power;
         public final int position;
@@ -54,7 +54,7 @@ public class Control extends Subsystem {
     }
 
     public enum SlideState {
-        RETRACTED(10, 0.3),
+        RETRACTED(10, 0.5),
         BOTTOM(475, 0.5),
         MIDDLE(700, 0.5),
         TOP(1250, 0.5);

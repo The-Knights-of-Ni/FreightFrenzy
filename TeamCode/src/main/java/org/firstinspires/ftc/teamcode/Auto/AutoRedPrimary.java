@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import org.firstinspires.ftc.teamcode.Subsystems.Control;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.*;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
@@ -46,14 +44,14 @@ public class AutoRedPrimary extends Auto {
 
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
-        robot.control.setLidPosition(Control.LidPosition.CLOSED);
+        robot.control.setLidPosition(LidPosition.CLOSED);
         drive.moveForward(3 * mmPerInch);
         drive.turnRobotByTick(-90);
         robot.control.startCarousel(false);
         drive.moveBackward(24.25 * mmPerInch);
 
         // Deliver Duck
-        sleep(3500);
+        sleep(2500);
         robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
@@ -70,24 +68,28 @@ public class AutoRedPrimary extends Auto {
                 break;
             case MIDDLE:
             case TOP:
-                adjustment = 4;
+                adjustment = 5;
                 break;
         }
         drive.moveForward((12 + adjustment) * mmPerInch);
 
 
         // Release clamp
-        robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
+        robot.control.setLidPosition(LidPosition.DEPLOYED);
         sleep(1000);
 
         // Move back to warehouse
         drive.moveBackward(4 * mmPerInch);
         drive.turnRobotByTick(90);
-        robot.control.setLidPosition(Control.LidPosition.CLOSED);
-        robot.control.setSlide(Control.SlideState.RETRACTED);
+        robot.control.setLidPosition(LidPosition.CLOSED);
+        robot.control.setSlide(SlideState.RETRACTED);
         drive.moveLeft((25 - adjustment) * mmPerInch);
-        robot.control.setIntakeDirection(true, false);
-        drive.moveBackward(56 * mmPerInch);
+        robot.control.setIntakeDirection(true, true);
+        robot.drive.moveBackward(60 * mmPerInch);
+        robot.control.setLidPosition(LidPosition.OPEN);
+
+        forwardCycle(0);
+        backCycle(0);
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
@@ -96,5 +98,30 @@ public class AutoRedPrimary extends Auto {
 
         telemetry.addLine("Done");
         telemetry.update();
+    }
+
+    public void backCycle(int i) {
+        robot.drive.moveBackward(4 * mmPerInch);
+        robot.drive.turnRobotByTick(90);
+        robot.control.setLidPosition(LidPosition.CLOSED);
+        robot.drive.moveLeft((21) * mmPerInch);
+        robot.control.setSlide(SlideState.RETRACTED);
+        robot.control.setIntakeDirection(true, true);
+        robot.drive.moveBackward((60 + i * 4) * mmPerInch);
+        robot.control.setLidPosition(LidPosition.OPEN);
+
+    }
+    public void forwardCycle(int i) {
+        robot.control.setBucketState(BucketState.RAISED);
+        robot.drive.moveForward((60 + i * 4)*mmPerInch);
+        robot.drive.moveRight(4*mmPerInch);
+        robot.control.setLidPosition(LidPosition.CLOSED);
+        robot.control.setSlide(SlideState.TOP);
+        robot.control.setIntakeDirection(true, false);
+        robot.control.setBucketState(BucketState.LEVEL);
+        robot.drive.turnRobotByTick(-90);
+        robot.control.setIntakeDirection(false, false);
+        robot.drive.moveForward(18*mmPerInch);
+        robot.control.setLidPosition(LidPosition.DEPLOYED);
     }
 }
