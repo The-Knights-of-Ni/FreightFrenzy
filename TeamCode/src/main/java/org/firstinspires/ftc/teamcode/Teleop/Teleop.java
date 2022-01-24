@@ -180,7 +180,7 @@ public class Teleop extends LinearOpMode {
                     isDuckOn = false;
                 } else {
                     robot.control.startCarousel(true);
-                    isDuckOn = true;
+                    isDuckOn = true;ik
                 }
             }
 
