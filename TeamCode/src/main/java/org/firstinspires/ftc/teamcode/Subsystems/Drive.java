@@ -378,7 +378,7 @@ public class Drive extends Subsystem {
      *
      * @param angle The angle to turn by.
      */
-    public void turnRobotByTick(double angle) {
+    public void turnByAngle(double angle) {
         if (angle > 0.0) {
             allMotorPIDControl(
                     (int) (angle * COUNTS_PER_DEGREE),
@@ -454,7 +454,7 @@ public class Drive extends Subsystem {
 
     /**
      * Turns the robot by the specified angle.
-     *
+     * 
      * @param degrees The angle to turn by.
      */
     public void turnRobot(double degrees) {
@@ -473,15 +473,6 @@ public class Drive extends Subsystem {
 
     public double getYaw() {
         return imu.getAngularOrientation().firstAngle;
-    }
-
-    /**
-     * Turn the robot by the specified angle.
-     *
-     * @param turnAngle The angle to turn by.
-     */
-    public void turnByAngle(double turnAngle) {
-        turnRobotByTick(turnAngle);
     }
 
     /**
