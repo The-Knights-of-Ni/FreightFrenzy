@@ -46,7 +46,7 @@ public class AutoRedPrimary extends Auto {
         robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(LidPosition.CLOSED);
         drive.moveForward(3 * mmPerInch);
-        drive.turnRobotByTick(-90);
+        drive.turnByAngle(-90);
         robot.control.startCarousel(false);
         drive.moveBackward(24.25 * mmPerInch);
 
@@ -59,7 +59,7 @@ public class AutoRedPrimary extends Auto {
 //        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
 
         drive.moveForward(48 * mmPerInch);
-        drive.turnRobotByTick(90);
+        drive.turnByAngle(90);
 
         double adjustment = 0;
         switch(placementLevel) {
@@ -80,7 +80,7 @@ public class AutoRedPrimary extends Auto {
 
         // Move back to warehouse
         drive.moveBackward(4 * mmPerInch);
-        drive.turnRobotByTick(90);
+        drive.turnByAngle(90);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
         drive.moveLeft((25 - adjustment) * mmPerInch);
@@ -104,7 +104,7 @@ public class AutoRedPrimary extends Auto {
 
     public void backCycle(int i) {
         robot.drive.moveBackward(4 * mmPerInch);
-        robot.drive.turnRobotByTick(90);
+        robot.drive.turnByAngle(90);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.drive.moveLeft((21) * mmPerInch);
         robot.control.setSlide(SlideState.RETRACTED);
@@ -121,7 +121,7 @@ public class AutoRedPrimary extends Auto {
         robot.control.setSlide(SlideState.TOP);
         robot.control.setIntakeDirection(true, false);
         robot.control.setBucketState(BucketState.LEVEL);
-        robot.drive.turnRobotByTick(-90);
+        robot.drive.turnByAngle(-90);
         robot.control.setIntakeDirection(false, false);
         robot.drive.moveForward(18*mmPerInch);
         robot.control.setLidPosition(LidPosition.DEPLOYED);

@@ -376,7 +376,7 @@ public class Drive extends Subsystem {
      * Turns the robot by the specified angle, ticks and angles are equivalent. Use this method to turn the robot instead
      * of {@link #turnByTick(double, double)}
      *
-     * @param angle The angle to turn by.
+     * @param angle The angle to turn by. Positive corresponds to counterclockwise
      */
     public void turnByAngle(double angle) {
         if (angle > 0.0) {
@@ -419,7 +419,7 @@ public class Drive extends Subsystem {
     }
 
     /**
-     * Turns the robot by tick. Use {@link #turnRobotByTick(double)}
+     * Turns the robot by tick. Use {@link #turnByAngle(double)}
      *
      * @param power the motor power
      * @param angle the angle in ticks
@@ -653,7 +653,7 @@ public class Drive extends Subsystem {
                         * ODOMETRY_mm_PER_COUNT
                         * (180.0 / 3.14159265)
                         / ODOMETRY_RADIUS_X;
-        turnRobotByTick(-angleError);
+        turnByAngle(-angleError);
         updateOdometry();
         telemetry.addData("correction angle", " %7.2f", -angleError);
         telemetry.addData(
@@ -760,7 +760,7 @@ public class Drive extends Subsystem {
                         * ODOMETRY_mm_PER_COUNT
                         * (180.0 / 3.14159265)
                         / ODOMETRY_RADIUS_X;
-        turnRobotByTick(-angleError);
+        turnByAngle(-angleError);
         updateOdometry();
         telemetry.addData("correction angle", " %7.2f", -angleError);
         telemetry.addData(
@@ -867,7 +867,7 @@ public class Drive extends Subsystem {
                         * ODOMETRY_mm_PER_COUNT
                         * (180.0 / 3.14159265)
                         / ODOMETRY_RADIUS_X;
-        turnRobotByTick(-angleError);
+        turnByAngle(-angleError);
         updateOdometry();
         telemetry.addData("correction angle", " %7.2f", -angleError);
         telemetry.addData(
@@ -976,7 +976,7 @@ public class Drive extends Subsystem {
                         * ODOMETRY_mm_PER_COUNT
                         * (180.0 / 3.14159265)
                         / ODOMETRY_RADIUS_X;
-        turnRobotByTick(-angleError);
+        turnByAngle(-angleError);
         updateOdometry();
         telemetry.addData("correction angle", " %7.2f", -angleError);
         telemetry.addData(
