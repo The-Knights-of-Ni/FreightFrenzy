@@ -46,7 +46,7 @@ public class AutoBluePrimary extends Auto {
         robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         drive.moveForward(3 * mmPerInch);
-        drive.turnRobotByTick(-80); //TODO adjust this back to 90 once robot is heavier
+        drive.turnByAngle(-80); //TODO adjust this back to 90 once robot is heavier
         drive.moveBackward(24.8 * mmPerInch);
 
         // Deliver Duck
@@ -59,7 +59,7 @@ public class AutoBluePrimary extends Auto {
 //        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
 
         drive.moveForward(48 * mmPerInch);
-        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
+        drive.turnByAngle(80); //TODO adjust this back to 90 once robot is heavier
 
         double adjustment = 0;
         switch(placementLevel) {
@@ -80,7 +80,7 @@ public class AutoBluePrimary extends Auto {
 
         // Move back to warehouse
         drive.moveBackward(4 * mmPerInch);
-        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
+        drive.turnByAngle(80); //TODO adjust this back to 90 once robot is heavier
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.control.setSlide(Control.SlideState.RETRACTED);
         drive.moveLeft((25 - adjustment) * mmPerInch);
