@@ -40,9 +40,8 @@ public class Control extends Subsystem {
     }
 
     public enum BucketState {
-        FLOOR(0, 0.2),
-        LEVEL(-5, 0.3),
-        RAISED(-98, 0.4);
+        LEVEL(0, 0.2),
+        RAISED(-92, 0.35);
 
         public final double power;
         public final int position;

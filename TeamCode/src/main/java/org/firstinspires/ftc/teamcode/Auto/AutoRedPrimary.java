@@ -94,7 +94,7 @@ public class AutoRedPrimary extends Auto {
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
-        robot.control.setBucketState(BucketState.FLOOR);
+        robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(LidPosition.OPEN);
         sleep(3000);
 
@@ -111,6 +111,8 @@ public class AutoRedPrimary extends Auto {
         robot.control.setIntakeDirection(true, true);
         robot.drive.moveBackward((60 + i * 4) * mmPerInch);
         robot.control.setLidPosition(LidPosition.OPEN);
+
+
 
     }
     public void forwardCycle(int i) {

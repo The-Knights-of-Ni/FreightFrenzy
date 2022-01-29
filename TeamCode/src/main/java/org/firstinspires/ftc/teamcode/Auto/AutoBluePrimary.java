@@ -89,7 +89,7 @@ public class AutoBluePrimary extends Auto {
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
-        robot.control.setBucketState(BucketState.FLOOR);
+        robot.control.setBucketState(BucketState.LEVEL);
         sleep(2000);
 
         telemetry.addLine("Done");
