@@ -31,4 +31,8 @@ public class Log {
                 ", timestamp='" + timestamp + '\'' +
                 ", severity=" + severity;
     }
+
+    public String toJSON() {
+        return "{\n" + "\"message\": " + this.message + ",\n\"timestamp\": " + timestamp + "\n\"severity\": " + severity + ",\n}";
+    }
 }
