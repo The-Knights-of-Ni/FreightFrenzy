@@ -36,9 +36,9 @@ public class Drive extends Subsystem {
     private static final double WHEEL_DIAMETER_MM = 100.0;
     private static final double COUNTS_PER_INCH =
             (TICKS_PER_MOTOR_REV_20 * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
-    private static final double COUNTS_CORRECTION_X = 1.167;
+    private static final double COUNTS_CORRECTION_X = 1.150;
     private static final double COUNTS_CORRECTION_Y = 0.9918;
-    private static final double COUNTS_PER_DEGREE = 10.833 * 0.99; // 975 ticks per 90 degrees
+    private static final double COUNTS_PER_DEGREE = 10; // 900 ticks per 90 degrees
     /**
      * Default drive speed
      */
@@ -376,9 +376,9 @@ public class Drive extends Subsystem {
      * Turns the robot by the specified angle, ticks and angles are equivalent. Use this method to turn the robot instead
      * of {@link #turnByTick(double, double)}
      *
-     * @param angle The angle to turn by.
+     * @param angle The angle to turn by. Positive corresponds to counterclockwise
      */
-    public void turnRobotByTick(double angle) {
+    public void turnByAngle(double angle) {
         if (angle > 0.0) {
             allMotorPIDControl(
                     (int) (angle * COUNTS_PER_DEGREE),
@@ -419,7 +419,7 @@ public class Drive extends Subsystem {
     }
 
     /**
-     * Turns the robot by tick. Use {@link #turnRobotByTick(double)}
+     * Turns the robot by tick. Use {@link #turnByAngle(double)}
      *
      * @param power the motor power
      * @param angle the angle in ticks
@@ -454,7 +454,7 @@ public class Drive extends Subsystem {
 
     /**
      * Turns the robot by the specified angle.
-     *
+     * 
      * @param degrees The angle to turn by.
      */
     public void turnRobot(double degrees) {
@@ -473,15 +473,6 @@ public class Drive extends Subsystem {
 
     public double getYaw() {
         return imu.getAngularOrientation().firstAngle;
-    }
-
-    /**
-     * Turn the robot by the specified angle.
-     *
-     * @param turnAngle The angle to turn by.
-     */
-    public void turnByAngle(double turnAngle) {
-        turnRobotByTick(turnAngle);
     }
 
     /**
@@ -662,7 +653,7 @@ public class Drive extends Subsystem {
                         * ODOMETRY_mm_PER_COUNT
                         * (180.0 / 3.14159265)
                         / ODOMETRY_RADIUS_X;
-        turnRobotByTick(-angleError);
+        turnByAngle(-angleError);
         updateOdometry();
         telemetry.addData("correction angle", " %7.2f", -angleError);
         telemetry.addData(
@@ -769,7 +760,7 @@ public class Drive extends Subsystem {
                         * ODOMETRY_mm_PER_COUNT
                         * (180.0 / 3.14159265)
                         / ODOMETRY_RADIUS_X;
-        turnRobotByTick(-angleError);
+        turnByAngle(-angleError);
         updateOdometry();
         telemetry.addData("correction angle", " %7.2f", -angleError);
         telemetry.addData(
@@ -876,7 +867,7 @@ public class Drive extends Subsystem {
                         * ODOMETRY_mm_PER_COUNT
                         * (180.0 / 3.14159265)
                         / ODOMETRY_RADIUS_X;
-        turnRobotByTick(-angleError);
+        turnByAngle(-angleError);
         updateOdometry();
         telemetry.addData("correction angle", " %7.2f", -angleError);
         telemetry.addData(
@@ -985,7 +976,7 @@ public class Drive extends Subsystem {
                         * ODOMETRY_mm_PER_COUNT
                         * (180.0 / 3.14159265)
                         / ODOMETRY_RADIUS_X;
-        turnRobotByTick(-angleError);
+        turnByAngle(-angleError);
         updateOdometry();
         telemetry.addData("correction angle", " %7.2f", -angleError);
         telemetry.addData(

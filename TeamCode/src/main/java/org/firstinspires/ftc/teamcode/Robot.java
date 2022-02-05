@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.lynx.LynxModule;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -48,6 +49,7 @@ public class Robot {
 
     // Sensors
     public BNO055IMU imu;
+    public DistanceSensor loadSensor;
     // Declare game pad objects
     public double leftStickX;
     public double leftStickY;
@@ -147,7 +149,6 @@ public class Robot {
         rearRightDriveMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         intake = (DcMotorEx) hardwareMap.dcMotor.get("intake");
-        intake.setDirection(DcMotorSimple.Direction.REVERSE);
         intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         intake.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         intake.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -167,7 +168,9 @@ public class Robot {
         duckWheel = new CRServo(hardwareMap, "duckWheel");
         lid = hardwareMap.servo.get("lid");
 
+        // Sensors
         imu = hardwareMap.get(BNO055IMU.class, "imu");
+//        loadSensor = hardwareMap.get(DistanceSensor.class, "load");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -192,7 +195,7 @@ public class Robot {
         drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer);
 
         telemetryBroadcast("Status", " control initializing...");
-        control = new Control(intake, bucket, slide, duckWheel, lid, imu, telemetry, hardwareMap, timer);
+        control = new Control(intake, bucket, slide, duckWheel, lid, imu, loadSensor, telemetry, hardwareMap, timer);
 
         if(visionEnabled) {
             telemetryBroadcast("Status", " vision initializing...");

@@ -4,10 +4,12 @@ import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * Control subsystem for controlling arms and claws
@@ -23,6 +25,10 @@ public class Control extends Subsystem {
 
     // Servos
     private final CRServo duckWheel;
+
+    // Sensors
+//    private final DistanceSensor loadSensor;
+
     /**
      * Enums stores the semantic position of each motor along with motor constants in ticks when relevant
      */
@@ -34,9 +40,8 @@ public class Control extends Subsystem {
     }
 
     public enum BucketState {
-        FLOOR(0, 0.1),
-        LEVEL(-5, 0.5),
-        RAISED(-83, 1);
+        LEVEL(0, 0.2),
+        RAISED(-92, 0.35);
 
         public final double power;
         public final int position;
@@ -48,10 +53,10 @@ public class Control extends Subsystem {
     }
 
     public enum SlideState {
-        RETRACTED(-10, 0.3),
-        BOTTOM(-502, 0.4),
-        MIDDLE(-784, 0.4),
-        TOP(-1315, 0.4);
+        RETRACTED(0, 0.3),
+        BOTTOM(475, 0.5),
+        MIDDLE(700, 0.5),
+        TOP(1250, 0.5);
 
         public final int position;
         public final double power;
@@ -74,7 +79,8 @@ public class Control extends Subsystem {
         }
     }
 
-    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx slide, CRServo duckWheel, Servo lid, BNO055IMU imu,
+    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx slide, CRServo duckWheel, Servo lid,
+                   BNO055IMU imu, DistanceSensor loadSensor,
                    Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer) {
         super(telemetry, hardwareMap, timer);
 
@@ -84,6 +90,8 @@ public class Control extends Subsystem {
         this.slide = slide;
         this.duckWheel = duckWheel;
         this.lid = lid;
+//        this.loadSensor = loadSensor;
+
         // Default for slide position
         this.currentSlidePosition = SlideState.RETRACTED;
 
@@ -194,4 +202,12 @@ public class Control extends Subsystem {
     public boolean isSlideRetracted() {
         return Math.abs(slide.getCurrentPosition() - SlideState.RETRACTED.position) <= 3;
     }
+
+    /**
+     * Checks if the (initial) bucket is currently holding freight
+     */
+//    public boolean isLoaded() {
+//        double BUCKET_WIDTH = 0; // TODO find out what this is
+//        return loadSensor.getDistance(DistanceUnit.CM) < BUCKET_WIDTH;
+//    }
 }

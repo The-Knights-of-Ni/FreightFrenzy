@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import org.firstinspires.ftc.teamcode.Subsystems.Control;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
-import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.*;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
@@ -46,14 +44,14 @@ public class AutoRedPrimary extends Auto {
 
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
-        robot.control.setLidPosition(Control.LidPosition.CLOSED);
-        drive.moveForward(3 * mmPerInch);
-        drive.turnRobotByTick(-80); //TODO adjust this back to 90 once robot is heavier
-        drive.moveBackward(24.8 * mmPerInch);
+        robot.control.setLidPosition(LidPosition.CLOSED);
+        drive.moveForward(1 * mmPerInch);
+        drive.turnByAngle(-90);
+        robot.control.startCarousel(false);
+        drive.moveBackward(24 * mmPerInch);
 
         // Deliver Duck
-        robot.control.startCarousel(false);
-        sleep(3500);
+        sleep(2500);
         robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
@@ -61,37 +59,73 @@ public class AutoRedPrimary extends Auto {
 //        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
 
         drive.moveForward(48 * mmPerInch);
-        drive.turnRobotByTick(85); //TODO adjust this back to 90 once robot is heavier
+        drive.turnByAngle(90);
 
         double adjustment = 0;
         switch(placementLevel) {
             case BOTTOM:
-                adjustment = 2;
+                adjustment = 2.5;
                 break;
             case MIDDLE:
             case TOP:
-                adjustment = 4;
+                adjustment = 5;
                 break;
         }
-        drive.moveForward((15 + adjustment) * mmPerInch); //TODO adjust this constant
+        drive.moveForward((12 + adjustment) * mmPerInch);
 
 
         // Release clamp
-        robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
+        robot.control.setLidPosition(LidPosition.DEPLOYED);
         sleep(1000);
 
         // Move back to warehouse
         drive.moveBackward(4 * mmPerInch);
-        drive.turnRobotByTick(80); //TODO adjust this back to 90 once robot is heavier
-        robot.control.setLidPosition(Control.LidPosition.CLOSED);
-        robot.control.setSlide(Control.SlideState.RETRACTED);
-        drive.moveLeft((23.5 - adjustment) * mmPerInch);
+        drive.turnByAngle(90);
+        robot.control.setLidPosition(LidPosition.CLOSED);
+        robot.control.setSlide(SlideState.RETRACTED);
+        drive.moveLeft((25 - adjustment) * mmPerInch);
+        robot.control.setIntakeDirection(true, true);
+        robot.drive.moveBackward(60 * mmPerInch);
+        robot.control.setLidPosition(LidPosition.OPEN);
 
-        robot.control.setIntakeDirection(true, false);
-        drive.moveBackward(56 * mmPerInch);
+        sleep(500);
+        forwardCycle(0);
+        backCycle(0);
+
+        // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
+        robot.control.setBucketState(BucketState.LEVEL);
+        robot.control.setLidPosition(LidPosition.OPEN);
+        sleep(3000);
 
         telemetry.addLine("Done");
         telemetry.update();
+    }
+
+    public void backCycle(int i) {
+        robot.drive.moveBackward(4 * mmPerInch);
+        robot.drive.turnByAngle(90);
+        robot.control.setLidPosition(LidPosition.CLOSED);
+        robot.drive.moveLeft((21) * mmPerInch);
+        robot.control.setSlide(SlideState.RETRACTED);
+        robot.control.setIntakeDirection(true, true);
+        robot.drive.moveBackward((60 + i * 4) * mmPerInch);
+        robot.control.setLidPosition(LidPosition.OPEN);
+
+
+
+    }
+    public void forwardCycle(int i) {
+        robot.control.setBucketState(BucketState.RAISED);
+        robot.drive.moveForward((60 + i * 4)*mmPerInch);
+        robot.drive.moveRight(4*mmPerInch);
+        robot.control.setLidPosition(LidPosition.CLOSED);
+        robot.control.setSlide(SlideState.TOP);
+        robot.control.setIntakeDirection(true, false);
+        robot.control.setBucketState(BucketState.LEVEL);
+        robot.drive.turnByAngle(-90);
+        robot.control.setIntakeDirection(false, false);
+        robot.drive.moveForward(18*mmPerInch);
+        robot.control.setLidPosition(LidPosition.DEPLOYED);
     }
 }

@@ -75,7 +75,6 @@ public class Vision extends Subsystem {
             AllianceColor allianceColor) {
         super(telemetry, hardwareMap, timer);
         this.hardwareMap = hardwareMap;
-        this.telemetry = telemetry;
         this.allianceColor = allianceColor;
         telemetry.addLine("Vision init started");
         telemetry.update();
