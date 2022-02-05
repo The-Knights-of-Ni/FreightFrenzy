@@ -16,7 +16,7 @@ public class Teleop extends LinearOpMode {
     double deltaT;
     double timeCurrent;
     double timePre;
-    ElapsedTime timer;
+    private ElapsedTime timer;
     private Robot robot;
     private double robotAngle;
 
