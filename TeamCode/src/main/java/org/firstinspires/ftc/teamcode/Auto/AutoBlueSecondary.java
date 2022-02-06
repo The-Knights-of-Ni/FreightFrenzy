@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
@@ -19,14 +21,35 @@ public class AutoBlueSecondary extends Auto {
             telemetry.update();
         }
 
-        // Move in front of the hub
-        drive.moveForward(7 * mmPerInch);
-        drive.turnByAngle(-45);
-        drive.moveForward(18 * mmPerInch);
-        sleep(1000);
+        // Move to hub (and start ScoreThread)
+        new ScoreThread(robot, placementLevel).start();
+        double adjustment = 0;
+        switch(placementLevel) {
+            case BOTTOM:
+                break;
+            case MIDDLE:
+            case TOP:
+                adjustment = 4;
+                break;
+        }
+
+        // Move in front of the big pole thingy
+        drive.moveForward(2 * mmPerInch);
+        drive.turnByAngle(-30);
+        drive.moveForward((20 + adjustment) * mmPerInch);
+
+        // Release clamp
+        robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
+        sleep(500);
+        drive.moveBackward((20 + adjustment) * mmPerInch);
 
         // Move back to the warehouse
-        drive.turnByAngle(-45);
-        drive.moveForward(74 * mmPerInch);
+        drive.turnByAngle(-60);
+        drive.moveLeft(5 * mmPerInch);
+        drive.moveBackward(27 * mmPerInch);
+        drive.moveLeft(2 * mmPerInch);
+        drive.turnByAngle(90);
+        drive.moveForward(27 * mmPerInch);
+        drive.moveLeft(27 * mmPerInch);
     }
 }
