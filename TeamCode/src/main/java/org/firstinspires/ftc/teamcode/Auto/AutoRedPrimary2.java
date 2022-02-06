@@ -121,7 +121,7 @@ public class AutoRedPrimary2 extends Auto {
         robot.control.setIntakeDirection(true, false);
         robot.control.setBucketState(BucketState.LEVEL);
         robot.drive.moveRight(4 * mmPerInch);
-        robot.drive.turnByAngle(-40);
+        robot.drive.turnByAngle(-60);
         robot.control.setIntakeDirection(false, false);
         robot.drive.moveForward(30*mmPerInch);
         robot.control.setLidPosition(LidPosition.DEPLOYED);
