@@ -20,10 +20,10 @@ public class Logger {
 
     @Override
     public String toString() {
-        StringBuilder formattedLogs = new StringBuilder("{\n");
+        StringBuilder formattedLogs = new StringBuilder("{\r\n");
         for (Log log: logs) {
             formattedLogs.append(log.toJSON());
-            formattedLogs.append(",\n");
+            formattedLogs.append(",\r\n");
         }
         formattedLogs.append("}");
         return formattedLogs.toString();

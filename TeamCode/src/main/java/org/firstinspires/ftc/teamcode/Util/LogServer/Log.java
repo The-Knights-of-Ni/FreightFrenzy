@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Util.LogServer;
 
+import android.os.Build;
+
 import java.time.LocalDateTime;
 
 public class Log {
@@ -8,7 +10,12 @@ public class Log {
     private final LogSeverity severity;
 
     public Log(String message, LogSeverity severity) {
-        this.timestamp = String.valueOf(LocalDateTime.now());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.timestamp = String.valueOf(LocalDateTime.now());
+        }
+        else {
+            this.timestamp = "";
+        }
         this.message = message;
         this.severity = severity;
     }
@@ -33,6 +40,6 @@ public class Log {
     }
 
     public String toJSON() {
-        return "{\n" + "\"message\": " + this.message + ",\n\"timestamp\": " + timestamp + "\n\"severity\": " + severity + ",\n}";
+        return "{\r\n" + "\"message\": " + this.message + ",\r\n\"timestamp\": " + timestamp + "\r\n\"severity\": " + severity + ",\r\n}";
     }
 }

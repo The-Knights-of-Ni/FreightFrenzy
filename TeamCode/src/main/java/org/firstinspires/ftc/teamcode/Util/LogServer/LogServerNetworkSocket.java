@@ -27,7 +27,11 @@ public class LogServerNetworkSocket extends Thread {
                 // Get output buffer
                 OutputStreamWriter writer = null;
                 writer = new OutputStreamWriter(clientSocket.getOutputStream());
+                writer.write("HTTP/1.1 200 OK\r\n");
+                writer.write("Content-Type: text/json; charset=UTF-8 \r\n");
+                writer.write("\r\n");
                 writer.write(logger.toString());
+                writer.flush();
                 System.out.println("Wrote out all, reading");
                 String s;
                 while ((s = in.readLine()) != null) {
