@@ -1,3 +1,4 @@
+package org.firstinspires.ftc.teamcode.Util.LogServer;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -7,6 +8,7 @@ public class LogServerNetworkSocket {
     public Logger logger;
     private final int port = 9119;
     public LogServerNetworkSocket() throws IOException {
+        logger = new Logger();
         ServerSocket serverSocket = new ServerSocket(port);
         while (true) {
 
@@ -30,10 +32,6 @@ public class LogServerNetworkSocket {
                 System.out.println(s);
             }
         }
-
-    }
-    public static void main(String[] args) throws IOException {
-        LogServerNetworkSocket logServerNetworkSocket = new LogServerNetworkSocket();
 
     }
 }
