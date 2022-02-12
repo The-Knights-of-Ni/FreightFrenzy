@@ -45,10 +45,10 @@ public class AutoRedPrimary extends Auto {
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(LidPosition.CLOSED);
-        drive.moveForward(3 * mmPerInch);
+        drive.moveForward(1 * mmPerInch);
         drive.turnByAngle(-90);
         robot.control.startCarousel(false);
-        drive.moveBackward(24.25 * mmPerInch);
+        drive.moveBackward(24 * mmPerInch);
 
         // Deliver Duck
         sleep(2500);

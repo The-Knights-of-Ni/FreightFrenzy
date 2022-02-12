@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
@@ -19,15 +20,26 @@ public class AutoRedSecondary extends Auto {
             telemetry.update();
         }
 
-        // Move in front of the big pole thingy
-        drive.moveForward(7 * mmPerInch);
-        drive.turnByAngle(45);
-        drive.moveForward(18 * mmPerInch);
-        sleep(1000);
+        robot.control.setBucketState(Control.BucketState.LEVEL);
+        robot.control.setLidPosition(Control.LidPosition.CLOSED);
 
-        // Move back to the warehouse
-        drive.turnByAngle(45);
-        drive.moveBackward(74 * mmPerInch);
+        drive.moveForward(2 * mmPerInch);
+        drive.turnByAngle(40);
+
+        double adjustment = 0;
+        switch(placementLevel) {
+            case BOTTOM:
+                adjustment = 2.5;
+                break;
+            case MIDDLE:
+            case TOP:
+                adjustment = 5;
+                break;
+        }
+        drive.moveForward((12 + adjustment) * mmPerInch);
+
+        drive.moveBackward(10 * mmPerInch);
+
 
     }
 }
