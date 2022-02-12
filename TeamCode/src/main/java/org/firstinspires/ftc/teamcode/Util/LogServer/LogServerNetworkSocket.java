@@ -4,34 +4,38 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class LogServerNetworkSocket {
+public class LogServerNetworkSocket extends Thread {
     public Logger logger;
     private final int port = 9119;
+    ServerSocket serverSocket;
     public LogServerNetworkSocket() throws IOException {
         logger = new Logger();
-        ServerSocket serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
+    }
+
+    public void start() {
         while (true) {
 
-            Socket clientSocket = serverSocket.accept();
+            Socket clientSocket = null;
+            try {
+                clientSocket = serverSocket.accept();
+                BufferedReader in = null;
+                in = new BufferedReader(
+                        new InputStreamReader(clientSocket.getInputStream())
+                );
 
-
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream())
-            );
-
-            // Get output buffer
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(clientSocket.getOutputStream()));
-            // Write output
-            writer.write("Hello");
-            writer.flush();
-
-            System.out.println("Wrote out all, reading");
-            String s;
-            while ((s = in.readLine()) != null) {
-                System.out.println(s);
+                // Get output buffer
+                OutputStreamWriter writer = null;
+                writer = new OutputStreamWriter(clientSocket.getOutputStream());
+                writer.write(logger.toString());
+                System.out.println("Wrote out all, reading");
+                String s;
+                while ((s = in.readLine()) != null) {
+                    System.out.println(s);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-
     }
 }
