@@ -1,4 +1,3 @@
-package org.firstinspires.ftc.teamcode.Util.LogServer;
 
 public enum LogSeverity {
     INFO(0),
