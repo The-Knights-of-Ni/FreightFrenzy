@@ -7,7 +7,7 @@ import java.net.Socket;
 public class LogServerNetworkSocket {
     public Logger logger;
     private final int port = 9119;
-    public LogServerNetworkSocket() throws IOException {
+    public void LogServerNetworkSocket() throws IOException {
         logger = new Logger();
         ServerSocket serverSocket = new ServerSocket(port);
         while (true) {
