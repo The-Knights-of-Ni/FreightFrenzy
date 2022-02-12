@@ -1,4 +1,3 @@
-package org.firstinspires.ftc.teamcode.Util.LogServer;
 
 import java.time.LocalDateTime;
 
@@ -30,5 +29,9 @@ public class Log {
         return "message='" + message + '\'' +
                 ", timestamp='" + timestamp + '\'' +
                 ", severity=" + severity;
+    }
+
+    public String toJSON() {
+        return "{\n" + "\"message\": " + this.message + ",\n\"timestamp\": " + timestamp + "\n\"severity\": " + severity + ",\n}";
     }
 }

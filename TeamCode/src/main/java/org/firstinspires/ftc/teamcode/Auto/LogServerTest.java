@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Util.LogServer.Log;
-import org.firstinspires.ftc.teamcode.Util.LogServer.LogSync;
 
 import java.io.IOException;
 

@@ -1,4 +1,3 @@
-package org.firstinspires.ftc.teamcode.Util.LogServer;
 
 import java.util.ArrayList;
 
@@ -16,5 +15,16 @@ public class Logger {
 
     public void add(Log log) {
         logs.add(log);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder formattedLogs = new StringBuilder("{\n");
+        for (Log log: logs) {
+            formattedLogs.append(log.toJSON());
+            formattedLogs.append(",\n");
+        }
+        formattedLogs.append("}");
+        return formattedLogs.toString();
     }
 }

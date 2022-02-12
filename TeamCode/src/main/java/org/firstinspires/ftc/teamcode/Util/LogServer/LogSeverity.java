@@ -1,8 +1,11 @@
-package org.firstinspires.ftc.teamcode.Util.LogServer;
 
 public enum LogSeverity {
-    INFO,
-    DEBUG,
-    WARNING,
-    ERROR
+    INFO(0),
+    DEBUG(1),
+    WARNING(2),
+    ERROR(3);
+
+    LogSeverity(int numberSeverity) {
+
+    }
 }
