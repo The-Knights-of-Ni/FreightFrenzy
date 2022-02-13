@@ -13,7 +13,8 @@ public class LogServerNetworkSocket extends Thread {
         serverSocket = new ServerSocket(port);
     }
 
-    public void start() {
+    @Override
+    public void run() {
         while (true) {
 
             Socket clientSocket = null;
