@@ -12,9 +12,7 @@ public class AutoBlueSecondary extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {
         initAuto(AllianceColor.BLUE);
-        PlacementLevel placementLevel = getHubLevel();
         waitForStart();
-        Drive drive = robot.drive;
 
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
 

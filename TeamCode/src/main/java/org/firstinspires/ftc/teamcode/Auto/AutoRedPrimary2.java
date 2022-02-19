@@ -33,9 +33,8 @@ public class AutoRedPrimary2 extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {
         initAuto(AllianceColor.RED);
-        PlacementLevel placementLevel = getHubLevel();
-        waitForStart();
         Drive drive = robot.drive;
+        waitForStart();
 
         if (placementLevel != PlacementLevel.NOT_FOUND) {
             telemetry.addData("Level", placementLevel);
@@ -47,12 +46,9 @@ public class AutoRedPrimary2 extends Auto {
         robot.control.setLidPosition(LidPosition.CLOSED);
         drive.moveForward(1 * mmPerInch);
         drive.turnByAngle(-90);
-        robot.control.startCarousel(false);
         drive.moveBackward(24 * mmPerInch);
 
-        // Deliver Duck
-        sleep(2500);
-        robot.control.stopCarousel();
+        deliverDuck();
 
         // Move to hub (and start ScoreThread)
         new ScoreThread(robot, placementLevel).start();

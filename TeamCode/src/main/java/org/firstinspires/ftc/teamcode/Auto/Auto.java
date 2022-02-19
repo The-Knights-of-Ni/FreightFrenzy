@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.DetectMarkerPipeline;
+import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 /**
@@ -36,7 +37,8 @@ public class Auto extends LinearOpMode {
      * The robot class in the op mode
      */
     public Robot robot;
-
+    protected Drive drive;
+    PlacementLevel placementLevel;
 
     /**
      * Inits the robot class and sets the robot as the newly inited robot.
@@ -54,6 +56,8 @@ public class Auto extends LinearOpMode {
             telemetry.update();
             stop();
         }
+        this.placementLevel = getHubLevel();
+        this.drive = robot.drive;
     }
 
     /**
@@ -82,6 +86,13 @@ public class Auto extends LinearOpMode {
         }
         robot.vision.stop(); // DO NOT remove this line. It is to avoid potential memory leaks
         return level;
+    }
+
+    protected void deliverDuck() {
+        // Deliver Duck
+        robot.control.startCarousel(false);
+        sleep(3500);
+        robot.control.stopCarousel();
     }
 
     /**
