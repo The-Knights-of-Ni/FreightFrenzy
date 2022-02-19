@@ -114,7 +114,7 @@ public class Control extends Subsystem {
      * @param direction Specifies the direction to turn, where true/false corresponds to forward/reverse respectively.
      */
     public void setIntakeDirection(boolean status, boolean direction) {
-        double power = status ? 0.5 : 0;
+        double power = status ? 1 : 0;
 
         if (direction) {
             intake.setPower(power);

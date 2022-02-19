@@ -81,15 +81,17 @@ public class AutoRedPrimary2 extends Auto {
         drive.turnByAngle(60);
         drive.moveBackward(30 * mmPerInch);
         drive.turnByAngle(30);
-        drive.moveLeft(6 * mmPerInch);
+        drive.moveLeft(10 * mmPerInch);
 
         // Begin cycles
         robot.control.setIntakeDirection(true, true);
         robot.drive.moveBackward(36 * mmPerInch);
         robot.control.setLidPosition(LidPosition.OPEN);
 
-        forwardCycle(0);
-        backCycle(0);
+        for(int i = 0; i < 1; i++) {
+            forwardCycle(i);
+            backCycle(i);
+        }
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
@@ -101,31 +103,31 @@ public class AutoRedPrimary2 extends Auto {
     }
 
     public void backCycle(int i) {
-        robot.drive.moveBackward(4 * mmPerInch);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
-        robot.drive.moveBackward(20 * mmPerInch);
+        robot.drive.moveBackward(24 * mmPerInch);
 
         robot.drive.turnByAngle(60);
-        robot.drive.moveLeft(6 * mmPerInch);
+        robot.drive.moveLeft(10 * mmPerInch);
         robot.control.setIntakeDirection(true, true);
-        robot.drive.moveBackward((36 + i * 4)*mmPerInch);
+        robot.drive.moveBackward((36 + i * 8)*mmPerInch);
         robot.control.setLidPosition(LidPosition.OPEN);
 
     }
     public void forwardCycle(int i) {
-        sleep(1000);
+        sleep(500);
         robot.control.setBucketState(BucketState.RAISED);
-        robot.drive.moveForward((36 + i * 4)*mmPerInch);
+        robot.drive.moveForward((36 + i * 8)*mmPerInch);
         robot.control.setLidPosition(LidPosition.CLOSED);
-        robot.control.setSlide(SlideState.TOP);
         robot.control.setIntakeDirection(true, false);
         robot.control.setBucketState(BucketState.LEVEL);
+        robot.control.setSlide(SlideState.TOP);
 
         robot.drive.moveRight(4 * mmPerInch);
         robot.drive.turnByAngle(-60);
         robot.control.setIntakeDirection(false, false);
-        robot.drive.moveForward(30*mmPerInch);
+        robot.drive.moveForward(24*mmPerInch);
         robot.control.setLidPosition(LidPosition.DEPLOYED);
+        sleep(250);
     }
 }
