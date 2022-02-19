@@ -5,4 +5,8 @@ public class Path {
     public Path(LinearPath path) {
         linearPath = path;
     }
+
+    public Coordinate update(Coordinate coordinate) {
+        return null;
+    }
 }
