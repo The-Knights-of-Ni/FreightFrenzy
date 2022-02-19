@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control.PlacementLevel;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
-@Autonomous(name = "Auto Blue Secondary", group = "Auto Blue")
-public class AutoBlueSecondary extends Auto {
+@Autonomous(name = "Auto Blue Secondary Park", group = "Auto Blue")
+public class AutoBlueSecondaryPark extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {
         initAuto(AllianceColor.BLUE);
@@ -54,5 +54,13 @@ public class AutoBlueSecondary extends Auto {
         drive.turnByAngle(90);
         drive.moveForward(20 * mmPerInch);
         drive.moveLeft(24 * mmPerInch);
+
+        // Ready devices for teleop
+        robot.control.setIntakeDirection(false, false);
+        robot.control.setLidPosition(Control.LidPosition.OPEN);
+        sleep(3000);
+
+        telemetry.addLine("Done");
+        telemetry.update();
     }
 }
