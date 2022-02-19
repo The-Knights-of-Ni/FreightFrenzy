@@ -51,11 +51,12 @@ public class AutoRedSecondaryCycle extends Auto {
         // Move back to the warehouse
         drive.turnByAngle(60);
         drive.moveLeft(5 * mmPerInch);
+
         robot.control.setIntakeDirection(true, true);
-        drive.moveBackward(31 * mmPerInch);
+        drive.moveBackward(36 * mmPerInch);
         robot.control.setLidPosition(LidPosition.OPEN);
 
-        for(int i = 0; i < 1; i++) {
+        for(int i = 0; i < 3; i++) {
             forwardCycle(i);
             backCycle(i);
         }
