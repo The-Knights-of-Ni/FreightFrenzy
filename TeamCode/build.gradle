@@ -28,6 +28,5 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.8.2')
     testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.8.2')
     implementation('org.ftclib.ftclib:core:1.2.1') // core
-    implementation('org.ftclib.ftclib:vision:1.2.1')
     implementation (group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1')
 }
