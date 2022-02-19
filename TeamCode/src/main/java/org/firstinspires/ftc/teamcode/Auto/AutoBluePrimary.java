@@ -33,7 +33,9 @@ public class AutoBluePrimary extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {
         initAuto(AllianceColor.BLUE);
+        PlacementLevel placementLevel = getHubLevel();
         waitForStart();
+        Drive drive = robot.drive;
 
         if (placementLevel != PlacementLevel.NOT_FOUND) {
             telemetry.addData("Level", placementLevel);
@@ -47,7 +49,10 @@ public class AutoBluePrimary extends Auto {
         drive.turnByAngle(-80); //TODO adjust this back to 90 once robot is heavier
         drive.moveBackward(24.8 * mmPerInch);
 
-        deliverDuck();
+        // Deliver Duck
+        robot.control.startCarousel(false);
+        sleep(3500);
+        robot.control.stopCarousel();
 
         // Move to hub (and start ScoreThread)
         new ScoreThread(robot, placementLevel).start();

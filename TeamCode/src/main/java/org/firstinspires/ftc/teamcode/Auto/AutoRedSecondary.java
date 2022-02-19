@@ -11,6 +11,7 @@ public class AutoRedSecondary extends Auto {
     @Override
     public void runOpMode() throws InterruptedException {
         initAuto(AllianceColor.RED);
+        PlacementLevel placementLevel = getHubLevel();
         waitForStart();
         Drive drive = robot.drive;
 
