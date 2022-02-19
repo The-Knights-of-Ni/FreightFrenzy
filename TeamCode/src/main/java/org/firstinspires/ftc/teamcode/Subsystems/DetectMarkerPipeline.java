@@ -66,7 +66,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         Mat mask = new Mat();
         Imgproc.cvtColor(input, mask, Imgproc.COLOR_RGB2HSV);
 
-        Rect rectCrop = new Rect(0, 540, 1920, 540);
+        Rect rectCrop = new Rect(0, 720, 1920, 360);
         Mat crop = new Mat(mask, rectCrop);
 
 
@@ -118,7 +118,7 @@ public class DetectMarkerPipeline extends OpenCvPipeline {
         if(middle) markerLocation = MarkerLocation.MIDDLE;
         if(right) markerLocation = MarkerLocation.RIGHT;
 
-        return thresh;
+        return crop;
     }
 
     /**

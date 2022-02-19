@@ -114,6 +114,7 @@ public class AutoRedPrimary2 extends Auto {
 
     }
     public void forwardCycle(int i) {
+        sleep(1000);
         robot.control.setBucketState(BucketState.RAISED);
         robot.drive.moveForward((36 + i * 4)*mmPerInch);
         robot.control.setLidPosition(LidPosition.CLOSED);
