@@ -69,17 +69,15 @@ public class AutoBluePrimaryPark extends Auto {
                 break;
         }
         drive.turnByAngle(70);
-        drive.moveForward((48) * mmPerInch);
+        drive.moveForward((48 + adjustment) * mmPerInch);
 
-        drive.moveForward(adjustment * mmPerInch);
 
         // Release clamp
         robot.control.setLidPosition(LidPosition.DEPLOYED);
         sleep(500);
-        drive.moveBackward(adjustment * mmPerInch);
+        drive.moveBackward((4 + adjustment) * mmPerInch);
 
         // Move back to warehouse
-        drive.moveBackward(4 * mmPerInch);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
         drive.turnByAngle(20);

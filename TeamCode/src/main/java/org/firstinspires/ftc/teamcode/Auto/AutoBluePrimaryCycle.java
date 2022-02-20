@@ -65,17 +65,14 @@ public class AutoBluePrimaryCycle extends Auto {
                 break;
         }
         drive.turnByAngle(70);
-        drive.moveForward((48) * mmPerInch);
-
-        drive.moveForward(adjustment * mmPerInch);
+        drive.moveForward((48 + adjustment) * mmPerInch);
 
         // Release clamp
         robot.control.setLidPosition(LidPosition.DEPLOYED);
         sleep(500);
-        drive.moveBackward(adjustment * mmPerInch);
+        drive.moveBackward((4 + adjustment) * mmPerInch);
 
         // Move back to warehouse
-        drive.moveBackward(4 * mmPerInch);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
         drive.turnByAngle(-160);
@@ -83,8 +80,9 @@ public class AutoBluePrimaryCycle extends Auto {
 
         // Begin cycles
         robot.control.setIntakeDirection(true, true);
-        robot.control.setLidPosition(LidPosition.OPEN);
         robot.drive.moveBackward(156 * mmPerInch);
+        robot.control.setLidPosition(LidPosition.OPEN);
+
 
         for(int i = 0; i < 1; i++) {
             forwardCycle(i);
