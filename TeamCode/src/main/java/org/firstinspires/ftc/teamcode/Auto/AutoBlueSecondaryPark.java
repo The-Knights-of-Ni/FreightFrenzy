@@ -36,12 +36,12 @@ public class AutoBlueSecondaryPark extends Auto {
         }
         drive.moveForward(2 * mmPerInch);
         drive.turnByAngle(-35);
-        drive.moveForward((22 + adjustment) * mmPerInch);
+        drive.moveForward((21 + adjustment) * mmPerInch);
 
         // Release clamp
         robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
         sleep(500);
-        drive.moveBackward((22 + adjustment) * mmPerInch);
+        drive.moveBackward((21 + adjustment) * mmPerInch);
 
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.control.setSlide(Control.SlideState.RETRACTED);
