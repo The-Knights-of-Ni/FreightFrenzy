@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.PurePursuit;
 
 public class Geometry {
     public static double distance(Coordinate first, Coordinate second) {
-        return Math.sqrt((second.x - first.x)^2 + (second.y - first.y)^2);
+        return Math.sqrt(Math.pow((second.x - first.x), 2) + Math.pow((second.y - first.y), 2));
     }
     /**
      * Returns closest point on segment to point
@@ -53,7 +53,8 @@ public class Geometry {
         double c = distance(startpoint, endpoint);
         double b = distance(vertex, endpoint);
         // TODO: Fix next line
-        //return Math.acos((a^2+b^2-c^2)/(2*a*b));
-        return 1.0;
+        double numerator = Math.pow(a,2)+Math.pow(b, 2)-Math.pow(c,2);
+
+        return Math.acos(numerator/(2*a*b));
     }
 }
