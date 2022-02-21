@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 public class LinearPath {
     public ArrayList<Coordinate> path;
+
     private int current = 0;
 
     public LinearPath() {
@@ -16,9 +17,8 @@ public class LinearPath {
     }
 
     public Coordinate next() {
-        Coordinate next = path.get(current);
         current ++;
-        return next;
+        return path.get(current);
     }
 
     public void addCoordinate(Coordinate c) {
@@ -50,5 +50,9 @@ public class LinearPath {
     public double getAngle(Coordinate coordinate) {
         int place = path.indexOf(coordinate);
         return Geometry.getAngle(path.get(place-1), coordinate, path.get(place+1));
+    }
+
+    public int getCurrent() {
+        return current;
     }
 }
