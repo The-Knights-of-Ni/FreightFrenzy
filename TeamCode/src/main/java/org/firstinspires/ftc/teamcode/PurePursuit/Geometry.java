@@ -11,8 +11,7 @@ public class Geometry {
      * @param p - point to found the closest point on segment
      * @return closest point on segment to p
      */
-    public static Coordinate getClosestPointOnSegment(Coordinate ss, Coordinate se, Coordinate p)
-    {
+    public static Coordinate getClosestPointOnSegment(Coordinate ss, Coordinate se, Coordinate p) {
         return getClosestPointOnSegment(ss.x, ss.y, se.x, se.y, p.x, p.y);
     }
 
@@ -26,29 +25,24 @@ public class Geometry {
      * @param py - point y coord
      * @return closets point on segment to point
      */
-    public static Coordinate getClosestPointOnSegment(int sx1, int sy1, int sx2, int sy2, int px, int py)
-    {
+    public static Coordinate getClosestPointOnSegment(int sx1, int sy1, int sx2, int sy2, int px, int py) {
         double xDelta = sx2 - sx1;
         double yDelta = sy2 - sy1;
 
-        if ((xDelta == 0) && (yDelta == 0))
-        {
+        if ((xDelta == 0) && (yDelta == 0)) {
             throw new IllegalArgumentException("Segment start equals segment end");
         }
 
         double u = ((px - sx1) * xDelta + (py - sy1) * yDelta) / (xDelta * xDelta + yDelta * yDelta);
 
         final Coordinate closestPoint;
-        if (u < 0)
-        {
+        if (u < 0) {
             closestPoint = new Coordinate(sx1, sy1);
         }
-        else if (u > 1)
-        {
+        else if (u > 1) {
             closestPoint = new Coordinate(sx2, sy2);
         }
-        else
-        {
+        else {
             closestPoint = new Coordinate((int) Math.round(sx1 + u * xDelta), (int) Math.round(sy1 + u * yDelta));
         }
         return closestPoint;
