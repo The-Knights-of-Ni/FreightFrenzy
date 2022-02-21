@@ -6,7 +6,7 @@ public class Path {
         linearPath = path;
     }
 
-    public Coordinate goTo(Coordinate coordinate) {
-        return null;
+    public void reset(Coordinate coordinate) {
+        linearPath.reset(coordinate);
     }
 }

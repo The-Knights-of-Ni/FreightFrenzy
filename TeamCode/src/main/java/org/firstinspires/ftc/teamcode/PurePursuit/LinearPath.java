@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.PurePursuit;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class LinearPath {
     public ArrayList<Coordinate> path;
@@ -28,11 +29,26 @@ public class LinearPath {
         path.add(index, c);
     }
 
-    public void goTo(GameObject o) {
+    public void addWaypoint(GameObject o) {
         ArrayList<Coordinate> reach = o.getCoordinates();
-        ArrayList<Double> distances = new ArrayList<>();
+        int smallestIndex = 0;
+        double smallestLength = 0;
         for (Coordinate c: reach) {
-            distances.add(Geometry.distance(path.get(path.size()-1), c));
+            double currentLength = Geometry.distance(path.get(path.size()-1), c);
+            if (currentLength < smallestLength) {
+                smallestIndex = reach.indexOf(c);
+                smallestLength = currentLength;
+            }
         }
+        path.add(reach.get(smallestIndex));
+    }
+
+    public void reset(Coordinate coordinate) {
+        current = path.indexOf(coordinate);
+    }
+
+    public double getAngle(Coordinate coordinate) {
+        int place = path.indexOf(coordinate);
+        return Geometry.getAngle(path.get(place-1), coordinate, path.get(place+1));
     }
 }
