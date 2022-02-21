@@ -47,4 +47,13 @@ public class Geometry {
         }
         return closestPoint;
     }
+
+    public static double getAngle(Coordinate startpoint, Coordinate vertex, Coordinate endpoint) {
+        double a = distance(startpoint, vertex);
+        double c = distance(startpoint, endpoint);
+        double b = distance(vertex, endpoint);
+        // TODO: Fix next line
+        //return Math.acos((a^2+b^2-c^2)/(2*a*b));
+        return 1.0;
+    }
 }
