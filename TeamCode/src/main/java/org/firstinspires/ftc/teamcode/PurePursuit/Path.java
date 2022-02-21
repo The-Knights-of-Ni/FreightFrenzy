@@ -6,7 +6,7 @@ public class Path {
         linearPath = path;
     }
 
-    public Coordinate update(Coordinate coordinate) {
+    public Coordinate goTo(Coordinate coordinate) {
         return null;
     }
 }
