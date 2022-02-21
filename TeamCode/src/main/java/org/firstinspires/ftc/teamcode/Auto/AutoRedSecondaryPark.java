@@ -34,7 +34,7 @@ public class AutoRedSecondaryPark extends Auto {
                 break;
         }
         drive.moveForward(2 * mmPerInch);
-        drive.turnByAngle(30);
+        drive.turnByAngle(35);
         drive.moveForward((22 + adjustment) * mmPerInch);
 
         // Release clamp
@@ -46,12 +46,12 @@ public class AutoRedSecondaryPark extends Auto {
         robot.control.setSlide(SlideState.RETRACTED);
 
         // Move back to the warehouse
-        drive.turnByAngle(60);
+        drive.turnByAngle(55);
         drive.moveLeft(5 * mmPerInch);
-        drive.moveBackward(27 * mmPerInch);
+        drive.moveBackward(28 * mmPerInch);
         drive.moveRight(4 * mmPerInch);
         drive.turnByAngle(-90);
-        drive.moveForward(20 * mmPerInch);
+        drive.moveForward(22 * mmPerInch);
         drive.moveRight(24 * mmPerInch);
 
         // Ready devices for teleop
