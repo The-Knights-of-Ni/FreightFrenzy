@@ -49,9 +49,9 @@ public class AutoBluePrimaryPark extends Auto {
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(LidPosition.CLOSED);
-        drive.moveForward(1 * mmPerInch);
+        drive.moveForward(4 * mmPerInch);
         robot.control.startCarousel(true);
-        drive.moveBackward(27 * mmPerInch);
+        drive.moveRight(24 * mmPerInch);
 
         // Deliver Duck
         sleep(2500);
@@ -59,6 +59,7 @@ public class AutoBluePrimaryPark extends Auto {
 
         // Move to hub (and start ScoreThread)
         new ScoreThread(robot, placementLevel).start();
+        drive.moveLeft((48) * mmPerInch);
         double adjustment = 0;
         switch(placementLevel) {
             case BOTTOM:
@@ -68,20 +69,20 @@ public class AutoBluePrimaryPark extends Auto {
                 adjustment = 4;
                 break;
         }
-        drive.turnByAngle(70);
-        drive.moveForward((48 + adjustment) * mmPerInch);
-
+        drive.moveForward((11 + adjustment) * mmPerInch);
 
         // Release clamp
         robot.control.setLidPosition(LidPosition.DEPLOYED);
         sleep(500);
-        drive.moveBackward((4 + adjustment) * mmPerInch);
 
-        // Move back to warehouse
+        // Move back to Park
+        drive.moveBackward((4 + adjustment) * mmPerInch);
+        drive.turnByAngle(90);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
-        drive.turnByAngle(20);
-        drive.moveBackward(36 * mmPerInch);
+
+        drive.moveBackward(50 * mmPerInch);
+        drive.moveRight(8 * mmPerInch);
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);

@@ -62,8 +62,6 @@ public class AutoRedPrimaryPark extends Auto {
 
         // Move to hub (and start ScoreThread)
         new ScoreThread(robot, placementLevel).start();
-//        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
-
         drive.moveForward(52 * mmPerInch);
         drive.turnByAngle(90);
 
@@ -78,18 +76,17 @@ public class AutoRedPrimaryPark extends Auto {
         }
         drive.moveForward((13 + adjustment) * mmPerInch);
 
-
         // Release clamp
         robot.control.setLidPosition(LidPosition.DEPLOYED);
-        sleep(1000);
+        sleep(500);
 
-        // Move back to warehouse
-        drive.moveBackward(4 * mmPerInch);
+        // Move back to park
+        drive.moveBackward((4 + adjustment) * mmPerInch);
         drive.turnByAngle(-90);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
 
-        robot.drive.moveBackward(50 * mmPerInch);
+        drive.moveBackward(50 * mmPerInch);
         drive.moveLeft(8 * mmPerInch);
 
         // Ready devices for teleop
