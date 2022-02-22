@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 // Deliver freight to hub (6)
 // - deliver freight to corresponding level of custom element (20)
 // Park in warehouse (10)
-@Autonomous(name = "Auto Red Primary", group = "Auto Red")
+@Autonomous(name = "Auto Red Primary Park", group = "Auto Red")
 public class AutoRedPrimaryPark extends Auto {
     /**
      * Override of {@link Auto#runOpMode()}
@@ -49,10 +49,12 @@ public class AutoRedPrimaryPark extends Auto {
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(LidPosition.CLOSED);
-        drive.moveForward(1 * mmPerInch);
+        drive.moveForward(2 * mmPerInch);
         drive.turnByAngle(-90);
         robot.control.startCarousel(false);
-        drive.moveBackward(24 * mmPerInch);
+        drive.moveBackward(27 * mmPerInch);
+        drive.moveRight(2 * mmPerInch);
+
 
         // Deliver Duck
         sleep(2500);
@@ -62,20 +64,19 @@ public class AutoRedPrimaryPark extends Auto {
         new ScoreThread(robot, placementLevel).start();
 //        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
 
-        drive.moveForward(48 * mmPerInch);
+        drive.moveForward(52 * mmPerInch);
         drive.turnByAngle(90);
 
         double adjustment = 0;
         switch(placementLevel) {
             case BOTTOM:
-                adjustment = 2.5;
                 break;
             case MIDDLE:
             case TOP:
-                adjustment = 5;
+                adjustment = 4;
                 break;
         }
-        drive.moveForward((12 + adjustment) * mmPerInch);
+        drive.moveForward((13 + adjustment) * mmPerInch);
 
 
         // Release clamp
@@ -88,7 +89,8 @@ public class AutoRedPrimaryPark extends Auto {
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
 
-        robot.drive.moveBackward(60 * mmPerInch);
+        robot.drive.moveBackward(50 * mmPerInch);
+        drive.moveLeft(8 * mmPerInch);
 
         // Ready devices for teleop
         robot.control.setBucketState(BucketState.LEVEL);

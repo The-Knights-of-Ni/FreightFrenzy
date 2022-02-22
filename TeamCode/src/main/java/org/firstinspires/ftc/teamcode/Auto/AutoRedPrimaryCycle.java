@@ -45,10 +45,11 @@ public class AutoRedPrimaryCycle extends Auto {
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(LidPosition.CLOSED);
-        drive.moveForward(1 * mmPerInch);
+        drive.moveForward(2 * mmPerInch);
         drive.turnByAngle(-90);
         robot.control.startCarousel(false);
-        drive.moveBackward(24 * mmPerInch);
+        drive.moveBackward(27 * mmPerInch);
+        drive.moveRight(2 * mmPerInch);
 
         // Deliver Duck
         sleep(2500);
@@ -58,20 +59,19 @@ public class AutoRedPrimaryCycle extends Auto {
         new ScoreThread(robot, placementLevel).start();
 //        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
 
-        drive.moveForward(48 * mmPerInch);
+        drive.moveForward(52 * mmPerInch);
         drive.turnByAngle(90);
 
         double adjustment = 0;
         switch(placementLevel) {
             case BOTTOM:
-                adjustment = 2.5;
                 break;
             case MIDDLE:
             case TOP:
-                adjustment = 5;
+                adjustment = 4;
                 break;
         }
-        drive.moveForward((12 + adjustment) * mmPerInch);
+        drive.moveForward((13 + adjustment) * mmPerInch);
 
 
         // Release clamp
@@ -103,7 +103,7 @@ public class AutoRedPrimaryCycle extends Auto {
     }
 
     public void backCycle(int i) {
-        robot.drive.moveBackward(4 * mmPerInch);
+        robot.drive.moveBackward(6 * mmPerInch);
         robot.drive.turnByAngle(90);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.drive.moveLeft((21) * mmPerInch);
@@ -122,7 +122,8 @@ public class AutoRedPrimaryCycle extends Auto {
         robot.control.setBucketState(BucketState.LEVEL);
         robot.drive.turnByAngle(-90);
         robot.control.setIntakeDirection(false, false);
-        robot.drive.moveForward(18*mmPerInch);
+        robot.drive.moveForward(20*mmPerInch);
         robot.control.setLidPosition(LidPosition.DEPLOYED);
+        sleep(500);
     }
 }
