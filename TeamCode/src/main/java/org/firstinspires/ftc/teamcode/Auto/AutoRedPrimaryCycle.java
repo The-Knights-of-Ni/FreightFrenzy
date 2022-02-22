@@ -106,7 +106,7 @@ public class AutoRedPrimaryCycle extends Auto {
         robot.drive.moveBackward(6 * mmPerInch);
         robot.drive.turnByAngle(90);
         robot.control.setLidPosition(LidPosition.CLOSED);
-        robot.drive.moveLeft((21) * mmPerInch);
+        robot.drive.moveLeft(21 * mmPerInch);
         robot.control.setSlide(SlideState.RETRACTED);
         robot.control.setIntakeDirection(true, true);
         robot.drive.moveBackward((60 + i * 4) * mmPerInch);
