@@ -21,6 +21,10 @@ public class LinearPath {
         return path.get(current);
     }
 
+    public Coordinate peek() {
+        return path.get(current);
+    }
+
     public void addCoordinate(Coordinate c) {
         path.add(c);
     }
