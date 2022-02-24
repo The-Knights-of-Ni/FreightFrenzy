@@ -267,7 +267,7 @@ public class Drive extends Subsystem {
     }
 
     /**
-     * Calculates the motor powers when given the position o the left and right sticks
+     * Calculates the motor powers when given the position o the left and right sticks, the motor powers are in the format lf, rf, lr, rr
      *
      * @param leftStickX  left joystick x position
      * @param leftStickY  left joystick y position

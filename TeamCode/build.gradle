@@ -24,9 +24,9 @@ android {
 dependencies {
     implementation project(':FtcRobotController')
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
-    implementation('org.openftc:easyopencv:1.5.1')
-    testImplementation('org.junit.jupiter:junit-jupiter-api:5.8.2')
-    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.8.2')
-    implementation('org.ftclib.ftclib:core:1.2.1') // core
+    implementation (group: 'org.openftc', name: 'easyopencv', version: '1.5.1')
+    testImplementation (group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2')
+    testRuntimeOnly (group: 'org.junit.jupiter', name: 'junit-jupiter-engine' , version: '5.8.2')
+    implementation (group: 'org.ftclib.ftclib', name: 'core', version: '1.2.1') // core
     implementation (group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1')
 }
