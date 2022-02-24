@@ -48,13 +48,19 @@ public class Geometry {
         return closestPoint;
     }
 
+
+    /**
+     * Get the angle with the startpoint and endpoint being interchangeable.
+     * @param startpoint
+     * @param vertex
+     * @param endpoint
+     * @return
+     */
     public static double getAngle(Coordinate startpoint, Coordinate vertex, Coordinate endpoint) {
         double a = distance(startpoint, vertex);
         double c = distance(startpoint, endpoint);
         double b = distance(vertex, endpoint);
-        // TODO: Fix next line
         double numerator = Math.pow(a,2)+Math.pow(b, 2)-Math.pow(c,2);
-
         return Math.acos(numerator/(2*a*b));
     }
 }

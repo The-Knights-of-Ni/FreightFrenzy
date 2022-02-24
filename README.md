@@ -28,4 +28,4 @@ To view the latest docs install python 3.8, 3.9, or 3.10 and run the following c
 `cd docs`
 `sphinx-build -b html source/ html`
 
-the docs index page is in `/docs/html/index.html`
+the docs index page can be found at `/docs/html/index.html`

@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.PurePursuit;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Field with game objects.
+ */
 public class Field {
     private ArrayList<GameObject> gameObjects;
 
@@ -17,6 +20,10 @@ public class Field {
         gameObjects.add(object);
     }
 
+    /** Checks if the coordinate is occupied by an object
+     * @param coordinate the coordinate to use
+     * @return a boolean, true if the coordinate is occupied, false if not.
+     */
     public boolean isOccupied(Coordinate coordinate) {
         for (GameObject object: gameObjects) {
             if (object.occupies(coordinate)) {
