@@ -476,7 +476,7 @@ public class Drive extends Subsystem {
     }
 
     /**
-     * 2D move to position
+     * Move to the given coordinates relative to the robot, which is at 0,0
      *
      * @param power           motor power
      * @param targetPositionX target x coordinate
