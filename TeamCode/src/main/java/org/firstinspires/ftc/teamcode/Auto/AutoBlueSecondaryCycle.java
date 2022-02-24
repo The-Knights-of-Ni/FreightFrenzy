@@ -35,26 +35,26 @@ public class AutoBlueSecondaryCycle extends Auto {
                 break;
         }
         drive.moveForward(2 * mmPerInch);
-        drive.turnByAngle(-32.5);
-        drive.moveForward((21 + adjustment) * mmPerInch);
+        drive.turnByAngle(-30);
+        drive.moveForward((21.5 + adjustment) * mmPerInch);
 
         // Release clamp
         robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
         sleep(500);
-        drive.moveBackward((21 + adjustment) * mmPerInch);
+        drive.moveBackward((21.5 + adjustment) * mmPerInch);
 
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.control.setSlide(Control.SlideState.RETRACTED);
 
         // Move back to the warehouse
-        drive.turnByAngle(-57.5);
+        drive.turnByAngle(-60);
         drive.moveRight(5 * mmPerInch);
+        robot.control.setLidPosition(Control.LidPosition.OPEN);
 
         robot.control.setIntakeDirection(true, true);
-        robot.control.setLidPosition(Control.LidPosition.OPEN);
         drive.moveBackward(32 * mmPerInch);
 
-        for(int i = 0; i < 1; i++) {
+        for(int i = 0; i < 2; i++) {
             forwardCycle(i);
             backCycle(i);
         }
@@ -62,7 +62,7 @@ public class AutoBlueSecondaryCycle extends Auto {
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
         robot.control.setLidPosition(Control.LidPosition.OPEN);
-        sleep(3000);
+        sleep(1000);
 
         telemetry.addLine("Done");
         telemetry.update();
@@ -74,25 +74,27 @@ public class AutoBlueSecondaryCycle extends Auto {
         robot.control.setSlide(Control.SlideState.RETRACTED);
         robot.drive.moveBackward(20 * mmPerInch);
 
-        robot.drive.turnByAngle(-60);
+        robot.drive.turnByAngle(-65);
         robot.drive.moveRight(10 * mmPerInch);
         robot.control.setIntakeDirection(true, true);
-        robot.drive.moveBackward((32 + i * 6)*mmPerInch);
         robot.control.setLidPosition(Control.LidPosition.OPEN);
+
+        robot.drive.moveBackward((44 + i * 6)*mmPerInch);
     }
     public void forwardCycle(int i) {
         sleep(250);
         robot.control.setBucketState(Control.BucketState.RAISED);
-        robot.drive.moveForward((32 + i * 6)*mmPerInch);
+        robot.drive.moveForward((36 + i * 6)*mmPerInch);
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.control.setIntakeDirection(true, false);
         robot.control.setBucketState(Control.BucketState.LEVEL);
         robot.control.setSlide(Control.SlideState.TOP);
 
         robot.drive.moveLeft(4 * mmPerInch);
-        robot.drive.turnByAngle(60);
+        robot.drive.turnByAngle(65);
         robot.control.setIntakeDirection(false, false);
         robot.drive.moveForward(24*mmPerInch);
         robot.control.setLidPosition(Control.LidPosition.DEPLOYED);
+        sleep(500);
     }
 }

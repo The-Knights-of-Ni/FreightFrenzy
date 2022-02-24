@@ -41,7 +41,7 @@ public class Control extends Subsystem {
 
     public enum BucketState {
         LEVEL(0, 0.3),
-        RAISED(-92, 0.6);
+        RAISED(-87, 0.65);
 
         public final double power;
         public final int position;
@@ -114,7 +114,7 @@ public class Control extends Subsystem {
      * @param direction Specifies the direction to turn, where true/false corresponds to forward/reverse respectively.
      */
     public void setIntakeDirection(boolean status, boolean direction) {
-        double power = status ? 0.75 : 0;
+        double power = status ? 0.5 : 0;
 
         if (direction) {
             intake.setPower(power);
