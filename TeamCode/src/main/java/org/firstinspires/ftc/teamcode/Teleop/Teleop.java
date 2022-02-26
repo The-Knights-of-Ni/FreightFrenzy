@@ -27,6 +27,8 @@ public class Teleop extends LinearOpMode {
     private boolean isBucketLevel = false;
     private boolean isSlideUp = false;
 
+    private final int slowModePow = 5;
+
     private void initOpMode() throws IOException {
         // Initialize DC motor objects
         timer = new ElapsedTime();
@@ -89,7 +91,8 @@ public class Teleop extends LinearOpMode {
                 motorPowers = robot.drive.calcMotorPowers(robot.leftStickX, robot.leftStickY, robot.rightStickX);
             }
             else {
-                motorPowers = robot.drive.calcMotorPowers(robot.leftStickX*0.5, robot.leftStickY*0.5, robot.rightStickX*0.5);
+                motorPowers = robot.drive.calcMotorPowers(Math.pow(robot.leftStickX, slowModePow),
+                        Math.pow(robot.leftStickY, slowModePow), Math.pow(robot.rightStickX, slowModePow));
             }
             robot.drive.setDrivePowers(motorPowers);
 
