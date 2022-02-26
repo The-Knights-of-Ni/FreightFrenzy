@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.PurePursuit;
 
-import java.util.ArrayList;
+import org.firstinspires.ftc.teamcode.Util.Coordinate;
 
 public class Path {
     public LinearPath linearPath;

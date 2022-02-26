@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.PurePursuit;
 
+import org.firstinspires.ftc.teamcode.Util.Coordinate;
+
 public class RobotModel {
     private double circleRadius = 1.0;
     private double speed;

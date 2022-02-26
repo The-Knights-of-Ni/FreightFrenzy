@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.PurePursuit;
 
+import org.firstinspires.ftc.teamcode.Util.Coordinate;
+
 public class Geometry {
     public static double distance(Coordinate first, Coordinate second) {
         return Math.sqrt(Math.pow((second.x - first.x), 2) + Math.pow((second.y - first.y), 2));
@@ -25,7 +27,7 @@ public class Geometry {
      * @param py - point y coord
      * @return closets point on segment to point
      */
-    public static Coordinate getClosestPointOnSegment(int sx1, int sy1, int sx2, int sy2, int px, int py) {
+    public static Coordinate getClosestPointOnSegment(double sx1, double sy1, double sx2, double sy2, double px, double py) {
         double xDelta = sx2 - sx1;
         double yDelta = sy2 - sy1;
 
