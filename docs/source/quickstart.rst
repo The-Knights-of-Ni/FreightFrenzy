@@ -9,11 +9,13 @@ External Tools:
 
 1. Android Studio
 2. Gradle
-3. Android SDK 29
-4. Intellj (Optional)
+3. Git
+4. IntelliJ Ultimate (Optional)
+
 
 To Build the code:
 
-1. Build the gradle project
-2. Use adb to connect to the robot
+1. Build the gradle project using the build gui
+2. Use adb to connect to the robot via
+    adb connect 192.168.43.1:5555
 3. Run the code
