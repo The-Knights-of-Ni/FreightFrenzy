@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.PurePursuit;
 
 public class Coordinate {
-    int x;
-    int y;
+    public final int x;
+    public final int y;
 
     public Coordinate(int x, int y) {
         this.x = x;
