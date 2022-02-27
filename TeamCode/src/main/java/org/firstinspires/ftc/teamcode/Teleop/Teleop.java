@@ -121,13 +121,11 @@ public class Teleop extends LinearOpMode {
             // Toggle bucket up-level
             if (robot.xButton && !robot.isxButtonPressedPrev) {
                 if (isBucketLevel) {
-                    IntakeThread intakeThread = new IntakeThread(telemetry, true, false, BucketState.RAISED);
-                    intakeThread.start();
+                    new IntakeThread(telemetry, true, false, BucketState.RAISED).start();
                     isIntakeOn = true;
                     isBucketLevel = false;
                 } else {
-                    IntakeThread intakeThread = new IntakeThread(telemetry, true, true, BucketState.LEVEL);
-                    intakeThread.start();
+                    new IntakeThread(telemetry, true, true, BucketState.LEVEL).start();
                     isIntakeOn = true;
                     isBucketLevel = true;
                 }

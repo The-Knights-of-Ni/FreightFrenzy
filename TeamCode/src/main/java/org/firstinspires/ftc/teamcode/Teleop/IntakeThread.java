@@ -25,6 +25,8 @@ public class IntakeThread extends Thread {
                 Thread.sleep(1000);
                 robot.control.setBucketState(bucketState);
             } catch (InterruptedException e) {
+                telemetry.addData("Exception: ", e.getStackTrace());
+                telemetry.update();
                 throw new RuntimeException(e);
             }
         }
