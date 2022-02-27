@@ -69,7 +69,7 @@ public class Control extends Subsystem {
 
     public enum LidPosition {
         CLOSED(0.8),
-        DEPLOYED(0.65),
+        DEPLOYED(0.75),
         OPEN(0.5);
 
         public final double position;
