@@ -22,7 +22,7 @@ public class IntakeThread extends Thread {
         while(!this.isInterrupted()) {
             try {
                 robot.control.setIntakeDirection(status, direction);
-                Thread.sleep(500);
+                Thread.sleep(1000);
                 robot.control.setBucketState(bucketState);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
