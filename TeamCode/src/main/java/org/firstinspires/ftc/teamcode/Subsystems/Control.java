@@ -82,7 +82,7 @@ public class Control extends Subsystem {
     }
 
     public enum MarkerHookState {
-        //current values for servo positions are dummy only, need calibration
+        //TODO: Calibrate constants for marker hook
         UP(0.1, 0.7),
         DOWN(0.1, 0.7);
 
