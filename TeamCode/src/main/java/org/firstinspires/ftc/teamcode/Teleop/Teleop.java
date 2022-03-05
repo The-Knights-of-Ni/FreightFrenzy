@@ -144,7 +144,7 @@ public class Teleop extends LinearOpMode {
             }
             
             //Toggle scoring level - toggle when with alliance
-            if (bumperLeft2 && !islBumper2PressedPrev) {
+            if (robot.bumperLeft2 && !robot.islBumper2PressedPrev) {
                 scoreTop = !scoreTop;
             }
 
