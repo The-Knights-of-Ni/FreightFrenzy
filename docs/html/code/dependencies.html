@@ -26,12 +26,16 @@
     body[data-theme="dark"] {
       --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #8c1515;
+  --color-brand-content: #8c1515;
   
     }
     @media (prefers-color-scheme: dark) {
       body:not([data-theme="light"]) {
         --color-code-background: #202020;
   --color-code-foreground: #d0d0d0;
+  --color-brand-primary: #8c1515;
+  --color-brand-content: #8c1515;
   
       }
     }
@@ -134,7 +138,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -204,7 +208,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -212,6 +216,19 @@
         <article role="main">
           <section id="dependencies">
 <h1>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">#</a></h1>
+<p>Lists of non ftc dependencies and their uses</p>
+<section id="ftc-lib">
+<h2>FTC-Lib<a class="headerlink" href="#ftc-lib" title="Permalink to this headline">#</a></h2>
+<p>Used as a servo api replacement, not an official ftc package.</p>
+</section>
+<section id="math-3">
+<h2>Math-3<a class="headerlink" href="#math-3" title="Permalink to this headline">#</a></h2>
+<p>Used for matrix manipulation.</p>
+</section>
+<section id="junit-5">
+<h2>junit 5<a class="headerlink" href="#junit-5" title="Permalink to this headline">#</a></h2>
+<p>Used for unit tests</p>
+</section>
 </section>
 
         </article>
@@ -256,8 +273,29 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Dependencies</a><ul>
+<li><a class="reference internal" href="#ftc-lib">FTC-Lib</a></li>
+<li><a class="reference internal" href="#math-3">Math-3</a></li>
+<li><a class="reference internal" href="#junit-5">junit 5</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
