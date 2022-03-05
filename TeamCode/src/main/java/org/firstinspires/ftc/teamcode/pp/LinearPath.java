@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Util.Coordinate;
 import java.util.ArrayList;
 
 public class LinearPath {
-    public ArrayList<Coordinate> path;
+    private ArrayList<Coordinate> path;
 
     private int current = 0;
 
