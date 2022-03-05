@@ -4,9 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.MarkerHookState;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class Teleop extends LinearOpMode {
     private boolean isDuckOn = false;
     private boolean isBucketLevel = false;
     private boolean isSlideUp = false;
-
+    private boolean scoreTop = true; //bottom is false
     private final int slowModePow = 5;
 
     private void initOpMode() throws IOException {
@@ -118,14 +120,19 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
+            /**
+             * Intake only moves here to prevent bucket from being stuck, use buttons A and B to control the intake.
+             */
             // Toggle bucket up-level
             if (robot.xButton && !robot.isxButtonPressedPrev) {
                 if (isBucketLevel) {
-                    new IntakeThread(telemetry, true, false, BucketState.RAISED).start();
+                    robot.control.setIntakeDirection(true, true);
+                    robot.control.setBucketState(BucketState.RAISED);
                     isIntakeOn = true;
                     isBucketLevel = false;
                 } else {
-                    new IntakeThread(telemetry, true, true, BucketState.LEVEL).start();
+                    robot.control.setIntakeDirection(true, false);
+                    robot.control.setBucketState(BucketState.LEVEL);
                     isIntakeOn = true;
                     isBucketLevel = true;
                 }
@@ -134,6 +141,11 @@ public class Teleop extends LinearOpMode {
             //Toggle drive power
             if (robot.yButton && !robot.isyButtonPressedPrev){
                 driveHighPower = !driveHighPower;
+            }
+            
+            //Toggle scoring level - toggle when with alliance
+            if (robot.bumperLeft2 && !robot.islBumper2PressedPrev) {
+                scoreTop = !scoreTop;
             }
 
             // Toggle slide up
@@ -144,7 +156,12 @@ public class Teleop extends LinearOpMode {
                     isBucketLevel = true;
                 }
                 robot.control.setLidPosition(LidPosition.CLOSED);
-                robot.control.setSlide(SlideState.TOP);
+                if (scoreTop) {
+                    robot.control.setSlide(SlideState.TOP);
+                } else {
+                    robot.control.setSlide(SlideState.BOTTOM);
+                }
+                
                 isSlideUp = true;
             }
 
@@ -195,7 +212,14 @@ public class Teleop extends LinearOpMode {
                     isDuckOn = true;
                 }
             }
-            // TODO: Claw extend and retract (for marker)
+
+            //Marker claw/hook toggle up/down
+            if(robot.triggerRight2 >= 0.5) {
+                robot.control.runMarkerHook(MarkerHookState.UP);
+            }
+            if(robot.triggerLeft2 >= 0.5) {
+                robot.control.runMarkerHook(MarkerHookState.DOWN);
+            }
         }
     }
 }
