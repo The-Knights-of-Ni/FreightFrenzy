@@ -9,11 +9,16 @@ robot take a look at :doc:`game_pad`.
 
 Contents
 --------
+
 .. toctree::
-   quickstart
+   :maxdepth: 2
+
    game_pad
    common_errors
    robot_placement
+   auto/index
+   code/index
+
 
 
 
