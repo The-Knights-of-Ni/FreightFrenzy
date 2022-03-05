@@ -200,7 +200,6 @@ public class Teleop extends LinearOpMode {
                     isDuckOn = true;
                 }
             }
-            // TODO: Claw extend and retract (for marker)
         }
     }
 }
