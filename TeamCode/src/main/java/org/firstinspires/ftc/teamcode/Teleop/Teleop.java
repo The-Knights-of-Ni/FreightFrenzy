@@ -28,7 +28,7 @@ public class Teleop extends LinearOpMode {
     private boolean isDuckOn = false;
     private boolean isBucketLevel = false;
     private boolean isSlideUp = false;
-
+    private boolean scoreTop = true; //bottom is false
     private final int slowModePow = 5;
 
     private void initOpMode() throws IOException {
@@ -142,6 +142,11 @@ public class Teleop extends LinearOpMode {
             if (robot.yButton && !robot.isyButtonPressedPrev){
                 driveHighPower = !driveHighPower;
             }
+            
+            //Toggle scoring level - toggle when with alliance
+            if (bumperLeft2 && !islBumper2PressedPrev) {
+                scoreTop = !scoreTop;
+            }
 
             // Toggle slide up
             if (robot.aButton2 && !robot.isaButton2PressedPrev) {
@@ -151,7 +156,12 @@ public class Teleop extends LinearOpMode {
                     isBucketLevel = true;
                 }
                 robot.control.setLidPosition(LidPosition.CLOSED);
-                robot.control.setSlide(SlideState.TOP);
+                if (scoreTop) {
+                    robot.control.setSlide(SlideState.TOP);
+                } else {
+                    robot.control.setSlide(SlideState.BOTTOM);
+                }
+                
                 isSlideUp = true;
             }
 
