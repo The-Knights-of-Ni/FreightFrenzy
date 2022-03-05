@@ -4,7 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Util.DoubleCoordinate;
+import org.firstinspires.ftc.teamcode.Util.Coordinate;
 
 import java.util.Locale;
 
@@ -50,7 +50,7 @@ public class Drive extends Subsystem {
      * Default turn speed
      */
     private static final double TURN_SPEED = 0.40;
-    private static final DoubleCoordinate ROBOT_INIT_POS = new DoubleCoordinate(15.0, 15.0);
+    private static final Coordinate ROBOT_INIT_POS = new Coordinate(15.0, 15.0);
     private static final double ROBOT_INIT_ANGLE = 45.0;
     /**
      * Number of millimeters per an Inch
@@ -95,7 +95,7 @@ public class Drive extends Subsystem {
     /**
      * Current Robot position in millimeters
      */
-    private DoubleCoordinate robotCurrentPos;
+    private Coordinate robotCurrentPos;
     /**
      * Current Robot angle
      */
@@ -498,7 +498,7 @@ public class Drive extends Subsystem {
         } else {
             setPower2D(distanceCountX, distanceCountY, power);
         }
-        setTargetPosition2D(new DoubleCoordinate(distanceCountX, distanceCountY));
+        setTargetPosition2D(new Coordinate(distanceCountX, distanceCountY));
         startTime = timer.nanoseconds();
         while (frontLeft.isBusy() && frontRight.isBusy() && rearLeft.isBusy() && rearRight.isBusy()) {
             logDriveEncoders();
@@ -516,7 +516,7 @@ public class Drive extends Subsystem {
      * @param motorPower      the motor power
      */
     public void setPower2D(double targetPositionX, double targetPositionY, double motorPower) {
-        double[] motorPowers = calcMotorPowers2D(new DoubleCoordinate(targetPositionX, targetPositionY), motorPower);
+        double[] motorPowers = calcMotorPowers2D(new Coordinate(targetPositionX, targetPositionY), motorPower);
         rearLeft.setPower(motorPowers[0]);
         frontLeft.setPower(motorPowers[1]);
         rearRight.setPower(motorPowers[2]);
@@ -528,7 +528,7 @@ public class Drive extends Subsystem {
      *
      * @param targetPosition the position for all the motors
      */
-    public void setTargetPosition2D(DoubleCoordinate targetPosition) {
+    public void setTargetPosition2D(Coordinate targetPosition) {
         //        frontLeft.setTargetPosition((int)  ((+ targetPositionX +
         // targetPositionY)*Math.sqrt(2.0)));
         //        frontRight.setTargetPosition((int) ((- targetPositionX +
@@ -551,14 +551,14 @@ public class Drive extends Subsystem {
      * @param motorPower the motor power
      * @return a list with the motor powers
      */
-    public double[] calcMotorPowers2D(DoubleCoordinate targetPosition, double motorPower) {
+    public double[] calcMotorPowers2D(Coordinate targetPosition, double motorPower) {
         double angleScale = Math.abs(targetPosition.x) + Math.abs(targetPosition.y);
         double lrPower = motorPower * (-targetPosition.x + targetPosition.y) / angleScale;
         double lfPower = motorPower * (targetPosition.x + targetPosition.y) / angleScale;
         return new double[]{lrPower, lfPower, lfPower, lrPower}; // rrPower=lfPower and rfPower=lrPower
     }
 
-    public void moveToPosABS(DoubleCoordinate targetPosition) {
+    public void moveToPosABS(Coordinate targetPosition) {
         // move to (targetPositionX, targetPositionY) in absolute field coordinate
         double deltaX = targetPosition.x - robotCurrentPos.x; // in absolute field coordinate
         double deltaY = targetPosition.x - robotCurrentPos.y; // in absolute field coordinate
@@ -580,7 +580,7 @@ public class Drive extends Subsystem {
         //        sleep(100);
     }
 
-    public void moveToPosREL(DoubleCoordinate targetPosition) {
+    public void moveToPosREL(Coordinate targetPosition) {
         // move to (targetPositionX, targetPositionY) in relative robot coordinate
         this.moveToPos2D(DRIVE_SPEED, targetPosition.x, targetPosition.y);
         robotCurrentPos.x +=
