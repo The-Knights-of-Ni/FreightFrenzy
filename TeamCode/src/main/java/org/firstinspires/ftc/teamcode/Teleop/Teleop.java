@@ -4,9 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.BucketState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.SlideState;
 import org.firstinspires.ftc.teamcode.Subsystems.Control.LidPosition;
+import org.firstinspires.ftc.teamcode.Subsystems.Control.MarkerHookState;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -199,6 +201,13 @@ public class Teleop extends LinearOpMode {
                     robot.control.startCarousel(false);
                     isDuckOn = true;
                 }
+            }
+
+            //Marker claw/hook toggle up/down
+            if(robot.triggerRight2 >= 0.5) {
+                robot.control.runMarkerHook(MarkerHookState.UP);
+            } else {
+                robot.control.runMarkerHook(MarkerHookState.DOWN);
             }
         }
     }
