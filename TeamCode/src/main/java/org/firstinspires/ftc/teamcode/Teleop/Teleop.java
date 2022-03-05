@@ -118,14 +118,19 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
+            /**
+             * Intake only moves here to prevent bucket from being stuck, use buttons A and B to control the intake.
+             */
             // Toggle bucket up-level
             if (robot.xButton && !robot.isxButtonPressedPrev) {
                 if (isBucketLevel) {
-                    new IntakeThread(telemetry, true, false, BucketState.RAISED).start();
+                    robot.control.setIntakeDirection(true, true);
+                    robot.control.setBucketState(BucketState.RAISED);
                     isIntakeOn = true;
                     isBucketLevel = false;
                 } else {
-                    new IntakeThread(telemetry, true, true, BucketState.LEVEL).start();
+                    robot.control.setIntakeDirection(true, false);
+                    robot.control.setBucketState(BucketState.LEVEL);
                     isIntakeOn = true;
                     isBucketLevel = true;
                 }
