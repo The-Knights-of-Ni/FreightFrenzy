@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.PurePursuit;
-
-import java.util.ArrayList;
+package org.firstinspires.ftc.teamcode.pp;
 
 public class PurePursuit {
     Field field;

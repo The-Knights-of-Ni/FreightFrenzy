@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.PurePursuit;
+package org.firstinspires.ftc.teamcode.pp;
 
 public class MotorSpeed {
     public final double duration; // in milliseconds
