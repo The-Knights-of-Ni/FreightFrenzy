@@ -169,6 +169,8 @@ public class Robot {
         // Servos
         duckWheel = new CRServo(hardwareMap, "duckWheel");
         lid = hardwareMap.servo.get("lid");
+        markerSlide = hardwareMap.servo.get("markerSlide");
+//        markerHook = hardwareMap.servo.get("markerHook");
 
         // Sensors
         imu = hardwareMap.get(BNO055IMU.class, "imu");
