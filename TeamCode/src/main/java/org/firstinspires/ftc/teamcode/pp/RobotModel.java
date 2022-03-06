@@ -11,12 +11,26 @@ public class RobotModel {
         center = start;
     }
 
-    public void move(Coordinate position) {
-        center = position;
+    public void displace(Coordinate displacement) {
+        center.x += displacement.x;
+        center.y += displacement.y;
+    }
+
+    public void move() {
+        center.x += speed * Math.cos(angle);
+        center.y += speed * Math.sin(angle);
+    }
+
+    public void rotate(double angle) {
+        this.angle += angle;
     }
 
     public Coordinate getCenter() {
         return center;
+    }
+
+    public double getCircleRadius() {
+        return circleRadius;
     }
 
 }

@@ -15,4 +15,8 @@ public class Coordinate {
     public String toString() {
         return "(" + this.x + "," + this.y + ")";
     }
+
+    public double distanceTo(Coordinate other) {
+        return Math.sqrt(Math.pow(x - other.x, 2) + Math.pow(y - other.y, 2));
+    }
 }

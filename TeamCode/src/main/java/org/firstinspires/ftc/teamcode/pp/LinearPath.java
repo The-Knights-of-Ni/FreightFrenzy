@@ -18,8 +18,7 @@ public class LinearPath {
     }
 
     public Coordinate next() {
-        current ++;
-        return path.get(current);
+        return path.get(current++);
     }
 
     public void addCoordinate(Coordinate c) {
