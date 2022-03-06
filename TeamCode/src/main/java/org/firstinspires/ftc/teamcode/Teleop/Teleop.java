@@ -93,8 +93,7 @@ public class Teleop extends LinearOpMode {
                 motorPowers = robot.drive.calcMotorPowers(robot.leftStickX, robot.leftStickY, robot.rightStickX);
             }
             else {
-                motorPowers = robot.drive.calcMotorPowers(Math.pow(robot.leftStickX, slowModePow),
-                        Math.pow(robot.leftStickY, slowModePow), Math.pow(robot.rightStickX, slowModePow+4));
+                motorPowers = robot.drive.calcMotorPowers(robot.leftStickX*0.5, robot.leftStickY*0.5, robot.rightStickX*0.5);
             }
             robot.drive.setDrivePowers(motorPowers);
 
