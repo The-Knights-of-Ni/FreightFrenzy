@@ -6120,7 +6120,7 @@ function longest_match(s, cur_match) {
   /* The code is optimized for HASH_BITS >= 8 and MAX_MATCH-2 multiple of 16.
    * It is easy to get rid of this optimization if necessary.
    */
-  // Assert(s->hash_bits >= 8 && MAX_MATCH == 258, "Code too clever");
+  // Assert(s->hash_bits >= 8 && MAX_MATCH == 258, "code too clever");
 
   /* Do not waste too much time if we already have a good match: */
   if (s.prev_length >= s.good_match) {
@@ -10310,7 +10310,7 @@ function send_bits(s, value, length) {
 
 
 function send_code(s, c, tree) {
-  send_bits(s, tree[c * 2]/*.Code*/, tree[c * 2 + 1]/*.Len*/);
+  send_bits(s, tree[c * 2]/*.code*/, tree[c * 2 + 1]/*.Len*/);
 }
 
 
@@ -10481,10 +10481,10 @@ function gen_codes(tree, max_code, bl_count)
     var len = tree[n * 2 + 1]/*.Len*/;
     if (len === 0) { continue; }
     /* Now reverse the bits */
-    tree[n * 2]/*.Code*/ = bi_reverse(next_code[len]++, len);
+    tree[n * 2]/*.code*/ = bi_reverse(next_code[len]++, len);
 
     //Tracecv(tree != static_ltree, (stderr,"\nn %3d %c l %2d c %4x (%x) ",
-    //     n, (isgraph(n) ? n : ' '), len, tree[n].Code, next_code[len]-1));
+    //     n, (isgraph(n) ? n : ' '), len, tree[n].code, next_code[len]-1));
   }
 }
 
@@ -10581,7 +10581,7 @@ function tr_static_init() {
   /* The static distance tree is trivial: */
   for (n = 0; n < D_CODES; n++) {
     static_dtree[n * 2 + 1]/*.Len*/ = 5;
-    static_dtree[n * 2]/*.Code*/ = bi_reverse(n, 5);
+    static_dtree[n * 2]/*.code*/ = bi_reverse(n, 5);
   }
 
   // Now data ready and we can init static trees
