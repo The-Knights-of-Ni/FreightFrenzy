@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Vision;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
+import org.firstinspires.ftc.teamcode.Util.Coordinate;
 
 import java.util.List;
 
@@ -196,7 +197,7 @@ public class Robot {
 
         // Subsystems
         telemetryBroadcast("Status", " drive initializing...");
-        drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer);
+        drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer, new Coordinate(0, 0));
 
         telemetryBroadcast("Status", " control initializing...");
         control = new Control(intake, bucket, slide, duckWheel, lid, markerSlide, markerHook, imu, loadSensor, telemetry, hardwareMap, timer);

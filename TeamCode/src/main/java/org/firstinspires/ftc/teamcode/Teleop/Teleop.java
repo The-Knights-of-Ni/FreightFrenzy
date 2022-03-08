@@ -212,7 +212,7 @@ public class Teleop extends LinearOpMode {
                 }
             }
 
-            //Marker claw/hook toggle up/down
+            // Marker claw/hook toggle up/down
             if(robot.triggerRight2 >= 0.5) {
                 robot.control.runMarkerHook(MarkerHookState.UP);
             }

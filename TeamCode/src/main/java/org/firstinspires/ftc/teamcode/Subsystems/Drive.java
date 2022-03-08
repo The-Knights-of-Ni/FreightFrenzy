@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Util.Coordinate;
+import org.firstinspires.ftc.teamcode.Util.Geometry.Pose2d;
+import org.firstinspires.ftc.teamcode.Util.Geometry.Rotation2d;
 
 import java.util.Locale;
 
@@ -128,12 +130,13 @@ public class Drive extends Subsystem {
     public Drive(DcMotorEx frontLeft, DcMotorEx frontRight, DcMotorEx rearLeft, DcMotorEx rearRight, BNO055IMU imu,
             Telemetry telemetry,
             HardwareMap hardwareMap,
-            ElapsedTime timer) {
+            ElapsedTime timer, Coordinate startPosition) {
         super(telemetry, hardwareMap, timer);
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.rearLeft = rearLeft;
         this.rearRight = rearRight;
+        this.robotCurrentPos = startPosition;
 //        this.odL = odL;
 //        this.odB = odB;
 //        this.odR = odR;
@@ -265,18 +268,18 @@ public class Drive extends Subsystem {
     /**
      * Calculates the motor powers when given the position o the left and right sticks, the motor powers are in the format lf, rf, lr, rr
      *
-     * @param leftStickX  left joystick x position
-     * @param leftStickY  left joystick y position
-     * @param rightStickX right joystick x position for turning
+     * @param xPower  left joystick x position
+     * @param yPower  left joystick y position
+     * @param turnPower right joystick x position for turning
      * @return A list with the motor powers
      */
-    public double[] calcMotorPowers(double leftStickX, double leftStickY, double rightStickX) {
-        double r = Math.hypot(leftStickX, leftStickY);
-        double robotAngle = Math.atan2(leftStickY, leftStickX) - Math.PI / 4;
-        double lrPower = r * Math.sin(robotAngle) + rightStickX;
-        double lfPower = r * Math.cos(robotAngle) + rightStickX;
-        double rrPower = r * Math.cos(robotAngle) - rightStickX;
-        double rfPower = r * Math.sin(robotAngle) - rightStickX;
+    public double[] calcMotorPowers(double xPower, double yPower, double turnPower) {
+        double r = Math.hypot(xPower, yPower);
+        double robotAngle = Math.atan2(yPower, xPower) - Math.PI / 4;
+        double lrPower = r * Math.sin(robotAngle) + turnPower;
+        double lfPower = r * Math.cos(robotAngle) + turnPower;
+        double rrPower = r * Math.cos(robotAngle) - turnPower;
+        double rfPower = r * Math.sin(robotAngle) - turnPower;
         return new double[]{lfPower, rfPower, lrPower, rrPower};
     }
 
@@ -302,6 +305,10 @@ public class Drive extends Subsystem {
         frontRight.setPower(powers[1]);
         rearLeft.setPower(powers[2]);
         rearRight.setPower(powers[3]);
+    }
+
+    public void setDrivePowers(double xPower, double yPower, double turnPower) {
+        setDrivePowers(calcMotorPowers(xPower, yPower, turnPower));
     }
 
     /**
@@ -1636,5 +1643,10 @@ public class Drive extends Subsystem {
         }
         if (targetSpeed < speedOffset) targetSpeed = speedOffset;
         return targetSpeed;
+    }
+
+    public Pose2d getPose() {
+        // TODO: Add proper Rotation 2d
+        return new Pose2d(robotCurrentPos.x, robotCurrentPos.y, new Rotation2d());
     }
 }
