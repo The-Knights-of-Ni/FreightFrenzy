@@ -11,4 +11,4 @@ Follow the suggested steps, start by checking you android studio preferences.
 
 The Marker is not Detected
 ____________________________
-Check the robot position and check the biggest.
+Check the robot position and use the Camera POV to make sure that external light is not interfering with the camera.

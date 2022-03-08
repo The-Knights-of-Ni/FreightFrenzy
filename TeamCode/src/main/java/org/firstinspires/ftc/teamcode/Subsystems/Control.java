@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * Control subsystem for controlling arms and claws
@@ -21,6 +20,9 @@ public class Control extends Subsystem {
     private final DcMotorEx bucket;
     private final DcMotorEx slide;
     private final Servo lid;
+    private final Servo markerSlide;
+    private final Servo markerHook;
+
     private SlideState currentSlidePosition;
 
     // Servos
@@ -41,7 +43,7 @@ public class Control extends Subsystem {
 
     public enum BucketState {
         LEVEL(0, 0.3),
-        RAISED(-87, 0.65);
+        RAISED(-87, 0.7);
 
         public final double power;
         public final int position;
@@ -54,9 +56,9 @@ public class Control extends Subsystem {
 
     public enum SlideState {
         RETRACTED(0, 0.45),
-        BOTTOM(475, 0.6),
+        BOTTOM(465, 0.6),
         MIDDLE(720, 0.6),
-        TOP(1270, 0.6);
+        TOP(1375, 0.6);
 
         public final int position;
         public final double power;
@@ -69,7 +71,7 @@ public class Control extends Subsystem {
 
     public enum LidPosition {
         CLOSED(0.8),
-        DEPLOYED(0.65),
+        DEPLOYED(0.75),
         OPEN(0.5);
 
         public final double position;
@@ -79,7 +81,21 @@ public class Control extends Subsystem {
         }
     }
 
-    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx slide, CRServo duckWheel, Servo lid,
+    public enum MarkerHookState {
+        //TODO: Calibrate constants for marker hook
+        UP(0.25, 0.425), // Hook is perpendicular/level
+        DOWN(0.45, 0); // Hook is angled downward
+
+        public final double posHookServo;
+        public final double posSlideServo;
+
+        MarkerHookState(double posHookServo, double posSlideServo) {
+            this.posHookServo = posHookServo;
+            this.posSlideServo = posSlideServo;
+        }
+    }
+
+    public Control(DcMotorEx intake, DcMotorEx bucket, DcMotorEx slide, CRServo duckWheel, Servo lid, Servo markerSlide, Servo markerHook,
                    BNO055IMU imu, DistanceSensor loadSensor,
                    Telemetry telemetry, HardwareMap hardwareMap, ElapsedTime timer) {
         super(telemetry, hardwareMap, timer);
@@ -90,6 +106,8 @@ public class Control extends Subsystem {
         this.slide = slide;
         this.duckWheel = duckWheel;
         this.lid = lid;
+        this.markerSlide = markerSlide;
+        this.markerHook = markerHook;
 //        this.loadSensor = loadSensor;
 
         // Default for slide position
@@ -201,6 +219,11 @@ public class Control extends Subsystem {
      */
     public boolean isSlideRetracted() {
         return Math.abs(slide.getCurrentPosition() - SlideState.RETRACTED.position) <= 3;
+    }
+
+    public void runMarkerHook(MarkerHookState state) {
+        markerHook.setPosition(state.posHookServo);
+        markerSlide.setPosition(state.posSlideServo);
     }
 
     /**

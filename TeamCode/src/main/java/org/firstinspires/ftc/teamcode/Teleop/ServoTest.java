@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.Control;
 import org.firstinspires.ftc.teamcode.Util.AllianceColor;
 
 import java.io.IOException;
@@ -32,22 +33,13 @@ public class ServoTest extends LinearOpMode {
             e.printStackTrace();
         }
         waitForStart();
-        robot.vision.stop();
         while(opModeIsActive()) {
             robot.getGamePadInputs();
+            robot.markerSlide.setPosition(0);
+            robot.markerHook.setPosition(0.425);
 
-            // Deploy
-            if (robot.aButton && !robot.isaButtonPressedPrev) {
-                robot.lid.setPosition(0.60);
-            }
-            // Open
-            if (robot.bButton && !robot.isbButtonPressedPrev) {
-                robot.lid.setPosition(0.5);
-            }
-            // Closed
-            if(robot.xButton && !robot.isxButtonPressedPrev) {
-                robot.lid.setPosition(0.75);
-            }
+//            robot.markerSlide.setPosition(0.425);
+//            robot.markerHook.setPosition(0.375);
         }
     }
 

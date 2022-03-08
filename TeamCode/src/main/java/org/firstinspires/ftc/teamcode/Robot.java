@@ -30,6 +30,8 @@ public class Robot {
     // Servos
     public CRServo duckWheel;
     public Servo lid;
+    public Servo markerSlide;
+    public Servo markerHook;
     // Odometry
     public List<LynxModule> allHubs;
     public DigitalChannel odometryRA;
@@ -167,6 +169,8 @@ public class Robot {
         // Servos
         duckWheel = new CRServo(hardwareMap, "duckWheel");
         lid = hardwareMap.servo.get("lid");
+        markerSlide = hardwareMap.servo.get("markerSlide");
+        markerHook = hardwareMap.servo.get("markerHook");
 
         // Sensors
         imu = hardwareMap.get(BNO055IMU.class, "imu");
@@ -195,7 +199,7 @@ public class Robot {
         drive = new Drive(frontLeftDriveMotor, frontRightDriveMotor, rearLeftDriveMotor, rearRightDriveMotor, imu, telemetry, hardwareMap, timer);
 
         telemetryBroadcast("Status", " control initializing...");
-        control = new Control(intake, bucket, slide, duckWheel, lid, imu, loadSensor, telemetry, hardwareMap, timer);
+        control = new Control(intake, bucket, slide, duckWheel, lid, markerSlide, markerHook, imu, loadSensor, telemetry, hardwareMap, timer);
 
         if(visionEnabled) {
             telemetryBroadcast("Status", " vision initializing...");
