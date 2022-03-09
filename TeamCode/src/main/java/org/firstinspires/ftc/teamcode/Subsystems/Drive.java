@@ -4,7 +4,6 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Util.Coordinate;
 
 import java.util.Locale;
 
@@ -50,7 +49,8 @@ public class Drive extends Subsystem {
      * Default turn speed
      */
     private static final double TURN_SPEED = 0.40;
-    private static final Coordinate ROBOT_INIT_POS = new Coordinate(15.0, 15.0);
+    private static final double ROBOT_INIT_POS_X = 15.0;
+    private static final double ROBOT_INIT_POS_Y = 15.0;
     private static final double ROBOT_INIT_ANGLE = 45.0;
     /**
      * Number of millimeters per an Inch
@@ -93,9 +93,13 @@ public class Drive extends Subsystem {
     // Sensors
     private final BNO055IMU imu;
     /**
-     * Current Robot position in millimeters
+     * Current Robot x position in millimeters
      */
-    private Coordinate robotCurrentPos;
+    private double robotCurrentPosX;
+    /**
+     * Current Robot y position in millimeters
+     */
+    private double robotCurrentPosY;
     /**
      * Current Robot angle
      */
@@ -126,9 +130,9 @@ public class Drive extends Subsystem {
      * @param timer       The timer for the elapsed time
      */
     public Drive(DcMotorEx frontLeft, DcMotorEx frontRight, DcMotorEx rearLeft, DcMotorEx rearRight, BNO055IMU imu,
-            Telemetry telemetry,
-            HardwareMap hardwareMap,
-            ElapsedTime timer) {
+                 Telemetry telemetry,
+                 HardwareMap hardwareMap,
+                 ElapsedTime timer) {
         super(telemetry, hardwareMap, timer);
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
@@ -263,7 +267,7 @@ public class Drive extends Subsystem {
     }
 
     /**
-     * Calculates the motor powers when given the position o the left and right sticks, the motor powers are in the format lf, rf, lr, rr
+     * Calculates the motor powers when given the position o the left and right sticks
      *
      * @param leftStickX  left joystick x position
      * @param leftStickY  left joystick y position
@@ -450,7 +454,7 @@ public class Drive extends Subsystem {
 
     /**
      * Turns the robot by the specified angle.
-     * 
+     *
      * @param degrees The angle to turn by.
      */
     public void turnRobot(double degrees) {
@@ -472,7 +476,7 @@ public class Drive extends Subsystem {
     }
 
     /**
-     * Move to the given coordinates relative to the robot, which is at 0,0
+     * 2D move to position
      *
      * @param power           motor power
      * @param targetPositionX target x coordinate
@@ -498,7 +502,7 @@ public class Drive extends Subsystem {
         } else {
             setPower2D(distanceCountX, distanceCountY, power);
         }
-        setTargetPosition2D(new Coordinate(distanceCountX, distanceCountY));
+        setTargetPosition2D(distanceCountX, distanceCountY);
         startTime = timer.nanoseconds();
         while (frontLeft.isBusy() && frontRight.isBusy() && rearLeft.isBusy() && rearRight.isBusy()) {
             logDriveEncoders();
@@ -516,7 +520,7 @@ public class Drive extends Subsystem {
      * @param motorPower      the motor power
      */
     public void setPower2D(double targetPositionX, double targetPositionY, double motorPower) {
-        double[] motorPowers = calcMotorPowers2D(new Coordinate(targetPositionX, targetPositionY), motorPower);
+        double[] motorPowers = calcMotorPowers2D(targetPositionX, targetPositionY, motorPower);
         rearLeft.setPower(motorPowers[0]);
         frontLeft.setPower(motorPowers[1]);
         rearRight.setPower(motorPowers[2]);
@@ -526,9 +530,10 @@ public class Drive extends Subsystem {
     /**
      * set motor rotation targets appropriately according to the direction of motion.
      *
-     * @param targetPosition the position for all the motors
+     * @param targetPositionX The x target position
+     * @param targetPositionY The y target position
      */
-    public void setTargetPosition2D(Coordinate targetPosition) {
+    public void setTargetPosition2D(double targetPositionX, double targetPositionY) {
         //        frontLeft.setTargetPosition((int)  ((+ targetPositionX +
         // targetPositionY)*Math.sqrt(2.0)));
         //        frontRight.setTargetPosition((int) ((- targetPositionX +
@@ -537,31 +542,32 @@ public class Drive extends Subsystem {
         // targetPositionY)*Math.sqrt(2.0)));
         //        rearRight.setTargetPosition((int)  ((+ targetPositionX +
         // targetPositionY)*Math.sqrt(2.0)));
-        frontLeft.setTargetPosition((int) (targetPosition.x + targetPosition.y));
-        frontRight.setTargetPosition((int) (-targetPosition.x + targetPosition.y));
-        rearLeft.setTargetPosition((int) (-targetPosition.x + targetPosition.y));
-        rearRight.setTargetPosition((int) (targetPosition.x + targetPosition.y));
+        frontLeft.setTargetPosition((int) (targetPositionX + targetPositionY));
+        frontRight.setTargetPosition((int) (-targetPositionX + targetPositionY));
+        rearLeft.setTargetPosition((int) (-targetPositionX + targetPositionY));
+        rearRight.setTargetPosition((int) (targetPositionX + targetPositionY));
     }
 
     /**
      * targetPositionX and targetPositionY determine the direction of movement
      * motorPower determines the magnitude of motor power
      *
-     * @param targetPosition The target position to move to.
-     * @param motorPower the motor power
+     * @param targetPositionX The target x position
+     * @param targetPositionY the target y position
+     * @param motorPower      the motor power
      * @return a list with the motor powers
      */
-    public double[] calcMotorPowers2D(Coordinate targetPosition, double motorPower) {
-        double angleScale = Math.abs(targetPosition.x) + Math.abs(targetPosition.y);
-        double lrPower = motorPower * (-targetPosition.x + targetPosition.y) / angleScale;
-        double lfPower = motorPower * (targetPosition.x + targetPosition.y) / angleScale;
+    public double[] calcMotorPowers2D(double targetPositionX, double targetPositionY, double motorPower) {
+        double angleScale = Math.abs(targetPositionX) + Math.abs(targetPositionY);
+        double lrPower = motorPower * (-targetPositionX + targetPositionY) / angleScale;
+        double lfPower = motorPower * (targetPositionX + targetPositionY) / angleScale;
         return new double[]{lrPower, lfPower, lfPower, lrPower}; // rrPower=lfPower and rfPower=lrPower
     }
 
-    public void moveToPosABS(Coordinate targetPosition) {
+    public void moveToPosABS(double targetPositionX, double targetPositionY) {
         // move to (targetPositionX, targetPositionY) in absolute field coordinate
-        double deltaX = targetPosition.x - robotCurrentPos.x; // in absolute field coordinate
-        double deltaY = targetPosition.x - robotCurrentPos.y; // in absolute field coordinate
+        double deltaX = targetPositionX - robotCurrentPosX; // in absolute field coordinate
+        double deltaY = targetPositionY - robotCurrentPosY; // in absolute field coordinate
         double distanceCountX, distanceCountY; // distance in motor count in robot coordinate
         // rotate vector from field coordinate to robot coordinate
         distanceCountX =
@@ -571,27 +577,27 @@ public class Drive extends Subsystem {
                 deltaX * Math.cos(robotCurrentAngle * Math.PI / 180.0)
                         + deltaY * Math.sin(robotCurrentAngle * Math.PI / 180.0);
         this.moveToPos2D(DRIVE_SPEED, distanceCountX, distanceCountY);
-        robotCurrentPos.x = targetPosition.x;
-        robotCurrentPos.y = targetPosition.y;
+        robotCurrentPosX = targetPositionX;
+        robotCurrentPosY = targetPositionY;
         // Display it for the driver.
         telemetry.addData(
-                "moveToPosABS", "move to %7.2f, %7.2f", robotCurrentPos.x, robotCurrentPos.y);
+                "moveToPosABS", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         telemetry.update();
         //        sleep(100);
     }
 
-    public void moveToPosREL(Coordinate targetPosition) {
+    public void moveToPosREL(double targetPositionX, double targetPositionY) {
         // move to (targetPositionX, targetPositionY) in relative robot coordinate
-        this.moveToPos2D(DRIVE_SPEED, targetPosition.x, targetPosition.y);
-        robotCurrentPos.x +=
-                targetPosition.x * Math.cos(robotCurrentAngle * Math.PI / 180.0)
-                        + targetPosition.x * Math.cos((robotCurrentAngle - 90.0) * Math.PI / 180.0);
-        robotCurrentPos.y +=
-                targetPosition.y * Math.sin(robotCurrentAngle * Math.PI / 180.0)
-                        + targetPosition.x * Math.sin((robotCurrentAngle - 90.0) * Math.PI / 180.0);
+        this.moveToPos2D(DRIVE_SPEED, targetPositionX, targetPositionY);
+        robotCurrentPosX +=
+                targetPositionY * Math.cos(robotCurrentAngle * Math.PI / 180.0)
+                        + targetPositionX * Math.cos((robotCurrentAngle - 90.0) * Math.PI / 180.0);
+        robotCurrentPosY +=
+                targetPositionY * Math.sin(robotCurrentAngle * Math.PI / 180.0)
+                        + targetPositionX * Math.sin((robotCurrentAngle - 90.0) * Math.PI / 180.0);
         // Display it for the driver.
         telemetry.addData(
-                "moveToPosREL", "move to %7.2f, %7.2f", robotCurrentPos.x, robotCurrentPos.y);
+                "moveToPosREL", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         telemetry.update();
         //        sleep(100);
     }
@@ -627,11 +633,11 @@ public class Drive extends Subsystem {
                 motorKp,
                 motorKi,
                 motorKd);
-        robotCurrentPos.x += distance * Math.cos(robotCurrentAngle * Math.PI / 180.0);
-        robotCurrentPos.y += distance * Math.sin(robotCurrentAngle * Math.PI / 180.0);
+        robotCurrentPosX += distance * Math.cos(robotCurrentAngle * Math.PI / 180.0);
+        robotCurrentPosY += distance * Math.sin(robotCurrentAngle * Math.PI / 180.0);
         // Display it for the driver.
         telemetry.addData(
-                "moveForward", "move to %7.2f, %7.2f", robotCurrentPos.x, robotCurrentPos.y);
+                "moveForward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         updateOdometry();
         telemetry.addData(
                 "odometry",
@@ -695,8 +701,8 @@ public class Drive extends Subsystem {
                 motorKp,
                 motorKi,
                 motorKd);
-        robotCurrentPos.x += distance * Math.cos(robotCurrentAngle * Math.PI / 180.0);
-        robotCurrentPos.y += distance * Math.sin(robotCurrentAngle * Math.PI / 180.0);
+        robotCurrentPosX += distance * Math.cos(robotCurrentAngle * Math.PI / 180.0);
+        robotCurrentPosY += distance * Math.sin(robotCurrentAngle * Math.PI / 180.0);
         // Display it for the driver.
 //        telemetry.addData(
 //                "moveForward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
@@ -734,11 +740,11 @@ public class Drive extends Subsystem {
                 motorKp,
                 motorKi,
                 motorKd);
-        robotCurrentPos.x += distance * Math.cos((robotCurrentAngle + 180.0) * Math.PI / 180.0);
-        robotCurrentPos.y += distance * Math.sin((robotCurrentAngle + 180.0) * Math.PI / 180.0);
+        robotCurrentPosX += distance * Math.cos((robotCurrentAngle + 180.0) * Math.PI / 180.0);
+        robotCurrentPosY += distance * Math.sin((robotCurrentAngle + 180.0) * Math.PI / 180.0);
         // Display it for the driver.
         telemetry.addData(
-                "moveBackward", "move to %7.2f, %7.2f", robotCurrentPos.x, robotCurrentPos.y);
+                "moveBackward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         updateOdometry();
         telemetry.addData(
                 "odometry",
@@ -802,8 +808,8 @@ public class Drive extends Subsystem {
                 motorKp,
                 motorKi,
                 motorKd);
-        robotCurrentPos.x += distance * Math.cos((robotCurrentAngle + 180.0) * Math.PI / 180.0);
-        robotCurrentPos.y += distance * Math.sin((robotCurrentAngle + 180.0) * Math.PI / 180.0);
+        robotCurrentPosX += distance * Math.cos((robotCurrentAngle + 180.0) * Math.PI / 180.0);
+        robotCurrentPosY += distance * Math.sin((robotCurrentAngle + 180.0) * Math.PI / 180.0);
         // Display it for the driver.
 //        telemetry.addData(
 //                "moveBackward", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
@@ -841,11 +847,11 @@ public class Drive extends Subsystem {
                 motorKp,
                 motorKi,
                 motorKd);
-        robotCurrentPos.x += distance * Math.cos((robotCurrentAngle + 90.0) * Math.PI / 180.0);
-        robotCurrentPos.y += distance * Math.sin((robotCurrentAngle + 90.0) * Math.PI / 180.0);
+        robotCurrentPosX += distance * Math.cos((robotCurrentAngle + 90.0) * Math.PI / 180.0);
+        robotCurrentPosY += distance * Math.sin((robotCurrentAngle + 90.0) * Math.PI / 180.0);
         // Display it for the driver.
         telemetry.addData(
-                "moveLeft", "move to %7.2f, %7.2f", robotCurrentPos.x, robotCurrentPos.y);
+                "moveLeft", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         updateOdometry();
         telemetry.addData(
                 "odometry",
@@ -910,11 +916,11 @@ public class Drive extends Subsystem {
                 motorKp,
                 motorKi,
                 motorKd);
-        robotCurrentPos.x += distance * Math.cos((robotCurrentAngle + 90.0) * Math.PI / 180.0);
-        robotCurrentPos.y += distance * Math.sin((robotCurrentAngle + 90.0) * Math.PI / 180.0);
+        robotCurrentPosX += distance * Math.cos((robotCurrentAngle + 90.0) * Math.PI / 180.0);
+        robotCurrentPosY += distance * Math.sin((robotCurrentAngle + 90.0) * Math.PI / 180.0);
         // Display it for the driver.
         telemetry.addData(
-                "moveLeft", "move to %7.2f, %7.2f", robotCurrentPos.x, robotCurrentPos.y);
+                "moveLeft", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         telemetry.update();
         //        sleep(100);
     }
@@ -950,11 +956,11 @@ public class Drive extends Subsystem {
                 motorKp,
                 motorKi,
                 motorKd);
-        robotCurrentPos.x += distance * Math.cos((robotCurrentAngle - 90.0) * Math.PI / 180.0);
-        robotCurrentPos.y += distance * Math.sin((robotCurrentAngle - 90.0) * Math.PI / 180.0);
+        robotCurrentPosX += distance * Math.cos((robotCurrentAngle - 90.0) * Math.PI / 180.0);
+        robotCurrentPosY += distance * Math.sin((robotCurrentAngle - 90.0) * Math.PI / 180.0);
         // Display it for the driver.
         telemetry.addData(
-                "moveRight", "move to %7.2f, %7.2f", robotCurrentPos.x, robotCurrentPos.y);
+                "moveRight", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         updateOdometry();
         telemetry.addData(
                 "odometry",
@@ -1019,11 +1025,11 @@ public class Drive extends Subsystem {
                 motorKp,
                 motorKi,
                 motorKd);
-        robotCurrentPos.x += distance * Math.cos((robotCurrentAngle - 90.0) * Math.PI / 180.0);
-        robotCurrentPos.y += distance * Math.sin((robotCurrentAngle - 90.0) * Math.PI / 180.0);
+        robotCurrentPosX += distance * Math.cos((robotCurrentAngle - 90.0) * Math.PI / 180.0);
+        robotCurrentPosY += distance * Math.sin((robotCurrentAngle - 90.0) * Math.PI / 180.0);
         // Display it for the driver.
         telemetry.addData(
-                "moveRight", "move to %7.2f, %7.2f", robotCurrentPos.x, robotCurrentPos.y);
+                "moveRight", "move to %7.2f, %7.2f", robotCurrentPosX, robotCurrentPosY);
         telemetry.update();
         //        sleep(100);
     }
