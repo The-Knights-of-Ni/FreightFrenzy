@@ -48,8 +48,7 @@ public class AutoRedPrimaryCycle extends Auto {
         drive.moveForward(2 * mmPerInch);
         drive.turnByAngle(-90);
         robot.control.startCarousel(false);
-        drive.moveBackward(27 * mmPerInch);
-        drive.moveRight(2 * mmPerInch);
+        drive.moveBackward(25 * mmPerInch);
 
         // Deliver Duck
         sleep(2500);
@@ -59,7 +58,7 @@ public class AutoRedPrimaryCycle extends Auto {
         new ScoreThread(robot, placementLevel).start();
 //        robot.control.setSlide(placementLevel); // Can be used instead of multithreading
 
-        drive.moveForward(52 * mmPerInch);
+        drive.moveForward(50 * mmPerInch);
         drive.turnByAngle(90);
 
         double adjustment = 0;
@@ -71,7 +70,7 @@ public class AutoRedPrimaryCycle extends Auto {
                 adjustment = 4;
                 break;
         }
-        drive.moveForward((13 + adjustment) * mmPerInch);
+        drive.moveForward((15 + adjustment) * mmPerInch);
 
 
         // Release clamp
@@ -85,7 +84,7 @@ public class AutoRedPrimaryCycle extends Auto {
         robot.control.setSlide(SlideState.RETRACTED);
         drive.moveLeft((25 - adjustment) * mmPerInch);
         robot.control.setIntakeDirection(true, true);
-        robot.drive.moveBackward(60 * mmPerInch);
+        robot.drive.moveBackward(55 * mmPerInch);
         robot.control.setLidPosition(LidPosition.OPEN);
 
         sleep(500);
@@ -109,12 +108,12 @@ public class AutoRedPrimaryCycle extends Auto {
         robot.drive.moveLeft(21 * mmPerInch);
         robot.control.setSlide(SlideState.RETRACTED);
         robot.control.setIntakeDirection(true, true);
-        robot.drive.moveBackward((60 + i * 4) * mmPerInch);
+        robot.drive.moveBackward((55 + i * 4) * mmPerInch);
         robot.control.setLidPosition(LidPosition.OPEN);
     }
     public void forwardCycle(int i) {
         robot.control.setBucketState(BucketState.RAISED);
-        robot.drive.moveForward((60 + i * 4)*mmPerInch);
+        robot.drive.moveForward((55 + i * 4)*mmPerInch);
         robot.drive.moveRight(4*mmPerInch);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.TOP);
