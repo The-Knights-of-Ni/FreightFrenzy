@@ -75,7 +75,7 @@ public class AutoRedPrimaryCycle extends Auto {
 
         // Release clamp
         robot.control.setLidPosition(LidPosition.DEPLOYED);
-        sleep(1000);
+        sleep(500);
 
         // Move back to warehouse
         drive.moveBackward(4 * mmPerInch);
@@ -88,8 +88,8 @@ public class AutoRedPrimaryCycle extends Auto {
         robot.control.setLidPosition(LidPosition.OPEN);
 
         sleep(500);
-        forwardCycle(0);
-        backCycle(0);
+        forwardCycle();
+        backCycle();
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
@@ -101,19 +101,19 @@ public class AutoRedPrimaryCycle extends Auto {
         telemetry.update();
     }
 
-    public void backCycle(int i) {
+    public void backCycle() {
         robot.drive.moveBackward(6 * mmPerInch);
         robot.drive.turnByAngle(90);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.drive.moveLeft(21 * mmPerInch);
         robot.control.setSlide(SlideState.RETRACTED);
         robot.control.setIntakeDirection(true, true);
-        robot.drive.moveBackward((55 + i * 4) * mmPerInch);
+        robot.drive.moveBackward((55) * mmPerInch);
         robot.control.setLidPosition(LidPosition.OPEN);
     }
-    public void forwardCycle(int i) {
+    public void forwardCycle() {
         robot.control.setBucketState(BucketState.RAISED);
-        robot.drive.moveForward((55 + i * 4)*mmPerInch);
+        robot.drive.moveForward((55)*mmPerInch);
         robot.drive.moveRight(4*mmPerInch);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.TOP);
