@@ -52,7 +52,7 @@ public class AutoRedPrimaryPark extends Auto {
         drive.moveForward(2 * mmPerInch);
         drive.turnByAngle(-90);
         robot.control.startCarousel(false);
-        drive.moveBackward(27 * mmPerInch);
+        drive.moveBackward(24 * mmPerInch);
         drive.moveRight(2 * mmPerInch);
 
 

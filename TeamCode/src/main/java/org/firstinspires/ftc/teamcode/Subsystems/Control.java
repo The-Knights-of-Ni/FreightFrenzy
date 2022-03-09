@@ -43,7 +43,7 @@ public class Control extends Subsystem {
 
     public enum BucketState {
         LEVEL(0, 0.3),
-        RAISED(-87, 0.7);
+        RAISED(-90, 0.7);
 
         public final double power;
         public final int position;
@@ -71,7 +71,7 @@ public class Control extends Subsystem {
 
     public enum LidPosition {
         CLOSED(0.8),
-        DEPLOYED(0.75),
+        DEPLOYED(0.65),
         OPEN(0.5);
 
         public final double position;
@@ -132,7 +132,7 @@ public class Control extends Subsystem {
      * @param direction Specifies the direction to turn, where true/false corresponds to forward/reverse respectively.
      */
     public void setIntakeDirection(boolean status, boolean direction) {
-        double power = status ? 0.5 : 0;
+        double power = status ? 0.8 : 0;
 
         if (direction) {
             intake.setPower(power);

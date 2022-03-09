@@ -75,16 +75,16 @@ public class AutoBlueSecondaryCycle extends Auto {
         robot.drive.moveBackward(20 * mmPerInch);
 
         robot.drive.turnByAngle(-65);
-        robot.drive.moveRight(10 * mmPerInch);
+        robot.drive.moveRight(6 * mmPerInch);
         robot.control.setIntakeDirection(true, true);
         robot.control.setLidPosition(Control.LidPosition.OPEN);
 
-        robot.drive.moveBackward((44 + i * 6)*mmPerInch);
+        robot.drive.moveBackward((40)*mmPerInch);
     }
     public void forwardCycle(int i) {
         sleep(250);
         robot.control.setBucketState(Control.BucketState.RAISED);
-        robot.drive.moveForward((36 + i * 6)*mmPerInch);
+        robot.drive.moveForward((36 + i * 8)*mmPerInch);
         robot.control.setLidPosition(Control.LidPosition.CLOSED);
         robot.control.setIntakeDirection(true, false);
         robot.control.setBucketState(Control.BucketState.LEVEL);
