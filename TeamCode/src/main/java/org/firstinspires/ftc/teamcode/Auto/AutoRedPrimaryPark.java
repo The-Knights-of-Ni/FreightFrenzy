@@ -81,7 +81,7 @@ public class AutoRedPrimaryPark extends Auto {
         // Move back to park
         drive.moveBackward((4 + adjustment) * mmPerInch);
         sleep(1000);
-        drive.turnByAngle(-90);
+        drive.turnByAngle(-80);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
 
