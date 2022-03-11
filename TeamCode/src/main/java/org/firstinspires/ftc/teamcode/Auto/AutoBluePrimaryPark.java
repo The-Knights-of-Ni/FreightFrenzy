@@ -49,9 +49,9 @@ public class AutoBluePrimaryPark extends Auto {
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(LidPosition.CLOSED);
-        drive.moveForward(4 * mmPerInch);
+        drive.moveForward(2 * mmPerInch);
         robot.control.startCarousel(true);
-        drive.moveRight(24 * mmPerInch);
+        drive.moveRight(22 * mmPerInch);
 
         // Deliver Duck
         sleep(2500);
@@ -69,7 +69,7 @@ public class AutoBluePrimaryPark extends Auto {
                 adjustment = 4;
                 break;
         }
-        drive.moveForward((11 + adjustment) * mmPerInch);
+        drive.moveForward((15 + adjustment) * mmPerInch);
 
         // Release clamp
         robot.control.setLidPosition(LidPosition.DEPLOYED);

@@ -45,9 +45,9 @@ public class AutoBluePrimaryCycle extends Auto {
         // Move to carousel
         robot.control.setBucketState(BucketState.LEVEL);
         robot.control.setLidPosition(LidPosition.CLOSED);
-        drive.moveForward(4 * mmPerInch);
+        drive.moveForward(2 * mmPerInch);
         robot.control.startCarousel(true);
-        drive.moveRight(24 * mmPerInch);
+        drive.moveRight(22 * mmPerInch);
 
         // Deliver Duck
         sleep(2500);
@@ -65,25 +65,25 @@ public class AutoBluePrimaryCycle extends Auto {
                 adjustment = 4;
                 break;
         }
-        drive.moveForward((11 + adjustment) * mmPerInch);
+        drive.moveForward((15 + adjustment) * mmPerInch);
 
         // Release clamp
         robot.control.setLidPosition(LidPosition.DEPLOYED);
         sleep(500);
 
         // Move back to warehouse
-        drive.moveBackward((4 + adjustment) * mmPerInch);
+        drive.moveBackward(4 * mmPerInch);
         drive.turnByAngle(-90);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
         drive.moveRight((25 - adjustment) * mmPerInch);
         robot.control.setIntakeDirection(true, true);
-        robot.drive.moveBackward(60 * mmPerInch);
+        robot.drive.moveBackward(55 * mmPerInch);
         robot.control.setLidPosition(LidPosition.OPEN);
 
         sleep(500);
-        forwardCycle(0);
-        backCycle(0);
+        forwardCycle();
+        backCycle();
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
@@ -95,19 +95,19 @@ public class AutoBluePrimaryCycle extends Auto {
         telemetry.update();
     }
 
-    public void backCycle(int i) {
+    public void backCycle() {
         robot.drive.moveBackward(6 * mmPerInch);
         robot.drive.turnByAngle(-90);
         robot.control.setLidPosition(LidPosition.CLOSED);
-        robot.drive.moveLeft(21 * mmPerInch);
+        robot.drive.moveRight(21 * mmPerInch);
         robot.control.setSlide(SlideState.RETRACTED);
         robot.control.setIntakeDirection(true, true);
-        robot.drive.moveBackward((60 + i * 4) * mmPerInch);
+        robot.drive.moveBackward((55) * mmPerInch);
         robot.control.setLidPosition(LidPosition.OPEN);
     }
-    public void forwardCycle(int i) {
+    public void forwardCycle() {
         robot.control.setBucketState(BucketState.RAISED);
-        robot.drive.moveForward((60 + i * 4)*mmPerInch);
+        robot.drive.moveForward((55)*mmPerInch);
         robot.drive.moveLeft(4*mmPerInch);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.TOP);

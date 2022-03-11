@@ -52,9 +52,7 @@ public class AutoRedPrimaryPark extends Auto {
         drive.moveForward(2 * mmPerInch);
         drive.turnByAngle(-90);
         robot.control.startCarousel(false);
-        drive.moveBackward(27 * mmPerInch);
-        drive.moveRight(2 * mmPerInch);
-
+        drive.moveBackward(25 * mmPerInch);
 
         // Deliver Duck
         sleep(2500);
@@ -62,7 +60,7 @@ public class AutoRedPrimaryPark extends Auto {
 
         // Move to hub (and start ScoreThread)
         new ScoreThread(robot, placementLevel).start();
-        drive.moveForward(52 * mmPerInch);
+        drive.moveForward(50 * mmPerInch);
         drive.turnByAngle(90);
 
         double adjustment = 0;
@@ -74,7 +72,7 @@ public class AutoRedPrimaryPark extends Auto {
                 adjustment = 4;
                 break;
         }
-        drive.moveForward((13 + adjustment) * mmPerInch);
+        drive.moveForward((15 + adjustment) * mmPerInch);
 
         // Release clamp
         robot.control.setLidPosition(LidPosition.DEPLOYED);
@@ -82,7 +80,8 @@ public class AutoRedPrimaryPark extends Auto {
 
         // Move back to park
         drive.moveBackward((4 + adjustment) * mmPerInch);
-        drive.turnByAngle(-90);
+        sleep(1000);
+        drive.turnByAngle(-80);
         robot.control.setLidPosition(LidPosition.CLOSED);
         robot.control.setSlide(SlideState.RETRACTED);
 
