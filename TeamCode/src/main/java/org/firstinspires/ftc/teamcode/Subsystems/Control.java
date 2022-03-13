@@ -82,8 +82,7 @@ public class Control extends Subsystem {
     }
 
     public enum MarkerHookState {
-        //TODO: Calibrate constants for marker hook
-        UP(0.25, 0.425), // Hook is perpendicular/level
+        UP(0.20, 0.425), // Hook is perpendicular/level
         DOWN(0.45, 0); // Hook is angled downward
 
         public final double posHookServo;
