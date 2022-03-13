@@ -86,7 +86,7 @@ public class AutoRedPrimaryPark extends Auto {
         robot.control.setSlide(SlideState.RETRACTED);
 
         drive.moveBackward(50 * mmPerInch);
-        drive.moveLeft(8 * mmPerInch);
+        drive.moveLeft(16 * mmPerInch);
 
         // Ready devices for teleop
         robot.control.setBucketState(BucketState.LEVEL);

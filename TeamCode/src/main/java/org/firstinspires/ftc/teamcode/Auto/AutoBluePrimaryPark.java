@@ -82,7 +82,7 @@ public class AutoBluePrimaryPark extends Auto {
         robot.control.setSlide(SlideState.RETRACTED);
 
         drive.moveBackward(50 * mmPerInch);
-        drive.moveRight(8 * mmPerInch);
+        drive.moveRight(16 * mmPerInch);
 
         // Ready devices for teleop
         robot.control.setIntakeDirection(false, false);
