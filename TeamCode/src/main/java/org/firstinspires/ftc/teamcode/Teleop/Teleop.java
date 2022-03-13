@@ -28,7 +28,6 @@ public class Teleop extends LinearOpMode {
     private boolean isDuckOn = false;
     private boolean isBucketLevel = false;
     private boolean isSlideUp = false;
-    private boolean isSlideRetractedPrev = true;
     private boolean scoreTop = true; //bottom is false
     private final int slowModePow = 5;
 
@@ -180,11 +179,7 @@ public class Teleop extends LinearOpMode {
                 isSlideUp = false;
             }
             if(robot.control.isSlideRetracted() && !isSlideUp) {
-                if(isSlideRetractedPrev) {
                     robot.control.setLidPosition(LidPosition.OPEN);
-                } else {
-                    isSlideRetractedPrev = true;
-                }
             } else {
                 // Toggle lid deployed/closed
                 isSlideRetractedPrev = false;
