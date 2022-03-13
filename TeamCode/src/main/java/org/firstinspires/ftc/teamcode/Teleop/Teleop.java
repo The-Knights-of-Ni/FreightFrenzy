@@ -182,7 +182,6 @@ public class Teleop extends LinearOpMode {
                     robot.control.setLidPosition(LidPosition.OPEN);
             } else {
                 // Toggle lid deployed/closed
-                isSlideRetractedPrev = false;
                 if(robot.bumperLeft2 && !robot.islBumper2PressedPrev && isSlideUp) {
                     robot.control.setLidPosition(LidPosition.CLOSED);
                 }
