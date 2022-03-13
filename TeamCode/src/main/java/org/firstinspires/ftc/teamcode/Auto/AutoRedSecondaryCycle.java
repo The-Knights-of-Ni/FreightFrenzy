@@ -76,7 +76,7 @@ public class AutoRedSecondaryCycle extends Auto {
         robot.control.setSlide(SlideState.RETRACTED);
         robot.drive.moveBackward(20 * mmPerInch);
 
-        robot.drive.turnByAngle(65);
+        robot.drive.turnByAngle(60);
         robot.drive.moveLeft(6 * mmPerInch);
         robot.control.setIntakeDirection(true, true);
         robot.control.setLidPosition(LidPosition.OPEN);
@@ -92,7 +92,7 @@ public class AutoRedSecondaryCycle extends Auto {
         robot.control.setSlide(SlideState.TOP);
 
         robot.drive.moveRight(4 * mmPerInch);
-        robot.drive.turnByAngle(-65);
+        robot.drive.turnByAngle(-60);
         robot.control.setIntakeDirection(false, false);
         robot.drive.moveForward(24*mmPerInch);
         robot.control.setLidPosition(LidPosition.DEPLOYED);

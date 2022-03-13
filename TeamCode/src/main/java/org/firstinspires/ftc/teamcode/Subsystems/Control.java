@@ -55,7 +55,7 @@ public class Control extends Subsystem {
     }
 
     public enum SlideState {
-        RETRACTED(0, 0.45),
+        RETRACTED(0, 0.4),
         BOTTOM(465, 0.6),
         MIDDLE(720, 0.6),
         TOP(1375, 0.6);
@@ -131,7 +131,7 @@ public class Control extends Subsystem {
      * @param direction Specifies the direction to turn, where true/false corresponds to forward/reverse respectively.
      */
     public void setIntakeDirection(boolean status, boolean direction) {
-        double power = status ? 0.8 : 0;
+        double power = status ? 0.7 : 0;
 
         if (direction) {
             intake.setPower(power);
