@@ -221,8 +221,10 @@ public class Control extends Subsystem {
     }
 
     public void runMarkerHook(MarkerHookState state) {
-        markerHook.setPosition(state.posHookServo);
+        if(state == MarkerHookState.UP)
+            markerHook.setPosition(state.posHookServo);
         markerSlide.setPosition(state.posSlideServo);
+
     }
 
     /**
