@@ -14,6 +14,7 @@ public class AutoRedSecondaryPark extends Auto {
         PlacementLevel placementLevel = getHubLevel();
         waitForStart();
         Drive drive = robot.drive;
+        jkl;jlk
 
         robot.control.setLidPosition(LidPosition.CLOSED);
 
